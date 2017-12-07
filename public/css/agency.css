@@ -302,17 +302,17 @@ section h3.section-subheading {
   margin: 15px 0;
   text-transform: none;
 }
-#demo .demo-item {
+#solutions .solutions-item {
   margin: 0 0 15px;
   right: 0;
 }
-#demo .demo-item .demo-link {
+#solutions .solutions-item .solutions-link {
   display: block;
   position: relative;
   max-width: 400px;
   margin: 0 auto;
 }
-#demo .demo-item .demo-link .demo-hover {
+#solutions .solutions-item .solutions-link .solutions-hover {
   background: rgba(254, 209, 54, 0.9);
   position: absolute;
   width: 100%;
@@ -322,10 +322,10 @@ section h3.section-subheading {
   -webkit-transition: all ease 0.5s;
   -moz-transition: all ease 0.5s;
 }
-#demo .demo-item .demo-link .demo-hover:hover {
+#solutions .solutions-item .solutions-link .solutions-hover:hover {
   opacity: 1;
 }
-#demo .demo-item .demo-link .demo-hover .demo-hover-content {
+#solutions .solutions-item .solutions-link .solutions-hover .solutions-hover-content {
   position: absolute;
   width: 100%;
   height: 20px;
@@ -335,35 +335,35 @@ section h3.section-subheading {
   margin-top: -12px;
   color: white;
 }
-#demo .demo-item .demo-link .demo-hover .demo-hover-content i {
+#solutions .solutions-item .solutions-link .solutions-hover .solutions-hover-content i {
   margin-top: -12px;
 }
-#demo .demo-item .demo-link .demo-hover .demo-hover-content h3,
-#demo .demo-item .demo-link .demo-hover .demo-hover-content h4 {
+#solutions .solutions-item .solutions-link .solutions-hover .solutions-hover-content h3,
+#solutions .solutions-item .solutions-link .solutions-hover .solutions-hover-content h4 {
   margin: 0;
 }
-#demo .demo-item .demo-caption {
+#solutions .solutions-item .solutions-caption {
   max-width: 400px;
   margin: 0 auto;
   background-color: white;
   text-align: center;
   padding: 25px;
 }
-#demo .demo-item .demo-caption h4 {
+#solutions .solutions-item .solutions-caption h4 {
   text-transform: none;
   margin: 0;
 }
-#demo .demo-item .demo-caption p {
+#solutions .solutions-item .solutions-caption p {
   font-family: "Droid Serif", "Helvetica Neue", Helvetica, Arial, sans-serif;
   font-style: italic;
   font-size: 16px;
   margin: 0;
 }
-#demo * {
+#solutions * {
   z-index: 2;
 }
 @media (min-width: 767px) {
-  #demo .demo-item {
+  #solutions .solutions-item {
     margin: 0 0 30px;
   }
 }
@@ -653,12 +653,12 @@ ul.social-buttons li a:active {
 .btn:active:focus {
   outline: none;
 }
-.demo-modal .modal-dialog {
+.solutions-modal .modal-dialog {
   margin: 0;
   height: 100%;
   width: auto;
 }
-.demo-modal .modal-content {
+.solutions-modal .modal-content {
   border-radius: 0;
   background-clip: border-box;
   -webkit-box-shadow: none;
@@ -668,27 +668,27 @@ ul.social-buttons li a:active {
   padding: 100px 0;
   text-align: center;
 }
-.demo-modal .modal-content h2 {
+.solutions-modal .modal-content h2 {
   margin-bottom: 15px;
   font-size: 3em;
 }
-.demo-modal .modal-content p {
+.solutions-modal .modal-content p {
   margin-bottom: 30px;
 }
-.demo-modal .modal-content p.item-intro {
+.solutions-modal .modal-content p.item-intro {
   margin: 20px 0 30px;
   font-family: "Droid Serif", "Helvetica Neue", Helvetica, Arial, sans-serif;
   font-style: italic;
   font-size: 16px;
 }
-.demo-modal .modal-content ul.list-inline {
+.solutions-modal .modal-content ul.list-inline {
   margin-bottom: 30px;
   margin-top: 0;
 }
-.demo-modal .modal-content img {
+.solutions-modal .modal-content img {
   margin-bottom: 30px;
 }
-.demo-modal .close-modal {
+.solutions-modal .close-modal {
   position: absolute;
   width: 75px;
   height: 75px;
@@ -697,10 +697,10 @@ ul.social-buttons li a:active {
   right: 25px;
   cursor: pointer;
 }
-.demo-modal .close-modal:hover {
+.solutions-modal .close-modal:hover {
   opacity: 0.3;
 }
-.demo-modal .close-modal .lr {
+.solutions-modal .close-modal .lr {
   height: 75px;
   width: 1px;
   margin-left: 35px;
@@ -712,7 +712,7 @@ ul.social-buttons li a:active {
   /* Safari and Chrome */
   z-index: 1051;
 }
-.demo-modal .close-modal .lr .rl {
+.solutions-modal .close-modal .lr .rl {
   height: 75px;
   width: 1px;
   background-color: #222222;
@@ -723,7 +723,7 @@ ul.social-buttons li a:active {
   /* Safari and Chrome */
   z-index: 1052;
 }
-.demo-modal .modal-backdrop {
+.solutions-modal .modal-backdrop {
   opacity: 0;
   display: none;
 }
