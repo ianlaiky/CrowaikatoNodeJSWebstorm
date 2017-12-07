@@ -26,6 +26,26 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use('/', index);
 app.use('/users', users);
 
+
+
+
+
+var http = require('http');
+var server = http.createServer(app);
+
+
+app.post('/', function(req, res) {
+    console.log(req.body);
+    // res.sendStatus(200);
+    // res.render
+    res.render('index',{layout: 'layout/layout'});
+});
+
+server.listen(process.env.PORT, process.env.IP);
+
+
+
+
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
   var err = new Error('Not Found');
@@ -43,5 +63,16 @@ app.use(function(err, req, res, next) {
   res.status(err.status || 500);
   res.render('error');
 });
+
+
+
+
+
+
+
+
+
+
+
 
 module.exports = app;
