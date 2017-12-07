@@ -34,7 +34,7 @@ var http = require('http');
 var server = http.createServer(app);
 
 
-app.post('/', function(req, res) {
+app.post('/loginBackend', function(req, res) {
     console.log(req.body);
     // res.sendStatus(200);
     // res.render
