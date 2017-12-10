@@ -61,6 +61,14 @@ router.get('/', function(req, res, next) {
   res.send('respond with a resource');
 });
 
+
+router.get('/register', function(req, res, next) {
+    res.render('registeration',{layout: 'layout/layout'});
+})
+
+
+// response
+
 router.post('/loginBackend', function (req, res) {
     console.log(req.body);
 
