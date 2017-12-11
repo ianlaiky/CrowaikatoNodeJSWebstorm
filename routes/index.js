@@ -58,7 +58,7 @@ router.get('/', function(req, res, next) {
 
 router.get('/register', function(req, res, next) {
     // res.render('index', { title: 'Express' });
-    res.render('registrationtest',{layout: 'layout/layout', success:req.session.success, errors:req.session.errors});
+    res.render('registration',{layout: 'layout/layout', success:req.session.success, errors:req.session.errors});
     req.session.errors=null;
 });
 
@@ -88,15 +88,19 @@ router.post("/registerForm",function (req, res, next) {
 
 
     console.log(req.body);
-    req.check('emailAddress',"invalid email").notEmpty();
-    req.check('password',"password is invalid").isLength({min:4}).equals(req.body.password_cfm);
+    req.check('emailAddress',"Please enter a valid email").notEmpty();
+    req.check('password',"Password is empty or do not match").isLength({min:6}).equals(req.body.password_cfm);
+    // req.check('firstName',"Please enter something").notEmpty();
 
 
+
+
+    //santise
     var test = req.sanitize('password').escape();
 
-    console.log("sanitised data: "+test)
+    console.log("sanitised data: "+test);
 
-    // req.check('firstName',)
+
 
     var errors = req.validationErrors();
 
