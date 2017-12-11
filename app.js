@@ -9,7 +9,7 @@ var querystring = require('querystring');
 var https = require('https');
 var validator = require('validator');
 var expressValidator = require('express-validator');
-var expressSession = require('express-session')
+var expressSession = require('express-session');
 
 var index = require('./routes/index');
 var userAccounts = require('./routes/userAccounts');
@@ -28,14 +28,16 @@ app.set('view engine', 'hbs');
 app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: false}));
+app.use(expressValidator());
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
+app.use(expressSession({secret:'max', saveUninitialized:false,resave:false}));
 
 app.use('/', index);
 app.use('/users', userAccounts);
 
-app.use(expressValidator())
-app.use(expressSession({secret:'max', saveUninitialized:false,resave:false}))
+
+
 
 
 var http = require('http');
@@ -46,7 +48,7 @@ var server = http.createServer(app);
 var SECRET = "6LdwBzwUAAAAAKavgcoL75Y4lF7QUQPKQyt_e6Qk";
 // POST request to google recaptcha
 function verifyRecaptcha(key, callback) {
-    console.log("RESPONSE IS: " + key)
+    console.log("RESPONSE IS: " + key);
     //declare above var querystring = require('querystring') on top
     var post_data = querystring.stringify({
         'secret': SECRET,
@@ -71,8 +73,8 @@ function verifyRecaptcha(key, callback) {
         res.on('end', function () {
             try {
                 var parsedData = JSON.parse(data);
-                console.log("PARSED data "+data)
-                console.log("PARSED data "+parsedData)
+                console.log("PARSED data "+data);
+                console.log("PARSED data "+parsedData);
                 callback(parsedData.success);
             } catch (e) {
                 callback(false);
@@ -88,9 +90,6 @@ function verifyRecaptcha(key, callback) {
 
 
 
-app.get('/register', function(req, res, next) {
-    res.render('registeration',{layout: 'layout/layout'});
-})
 
 
 
