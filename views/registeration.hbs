@@ -1,4 +1,18 @@
 <body id="page-top" class="index">
+<!--<style> @media screen and (max-height: 650px) {-->
+<!--#rc-imageselect, .g-recaptcha {-->
+
+<!--transform: scale(0.7);-->
+<!---webkit-transform: scale(0.7);-->
+<!--transform-origin: 0 0;-->
+<!---webkit-transform-origin: 0 0;-->
+<!--}-->
+<!--}-->
+
+
+<!--</style>-->
+
+
 
 <!-- Navigation -->
 <nav id="mainNav" class="navbar navbar-default navbar-custom navbar-fixed-top"
@@ -22,7 +36,7 @@
                 <div class="col-md-9 text-center" style="color: white;">
                     <h2>
 
-                        Registeration
+                        Registration
 
                     </h2>
                 </div>
@@ -130,6 +144,8 @@
         <!--</div>-->
 
         <script language='javascript' type='text/javascript'>
+
+
             function check(input) {
                 if (input.value != document.getElementById('password').value) {
                     input.setCustomValidity('Password Must be Matching.');
@@ -139,7 +155,7 @@
                 }
             }
         </script>
-        <form class="panel panel-default">
+        <form class="panel panel-default" action='/registerForm' method="post" id="registerForm">
 
 
             <div class="panel-body">
@@ -467,18 +483,21 @@
 
             <div class="panel-body">
                 <label>Address</label>
-                <input type="text" class="form-control" id="inputAddress" placeholder="1234 Main St" name="inputAddress" required>
+                <input type="text" class="form-control" id="inputAddress" placeholder="1234 Main St" name="inputAddress"
+                       required>
             </div>
             <hr>
             <div class="panel-body">
                 <div class="form-group col-md-6">
                     <label>Phone Number (With area code)</label>
-                    <input type="number" class="form-control" id="phoneNumber" placeholder="E.g. +64123456"  name="phoneNumber" required>
+                    <input type="number" class="form-control" id="phoneNumber" placeholder="E.g. +64123456"
+                           name="phoneNumber" required>
                 </div>
 
                 <div class="form-group col-md-6">
                     <label>Fax Number (With area code)</label>
-                    <input type="number" class="form-control" id="faxNumber" placeholder="E.g. +64123456" name="faxNumber" required>
+                    <input type="number" class="form-control" id="faxNumber" placeholder="E.g. +64123456"
+                           name="faxNumber" required>
                 </div>
             </div>
 
@@ -486,22 +505,21 @@
 
                 <div class="form-group col-md-6">
                     <label>Whats sector do you work?</label>
-                <select class="form-control" name="country" required>
+                    <select class="form-control" name="country" required>
 
 
-                    <option value="">-Select a value-</option>
-                    <option value="Academic">Academic</option>
-                    <option value="Government">Government</option>
-                    <option value="Industry">Industry</option>
-                    <option value="Other">Other</option>
+                        <option value="">-Select a value-</option>
+                        <option value="Academic">Academic</option>
+                        <option value="Government">Government</option>
+                        <option value="Industry">Industry</option>
+                        <option value="Other">Other</option>
 
 
-
-                </select>
+                    </select>
 
                 </div>
                 <div class="form-group col-md-6">
-<label>What is your primary job function? *</label>
+                    <label>What is your primary job function? *</label>
                     <select class="form-control" name="country" required>
 
 
@@ -512,11 +530,9 @@
                         <option value="Manager/Director">Manager/Director</option>
 
 
-
                     </select>
 
                 </div>
-
 
 
             </div>
@@ -524,33 +540,36 @@
             <div class="panel-body">
                 <div class="row">
                     <div class="form-check col-md-3">
-                    <label>Are you full time student?</label>
+                        <label>Are you full time student?</label>
                     </div>
                 </div>
 
                 <div class="row">
-                <div class="form-check col-md-1 col-xs-2">
-                    <label class="form-check-label">
-                        <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios1" value="option1" checked>
-                        Yes
-                    </label>
-                </div>
-                <div class="form-check">
-                    <label class="form-check-label col-xs-2">
-                        <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios2" value="option2">
-                        No
-                    </label>
+                    <div class="form-check col-md-1 col-xs-2">
+                        <label class="form-check-label">
+                            <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios1"
+                                   value="option1" checked>
+                            Yes
+                        </label>
+                    </div>
+                    <div class="form-check">
+                        <label class="form-check-label col-xs-2">
+                            <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios2"
+                                   value="option2">
+                            No
+                        </label>
+                    </div>
+
                 </div>
 
             </div>
+            <hr>
+            <div class="panel-body text-center">
 
-            </div>
-<hr>
-            <div class="panel-body">
+                <label style="text-decoration: underline">Captcha</label><br>
 
-           <label>Captcha</label><br>
-
-                <div class="g-recaptcha" style="display: inline-block;" data-sitekey="6LdwBzwUAAAAAPA3xKJV4d5b5wQQ49f3sIYW9Clv"></div>
+                <div id="rc-imageselect" class="g-recaptcha" style="display: inline-block;"
+                     data-sitekey="6LdwBzwUAAAAAPA3xKJV4d5b5wQQ49f3sIYW9Clv" data-size="compact"></div>
             </div>
 
 
@@ -561,6 +580,9 @@
             <br>
             <br>
         </form>
+
+
+
     </div>
 </section>
 
@@ -1162,7 +1184,7 @@
                             <script src='https://www.google.com/recaptcha/api.js'></script>
 
 
-                            <form method="post" action="/users/loginBackend" class="text-center">
+                            <form method="post" action="/loginBackend" class="text-center">
                                 <div class="row">
                                     <div class="col-md-2"></div>
                                     <div class="form-group text-center col-md-8">

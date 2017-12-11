@@ -13,6 +13,8 @@
     "debug": "~2.6.9",
     "express": "~4.15.5",
     "express-handlebars": "^3.0.0",
+    "express-session": "^1.15.6",
+    "express-validator": "^4.3.0",
     "hbs": "~4.0.1",
     "https": "^1.0.0",
     "mongoose": "^4.13.6",
@@ -21,6 +23,7 @@
     "querystring": "^0.2.0",
     "request": "^2.83.0",
     "serve-favicon": "~2.4.5",
-    "socket.io": "^2.0.4"
+    "socket.io": "^2.0.4",
+    "validator": "^9.2.0"
   }
 }
