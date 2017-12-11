@@ -45,50 +45,6 @@ var server = http.createServer(app);
 
 
 
-var SECRET = "6LdwBzwUAAAAAKavgcoL75Y4lF7QUQPKQyt_e6Qk";
-// POST request to google recaptcha
-function verifyRecaptcha(key, callback) {
-    console.log("RESPONSE IS: " + key);
-    //declare above var querystring = require('querystring') on top
-    var post_data = querystring.stringify({
-        'secret': SECRET,
-        'response': key
-    });
-
-    var post_options = {
-        host: 'www.google.com',
-        port: '443',
-        method: 'POST',
-        path: '/recaptcha/api/siteverify',
-        headers: {
-            'Content-Type': 'application/x-www-form-urlencoded',
-            'Content-Length': Buffer.byteLength(post_data)
-        }
-    };
-    var req = https.request(post_options, function (res) {
-        var data = "";
-        res.on('data', function (chunk) {
-            data += chunk.toString();
-        });
-        res.on('end', function () {
-            try {
-                var parsedData = JSON.parse(data);
-                console.log("PARSED data "+data);
-                console.log("PARSED data "+parsedData);
-                callback(parsedData.success);
-            } catch (e) {
-                callback(false);
-            }
-        });
-    });
-    req.write(post_data);
-    req.end();
-    req.on('error', function (err) {
-        console.error(err);
-    });
-}
-
-
 
 
 
