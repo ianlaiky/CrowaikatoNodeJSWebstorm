@@ -1,6 +1,15 @@
 <body id="page-top" class="index">
+<script>
 
-{{# if sucess}}
+    var test=[];
+
+</script>
+
+<script>
+
+    console.log(test)
+</script>
+{{# if success}}
 
     <section class="success">
 
@@ -13,12 +22,17 @@
     </section>
 {{else}}
 {{# if errors}}
+    {{#each errors}}
+        <script>
+            test.push("{{msg}}");
+        </script>
 
+        {{/each}}
 
     <section class="errors">
         <ul>
             {{#each errors}}
-                <li>{{this.msg}}</li>
+                <li>{{msg}}{{param}}</li>
             {{/each}}
 
 
@@ -27,6 +41,7 @@
     </section>
 
 {{/if}}
+
 
     <form action="/testSubmit" method="post">
         First name:<br>
@@ -39,6 +54,19 @@
         <input type="submit" value="Submit">
     </form>
 
+<button onclick="clikme()">fsdfs</button>
+
+<script>
+function clikme() {
+    console.log("=====")
+    for (var i =0;i<test.length;i++){
+
+        console.log(test[i])
+    }
+
+}
+
+</script>
 
 {{/if}}
 
