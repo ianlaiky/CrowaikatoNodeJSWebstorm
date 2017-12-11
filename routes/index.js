@@ -62,9 +62,9 @@ router.get('/register', function(req, res, next) {
     req.session.errors=null;
 });
 
-router.post("/testSubmit",function (req, res, next) {
+router.post("/registerForm",function (req, res, next) {
 
-
+    // var captchaValidationResult=false;
     // if (req.body['g-recaptcha-response'] === undefined || req.body['g-recaptcha-response'] === '' || req.body['g-recaptcha-response'] === null) {
     //     return res.json({"responseCode": 1, "responseDesc": "Please select captcha"});
     // }
@@ -77,26 +77,42 @@ router.post("/testSubmit",function (req, res, next) {
     //
     // verifyRecaptcha(req.body["g-recaptcha-response"], function (success) {
     //     if (success) {
-    //         return res.json({"responseCode": 0, "responseDesc": "Sucess"});
+    //         captchaValidationResult = true;
+    //         // return res.json({"responseCode": 0, "responseDesc": "Sucess"});
     //     } else {
-    //         return res.json({"responseCode": 1, "responseDesc": "Failed captcha verification"});
+    //         captchaValidationResult = false;
+    //         // return res.json({"responseCode": 1, "responseDesc": "Failed captcha verification"});
     //     }
     // });
 
 
 
     console.log(req.body);
-    req.check('email',"invalid email").isEmail();
-    req.check('password',"password is invalid").isLength({min:4}).equals(req.body.cfmpassword);
+    req.check('emailAddress',"invalid email").notEmpty();
+    req.check('password',"password is invalid").isLength({min:4}).equals(req.body.password_cfm);
+
+
+    var test = req.sanitize('password').escape();
+
+    console.log("sanitised data: "+test)
+
+    // req.check('firstName',)
 
     var errors = req.validationErrors();
-    if(!errors){
 
-        errors=[];
-        errors.push({"msg":"captcha"});
-    }else{
-        errors.push({"msg":"captcha"});
-    }
+    // if(captchaValidationResult==false){
+    //
+    //     if(!errors){
+    //
+    //         errors=[];
+    //         errors.push({"msg":"captcha"});
+    //     }else{
+    //         errors.push({"msg":"captcha"});
+    //     }
+    //
+    // }
+
+
 
 
     console.log(errors);
@@ -107,10 +123,13 @@ router.post("/testSubmit",function (req, res, next) {
         req.session.errors=errors;
         req.session.success = false;
 
+
     }else{
         console.log("RUN 2");
         req.session.success = true;
     }
+    console.log(errors)
+    console.log(req.session.errors)
     res.redirect("/register")
 });
 
