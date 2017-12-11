@@ -65,44 +65,54 @@ router.get('/register', function(req, res, next) {
 router.post("/testSubmit",function (req, res, next) {
 
 
-    if (req.body['g-recaptcha-response'] === undefined || req.body['g-recaptcha-response'] === '' || req.body['g-recaptcha-response'] === null) {
-        return res.json({"responseCode": 1, "responseDesc": "Please select captcha"});
-    }
+    // if (req.body['g-recaptcha-response'] === undefined || req.body['g-recaptcha-response'] === '' || req.body['g-recaptcha-response'] === null) {
+    //     return res.json({"responseCode": 1, "responseDesc": "Please select captcha"});
+    // }
+    //
+    // // Put your secret key here.
+    //
+    //
+    // // Hitting GET request to the URL, Google will respond with success or error scenario.
+    //
+    //
+    // verifyRecaptcha(req.body["g-recaptcha-response"], function (success) {
+    //     if (success) {
+    //         return res.json({"responseCode": 0, "responseDesc": "Sucess"});
+    //     } else {
+    //         return res.json({"responseCode": 1, "responseDesc": "Failed captcha verification"});
+    //     }
+    // });
 
-    // Put your secret key here.
 
 
-    // Hitting GET request to the URL, Google will respond with success or error scenario.
-
-
-    verifyRecaptcha(req.body["g-recaptcha-response"], function (success) {
-        if (success) {
-            return res.json({"responseCode": 0, "responseDesc": "Sucess"});
-        } else {
-            return res.json({"responseCode": 1, "responseDesc": "Failed captcha verification"});
-        }
-    });
-
-
-
-    console.log(req.body)
+    console.log(req.body);
     req.check('email',"invalid email").isEmail();
     req.check('password',"password is invalid").isLength({min:4}).equals(req.body.cfmpassword);
 
     var errors = req.validationErrors();
-    console.log(errors)
+    if(!errors){
+
+        errors=[];
+        errors.push({"msg":"captcha"});
+    }else{
+        errors.push({"msg":"captcha"});
+    }
+
+
+    console.log(errors);
+
 
     if(errors){
-        console.log("RUN 1")
+        console.log("RUN 1");
         req.session.errors=errors;
         req.session.success = false;
 
     }else{
-        console.log("RUN 2")
+        console.log("RUN 2");
         req.session.success = true;
     }
     res.redirect("/register")
-})
+});
 
 
 module.exports = router;
