@@ -12,6 +12,8 @@ var expressValidator = require('express-validator');
 var expressSession = require('express-session');
 
 
+
+
 var index = require('./routes/index');
 var userAccounts = require('./routes/userAccounts');
 
