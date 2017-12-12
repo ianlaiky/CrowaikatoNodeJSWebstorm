@@ -1,5 +1,6 @@
 var express = require('express');
-
+var querystring = require('querystring');
+var https = require('https');
 
 var router = express.Router();
 
@@ -65,30 +66,33 @@ router.get('/register', function (req, res, next) {
 router.post("/registerForm", function (req, res, next) {
     //uncomment this ltr**
 
-    // var captchaValidationResult=false;
-    // if (req.body['g-recaptcha-response'] === undefined || req.body['g-recaptcha-response'] === '' || req.body['g-recaptcha-response'] === null) {
-    //     return res.json({"responseCode": 1, "responseDesc": "Please select captcha"});
-    // }
-    //
-    // // Put your secret key here.
-    //
-    //
-    // // Hitting GET request to the URL, Google will respond with success or error scenario.
-    //
-    //
-    // verifyRecaptcha(req.body["g-recaptcha-response"], function (success) {
-    //     if (success) {
-    //         captchaValidationResult = true;
-    //         // return res.json({"responseCode": 0, "responseDesc": "Sucess"});
-    //     } else {
-    //         captchaValidationResult = false;
-    //         // return res.json({"responseCode": 1, "responseDesc": "Failed captcha verification"});
-    //     }
-    // });
+    var captchaValidationResult=false;
+    console.log("before"+captchaValidationResult)
+    if (req.body['g-recaptcha-response'] === undefined || req.body['g-recaptcha-response'] === '' || req.body['g-recaptcha-response'] === null) {
+        captchaValidationResult = false;
+        // return res.json({"responseCode": 1, "responseDesc": "Please select captcha"});
+    }
+
+    // Put your secret key here.
+
+
+    // Hitting GET request to the URL, Google will respond with success or error scenario.
+
+
+    verifyRecaptcha(req.body["g-recaptcha-response"], function (success) {
+        if (success) {
+            captchaValidationResult = true;
+            console.log("aftwer"+captchaValidationResult)
+            // return res.json({"responseCode": 0, "responseDesc": "Sucess"});
+        } else {
+            captchaValidationResult = false;
+            // return res.json({"responseCode": 1, "responseDesc": "Failed captcha verification"});
+        }
+    });
 
     //end
 
-
+    console.log("VALICDATION OF CAPTCHSA"+captchaValidationResult)
     console.log(req.body);
     req.check('emailAddress', "Please enter a valid email").notEmpty().isEmail();
     req.check('password', 'Password should contain lower and uppercase with numbers').matches(/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])[0-9a-zA-Z]{8,}$/, "i")
@@ -125,17 +129,19 @@ router.post("/registerForm", function (req, res, next) {
 
     var errors = req.validationErrors();
 
-    // if(captchaValidationResult==false){
-    //
-    //     if(!errors){
-    //
-    //         errors=[];
-    //         errors.push({"msg":"captcha"});
-    //     }else{
-    //         errors.push({"msg":"captcha"});
-    //     }
-    //
-    // }
+    console.log("Captcha result"+captchaValidationResult)
+
+    if(captchaValidationResult==false){
+
+        if(!errors){
+
+            errors=[];
+            errors.push({"param":"captcha","msg":"Captcha failed"});
+        }else{
+            errors.push({"param":"captcha","msg":"Captcha failed"});
+        }
+
+    }
 
 
     console.log(errors);
@@ -151,9 +157,10 @@ router.post("/registerForm", function (req, res, next) {
         console.log("RUN 2");
         req.session.success = true;
     }
-    console.log(errors)
-    console.log(req.session.errors)
+    // console.log(errors)
+    // console.log(req.session.errors)
     res.redirect("/register")
+
 });
 
 
