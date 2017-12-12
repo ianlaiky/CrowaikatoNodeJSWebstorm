@@ -88,78 +88,84 @@ router.post("/registerForm", function (req, res, next) {
             captchaValidationResult = false;
             // return res.json({"responseCode": 1, "responseDesc": "Failed captcha verification"});
         }
+
+
+        console.log("VALICDATION OF CAPTCHSA"+captchaValidationResult)
+        console.log(req.body);
+        req.check('emailAddress', "Please enter a valid email").notEmpty().isEmail();
+        req.check('password', 'Password should contain lower and uppercase with numbers').matches(/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])[0-9a-zA-Z]{8,}$/, "i")
+        req.check('password', "Password is empty or do not match").equals(req.body.password_cfm);
+
+
+
+        req.check('firstName', "Please enter something").notEmpty();
+        req.check('lastName', "Please enter something").notEmpty();
+
+        req.check('jobtitle', "Please enter something").notEmpty();
+        req.check('institution', "Please enter something").notEmpty();
+
+        req.check('country', "Please select something").notEmpty();
+        req.check('state', "Please select something").notEmpty();
+        req.check('city', "Please select something").notEmpty();
+        req.check('zipcode', "Please select something").notEmpty();
+        req.check('inputAddress', "Please select something").notEmpty();
+
+        req.check('phoneNumber', 'Invalid phone No').matches(/^[+][\d]+$/, "i");
+        req.check('faxNumber', 'Invalid fax No').matches(/^[+][\d]+$/, "i");
+
+        req.check('workSector', "Please select something").notEmpty();
+        req.check('jobFunction', "Please select something").notEmpty();
+
+        req.check('exampleRadios',"Please select a option").notEmpty();
+
+
+        //santise
+        var test = req.sanitize('password').escape();
+
+        console.log("sanitised data: " + test);
+
+
+        var errors = req.validationErrors();
+
+        console.log("Captcha result"+captchaValidationResult)
+
+        if(captchaValidationResult==false){
+
+            if(!errors){
+
+                errors=[];
+                errors.push({"param":"captcha","msg":"Captcha failed"});
+            }else{
+                errors.push({"param":"captcha","msg":"Captcha failed"});
+            }
+
+        }
+
+
+        console.log(errors);
+
+
+        if (errors) {
+            console.log("RUN 1");
+            req.session.errors = errors;
+            req.session.success = false;
+
+
+        } else {
+            console.log("RUN 2");
+            req.session.success = true;
+        }
+        // console.log(errors)
+        // console.log(req.session.errors)
+        res.redirect("/register")
+
+
+
     });
 
     //end
 
-    console.log("VALICDATION OF CAPTCHSA"+captchaValidationResult)
-    console.log(req.body);
-    req.check('emailAddress', "Please enter a valid email").notEmpty().isEmail();
-    req.check('password', 'Password should contain lower and uppercase with numbers').matches(/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])[0-9a-zA-Z]{8,}$/, "i")
-    req.check('password', "Password is empty or do not match").equals(req.body.password_cfm);
 
-
-
-    req.check('firstName', "Please enter something").notEmpty();
-    req.check('lastName', "Please enter something").notEmpty();
-
-    req.check('jobtitle', "Please enter something").notEmpty();
-    req.check('institution', "Please enter something").notEmpty();
-
-    req.check('country', "Please select something").notEmpty();
-    req.check('state', "Please select something").notEmpty();
-    req.check('city', "Please select something").notEmpty();
-    req.check('zipcode', "Please select something").notEmpty();
-    req.check('inputAddress', "Please select something").notEmpty();
-
-    req.check('phoneNumber', 'Invalid phone No').matches(/^[+][\d]+$/, "i");
-    req.check('faxNumber', 'Invalid fax No').matches(/^[+][\d]+$/, "i");
-
-    req.check('workSector', "Please select something").notEmpty();
-    req.check('jobFunction', "Please select something").notEmpty();
-
-    req.check('exampleRadios',"Please select a option").notEmpty();
-
-
-    //santise
-    var test = req.sanitize('password').escape();
-
-    console.log("sanitised data: " + test);
-
-
-    var errors = req.validationErrors();
-
-    console.log("Captcha result"+captchaValidationResult)
-
-    if(captchaValidationResult==false){
-
-        if(!errors){
-
-            errors=[];
-            errors.push({"param":"captcha","msg":"Captcha failed"});
-        }else{
-            errors.push({"param":"captcha","msg":"Captcha failed"});
-        }
-
-    }
-
-
-    console.log(errors);
-
-
-    if (errors) {
-        console.log("RUN 1");
-        req.session.errors = errors;
-        req.session.success = false;
-
-
-    } else {
-        console.log("RUN 2");
-        req.session.success = true;
-    }
-    // console.log(errors)
-    // console.log(req.session.errors)
-    res.redirect("/register")
 
 });
 
