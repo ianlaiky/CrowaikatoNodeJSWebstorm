@@ -169,7 +169,7 @@
 
                 <h2>
 
-                    Registration Sucessful
+                    Registration Successful
                 </h2>
 
 
@@ -183,10 +183,14 @@
 
                 {{/each}}
 
-                <section class="errors">
+                <section class="panel panel-default">
                     <ul>
                         {{#each errors}}
                             <li>{{param}}: {{msg}} </li>
+                            <script>
+
+                                console.log("tesssaaa")
+                            </script>
                         {{/each}}
 
 
@@ -196,7 +200,28 @@
 
             {{/if}}
 
+            <section class="panel panel-default">
 
+                <div class="row"></div>
+
+                <div class="col-lg-12 text-center">
+                    <h3 class="section-heading text-uppercase">
+
+                        dsfds
+                    </h3>
+
+                </div>
+
+
+                <ul>
+
+                        <li>fsdfsdf</li>
+
+
+
+
+                </ul>
+            </section>
 
             <form class="panel panel-default" action='/registerForm' method="post" id="registerForm">
 
