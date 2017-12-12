@@ -11,6 +11,8 @@ var https = require('https');
 var expressValidator = require('express-validator');
 var expressSession = require('express-session');
 
+var passport = require('passport');
+var flash = require('connect-flash')
 
 
 
@@ -35,6 +37,9 @@ app.use(expressValidator());
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(expressSession({secret:'ianlaicrowwebsite', saveUninitialized:false,resave:false}));
+app.use(flash());
+app.use(passport.initialize());
+app.use(passport.session());
 
 app.use('/', index);
 app.use('/users', userAccounts);
