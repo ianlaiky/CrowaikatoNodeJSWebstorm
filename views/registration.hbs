@@ -159,6 +159,8 @@
         <script>
 
             var test = [];
+            document.getElementsByClassName('emailAddressLabel').innerHTML="dfssf";
+            console.log(document.getElementsByClassName('emailAddressLabel').innerText);
 
         </script>
 
@@ -174,20 +176,7 @@
 
             </section>
         {{else}}
-            {{# if errors}}
-                {{#each errors}}
-                    <script>
-                        test.push("{{param}}");
-                        document.getElementsByClassName('{{param}}Label').setAttribute('hidden', 'false');;
 
-
-                    </script>
-
-                {{/each}}
-
-
-
-            {{/if}}
 
             <!--<div class="panel panel-default">-->
 
@@ -220,8 +209,8 @@
                         <label>Email</label>
                         <input type="email" class="form-control" id="emailAddress" placeholder="Email"
                                name="emailAddress"
-                               required>
-                        <label hidden class="emailAddressLabel" style="color: red">Please enter a valid email</label>
+                               >
+                        <label id="emailAddressLabel" style="color: red;visibility: hidden;">Please enter a valid email</label>
                     </div>
 
                 </div>
@@ -230,31 +219,35 @@
                     <div class="form-group col-md-6">
                         <label>Password</label>
                         <input type="password" class="form-control" id="password" placeholder="Email" name="password"
-                               required>
+                               >
+                        <label id="passwordLabel" style="color: red;visibility: hidden;">Password should contain lower and uppercase with numbers</label>
+
                     </div>
                     <div class="form-group col-md-6">
                         <label>Confirm Password</label>
                         <input type="password" class="form-control" id="password_cfm" placeholder="Password"
-                               name="password_cfm" oninput="check(this)" required>
+                               name="password_cfm" oninput="check(this)" >
+                        <label id="password_cfmLabel" style="color: red;visibility: hidden;">Password is empty or do not match</label>
+
                     </div>
-                    <label hidden class="passwordLabel" style="color: red">Password should contain lower and uppercase with numbers</label>
-                    <label hidden class="password_cfmLabel" style="color: red">Password is empty or do not match</label>
                 </div>
 
                 <div class="panel-body">
                     <div class="form-group col-md-6 col-xs-6">
                         <label>First Name</label>
                         <input type="text" class="form-control" id="firstName" placeholder="First Name" name="firstName"
-                               required>
+                               >
+                        <label id="firstNameLabel" style="color: red;visibility: hidden;">Please enter something</label>
+
                     </div>
                     <div class="form-group col-md-6 col-xs-6">
                         <label>Last Name</label>
                         <input type="text" class="form-control" id="lastName" placeholder="Last Name" name="lastName"
-                               required>
+                               >
+                        <label id="lastNameLabel" style="color: red;visibility: hidden;">Please enter something</label>
+
                     </div>
 
-                    <label hidden class="firstNameLabel" style="color: red">Please enter something</label>
-                    <label hidden class="lastNameLabel" style="color: red">Please enter something</label>
 
 
 
@@ -264,15 +257,15 @@
                     <div class="form-group col-md-6">
                         <label>Job Title</label>
                         <input type="text" class="form-control" id="jobtitle" placeholder="Job title" name="jobtitle"
-                               required>
-                        <label hidden class="jobtitleLabel" style="color: red">Please enter something</label>
+                               >
+                        <label id="jobtitleLabel" style="color: red;visibility: hidden;">Please enter something</label>
 
                     </div>
                     <div class="form-group col-md-6">
                         <label>Company/Institution</label>
                         <input type="text" class="form-control" id="institution" placeholder="Institution"
-                               name="institution" required>
-                        <label hidden class="institutionLabel" style="color: red">Please enter something</label>
+                               name="institution" >
+                        <label id="institutionLabel" style="color: red;visibility: hidden;">Please enter something</label>
 
                     </div>
                 </div>
@@ -282,7 +275,7 @@
                 <div class="panel-body">
                     <div class="form-group col-md-3">
                         <label>Country</label>
-                        <select class="form-control" name="country" required>
+                        <select class="form-control" name="country" >
 
                             <option value="">-Select a value-</option>
                             <option value="AF">Afghanistan</option>
@@ -535,31 +528,31 @@
                             <option value="ZM">Zambia</option>
                             <option value="ZW">Zimbabwe</option>
                         </select>
-                        <label hidden class="countryLabel" style="color: red">Please select something</label>
+                        <label id="countryLabel" style="color: red;visibility: hidden;">Please select something</label>
 
                     </div>
                     <div class="form-group col-md-3">
                         <label>State</label>
-                        <input type="text" class="form-control" id="state" placeholder="State" name="state" required>
+                        <input type="text" class="form-control" id="state" placeholder="State" name="state" >
 
-                        <label hidden class="stateLabel" style="color: red">Please enter something</label>
+                        <label id="stateLabel" style="color: red;visibility: hidden;">Please enter something</label>
 
 
                     </div>
                     <div class="form-group col-md-3">
                         <label>City</label>
-                        <input type="text" class="form-control" id="city" placeholder="City" name="city" required>
+                        <input type="text" class="form-control" id="city" placeholder="City" name="city" >
 
-                        <label hidden class="cityLabel" style="color: red">Please enter something</label>
+                        <label id="cityLabel" style="color: red;visibility: hidden;">Please enter something</label>
 
 
                     </div>
 
                     <div class="form-group col-md-3">
                         <label>Zip code</label>
-                        <input type="number" class="form-control" id="zipcode" name="zipcode" required>
+                        <input type="number" class="form-control" id="zipcode" name="zipcode" >
 
-                        <label hidden class="zipcodeLabel" style="color: red">Please enter something</label>
+                        <label id="zipcodeLabel" style="color: red;visibility: hidden;">Please enter something</label>
 
 
                     </div>
@@ -570,9 +563,9 @@
                     <label>Address</label>
                     <input type="text" class="form-control" id="inputAddress" placeholder="1234 Main St"
                            name="inputAddress"
-                           required>
+                           >
 
-                    <label hidden class="inputAddressLabel" style="color: red">Please enter something</label>
+                    <label id="inputAddressLabel" style="color: red;visibility: hidden;">Please enter something</label>
 
                 </div>
                 <hr>
@@ -580,18 +573,18 @@
                     <div class="form-group col-md-6">
                         <label>Phone Number (With area code)</label>
                         <input type="tel" class="form-control" id="phoneNumber" placeholder="E.g. +64123456"
-                               name="phoneNumber" required>
+                               name="phoneNumber" >
 
-                        <label hidden class="phoneNumberLabel" style="color: red">Invalid phone No</label>
+                        <label id="phoneNumberLabel" style="color: red;visibility: hidden;">Invalid phone No</label>
 
                     </div>
 
                     <div class="form-group col-md-6">
                         <label>Fax Number (With area code)</label>
                         <input type="tel" class="form-control" id="faxNumber" placeholder="E.g. +64123456"
-                               name="faxNumber" required>
+                               name="faxNumber" >
 
-                        <label hidden class="faxNumberLabel" style="color: red">Invalid fax No</label>
+                        <label id="faxNumberLabel" style="color: red;visibility: hidden;">Invalid fax No</label>
 
                     </div>
                 </div>
@@ -600,7 +593,7 @@
 
                     <div class="form-group col-md-6">
                         <label>Whats sector do you work?</label>
-                        <select class="form-control" name="workSector" required>
+                        <select class="form-control" name="workSector" >
 
 
                             <option value="">-Select a value-</option>
@@ -611,12 +604,12 @@
 
 
                         </select>
-                        <label hidden class="workSectorLabel" style="color: red">Please select something</label>
+                        <label id="workSectorLabel" style="color: red;visibility: hidden;">Please select something</label>
 
                     </div>
                     <div class="form-group col-md-6">
                         <label>What is your primary job function? *</label>
-                        <select class="form-control" name="jobFunction" required>
+                        <select class="form-control" name="jobFunction" >
 
 
                             <option value="">-Select a value-</option>
@@ -627,7 +620,7 @@
 
 
                         </select>
-                        <label hidden class="jobFunctionLabel" style="color: red">Please select something</label>
+                        <label id="jobFunctionLabel" style="color: red;visibility: hidden;">Please select something</label>
 
                     </div>
 
@@ -645,29 +638,31 @@
                         <div class="form-check col-md-1 col-xs-2">
                             <label class="form-check-label">
                                 <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios1"
-                                       value="option1" required>
+                                       value="option1" >
                                 Yes
                             </label>
                         </div>
                         <div class="form-check">
                             <label class="form-check-label col-xs-2">
                                 <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios2"
-                                       value="option2" required>
+                                       value="option2" >
                                 No
                             </label>
                         </div>
 
                     </div>
-                    <label hidden class="exampleRadiosLabel" style="color: red">Please select an option</label>
+                    <label id="exampleRadiosLabel" style="color: red;visibility: hidden;">Please select an option</label>
 
                 </div>
                 <hr>
                 <div class="panel-body text-center">
 
                     <label style="text-decoration: underline">Captcha</label><br>
-
+                    <label id="captchaLabel" style="color: red;visibility: hidden;">Please do the captcha</label><br>
                     <div id="rc-imageselect" class="g-recaptcha" style="display: inline-block;"
                          data-sitekey="6LdwBzwUAAAAAPA3xKJV4d5b5wQQ49f3sIYW9Clv" data-size="compact"></div>
+
+
                 </div>
 
 
@@ -680,7 +675,23 @@
             </form>
 
             <button onclick="checktempinarr()">df</button>
+            {{# if errors}}
+                {{#each errors}}
+                    <script>
 
+                        document.getElementById('{{param}}Label').style.visibility="visible";
+
+
+
+
+
+                    </script>
+
+                {{/each}}
+
+
+
+            {{/if}}
         {{/if}}
 
 
@@ -689,10 +700,18 @@
 
 
             function checktempinarr() {
+                // document.getElementById('workSectorLabel').style.visibility="visible";
 
                 for (var i = 0; i < test.length; i++) {
                     console.log(test[i])
+
                 }
+
+                // console.log(document.getElementById('emailAddressLabel'));
+                // document.getElementById('emailAddressLabel').style.visibility="visible";
+                //
+                // console.log(document.getElementById('emailAddressLabel'));
+
             }
 
 
@@ -1201,25 +1220,25 @@
 <!--<div class="row">-->
 <!--<div class="col-md-6">-->
 <!--<div class="form-group">-->
-<!--<input type="text" class="form-control" placeholder="Your Name *" id="name" required-->
-<!--data-validation-required-message="Please enter your name.">-->
+<!--<input type="text" class="form-control" placeholder="Your Name *" id="name" -->
+<!--data-validation--message="Please enter your name.">-->
 <!--<p class="help-block text-danger"></p>-->
 <!--</div>-->
 <!--<div class="form-group">-->
-<!--<input type="email" class="form-control" placeholder="Your Email *" id="email" required-->
-<!--data-validation-required-message="Please enter your email address.">-->
+<!--<input type="email" class="form-control" placeholder="Your Email *" id="email" -->
+<!--data-validation--message="Please enter your email address.">-->
 <!--<p class="help-block text-danger"></p>-->
 <!--</div>-->
 <!--<div class="form-group">-->
-<!--<input type="tel" class="form-control" placeholder="Your Phone *" id="phone" required-->
-<!--data-validation-required-message="Please enter your phone number.">-->
+<!--<input type="tel" class="form-control" placeholder="Your Phone *" id="phone" -->
+<!--data-validation--message="Please enter your phone number.">-->
 <!--<p class="help-block text-danger"></p>-->
 <!--</div>-->
 <!--</div>-->
 <!--<div class="col-md-6">-->
 <!--<div class="form-group">-->
-<!--<textarea class="form-control" placeholder="Your Message *" id="message" required-->
-<!--data-validation-required-message="Please enter a message."></textarea>-->
+<!--<textarea class="form-control" placeholder="Your Message *" id="message" -->
+<!--data-validation--message="Please enter a message."></textarea>-->
 <!--<p class="help-block text-danger"></p>-->
 <!--</div>-->
 <!--</div>-->
