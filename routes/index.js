@@ -5,6 +5,7 @@ var router = express.Router();
 
 
 var SECRET = "6LdwBzwUAAAAAKavgcoL75Y4lF7QUQPKQyt_e6Qk";
+
 // POST request to google recaptcha
 function verifyRecaptcha(key, callback) {
     console.log("RESPONSE IS: " + key);
@@ -32,8 +33,8 @@ function verifyRecaptcha(key, callback) {
         res.on('end', function () {
             try {
                 var parsedData = JSON.parse(data);
-                console.log("PARSED data "+data);
-                console.log("PARSED data "+parsedData);
+                console.log("PARSED data " + data);
+                console.log("PARSED data " + parsedData);
                 callback(parsedData.success);
             } catch (e) {
                 callback(false);
@@ -48,21 +49,21 @@ function verifyRecaptcha(key, callback) {
 }
 
 
-
 /* GET home page. */
-router.get('/', function(req, res, next) {
-  // res.render('index', { title: 'Express' });
-  res.render('index',{layout: 'layout/layout'});
-});
-
-
-router.get('/register', function(req, res, next) {
+router.get('/', function (req, res, next) {
     // res.render('index', { title: 'Express' });
-    res.render('registration',{layout: 'layout/layout', success:req.session.success, errors:req.session.errors});
-    req.session.errors=null;
+    res.render('index', {layout: 'layout/layout'});
 });
 
-router.post("/registerForm",function (req, res, next) {
+
+router.get('/register', function (req, res, next) {
+    // res.render('index', { title: 'Express' });
+    res.render('registration', {layout: 'layout/layout', success: req.session.success, errors: req.session.errors});
+    req.session.errors = null;
+});
+
+router.post("/registerForm", function (req, res, next) {
+    //uncomment this ltr**
 
     // var captchaValidationResult=false;
     // if (req.body['g-recaptcha-response'] === undefined || req.body['g-recaptcha-response'] === '' || req.body['g-recaptcha-response'] === null) {
@@ -85,21 +86,41 @@ router.post("/registerForm",function (req, res, next) {
     //     }
     // });
 
+    //end
 
 
     console.log(req.body);
-    req.check('emailAddress',"Please enter a valid email").notEmpty();
-    req.check('password',"Password is empty or do not match").isLength({min:6}).equals(req.body.password_cfm);
-    // req.check('firstName',"Please enter something").notEmpty();
+    req.check('emailAddress', "Please enter a valid email").notEmpty().isEmail();
+    req.check('password', 'Password should contain lower and uppercase with numbers').matches(/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])[0-9a-zA-Z]{8,}$/, "i")
+    req.check('password', "Password is empty or do not match").equals(req.body.password_cfm);
 
 
+
+    req.check('firstName', "Please enter something").notEmpty();
+    req.check('lastName', "Please enter something").notEmpty();
+
+    req.check('jobtitle', "Please enter something").notEmpty();
+    req.check('institution', "Please enter something").notEmpty();
+
+    req.check('country', "Please select something").notEmpty();
+    req.check('state', "Please select something").notEmpty();
+    req.check('city', "Please select something").notEmpty();
+    req.check('zipcode', "Please select something").notEmpty();
+    req.check('inputAddress', "Please select something").notEmpty();
+
+    req.check('phoneNumber', 'Invalid phone No').matches(/^[+][\d]+$/, "i");
+    req.check('faxNumber', 'Invalid fax No').matches(/^[+][\d]+$/, "i");
+
+    req.check('workSector', "Please select something").notEmpty();
+    req.check('jobFunction', "Please select something").notEmpty();
+
+    req.check('exampleRadios',"Please select a option").notEmpty();
 
 
     //santise
     var test = req.sanitize('password').escape();
 
-    console.log("sanitised data: "+test);
-
+    console.log("sanitised data: " + test);
 
 
     var errors = req.validationErrors();
@@ -117,18 +138,16 @@ router.post("/registerForm",function (req, res, next) {
     // }
 
 
-
-
     console.log(errors);
 
 
-    if(errors){
+    if (errors) {
         console.log("RUN 1");
-        req.session.errors=errors;
+        req.session.errors = errors;
         req.session.success = false;
 
 
-    }else{
+    } else {
         console.log("RUN 2");
         req.session.success = true;
     }
