@@ -25,7 +25,6 @@
     "querystring": "^0.2.0",
     "request": "^2.83.0",
     "serve-favicon": "~2.4.5",
-    "socket.io": "^2.0.4",
-    "validator": "^9.2.0"
+    "socket.io": "^2.0.4"
   }
 }

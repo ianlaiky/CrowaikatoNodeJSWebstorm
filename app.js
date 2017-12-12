@@ -7,7 +7,7 @@ var bodyParser = require('body-parser');
 var request = require('request');
 var querystring = require('querystring');
 var https = require('https');
-var validator = require('validator');
+
 var expressValidator = require('express-validator');
 var expressSession = require('express-session');
 
