@@ -94,7 +94,7 @@ router.post("/registerForm", function (req, res, next) {
         console.log(req.body);
         req.check('emailAddress', "Please enter a valid email").notEmpty().isEmail();
         req.check('password', 'Password should contain lower and uppercase with numbers').matches(/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])[0-9a-zA-Z]{8,}$/, "i")
-        req.check('password', "Password is empty or do not match").equals(req.body.password_cfm);
+        req.check('password_cfm', "Password is empty or do not match").equals(req.body.password);
 
 
 
@@ -105,10 +105,10 @@ router.post("/registerForm", function (req, res, next) {
         req.check('institution', "Please enter something").notEmpty();
 
         req.check('country', "Please select something").notEmpty();
-        req.check('state', "Please select something").notEmpty();
-        req.check('city', "Please select something").notEmpty();
-        req.check('zipcode', "Please select something").notEmpty();
-        req.check('inputAddress', "Please select something").notEmpty();
+        req.check('state', "Please enter something").notEmpty();
+        req.check('city', "Please enter something").notEmpty();
+        req.check('zipcode', "Please enter something").notEmpty();
+        req.check('inputAddress', "Please enter something").notEmpty();
 
         req.check('phoneNumber', 'Invalid phone No').matches(/^[+][\d]+$/, "i");
         req.check('faxNumber', 'Invalid fax No').matches(/^[+][\d]+$/, "i");
@@ -116,7 +116,7 @@ router.post("/registerForm", function (req, res, next) {
         req.check('workSector', "Please select something").notEmpty();
         req.check('jobFunction', "Please select something").notEmpty();
 
-        req.check('exampleRadios',"Please select a option").notEmpty();
+        req.check('exampleRadios',"Please select an option").notEmpty();
 
 
         //santise
