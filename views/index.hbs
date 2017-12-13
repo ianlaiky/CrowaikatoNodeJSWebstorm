@@ -721,7 +721,7 @@
                                         <label style="color: #ffffff;" for="exampleInputEmail1">Email
                                             address</label><br>
                                         <input name="emailAddress" type="text" class="form-control" id="exampleInputEmail1"
-                                               aria-describedby="emailHelp" placeholder="Enter email">
+                                               aria-describedby="emailHelp" placeholder="Enter email" required>
                                         <label id="emailAddressLabel" style="color: red;visibility: hidden;">Please enter a valid
                                             email</label>
 
@@ -740,9 +740,11 @@
 
                                         <label style="color: #ffffff;" for="exampleInputPassword1">Password</label><br>
                                         <input name="password" type="password" class="form-control"
-                                               id="exampleInputPassword1" placeholder="Password">
+                                               id="exampleInputPassword1" placeholder="Password" required>
                                         <label id="emailAddressLabel" style="color: red;visibility: hidden;">Please enter a valid
-                                            email</label>
+                                            email</label><br>
+                                        <label id="emailorpassWrongLabel" style="color: red;visibility: hidden;">Please enter a valid
+                                        email</label>
                                     </div>
 
                                 </div>

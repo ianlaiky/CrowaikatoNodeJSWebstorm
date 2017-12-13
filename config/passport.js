@@ -113,7 +113,7 @@ passport.use('local.signin',new LocalStrategy({
                 return done(err);
             if (rows.length) {
                 if (!bcrypt.compareSync(password, rows[0].password))
-                    return done(null, false, req.flash('errorLogin', 'Email or password invalid')); // create the loginMessage and save it to session as flashdata
+                    return done(null, false, req.flash('errorLogin', [{param: "emailorpassWrong", msg: "Pass or email wrong"}])); // create the loginMessage and save it to session as flashdata
             }
 
             // if the user is found but the password is wrong
