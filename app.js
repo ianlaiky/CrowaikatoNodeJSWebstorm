@@ -17,7 +17,7 @@ var flash = require('connect-flash')
 
 
 var index = require('./routes/index');
-var userAccounts = require('./routes/userAccounts');
+var userAccounts = require('./routes/signedInUsers');
 
 require('./config/passport');
 
@@ -42,7 +42,7 @@ app.use(passport.initialize());
 app.use(passport.session());
 
 app.use('/', index);
-app.use('/users', userAccounts);
+app.use('/page', userAccounts);
 
 
 

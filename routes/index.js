@@ -54,9 +54,15 @@ function verifyRecaptcha(key, callback) {
 /* GET home page. */
 router.get('/', function (req, res, next) {
     // res.render('index', { title: 'Express' });
-    res.render('index', {layout: 'layout/layout'});
+    res.render('index', {layout: 'layout/layout',messages:messages,hasError:messages.length>0,success: req.session.success});
 });
 
+router.post('/login',passport.authenticate('local.signin',{
+    successRedirect : '/page/newPage', // redirect to the secure profile section
+    failureRedirect : '/', // redirect back to the signup page if there is an error
+    failureFlash : true // allow flash messages
+
+}));
 
 router.get('/register', function (req, res, next) {
     // res.render('index', { title: 'Express' });
@@ -78,6 +84,8 @@ router.post("/registerForm", passport.authenticate('local.signup',{
     failureRedirect : '/register', // redirect back to the signup page if there is an error
     failureFlash : true // allow flash messages
 }));
+
+
 
 
 module.exports = router;

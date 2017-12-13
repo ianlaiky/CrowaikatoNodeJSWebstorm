@@ -231,3 +231,51 @@ passport.use('local.signup', new LocalStrategy({
 
 
 }));
+
+passport.use('local.signin',new LocalStrategy({
+
+
+    usernameField:'emailAddress',
+    passwordField:'password',
+    passReqToCallback: true
+
+
+
+},function(req,emailAddress,password,done){
+
+    req.check('emailAddress', "Please enter a valid email").notEmpty().isEmail();
+    req.check('password', 'Please enter a password').notEmpty();
+
+    var errors = req.validationErrors();
+
+
+    if (errors) {
+        console.log("RUN 1");
+
+        req.session.success = false;
+        req.flash.error=errors;
+        return done(null, false, req.flash('error',errors));
+
+    }else{
+
+
+        connection.query("SELECT * FROM users WHERE username = ?",[emailAddress], function(err, rows){
+            console.log("Return login");
+            console.log(rows);
+            if (err)
+                return done(err);
+            if (rows.length) {
+                if (!bcrypt.compareSync(password, rows[0].password))
+                    return done(null, false, req.flash('error', 'Email or password invalid')); // create the loginMessage and save it to session as flashdata
+            }
+
+            // if the user is found but the password is wrong
+
+
+            // all is well, return successful user
+            return done(null, rows[0]);
+        });
+
+    }
+
+}));
