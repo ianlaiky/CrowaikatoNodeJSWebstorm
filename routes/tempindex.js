@@ -1,7 +1,7 @@
 var express = require('express');
 var querystring = require('querystring');
 var https = require('https');
-var passport = require('passport')
+var passport = require('passport');
 
 var router = express.Router();
 
@@ -69,12 +69,12 @@ router.get('/register', function (req, res, next) {
 router.post("/registerForm", function (req, res, next) {
     //uncomment this ltr**
 
-    // var captchaValidationResult=false;
-    // console.log("before"+captchaValidationResult)
-    // if (req.body['g-recaptcha-response'] === undefined || req.body['g-recaptcha-response'] === '' || req.body['g-recaptcha-response'] === null) {
-    //     captchaValidationResult = false;
-    //
-    // }
+    var captchaValidationResult=false;
+    console.log("before"+captchaValidationResult);
+    if (req.body['g-recaptcha-response'] === undefined || req.body['g-recaptcha-response'] === '' || req.body['g-recaptcha-response'] === null) {
+        captchaValidationResult = false;
+
+    }
 
     // Put your secret key here.
 
@@ -83,22 +83,22 @@ router.post("/registerForm", function (req, res, next) {
 
 
     //uncomment this
-    //
-    // verifyRecaptcha(req.body["g-recaptcha-response"], function (success) {
-    //
-    //
-    //     if (success) {
-    //         captchaValidationResult = true;
-    //         console.log("aftwer"+captchaValidationResult)
-    //         // return res.json({"responseCode": 0, "responseDesc": "Sucess"});
-    //     } else {
-    //         captchaValidationResult = false;
-    //         // return res.json({"responseCode": 1, "responseDesc": "Failed captcha verification"});
-    //     }
-    //
-    //
-    //     console.log("VALICDATION OF CAPTCHSA"+captchaValidationResult)
-    //
+
+    verifyRecaptcha(req.body["g-recaptcha-response"], function (success) {
+
+
+        if (success) {
+            captchaValidationResult = true;
+            console.log("aftwer"+captchaValidationResult)
+            // return res.json({"responseCode": 0, "responseDesc": "Sucess"});
+        } else {
+            captchaValidationResult = false;
+            // return res.json({"responseCode": 1, "responseDesc": "Failed captcha verification"});
+        }
+
+
+        console.log("VALICDATION OF CAPTCHSA"+captchaValidationResult)
+
 
 
 
@@ -110,48 +110,48 @@ router.post("/registerForm", function (req, res, next) {
 
 
 
-        // req.check('firstName', "Please enter something").notEmpty();
-        // req.check('lastName', "Please enter something").notEmpty();
-        //
-        // req.check('jobtitle', "Please enter something").notEmpty();
-        // req.check('institution', "Please enter something").notEmpty();
-        //
-        // req.check('country', "Please select something").notEmpty();
-        // req.check('state', "Please enter something").notEmpty();
-        // req.check('city', "Please enter something").notEmpty();
-        // req.check('zipcode', "Please enter something").notEmpty();
-        // req.check('inputAddress', "Please enter something").notEmpty();
-        //
-        // req.check('phoneNumber', 'Invalid phone No').matches(/^[+][\d]+$/, "i");
-        // req.check('faxNumber', 'Invalid fax No').matches(/^[+][\d]+$/, "i");
-        //
-        // req.check('workSector', "Please select something").notEmpty();
-        // req.check('jobFunction', "Please select something").notEmpty();
-        //
-        // req.check('exampleRadios',"Please select an option").notEmpty();
-        //
-        //
-        // //santise
-        // var test = req.sanitize('password').escape();
-        //
-        // console.log("sanitised data: " + test);
+        req.check('firstName', "Please enter something").notEmpty();
+        req.check('lastName', "Please enter something").notEmpty();
+
+        req.check('jobtitle', "Please enter something").notEmpty();
+        req.check('institution', "Please enter something").notEmpty();
+
+        req.check('country', "Please select something").notEmpty();
+        req.check('state', "Please enter something").notEmpty();
+        req.check('city', "Please enter something").notEmpty();
+        req.check('zipcode', "Please enter something").notEmpty();
+        req.check('inputAddress', "Please enter something").notEmpty();
+
+        req.check('phoneNumber', 'Invalid phone No').matches(/^[+][\d]+$/, "i");
+        req.check('faxNumber', 'Invalid fax No').matches(/^[+][\d]+$/, "i");
+
+        req.check('workSector', "Please select something").notEmpty();
+        req.check('jobFunction', "Please select something").notEmpty();
+
+        req.check('exampleRadios',"Please select an option").notEmpty();
+
+
+        //santise
+        var test = req.sanitize('password').escape();
+
+        console.log("sanitised data: " + test);
 
 
         var errors = req.validationErrors();
 
-        // console.log("Captcha result"+captchaValidationResult)
-        //
-        // if(captchaValidationResult==false){
-        //
-        //     if(!errors){
-        //
-        //         errors=[];
-        //         errors.push({"param":"captcha","msg":"Captcha failed"});
-        //     }else{
-        //         errors.push({"param":"captcha","msg":"Captcha failed"});
-        //     }
-        //
-        // }
+        console.log("Captcha result"+captchaValidationResult)
+
+        if(captchaValidationResult==false){
+
+            if(!errors){
+
+                errors=[];
+                errors.push({"param":"captcha","msg":"Captcha failed"});
+            }else{
+                errors.push({"param":"captcha","msg":"Captcha failed"});
+            }
+
+        }
 
 
         console.log(errors);
@@ -185,7 +185,7 @@ router.post("/registerForm", function (req, res, next) {
 
 
 
-    // });
+    });
 
     //end
 

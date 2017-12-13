@@ -210,7 +210,8 @@
                         <input type="email" class="form-control" id="emailAddress" placeholder="Email"
                                name="emailAddress" required>
                         <label id="emailAddressLabel" style="color: red;visibility: hidden;">Please enter a valid
-                            email</label>
+                            email</label><br>
+                        <label id="existinguserLabel" style="color: red;visibility: hidden;">Existing User found</label>
                     </div>
 
                 </div>
@@ -679,8 +680,8 @@
             </form>
 
             <button onclick="checktempinarr()">df</button>
-            {{# if errors}}
-                {{#each errors}}
+            {{# if hasError}}
+                {{#each messages}}
                     <script>
 
                         document.getElementById('{{param}}Label').style.visibility = "visible";
@@ -694,6 +695,7 @@
 
             {{/if}}
         {{/if}}
+
 
 
 

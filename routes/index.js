@@ -68,13 +68,13 @@ router.get('/register', function (req, res, next) {
     console.log(messages.length>0);
 
 
-    res.render('registrationtest', {layout: 'layout/layout',messages:messages,hasError:messages.length>0,success: req.session.success, errors: req.session.errors});
+    res.render('registration', {layout: 'layout/layout',messages:messages,hasError:messages.length>0,success: req.session.success});
     req.session.errors = null;
 });
 
 router.post("/registerForm", passport.authenticate('local.signup',{
 
-    successRedirect : '/', // redirect to the secure profile section
+    successRedirect : '/register', // redirect to the secure profile section
     failureRedirect : '/register', // redirect back to the signup page if there is an error
     failureFlash : true // allow flash messages
 }));
