@@ -19,7 +19,7 @@ var flash = require('connect-flash')
 var index = require('./routes/index');
 var userAccounts = require('./routes/userAccounts');
 
-
+require('./config/passport');
 
 
 var app = express();
