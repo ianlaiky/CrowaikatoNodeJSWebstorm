@@ -54,21 +54,17 @@ function verifyRecaptcha(key, callback) {
 /* GET home page. */
 router.get('/', function (req, res, next) {
 
-    var messages = req.flash('error');
+    var messages = req.flash('errorLogin');
     console.log(messages);
     console.log(messages.length);
     console.log(messages.length>0);
     res.render('index', {layout: 'layout/layout',messages:messages,hasError:messages.length>0,success: req.session.success});
 });
 
-router.post('/loginBackend',passport.authenticate('local.signin',{
-    successRedirect : '/page', // redirect to the secure profile section
-    failureRedirect : '/', // redirect back to the signup page if there is an error
-    failureFlash : true // allow flash messages
 
-}));
 // router.post('/loginBackend',function (req, res, next){
 //     console.log("testwork")
+//     console.log(req.body)
 //
 // });
 
@@ -96,6 +92,12 @@ router.post("/registerForm", passport.authenticate('local.signup',{
 }));
 
 
+router.post('/loginBackend',passport.authenticate('local.signin',{
 
+    successRedirect : '/page', // redirect to the secure profile section
+    failureRedirect : '/', // redirect back to the signup page if there is an error
+    failureFlash : true // allow flash messages
+
+}));
 
 module.exports = router;

@@ -722,6 +722,8 @@
                                             address</label><br>
                                         <input name="emailAddress" type="text" class="form-control" id="exampleInputEmail1"
                                                aria-describedby="emailHelp" placeholder="Enter email">
+                                        <label id="emailAddressLabel" style="color: red;visibility: hidden;">Please enter a valid
+                                            email</label>
 
                                         <!--<small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>-->
                                     </div>
@@ -739,7 +741,8 @@
                                         <label style="color: #ffffff;" for="exampleInputPassword1">Password</label><br>
                                         <input name="password" type="password" class="form-control"
                                                id="exampleInputPassword1" placeholder="Password">
-
+                                        <label id="emailAddressLabel" style="color: red;visibility: hidden;">Please enter a valid
+                                            email</label>
                                     </div>
 
                                 </div>
@@ -758,6 +761,20 @@
 
                                 <button type="submit" class="btn btn-primary">Log in</button>
                             </form>
+                            {{# if hasError}}
+                                {{#each messages}}
+                                    <script>
+
+                                        document.getElementById('{{param}}Label').style.visibility = "visible";
+
+
+                                    </script>
+
+                                {{/each}}
+
+
+
+                            {{/if}}
 
                             <hr>
 
