@@ -53,16 +53,26 @@ function verifyRecaptcha(key, callback) {
 
 /* GET home page. */
 router.get('/', function (req, res, next) {
-    // res.render('index', { title: 'Express' });
+
+    var messages = req.flash('error');
+    console.log(messages);
+    console.log(messages.length);
+    console.log(messages.length>0);
     res.render('index', {layout: 'layout/layout',messages:messages,hasError:messages.length>0,success: req.session.success});
 });
 
-router.post('/login',passport.authenticate('local.signin',{
-    successRedirect : '/page/newPage', // redirect to the secure profile section
-    failureRedirect : '/', // redirect back to the signup page if there is an error
-    failureFlash : true // allow flash messages
+// router.post('/loginBackend',passport.authenticate('local.signin',{
+//     successRedirect : '/page/newPage', // redirect to the secure profile section
+//     failureRedirect : '/', // redirect back to the signup page if there is an error
+//     failureFlash : true // allow flash messages
+//
+// }));
+router.post('/loginBackend',function (req, res, next){
+    console.log("testwork")
 
-}));
+});
+
+
 
 router.get('/register', function (req, res, next) {
     // res.render('index', { title: 'Express' });

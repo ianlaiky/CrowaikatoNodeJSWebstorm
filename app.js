@@ -64,34 +64,7 @@ var server = http.createServer(app);
 
 // response
 
-app.post('/loginBackend', function (req, res) {
-    console.log(req.body);
 
-
-    //https://codeforgeek.com/2016/03/google-recaptcha-node-js-tutorial/
-    if (req.body['g-recaptcha-response'] === undefined || req.body['g-recaptcha-response'] === '' || req.body['g-recaptcha-response'] === null) {
-        return res.json({"responseCode": 1, "responseDesc": "Please select captcha"});
-    }
-
-    // Put your secret key here.
-
-
-    // Hitting GET request to the URL, Google will respond with success or error scenario.
-
-
-    verifyRecaptcha(req.body["g-recaptcha-response"], function (success) {
-        if (success) {
-            return res.json({"responseCode": 0, "responseDesc": "Sucess"});
-        } else {
-            return res.json({"responseCode": 1, "responseDesc": "Failed captcha verification"});
-        }
-    });
-
-
-    // res.sendStatus(200);
-    // res.render
-    // res.render('index',{layout: 'layout/layout'});
-});
 
 
 
