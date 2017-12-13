@@ -64,6 +64,10 @@ passport.serializeUser(function (user, done) {
 
 passport.deserializeUser(function (id, done) {
     connection.query("SELECT * FROM users WHERE id = ? ", [id], function (err, rows) {
+
+        // console.log("deserializeUser"+ rows[0]);
+        // console.log(rows[0]);
+
         done(err, rows[0]);
     });
 
@@ -94,6 +98,7 @@ passport.use('local.signin',new LocalStrategy({
     var errors = req.validationErrors();
 
     console.log("RUN 0");
+    console.log(errors);
 
     if (errors) {
         console.log("RUN 1");

@@ -7,7 +7,7 @@ var router = express.Router();
 /* GET users listing. */
 router.get('/home', isLoggedIn,function (req, res, next) {
     // res.render('index', { title: 'Express' });
-    res.render('page/home', {layout: 'layout/layout'});
+    res.render('page/home', {layout: 'layout/layout',testvar:{id:"1",name:"hads"}});
 });
 
 
