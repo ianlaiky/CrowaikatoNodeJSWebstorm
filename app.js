@@ -41,9 +41,9 @@ app.use(flash());
 app.use(passport.initialize());
 app.use(passport.session());
 
-app.use('/', index);
-app.use('/page', userAccounts);
 
+app.use('/page', userAccounts);
+app.use('/', index);
 
 
 
