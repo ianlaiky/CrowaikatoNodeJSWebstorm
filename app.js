@@ -15,7 +15,6 @@ var passport = require('passport');
 var flash = require('connect-flash')
 
 
-
 var index = require('./routes/index');
 var userAccounts = require('./routes/signedInUsers');
 
@@ -36,7 +35,7 @@ app.use(bodyParser.urlencoded({extended: true}));
 app.use(expressValidator());
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
-app.use(expressSession({secret:'ianlaicrowwebsite', saveUninitialized:false,resave:false}));
+app.use(expressSession({secret: 'ianlaicrowwebsite', saveUninitialized: false, resave: false}));
 app.use(flash());
 app.use(passport.initialize());
 app.use(passport.session());
@@ -46,26 +45,11 @@ app.use('/page', userAccounts);
 app.use('/', index);
 
 
-
-
 var http = require('http');
 var server = http.createServer(app);
 
 
-
-
-
-
-
-
-
-
-
-
 // response
-
-
-
 
 
 app.post('/registerForm', function (req, res) {
@@ -116,8 +100,6 @@ app.use(function (err, req, res, next) {
     res.status(err.status || 500);
     res.render('error');
 });
-
-
 
 
 module.exports = app;

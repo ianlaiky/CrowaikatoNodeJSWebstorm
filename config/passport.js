@@ -9,7 +9,25 @@ var mysql = require('mysql');
 var dbconfig = require('./database');
 var connection = mysql.createConnection(dbconfig.connection);
 connection.query('USE ' + dbconfig.database);
-console.log("dsfsfsdfsdfssdf");
+console.log("Passport running");
+
+
+var dbconfiginfotable = require('./databaseData');
+var connectionInfo = mysql.createConnection(dbconfiginfotable.connection);
+connectionInfo.query('USE '+dbconfiginfotable.database);
+
+// var insertQuery = "INSERT INTO userinfo ( username, firstname, lastname, jobtitle, company, country, state, city, zipcode, address, phoneno, faxno, sectorwork, jobfunction, fulltimestudent ) values (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
+//
+// connectionInfo.query(insertQuery, ["123","123","123","123","123","123","12ds3","123","123","123","123","123ds","123","12ds3","123"], function (err, rows) {
+//
+//     console.log(rows);
+//     console.log(err);
+//     console.log(rows.insertId);
+//
+//    console.log(rows);
+//
+// });
+
 
 var SECRET = "6LdwBzwUAAAAAKavgcoL75Y4lF7QUQPKQyt_e6Qk";
 // POST request to google recaptcha
@@ -65,8 +83,8 @@ passport.serializeUser(function (user, done) {
 passport.deserializeUser(function (id, done) {
     connection.query("SELECT * FROM users WHERE id = ? ", [id], function (err, rows) {
 
-        // console.log("deserializeUser"+ rows[0]);
-        // console.log(rows[0]);
+        console.log("deserializeUser"+ rows[0]);
+        console.log(rows[0]);
 
         done(err, rows[0]);
     });
@@ -277,6 +295,18 @@ passport.use('local.signup', new LocalStrategy({
                         console.log(newUserMysql.password);
                         console.log(rows);
                         console.log(err);
+
+                        var insertQueryinfo = "INSERT INTO userinfo ( username, firstname, lastname, jobtitle, company, country, state, city, zipcode, address, phoneno, faxno, sectorwork, jobfunction, fulltimestudent ) values (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
+
+                        connectionInfo.query(insertQueryinfo, [req.body.emailAddress, req.body.firstName, req.body.lastName, req.body.jobtitle, req.body.institution, req.body.country, req.body.state,req.body.city, req.body.zipcode, req.body.inputAddress, req.body.phoneNumber, req.body.faxNumber, req.body.workSector, req.body.jobFunction,req.body.exampleRadios], function (err, rows) {
+
+                            console.log(rows);
+                            console.log(err);
+
+
+                            console.log(rows);
+
+                        });
 
                         newUserMysql.id = rows.insertId;
                         req.session.success = true;

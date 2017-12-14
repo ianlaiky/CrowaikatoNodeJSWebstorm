@@ -7,7 +7,7 @@ var router = express.Router();
 /* GET users listing. */
 router.get('/home', isLoggedIn,function (req, res, next) {
     // res.render('index', { title: 'Express' });
-    res.render('page/home', {layout: 'layout/layout',testvar:{id:"1",name:"hads"}});
+    res.render('/page/home', {layout: 'layout/layout',testvar:{id:"1",name:"hads"}});
 });
 
 
@@ -37,8 +37,8 @@ router.get('/logout',function (req, res, next) {
 
 router.post("/registerForm", passport.authenticate('local.signup',{
 
-    successRedirect : '/register', // redirect to the secure profile section
-    failureRedirect : '/register', // redirect back to the signup page if there is an error
+    successRedirect : '/page/register', // redirect to the secure profile section
+    failureRedirect : '/page/register', // redirect back to the signup page if there is an error
     failureFlash : true // allow flash messages
 }));
 
