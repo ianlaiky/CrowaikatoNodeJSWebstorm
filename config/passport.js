@@ -203,30 +203,30 @@ passport.use('local.signup', new LocalStrategy({
 
 
         console.log(req.body);
-        req.check('emailAddress', "Please enter a valid email").notEmpty().isEmail();
-        req.check('password', 'Password should contain lower and uppercase with numbers').matches(/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])[0-9a-zA-Z]{8,}$/, "i");
-        req.check('password_cfm', "Password is empty or do not match").equals(req.body.password);
+        req.check('emailAddress', "Please enter a valid email").trim().notEmpty().isEmail();
+        req.check('password', 'Password should contain lower and uppercase with numbers').trim().matches(/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])[0-9a-zA-Z]{8,}$/, "i");
+        req.check('password_cfm', "Password is empty or do not match").trim().equals(req.body.password);
 
 
-        req.check('firstName', "Please enter something").notEmpty();
-        req.check('lastName', "Please enter something").notEmpty();
+        req.check('firstName', "Please enter something").trim().notEmpty();
+        req.check('lastName', "Please enter something").trim().notEmpty();
 
-        req.check('jobtitle', "Please enter something").notEmpty();
-        req.check('institution', "Please enter something").notEmpty();
+        req.check('jobtitle', "Please enter something").trim().notEmpty();
+        req.check('institution', "Please enter something").trim().notEmpty();
 
-        req.check('country', "Please select something").notEmpty();
-        req.check('state', "Please enter something").notEmpty();
-        req.check('city', "Please enter something").notEmpty();
-        req.check('zipcode', "Please enter something").notEmpty();
+        req.check('country', "Please select something").trim().notEmpty();
+        req.check('state', "Please enter something").trim().notEmpty();
+        req.check('city', "Please enter something").trim().notEmpty();
+        req.check('zipcode', "Please enter something").trim().notEmpty();
         req.check('inputAddress', "Please enter something").notEmpty();
 
-        req.check('phoneNumber', 'Invalid phone No').matches(/^[+][\d]+$/, "i");
-        req.check('faxNumber', 'Invalid fax No').matches(/^[+][\d]+$/, "i");
+        req.check('phoneNumber', 'Invalid phone No').trim().matches(/^[+][\d]+$/, "i");
+        req.check('faxNumber', 'Invalid fax No').trim().matches(/^[+][\d]+$/, "i");
 
-        req.check('workSector', "Please select something").notEmpty();
-        req.check('jobFunction', "Please select something").notEmpty();
+        req.check('workSector', "Please select something").trim().notEmpty();
+        req.check('jobFunction', "Please select something").trim().notEmpty();
 
-        req.check('exampleRadios', "Please select an option").notEmpty();
+        req.check('exampleRadios', "Please select an option").trim().notEmpty();
 
 
         //santise
