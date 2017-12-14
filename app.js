@@ -12,7 +12,7 @@ var expressValidator = require('express-validator');
 var expressSession = require('express-session');
 
 var passport = require('passport');
-var flash = require('connect-flash')
+var flash = require('connect-flash');
 
 
 var index = require('./routes/index');

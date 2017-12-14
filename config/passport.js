@@ -12,21 +12,7 @@ connection.query('USE ' + dbconfig.database);
 console.log("Passport running");
 
 
-var dbconfiginfotable = require('./databaseData');
-var connectionInfo = mysql.createConnection(dbconfiginfotable.connection);
-connectionInfo.query('USE '+dbconfiginfotable.database);
 
-// var insertQuery = "INSERT INTO userinfo ( username, firstname, lastname, jobtitle, company, country, state, city, zipcode, address, phoneno, faxno, sectorwork, jobfunction, fulltimestudent ) values (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
-//
-// connectionInfo.query(insertQuery, ["123","123","123","123","123","123","12ds3","123","123","123","123","123ds","123","12ds3","123"], function (err, rows) {
-//
-//     console.log(rows);
-//     console.log(err);
-//     console.log(rows.insertId);
-//
-//    console.log(rows);
-//
-// });
 
 
 var SECRET = "6LdwBzwUAAAAAKavgcoL75Y4lF7QUQPKQyt_e6Qk";
@@ -143,6 +129,19 @@ passport.use('local.signin',new LocalStrategy({
 
 
             // all is well, return successful user
+
+
+            connection.query("SELECT * FROM userinfo WHERE username = ?",[emailAddress], function(err, rowsInfo){
+                console.log("Retrieved data");
+
+                console.log(rowsInfo[0]);
+
+                req.session.useInfo = rowsInfo[0];
+
+
+            });
+
+
             return done(null, rows[0]);
         });
 
@@ -298,13 +297,13 @@ passport.use('local.signup', new LocalStrategy({
 
                         var insertQueryinfo = "INSERT INTO userinfo ( username, firstname, lastname, jobtitle, company, country, state, city, zipcode, address, phoneno, faxno, sectorwork, jobfunction, fulltimestudent ) values (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
 
-                        connectionInfo.query(insertQueryinfo, [req.body.emailAddress, req.body.firstName, req.body.lastName, req.body.jobtitle, req.body.institution, req.body.country, req.body.state,req.body.city, req.body.zipcode, req.body.inputAddress, req.body.phoneNumber, req.body.faxNumber, req.body.workSector, req.body.jobFunction,req.body.exampleRadios], function (err, rows) {
+                        connection.query(insertQueryinfo, [req.body.emailAddress, req.body.firstName, req.body.lastName, req.body.jobtitle, req.body.institution, req.body.country, req.body.state,req.body.city, req.body.zipcode, req.body.inputAddress, req.body.phoneNumber, req.body.faxNumber, req.body.workSector, req.body.jobFunction,req.body.exampleRadios], function (err, userRow) {
 
-                            console.log(rows);
+                            console.log(userRow);
                             console.log(err);
 
 
-                            console.log(rows);
+                            console.log(userRow);
 
                         });
 

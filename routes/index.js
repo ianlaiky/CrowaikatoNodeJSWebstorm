@@ -1,7 +1,7 @@
 var express = require('express');
 var querystring = require('querystring');
 var https = require('https');
-var passport = require('passport')
+var passport = require('passport');
 
 var router = express.Router();
 
