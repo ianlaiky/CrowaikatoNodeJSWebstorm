@@ -87,8 +87,8 @@ passport.use('local.signin', new LocalStrategy({
 
 }, function (req, emailAddress, password, done) {
     console.log("RUN 0");
-    req.check('emailAddress', "Please enter a valid email").notEmpty().isEmail();
-    req.check('password', 'Please enter a password').notEmpty();
+    req.check('emailAddress', "Please enter a valid email").trim().notEmpty().isEmail();
+    req.check('password', 'Please enter a password').trim().notEmpty();
 
     var errors = req.validationErrors();
 
