@@ -15,7 +15,7 @@ router.get('/', function (req, res, next) {
     console.log(messages);
     console.log(messages.length);
     console.log(messages.length>0);
-    res.render('index', {layout: 'layout/layout',messages:messages,hasError:messages.length>0,success: req.session.success});
+    res.render('index', {layout: 'layout/layout',messages:messages,hasError:messages.length>0});
 });
 
 

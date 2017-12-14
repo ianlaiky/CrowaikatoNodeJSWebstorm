@@ -67,8 +67,8 @@ passport.serializeUser(function (user, done) {
 passport.deserializeUser(function (id, done) {
     connection.query("SELECT * FROM users WHERE id = ? ", [id], function (err, rows) {
 
-        console.log("deserializeUser" + rows[0]);
-        console.log(rows[0]);
+        // console.log("deserializeUser" + rows[0]);
+        // console.log(rows[0]);
 
         done(err, rows[0]);
     });
@@ -95,11 +95,16 @@ passport.use('local.signin', new LocalStrategy({
     console.log("RUN 0");
     console.log(errors);
 
+
+
+
+
+
     if (errors) {
         console.log("RUN 1");
 
-        req.session.success = false;
-        req.flash.error = errors;
+
+
         return done(null, false, req.flash('errorLogin', errors));
 
     } else {
@@ -127,10 +132,15 @@ passport.use('local.signin', new LocalStrategy({
 
             connection.query("SELECT * FROM userinfo WHERE username = ?", [emailAddress], function (err, rowsInfo) {
                 console.log("Retrieved data");
-
+                console.log("Data 1");
                 console.log(rowsInfo[0]);
 
-                req.session.useInfo = rowsInfo[0];
+
+
+                req.session.useInfoo=rowsInfo[0];
+                req.session.save();
+
+
 
 
             });
@@ -140,6 +150,9 @@ passport.use('local.signin', new LocalStrategy({
         });
 
     }
+
+
+
 
 }));
 
@@ -246,7 +259,7 @@ passport.use('local.signup', new LocalStrategy({
             console.log("RUN 1");
 
             req.session.success = false;
-            req.flash.error = errors;
+
             return done(null, false, req.flash('error', errors));
 
         } else {
