@@ -114,6 +114,7 @@ passport.use('local.signin', new LocalStrategy({
         connection.query("SELECT * FROM users WHERE username = ?", [emailAddress], function (err, rows) {
             console.log("Return login");
             console.log(rows);
+            console.log(err);
             if (err)
                 return done(err);
             if (rows.length) {
