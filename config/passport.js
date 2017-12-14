@@ -12,10 +12,8 @@ connection.query('USE ' + dbconfig.database);
 console.log("Passport running");
 
 
-
-
-
 var SECRET = "6LdwBzwUAAAAAKavgcoL75Y4lF7QUQPKQyt_e6Qk";
+
 // POST request to google recaptcha
 function verifyRecaptcha(key, callback) {
     console.log("RESPONSE IS: " + key);
@@ -69,7 +67,7 @@ passport.serializeUser(function (user, done) {
 passport.deserializeUser(function (id, done) {
     connection.query("SELECT * FROM users WHERE id = ? ", [id], function (err, rows) {
 
-        console.log("deserializeUser"+ rows[0]);
+        console.log("deserializeUser" + rows[0]);
         console.log(rows[0]);
 
         done(err, rows[0]);
@@ -79,22 +77,15 @@ passport.deserializeUser(function (id, done) {
 });
 
 
+passport.use('local.signin', new LocalStrategy({
 
 
-
-
-
-
-passport.use('local.signin',new LocalStrategy({
-
-
-    usernameField:'emailAddress',
-    passwordField:'password',
+    usernameField: 'emailAddress',
+    passwordField: 'password',
     passReqToCallback: true
 
 
-
-},function(req,emailAddress,password,done){
+}, function (req, emailAddress, password, done) {
     console.log("RUN 0");
     req.check('emailAddress', "Please enter a valid email").notEmpty().isEmail();
     req.check('password', 'Please enter a password').notEmpty();
@@ -108,21 +99,24 @@ passport.use('local.signin',new LocalStrategy({
         console.log("RUN 1");
 
         req.session.success = false;
-        req.flash.error=errors;
-        return done(null, false, req.flash('errorLogin',errors));
+        req.flash.error = errors;
+        return done(null, false, req.flash('errorLogin', errors));
 
-    }else{
+    } else {
 
         console.log("RUN 2");
 
-        connection.query("SELECT * FROM users WHERE username = ?",[emailAddress], function(err, rows){
+        connection.query("SELECT * FROM users WHERE username = ?", [emailAddress], function (err, rows) {
             console.log("Return login");
             console.log(rows);
             if (err)
                 return done(err);
             if (rows.length) {
                 if (!bcrypt.compareSync(password, rows[0].password))
-                    return done(null, false, req.flash('errorLogin', [{param: "emailorpassWrong", msg: "Pass or email wrong"}])); // create the loginMessage and save it to session as flashdata
+                    return done(null, false, req.flash('errorLogin', [{
+                        param: "emailorpassWrong",
+                        msg: "Pass or email wrong"
+                    }])); // create the loginMessage and save it to session as flashdata
             }
 
             // if the user is found but the password is wrong
@@ -131,7 +125,7 @@ passport.use('local.signin',new LocalStrategy({
             // all is well, return successful user
 
 
-            connection.query("SELECT * FROM userinfo WHERE username = ?",[emailAddress], function(err, rowsInfo){
+            connection.query("SELECT * FROM userinfo WHERE username = ?", [emailAddress], function (err, rowsInfo) {
                 console.log("Retrieved data");
 
                 console.log(rowsInfo[0]);
@@ -148,12 +142,6 @@ passport.use('local.signin',new LocalStrategy({
     }
 
 }));
-
-
-
-
-
-
 
 
 passport.use('local.signup', new LocalStrategy({
@@ -186,7 +174,6 @@ passport.use('local.signup', new LocalStrategy({
     //uncomment this
 
     verifyRecaptcha(req.body["g-recaptcha-response"], function (success) {
-
 
 
         if (success) {
@@ -259,8 +246,8 @@ passport.use('local.signup', new LocalStrategy({
             console.log("RUN 1");
 
             req.session.success = false;
-            req.flash.error=errors;
-            return done(null, false, req.flash('error',errors));
+            req.flash.error = errors;
+            return done(null, false, req.flash('error', errors));
 
         } else {
 
@@ -276,7 +263,7 @@ passport.use('local.signup', new LocalStrategy({
                 if (rows.length) {
 
                     req.session.success = false;
-                    return done(null, false, req.flash('error', [{ param: 'existinguser', msg: 'Existing user found' }]));
+                    return done(null, false, req.flash('error', [{param: 'existinguser', msg: 'Existing user found'}]));
                 } else {
                     // if there is no user with that username
                     // create the user
@@ -297,7 +284,7 @@ passport.use('local.signup', new LocalStrategy({
 
                         var insertQueryinfo = "INSERT INTO userinfo ( username, firstname, lastname, jobtitle, company, country, state, city, zipcode, address, phoneno, faxno, sectorwork, jobfunction, fulltimestudent ) values (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
 
-                        connection.query(insertQueryinfo, [req.body.emailAddress, req.body.firstName, req.body.lastName, req.body.jobtitle, req.body.institution, req.body.country, req.body.state,req.body.city, req.body.zipcode, req.body.inputAddress, req.body.phoneNumber, req.body.faxNumber, req.body.workSector, req.body.jobFunction,req.body.exampleRadios], function (err, userRow) {
+                        connection.query(insertQueryinfo, [req.body.emailAddress, req.body.firstName, req.body.lastName, req.body.jobtitle, req.body.institution, req.body.country, req.body.state, req.body.city, req.body.zipcode, req.body.inputAddress, req.body.phoneNumber, req.body.faxNumber, req.body.workSector, req.body.jobFunction, req.body.exampleRadios], function (err, userRow) {
 
                             console.log(userRow);
                             console.log(err);
@@ -315,12 +302,10 @@ passport.use('local.signup', new LocalStrategy({
             });
 
 
-
         }
 
         // console.log(errors)
         // console.log(req.session.errors)
-
 
 
     });
