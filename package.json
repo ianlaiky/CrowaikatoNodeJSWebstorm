@@ -12,6 +12,7 @@
     "body-parser": "~1.18.2",
     "connect-flash": "^0.1.1",
     "cookie-parser": "~1.4.3",
+    "crypto-js": "^3.1.9-1",
     "debug": "~2.6.9",
     "dompurify": "^1.0.3",
     "express": "~4.15.5",

@@ -3,6 +3,7 @@ var LocalStrategy = require('passport-local').Strategy;
 var bcrypt = require('bcrypt-nodejs');
 var querystring = require('querystring');
 var https = require('https');
+var CryptoJS = require("crypto-js");
 
 var mysql = require('mysql');
 
@@ -57,6 +58,62 @@ function verifyRecaptcha(key, callback) {
 }
 
 
+function encryptData(msginput, pass) {
+    //salt for the pass der
+    var salt = CryptoJS.lib.WordArray.random(128 / 8);
+    console.log("FIRST SALT: " + salt);
+
+    //password deriv
+    var key512Bits1000Iterations = CryptoJS.PBKDF2(pass, salt, {keySize: 512 / 32, iterations: 1000});
+
+    console.log("Initial key: " + key512Bits1000Iterations);
+
+    //iv for encrypt
+    var iv = CryptoJS.lib.WordArray.random(128 / 8);
+
+    console.log("FIRST IV: " + iv);
+
+
+    var encrypted = CryptoJS.AES.encrypt(msginput, key512Bits1000Iterations, {
+        iv: iv,
+        padding: CryptoJS.pad.Pkcs7,
+        mode: CryptoJS.mode.CBC
+
+    });
+
+    var transitmessage = salt.toString() + iv.toString() + encrypted.toString();
+    console.log("Encrypted text: " + encrypted.toString());
+    console.log(transitmessage);
+    return transitmessage;
+}
+
+function decryptData(transitmessage, pass) {
+    var saltdecrypt = CryptoJS.enc.Hex.parse(transitmessage.substr(0, 32));
+    console.log("Second SALT: " + saltdecrypt);
+    var ivdecrypt = CryptoJS.enc.Hex.parse(transitmessage.substr(32, 32));
+    console.log("Second iv: " + ivdecrypt);
+    var encryptedForDecryption = transitmessage.substring(64);
+    console.log("Encrypted text: " + encryptedForDecryption.toString());
+    var keydecrypt = CryptoJS.PBKDF2(pass, saltdecrypt, {
+        keySize: 512 / 32,
+        iterations: 1000
+    });
+
+
+    console.log("End keyZ: " + keydecrypt);
+    var decrypteddata = CryptoJS.AES.decrypt(encryptedForDecryption.toString(), keydecrypt, {
+        iv: ivdecrypt,
+        padding: CryptoJS.pad.Pkcs7,
+        mode: CryptoJS.mode.CBC
+
+    });
+
+    console.log("DECRYPYTED DATA: " + decrypteddata.toString(CryptoJS.enc.Utf8));
+    return decrypteddata.toString(CryptoJS.enc.Utf8);
+
+}
+
+
 passport.serializeUser(function (user, done) {
 
     done(null, user.id)
@@ -96,13 +153,8 @@ passport.use('local.signin', new LocalStrategy({
     console.log(errors);
 
 
-
-
-
-
     if (errors) {
         console.log("RUN 1");
-
 
 
         return done(null, false, req.flash('errorLogin', [{
@@ -140,11 +192,8 @@ passport.use('local.signin', new LocalStrategy({
                 console.log(rowsInfo[0]);
 
 
-
-                req.session.useInfoo=rowsInfo[0];
+                req.session.useInfoo = rowsInfo[0];
                 req.session.save();
-
-
 
 
             });
@@ -154,8 +203,6 @@ passport.use('local.signin', new LocalStrategy({
         });
 
     }
-
-
 
 
 }));
@@ -299,9 +346,44 @@ passport.use('local.signup', new LocalStrategy({
                         console.log(rows);
                         console.log(err);
 
+
+
+                        var retrievedfirstName = req.body.firstName;
+                        var retriedlastName = req.body.lastName;
+                        var retrievedjobtitle = req.body.jobtitle;
+                        var retrievedinstitution = req.body.institution;
+                        var retrievedcountryName = req.body.countryName;
+                        var retrievedstate = req.body.state;
+                        var retverievedcityName = req.body.cityName;
+                        var retrievedzipcode = req.body.zipcode;
+                        var retrievedinputAddress = req.body.inputAddress;
+                        var retrievedphoneNumber = req.body.phoneNumber;
+                        var retrievedfaxNumber = req.body.faxNumber;
+                        var retrievedworkSector = req.body.workSector;
+                        var retrievedjobFunction = req.body.jobFunction;
+                        var retrievedexampleRadios = req.body.exampleRadios;
+
+
+
+                        var encryptedRetriencryptedRvedfirstName = encryptData(retrievedfirstName, newUserMysql.password);
+                        var encryptedRetriedlastName = encryptData(retriedlastName, newUserMysql.password);
+                        var encryptedRetrievedjobtitle = encryptData(retrievedjobtitle, newUserMysql.password);
+                        var encryptedRetrievedinstitution = encryptData(retrievedinstitution, newUserMysql.password);
+                        var encryptedRetrievedcountryName = encryptData(retrievedcountryName, newUserMysql.password);
+                        var encryptedRetrievedstate = encryptData(retrievedstate, newUserMysql.password);
+                        var encryptedRetverievedcityName = encryptData(retverievedcityName, newUserMysql.password);
+                        var encryptedRetrievedzipcode = encryptData(retrievedzipcode, newUserMysql.password);
+                        var encryptedRetrievedinputAddress = encryptData(retrievedinputAddress, newUserMysql.password);
+                        var encryptedRetrievedphoneNumber = encryptData(retrievedphoneNumber, newUserMysql.password);
+                        var encryptedRetrievedfaxNumber = encryptData(retrievedfaxNumber, newUserMysql.password);
+                        var encryptedRetrievedworkSector = encryptData(retrievedworkSector, newUserMysql.password);
+                        var encryptedRetrievedjobFunction = encryptData(retrievedjobFunction, newUserMysql.password);
+                        var encryptedRetrievedexampleRadios = encryptData(retrievedexampleRadios, newUserMysql.password);
+
+
                         var insertQueryinfo = "INSERT INTO userinfo ( username, firstname, lastname, jobtitle, company, country, state, city, zipcode, address, phoneno, faxno, sectorwork, jobfunction, fulltimestudent ) values (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
 
-                        connection.query(insertQueryinfo, [req.body.emailAddress, req.body.firstName, req.body.lastName, req.body.jobtitle, req.body.institution, req.body.country, req.body.state, req.body.city, req.body.zipcode, req.body.inputAddress, req.body.phoneNumber, req.body.faxNumber, req.body.workSector, req.body.jobFunction, req.body.exampleRadios], function (err, userRow) {
+                        connection.query(insertQueryinfo, [req.body.emailAddress, encryptedRetriencryptedRvedfirstName, encryptedRetriedlastName, encryptedRetrievedjobtitle, encryptedRetrievedinstitution, encryptedRetrievedcountryName, encryptedRetrievedstate, encryptedRetverievedcityName, encryptedRetrievedzipcode,encryptedRetrievedinputAddress, encryptedRetrievedphoneNumber, encryptedRetrievedfaxNumber, encryptedRetrievedworkSector, encryptedRetrievedjobFunction, encryptedRetrievedexampleRadios], function (err, userRow) {
 
                             console.log(userRow);
                             console.log(err);
