@@ -105,7 +105,10 @@ passport.use('local.signin', new LocalStrategy({
 
 
 
-        return done(null, false, req.flash('errorLogin', errors));
+        return done(null, false, req.flash('errorLogin', [{
+            param: "emailorpassWrong",
+            msg: "Pass or email wrong"
+        }])); // create the loginMessage and save it to session as flashdata
 
     } else {
 
