@@ -191,8 +191,45 @@ passport.use('local.signin', new LocalStrategy({
                 console.log("Data 1");
                 console.log(rowsInfo[0]);
 
+                var dbusername = rowsInfo[0].username;
+                var dbfirstname = decryptData(rowsInfo[0].firstname.toString(),rows[0].password);
+                var dblastname = decryptData(rowsInfo[0].lastname.toString(),rows[0].password);
+                var dbjobtitle = decryptData(rowsInfo[0].jobtitle.toString(),rows[0].password);
+                var dbcompany = decryptData(rowsInfo[0].company.toString(),rows[0].password);
+                var dbcountry = decryptData(rowsInfo[0].country.toString(),rows[0].password);
+                var dbstate = decryptData(rowsInfo[0].state.toString(),rows[0].password);
+                var dbcity = decryptData(rowsInfo[0].city.toString(),rows[0].password);
+                var dbzipcode = decryptData(rowsInfo[0].zipcode.toString(),rows[0].password);
+                var dbaddress = decryptData(rowsInfo[0].address.toString(),rows[0].password);
+                var dbphoneno = decryptData(rowsInfo[0].phoneno.toString(),rows[0].password);
+                var dbfaxno = decryptData(rowsInfo[0].faxno.toString(),rows[0].password);
+                var dbsectorwork = decryptData(rowsInfo[0].sectorwork.toString(),rows[0].password);
+                var dbjobfunction = decryptData(rowsInfo[0].jobfunction.toString(),rows[0].password);
+                var dbfulltimestudent = decryptData(rowsInfo[0].fulltimestudent.toString(),rows[0].password);
 
-                req.session.useInfoo = rowsInfo[0];
+
+                console.log("DECRUPT$ED TEST: "+dbfirstname);
+
+                var sessiontoSave = {
+                    username: dbusername,
+                    firstname: dbfirstname,
+                    lastname: dblastname,
+                    jobtitle: dbjobtitle,
+                    company: dbcompany,
+                    country: dbcountry,
+                    state: dbstate,
+                    city: dbcity,
+                    zipcode: dbzipcode,
+                    address: dbaddress,
+                    phoneno: dbphoneno,
+                    faxno: dbfaxno,
+                    sectorwork: dbsectorwork,
+                    jobfunction: dbjobfunction,
+                    fulltimestudent: dbfulltimestudent
+                };
+
+
+                req.session.useInfoo = sessiontoSave;
                 req.session.save();
 
 
@@ -265,9 +302,9 @@ passport.use('local.signup', new LocalStrategy({
         req.check('jobtitle', "Please enter something").trim().notEmpty();
         req.check('institution', "Please enter something").trim().notEmpty();
 
-        req.check('country', "Please select something").trim().notEmpty();
+        req.check('countryName', "Please select something").trim().notEmpty();
         req.check('state', "Please enter something").trim().notEmpty();
-        req.check('city', "Please enter something").trim().notEmpty();
+        req.check('cityName', "Please enter something").trim().notEmpty();
         req.check('zipcode', "Please enter something").trim().notEmpty();
         req.check('inputAddress', "Please enter something").notEmpty();
 
@@ -347,7 +384,6 @@ passport.use('local.signup', new LocalStrategy({
                         console.log(err);
 
 
-
                         var retrievedfirstName = req.body.firstName;
                         var retriedlastName = req.body.lastName;
                         var retrievedjobtitle = req.body.jobtitle;
@@ -362,7 +398,6 @@ passport.use('local.signup', new LocalStrategy({
                         var retrievedworkSector = req.body.workSector;
                         var retrievedjobFunction = req.body.jobFunction;
                         var retrievedexampleRadios = req.body.exampleRadios;
-
 
 
                         var encryptedRetriencryptedRvedfirstName = encryptData(retrievedfirstName, newUserMysql.password);
@@ -383,7 +418,7 @@ passport.use('local.signup', new LocalStrategy({
 
                         var insertQueryinfo = "INSERT INTO userinfo ( username, firstname, lastname, jobtitle, company, country, state, city, zipcode, address, phoneno, faxno, sectorwork, jobfunction, fulltimestudent ) values (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
 
-                        connection.query(insertQueryinfo, [req.body.emailAddress, encryptedRetriencryptedRvedfirstName, encryptedRetriedlastName, encryptedRetrievedjobtitle, encryptedRetrievedinstitution, encryptedRetrievedcountryName, encryptedRetrievedstate, encryptedRetverievedcityName, encryptedRetrievedzipcode,encryptedRetrievedinputAddress, encryptedRetrievedphoneNumber, encryptedRetrievedfaxNumber, encryptedRetrievedworkSector, encryptedRetrievedjobFunction, encryptedRetrievedexampleRadios], function (err, userRow) {
+                        connection.query(insertQueryinfo, [req.body.emailAddress, encryptedRetriencryptedRvedfirstName, encryptedRetriedlastName, encryptedRetrievedjobtitle, encryptedRetrievedinstitution, encryptedRetrievedcountryName, encryptedRetrievedstate, encryptedRetverievedcityName, encryptedRetrievedzipcode, encryptedRetrievedinputAddress, encryptedRetrievedphoneNumber, encryptedRetrievedfaxNumber, encryptedRetrievedworkSector, encryptedRetrievedjobFunction, encryptedRetrievedexampleRadios], function (err, userRow) {
 
                             console.log(userRow);
                             console.log(err);
