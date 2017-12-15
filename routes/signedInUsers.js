@@ -17,7 +17,7 @@ router.get('/home', isLoggedIn,function (req, res, next) {
 
 
     // res.render('index', { title: 'Express' });
-    res.render('page/home', {layout: 'layout/layout',testvar:{id:"1",name:"hads"},firstname:req.session.useInfoo.firstname});
+    res.render('page/home', {layout: 'layout/layout',firstname:req.session.useInfoo.firstname});
 });
 
 
