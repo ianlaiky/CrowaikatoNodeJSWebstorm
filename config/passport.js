@@ -193,19 +193,19 @@ passport.use('local.signin', new LocalStrategy({
 
                 var dbusername = rowsInfo[0].username;
                 var dbfirstname = decryptData(rowsInfo[0].firstname.toString(),rows[0].password);
-                var dblastname = decryptData(rowsInfo[0].lastname.toString(),rows[0].password);
-                var dbjobtitle = decryptData(rowsInfo[0].jobtitle.toString(),rows[0].password);
-                var dbcompany = decryptData(rowsInfo[0].company.toString(),rows[0].password);
-                var dbcountry = decryptData(rowsInfo[0].country.toString(),rows[0].password);
-                var dbstate = decryptData(rowsInfo[0].state.toString(),rows[0].password);
-                var dbcity = decryptData(rowsInfo[0].city.toString(),rows[0].password);
-                var dbzipcode = decryptData(rowsInfo[0].zipcode.toString(),rows[0].password);
-                var dbaddress = decryptData(rowsInfo[0].address.toString(),rows[0].password);
-                var dbphoneno = decryptData(rowsInfo[0].phoneno.toString(),rows[0].password);
-                var dbfaxno = decryptData(rowsInfo[0].faxno.toString(),rows[0].password);
-                var dbsectorwork = decryptData(rowsInfo[0].sectorwork.toString(),rows[0].password);
-                var dbjobfunction = decryptData(rowsInfo[0].jobfunction.toString(),rows[0].password);
-                var dbfulltimestudent = decryptData(rowsInfo[0].fulltimestudent.toString(),rows[0].password);
+                // var dblastname = decryptData(rowsInfo[0].lastname.toString(),rows[0].password);
+                // var dbjobtitle = decryptData(rowsInfo[0].jobtitle.toString(),rows[0].password);
+                // var dbcompany = decryptData(rowsInfo[0].company.toString(),rows[0].password);
+                // var dbcountry = decryptData(rowsInfo[0].country.toString(),rows[0].password);
+                // var dbstate = decryptData(rowsInfo[0].state.toString(),rows[0].password);
+                // var dbcity = decryptData(rowsInfo[0].city.toString(),rows[0].password);
+                // var dbzipcode = decryptData(rowsInfo[0].zipcode.toString(),rows[0].password);
+                // var dbaddress = decryptData(rowsInfo[0].address.toString(),rows[0].password);
+                // var dbphoneno = decryptData(rowsInfo[0].phoneno.toString(),rows[0].password);
+                // var dbfaxno = decryptData(rowsInfo[0].faxno.toString(),rows[0].password);
+                // var dbsectorwork = decryptData(rowsInfo[0].sectorwork.toString(),rows[0].password);
+                // var dbjobfunction = decryptData(rowsInfo[0].jobfunction.toString(),rows[0].password);
+                // var dbfulltimestudent = decryptData(rowsInfo[0].fulltimestudent.toString(),rows[0].password);
 
 
                 console.log("DECRUPT$ED TEST: "+dbfirstname);
@@ -213,19 +213,19 @@ passport.use('local.signin', new LocalStrategy({
                 var sessiontoSave = {
                     username: dbusername,
                     firstname: dbfirstname,
-                    lastname: dblastname,
-                    jobtitle: dbjobtitle,
-                    company: dbcompany,
-                    country: dbcountry,
-                    state: dbstate,
-                    city: dbcity,
-                    zipcode: dbzipcode,
-                    address: dbaddress,
-                    phoneno: dbphoneno,
-                    faxno: dbfaxno,
-                    sectorwork: dbsectorwork,
-                    jobfunction: dbjobfunction,
-                    fulltimestudent: dbfulltimestudent
+                    // lastname: dblastname,
+                    // jobtitle: dbjobtitle,
+                    // company: dbcompany,
+                    // country: dbcountry,
+                    // state: dbstate,
+                    // city: dbcity,
+                    // zipcode: dbzipcode,
+                    // address: dbaddress,
+                    // phoneno: dbphoneno,
+                    // faxno: dbfaxno,
+                    // sectorwork: dbsectorwork,
+                    // jobfunction: dbjobfunction,
+                    // fulltimestudent: dbfulltimestudent
                 };
 
 
