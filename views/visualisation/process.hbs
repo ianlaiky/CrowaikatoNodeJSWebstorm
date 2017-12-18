@@ -1,0 +1,91 @@
+<div class="main">
+	<div class="main-header">
+		<span class="logo">
+			<img src="/img/logo.png" alt="">
+		</span>
+
+		<span class="date"></span>
+		<!-- <span class="time"></span> -->
+
+		<span class="title">
+			<img src="/img/title.png" alt="">
+		</span>
+
+		<span id="one" class="option ">
+			<div class="row">
+				<div class="col"	><img src="/img/menuIcon.png"  alt=""></div>
+				<div class="col option-text-style">
+					Option
+				</div>
+			</div>
+		</span>
+	</div>
+
+	<div class="footer-logo" id="logo">
+		<img src="/img/crow-logo.png">
+	</div>
+
+	<div id="modal-container">
+		<div class="modal-background">
+			<div class="modal">
+				<div class="mBody">
+					<div class="row mHeader">
+						<div class="col-lg-3">
+							<img src="/img/crow-logo.png">
+						</div>
+						<div class="col-lg-9 mHeader-text">CHOOSE YOUR VISUALISATION</div>
+					</div>
+
+					<div class="row mContent">
+						<div class="row mRow">
+							<div class="col-lg-6">
+								<div class="mBox">
+									<div class="mContentText" id="lockyBtn">
+										LOCKY ANALYSIS
+									</div>
+								</div>
+							</div>
+
+							<div class="col-lg-6">
+								<div class="mBox">
+									<div class="mContentText" id="processBtn">
+										PROCESSES
+									</div>
+								</div>
+							</div>
+						</div>
+
+						<div class="row mRow">
+							<div class="col-lg-6">
+								<div class="mBox">
+									<div class="mContentText" id="fileBtn">
+										FILE ACTIVITY & DEPENDENCY
+									</div>
+								</div>
+							</div>
+
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div id="graphic-container"></div>
+</div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/1.7.3/socket.io.js"></script>
+<script type="text/javascript" src="/vendor/threejs/three.js"></script>
+<script type="text/javascript" src="/vendor/threejs/TrackballControls.js"></script>
+<script type="text/javascript" src="/vendor/threejs/EffectComposer.js"></script>
+<script type="text/javascript" src="/vendor/threejs/RenderPass.js"></script>
+<script type="text/javascript" src="/vendor/threejs/ShaderPass.js"></script>
+<script type="text/javascript" src="/vendor/threejs/CopyShader.js"></script>
+<script type="text/javascript" src="/vendor/threejs/ThickLineShader.js"></script>
+<script type="text/javascript" src="/vendor/threejs/stats.js"></script>
+<script type="text/javascript" src="/vendor/threejs/CSS3DRenderer.js"></script>
+<script type="text/javascript" src="/vendor/threejs/CanvasRenderer.js"></script>
+<script type="text/javascript" src="/vendor/threejs/Projector.js"></script>
+<script type="text/javascript" src="/vendor/threejs/tween.min.js"></script>
+<script type="text/javascript" src="/vendor/moment.min.js"></script>
+<script type="text/javascript" src="/js/processObject.js"></script>
+<script type="text/javascript" src="/js/process.js"></script>

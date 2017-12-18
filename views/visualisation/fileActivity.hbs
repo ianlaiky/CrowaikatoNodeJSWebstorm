@@ -1,0 +1,540 @@
+<div class="main">
+	<div class="main-header">
+		<span class="logo">
+			<img src="/img/logo.png" alt="">
+		</span>
+
+		<span class="date"></span>
+		<!-- <span class="time"></span> -->
+
+		<span class="title">
+			<img src="/img/title.png" alt="">
+		</span>
+
+		<span id="one" class="option ">
+			<div class="row">
+				<div class="col"	><img src="/img/menuIcon.png"  alt=""></div>
+				<div class="col option-text-style">
+					Option
+				</div>
+			</div>
+		</span>
+	</div>
+
+	<div class="footer-logo" id="logo">
+		<img src="/img/crow-logo.png">
+	</div>
+
+</div>
+
+<div id="modal-container">
+	<div class="modal-background">
+		<div class="modal">
+			<div class="mBody">
+				<div class="row mHeader">
+					<div class="col-lg-3">
+						<img src="/img/crow-logo.png">
+					</div>
+					<div class="col-lg-9 mHeader-text">CHOOSE YOUR VISUALISATION</div>
+				</div>
+
+				<div class="row mContent">
+					<div class="row mRow">
+						<div class="col-lg-6">
+							<div class="mBox">
+								<div class="mContentText" id="lockyBtn">
+									LOCKY ANALYSIS
+								</div>
+							</div>
+						</div>
+
+						<div class="col-lg-6">
+							<div class="mBox">
+								<div class="mContentText" id="processBtn">
+									PROCESSES
+								</div>
+							</div>
+						</div>
+					</div>
+
+					<div class="row mRow">
+						<div class="col-lg-6">
+							<div class="mBox">
+								<div class="mContentText" id="fileBtn">
+									FILE ACTIVITY & DEPENDENCY
+								</div>
+							</div>
+						</div>
+
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+<div class="activityVisualisation" hidden>
+	<!-- <div class="border-hr3-right"></div>
+	<div class="border-hr3-left"></div> -->
+	<div id="fileActivity-graphicContainer"></div>
+
+	<div class="header-panel" id="faTopPanel">
+			<div class="header-panel-border">
+				<div class="header-border-list-wrapper">
+					<div class="row">
+						<div class="col-lg-3 col-md-3 col-lg-3 col-xl-3">
+							<div class="header-item-label">File Name</div>
+							<span class="fileName header-item-value"></span>
+						</div>
+
+						<div class="col-lg-3 col-md-3 col-lg-3 col-xl-3">
+							<div class="header-item-label">File Format</div>
+							<span class="fileFormat header-item-value"></span>
+						</div>
+
+						<div class="col-lg-3 col-md-3 col-lg-3 col-xl-3">
+							<div class="header-item-label">File Path</div>
+							<span class="filePath header-item-value"></span>
+						</div>
+
+						<div class="col-lg-3 col-md-3 col-lg-3 col-xl-3">
+							<div class="header-item-label">Total Action</div>
+							<span class="actionNum header-item-value"></span>
+						</div>
+					</div>
+				</div>
+			</div>
+	</div>
+
+	<div class="monitor" id="monitorPanel">
+		<div class="monitor-wrapper">
+		<div class="monitor-header-style">USER TRACKED</div>
+			<div class="monitor-content-style">
+
+				<!-- <div class="row monitor-line-style">
+					<div class="col-lg-2">
+						<div class="mNum">01</div>
+					</div>
+					<div class="col-lg-8">
+						<div class="mName">Bob</div>
+						<div class="mId">USERID: <span>98942141412</span></div>
+					</div>
+					<div class="col-lg-2">
+						<div class="mStatus mStatus-active" ></div>
+					</div>
+				</div>
+
+				<div class="row monitor-line-style">
+					<div class="col-lg-2 ">
+						<div class="mNum" >02</div>
+					</div>
+					<div class="col-lg-8">
+						<div class="mName">Alice</div>
+						<div class="mId">USERID: <span>98942141412</span></div>
+					</div>
+					<div class="col-lg-2">
+						<div class="mStatus mStatus-active" ></div>
+					</div>
+				</div>
+
+				<div class="row monitor-line-style">
+					<div class="col-lg-2 ">
+						<div class="mNum" >03</div>
+					</div>
+					<div class="col-lg-8">
+						<div class="mName">Luois</div>
+						<div class="mId">USERID: <span>98942141412</span></div>
+					</div>
+					<div class="col-lg-2">
+						<div class="mStatus mStatus-inactive" ></div>
+					</div>
+				</div>
+
+				<div class="row monitor-line-style">
+					<div class="col-lg-2">
+						<div class="mNum">01</div>
+					</div>
+					<div class="col-lg-8">
+						<div class="mName">Bob</div>
+						<div class="mId">USERID: <span>98942141412</span></div>
+					</div>
+					<div class="col-lg-2">
+						<div class="mStatus mStatus-active" ></div>
+					</div>
+				</div>
+
+				<div class="row monitor-line-style">
+					<div class="col-lg-2 ">
+						<div class="mNum" >02</div>
+					</div>
+					<div class="col-lg-8">
+						<div class="mName">Alice</div>
+						<div class="mId">USERID: <span>98942141412</span></div>
+					</div>
+					<div class="col-lg-2">
+						<div class="mStatus mStatus-active" ></div>
+					</div>
+				</div>
+
+				<div class="row monitor-line-style">
+					<div class="col-lg-2 ">
+						<div class="mNum" >03</div>
+					</div>
+					<div class="col-lg-8">
+						<div class="mName">Luois</div>
+						<div class="mId">USERID: <span>98942141412</span></div>
+					</div>
+					<div class="col-lg-2">
+						<div class="mStatus mStatus-inactive" ></div>
+					</div>
+				</div>
+
+				<div class="row monitor-line-style">
+					<div class="col-lg-2">
+						<div class="mNum">01</div>
+					</div>
+					<div class="col-lg-8">
+						<div class="mName">Bob</div>
+						<div class="mId">USERID: <span>98942141412</span></div>
+					</div>
+					<div class="col-lg-2">
+						<div class="mStatus mStatus-active" ></div>
+					</div>
+				</div>
+
+				<div class="row monitor-line-style">
+					<div class="col-lg-2 ">
+						<div class="mNum" >02</div>
+					</div>
+					<div class="col-lg-8">
+						<div class="mName">Alice</div>
+						<div class="mId">USERID: <span>98942141412</span></div>
+					</div>
+					<div class="col-lg-2">
+						<div class="mStatus mStatus-active" ></div>
+					</div>
+				</div>
+
+				<div class="row monitor-line-style">
+					<div class="col-lg-2 ">
+						<div class="mNum" >03</div>
+					</div>
+					<div class="col-lg-8">
+						<div class="mName">Luois</div>
+						<div class="mId">USERID: <span>98942141412</span></div>
+					</div>
+					<div class="col-lg-2">
+						<div class="mStatus mStatus-inactive" ></div>
+					</div>
+				</div> -->
+			</div>
+		</div>
+			<!-- <div class="monitor-border-hr"></div> -->
+	</div>
+
+	<div class="queue" id="queuePanel">
+		<div class="queue-wrapper">
+			<div class="queue-header-style" style="">LIVE QUEUE</div>
+			<div class="queue-content-style ">
+			</div>
+		</div>
+
+	</div>
+
+	<div class="rSide" id="rSidePanel">
+			<div class="rSide-content-style rSide-border-style" id="dOpen" hidden>
+				<span class="rSide-header-style " style="">VIEW <span class="rSide-action">[ OPEN ]</span> DEPENDENCIES</span>
+			</div>
+			<div class="rSide-content-style rSide-border-style" id="dRead" hidden>
+				<span class="rSide-header-style" style="">VIEW <span class="rSide-action">[ READ ]</span> DEPENDENCIES</span>
+			</div>
+			<div class="rSide-content-style rSide-border-style" id="dWrite" hidden>
+				<span class="rSide-header-style"style="">VIEW <span class="rSide-action">[ WRITE ]</span> DEPENDENCIES</span>
+			</div>
+			<div class="rSide-content-style rSide-border-style" id="dDelete" hidden>
+				<span class="rSide-header-style" style="">VIEW <span class="rSide-action">[ DELETE ]</span> DEPENDENCIES</span>
+			</div>
+	</div>
+
+  <div class="footer-panel" id="faBottomPanel">
+				<div class="footer-panel-wrapper">
+					<div class="row faButtonGroup" >
+						<div class="col-sm-4 faButton " id="sphere">
+							SPHERE
+						</div>
+
+						<div class="col-sm-4 faButton faButtonSelected" id="helix">
+							HELIX
+						</div>
+
+						<div class="col-sm-4 faButton" id="grid">
+							GRID
+						</div>
+					</div>
+				</div>
+	 </div>
+
+  <div class="fa-wrapper">
+			<div class="list-activity" id="today">
+					<div class="list-activity-border-style">
+						<span class="list-activity-head-style">
+							<span class="align-left">TODAY</span>
+							<span class="align-right todayCount">0</span>
+						</span>
+					</div>
+
+					<div class="faTable-wrap">
+					<table class="faTable">
+						<thead class="faTable-head">
+						<tr class="fbTable-row-head">
+							<th width="55%"><span>DATE TIME</span></th>
+							<th width="45%"><span>ACTION</span></th>
+						</tr>
+						</thead>
+						<tbody class="faTable-body todayTable">
+						</tbody>
+					</table>
+					</div>
+			</div>
+
+			<div class="list-activity" id="yesterday">
+					<div class="list-activity-border-style">
+						<span class="list-activity-head-style">
+							<span class="align-left">YESTERDAY</span>
+							<span class="align-right yesterdayCount">0</span>
+						</span>
+					</div>
+
+					<div class="faTable-wrap">
+					<table class="faTable">
+						<thead class="faTable-head">
+						<tr class="fbTable-row-head">
+							<th width="55%"><span>DATE TIME</span></th>
+							<th width="45%"><span>ACTION</span></th>
+						</tr>
+						</thead>
+						<tbody class="faTable-body yesterdayTable">
+						</tbody>
+					</table>
+					</div>
+			</div>
+
+			<div class="list-activity" id="week">
+					<div class="list-activity-border-style">
+						<span class="list-activity-head-style">
+							<span class="align-left">WEEK</span>
+							<span class="align-right weekCount">0</span>
+						</span>
+					</div>
+
+					<div class="faTable-wrap">
+					<table class="faTable">
+						<thead class="faTable-head">
+						<tr class="fbTable-row-head">
+							<th width="55%"><span>DATE TIME</span></th>
+							<th width="45%"><span>ACTION</span></th>
+						</tr>
+						</thead>
+						<tbody class="faTable-body weekTable">
+						</tbody>
+					</table>
+					</div>
+			</div>
+
+			<div class="list-activity" id="month">
+					<div class="list-activity-border-style ">
+						<span class="list-activity-head-style">
+							<span class="align-left">MONTH</span>
+							<span class="align-right monthCount">0</span>
+						</span>
+					</div>
+					<div class="faTable-wrap">
+					<table class="faTable">
+						<thead class="faTable-head">
+						<tr class="fbTable-row-head">
+							<th width="55%"><span>DATE TIME</span></th>
+							<th width="45%"><span>ACTION</span></th>
+						</tr>
+						</thead>
+						<tbody class="faTable-body monthTable">
+						</tbody>
+					</table>
+					</div>
+			</div>
+	</div>
+</div>
+
+<div class="dependencyVisualisation" hidden>
+	<div id="fileDependency-graphicContainer"></div>
+	<div class="sidebackNav" id="backBtn"><span class="sidebackNavArrow">RETURN</span></div>
+
+	<div class="dependency-list1" id="pBottomPanel">
+		<div class="dependency-border-list1">
+			<div class="dependency-border-list1-wrapper">
+				<div class="row dependency-section" id="pBottomPanel-a1" hidden>
+					<div class="col-lg-3">
+						<div class="dependency-item-label">File Name</div>
+						<span class="pFileName dependency-item-value"></span>
+					</div>
+
+					<div class="col-lg-3">
+						<div class="dependency-item-label">File Format</div>
+						<span class="pFileFormat dependency-item-value"></span>
+					</div>
+
+					<div class="col-lg-3">
+						<div class="dependency-item-label">File Path</div>
+						<span class="pFilePath dependency-item-value"></span>
+					</div>
+
+					<div class="col-lg-3">
+						<div class="dependency-item-label">P Version</div>
+						<span class="pVersion dependency-item-value"></span>
+					</div>
+				</div>
+
+				<div class="row dependency-section" id="pBottomPanel-a2" hidden>
+					<div class="col-lg-3">
+						<div class="dependency-item-label">Process ID</div>
+						<span class="pProcessId dependency-item-value"></span>
+					</div>
+
+					<div class="col-lg-3">
+						<div class="dependency-item-label">Host Id</div>
+						<span class="pHostId dependency-item-value"></span>
+					</div>
+
+					<div class="col-lg-3">
+						<div class="dependency-item-label">Platform</div>
+						<span class="pPlatform dependency-item-value"></span>
+					</div>
+
+					<div class="col-lg-3">
+						<div class="dependency-item-label">Dependency Of</div>
+						<span class="pDependencyOf dependency-item-value"></span>
+					</div>
+				</div>
+
+				<div class="row dependency-section" id="pBottomPanel-b1" hidden>
+					<div class="col-lg-3">
+						<div class="dependency-item-label">Total Dependency</div>
+						<span class="pTotalDependency dependency-item-value"></span>
+					</div>
+
+					<div class="col-lg-3">
+						<div class="dependency-item-label">File Name</div>
+						<span class="pFileName dependency-item-value"></span>
+					</div>
+
+					<div class="col-lg-3">
+						<div class="dependency-item-label">File Format</div>
+						<span class="pFileFormat dependency-item-value"></span>
+					</div>
+
+					<div class="col-lg-3">
+						<div class="dependency-item-label">File Format</div>
+						<span class="pFilePath dependency-item-value"></span>
+					</div>
+
+				</div>
+		</div>
+	 </div>
+	</div>
+
+	<div class="dependency-list2">
+		<div class="dependency-border-list2">
+			<div class="dependency-legend"></div>
+			<div class="row" >
+				<div class="row legend-centent">
+					<div class="col-lg-3" >
+						<div class="legend-icon icon-new" ></div>
+					</div>
+					<div class="col-lg-9" >
+						<div class="legend-text">New Dependency</div>
+					</div>
+				</div>
+				<div class="col">
+					<div class="row legend-centent">
+						<div class="col-lg-3" >
+							<div class="outer">
+								<div class="legend-icon icon-unfound" ></div>
+							</div>
+
+						</div>
+						<div class="col-lg-9" >
+							<div class="legend-text">Unfound Dependency</div>
+						</div>
+					</div>
+				</div>
+				<div class="col">
+					<div class="row legend-centent">
+						<div class="col-lg-3" >
+							<div class="legend-icon icon-original"></div>
+						</div>
+						<div class="col-lg-9" >
+							<div class="legend-text">Original Dependency</div>
+						</div>
+					</div>
+				</div>
+			</div>
+	  </div>
+	</div>
+
+	<div class="dependency-list3">
+		<div class="dependency-border-list3">
+			<div class="dependency-header-counter">
+				<div class="dependency-head-count totalDep">0</div>
+				<div class="dependency-head-text" id='direct-header'>DEPENDENCIES</div>
+				<div class="dependency-head-text" id='indirect-header' hidden>INDIRECT <br> DEPENDENCIES</div>
+			</div>
+			<div class="dependency-content-counter">
+				<div class="">
+					<div class="dependency-content-count newDep">0</div>
+					<div class="dependency-content-text count-new">NEW</div>
+				</div>
+				<div class="">
+					<div class="dependency-content-count unfoundDep">0</div>
+					<div class="dependency-content-text count-unfound">UNFOUND</div>
+				</div>
+			</div>
+	  </div>
+	</div>
+
+	<div class="dependency-list4" >
+				<div class="dependency-border-list4">
+					<div class="row depButtonGroup" >
+						<div class="col-lg-6 col-md-6 col-lg-6 col-xl-6 depButton depButtonSelected" id="direct">
+							Direct Dependency
+						</div>
+						<div class="col-lg-6 col-md-6 col-lg-6 col-xl-6 depButton" id="indirect">
+							Indirect Dependency
+						</div>
+					</div>
+				</div>
+	 </div>
+</div>
+
+<div class="splashScreen">
+	<div class="alertMsg" style="">
+		<div class="alertMsg-0">Critical File DETECTED !</div>
+	</div>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/1.7.3/socket.io.js"></script>
+<script type="text/javascript" src="/vendor/threejs/three.js"></script>
+<script type="text/javascript" src="/vendor/threejs/TrackballControls.js"></script>
+<script type="text/javascript" src="/vendor/threejs/EffectComposer.js"></script>
+<script type="text/javascript" src="/vendor/threejs/RenderPass.js"></script>
+<script type="text/javascript" src="/vendor/threejs/ShaderPass.js"></script>
+<script type="text/javascript" src="/vendor/threejs/CopyShader.js"></script>
+<script type="text/javascript" src="/vendor/threejs/ThickLineShader.js"></script>
+<script type="text/javascript" src="/vendor/threejs/stats.js"></script>
+<script type="text/javascript" src="/vendor/threejs/CSS3DRenderer.js"></script>
+<script type="text/javascript" src="/vendor/threejs/CanvasRenderer.js"></script>
+<script type="text/javascript" src="/vendor/threejs/Projector.js"></script>
+<script type="text/javascript" src="/vendor/threejs/tween.min.js"></script>
+<script type="text/javascript" src="/vendor/threejs/threex.dynamictexture.js"></script>
+<script type="text/javascript" src="/vendor/moment.min.js"></script>
+<script type="text/javascript" src="/js/dependencyObject.js"></script>
+<script type="text/javascript" src="/js/fileObject.js"></script>
+<script type="text/javascript" src="/js/fileActivity.js"></script>

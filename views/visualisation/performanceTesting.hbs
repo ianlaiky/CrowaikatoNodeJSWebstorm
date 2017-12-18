@@ -1,0 +1,145 @@
+<style>
+        * {
+            margin: 0; padding: 0; box-sizing: border-box;
+        }
+        body {
+            font: 13px Helvetica, Arial;
+        }
+        .testBtn {
+            box-shadow:inset 0 0 5  px #0ff;
+            border:solid 1px #0ff;
+            padding: 10px;
+            color: #0ff;
+            text-align: center;
+            font-size: 2.0em;
+            cursor: pointer;
+        }
+        ul {
+            height:94%;
+            overflow: scroll;
+        }
+        .testBtn:hover {
+          text-shadow: 0 0 10px rgba(0,255,255,0.6);
+          box-shadow:inset 0 0 20px #0ff;
+          font-weight: 900;
+        }
+
+        .testBtn:active {
+        	color: #000000;
+        	background-color: rgba(0 , 127, 127, 0.5);
+        }
+        #messages {
+            list-style-type: none; margin: 0; padding: 0;
+        }
+        #messages li {
+            padding: 5px 10px;
+        }
+        #messages li:nth-child(odd) {
+            background: #1e1e1e;
+        }
+</style>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/1.7.3/socket.io.js"></script>
+<script type="text/javascript" src="/vendor/jquery-2.2.4.min.js"></script>
+<script type="text/javascript" src="/vendor/moment.min.js"></script>
+<script>
+  $('#preload').hide().remove();
+  $('.main').show('slow');
+
+  var arr = [['ID', 'Front-End TIMESTAMP (ms)', 'Back-End TIMESTAMP (ms)']];
+  var tempTimestamp = 0;
+  let socket = io();
+
+  $(function () {
+
+    let msgs = $('#messages');
+    let scanBtn = $('#scanBtn');
+    let stopBtn = $('#stopBtn');
+    let exportBtn = $('#exportBtn');
+
+    stopBtn.click(function() {
+      socket.emit('stop');
+    });
+
+    scanBtn.click(function() {
+      socket.emit('scanTimestamp');
+    });
+
+    exportBtn.click(function() {
+      socket.emit('stop');
+      exportToCsv('export.csv', arr);
+    });
+
+    socket.on('scanTimestamp', function(data) {
+      var dataTimestamp = data.performanceTimestamp;
+	  var filename = ((data.fileActivities)[0]).filename;
+      var id = data._id;
+      var now = moment();
+      if(Number.isInteger(dataTimestamp)){
+        if(tempTimestamp != dataTimestamp){
+          tempTimestamp = dataTimestamp;
+          var tempArr = [];
+          tempArr[0] = id;
+          tempArr[1] = now.format('x');
+          tempArr[2] = moment(dataTimestamp).format('x');
+		  tempArr[3] = tempArr[1] - tempArr[2]
+		  tempArr[4] = filename;
+          arr.push(tempArr);
+          console.log(tempArr);
+          msgs.append($('<li>').text(dataTimestamp));
+          msgs.stop().animate({
+            scrollTop: msgs[0].scrollHeight
+          }, 800);
+        }
+      }
+    });
+
+    function exportToCsv(filename, rows) {
+            var processRow = function (row) {
+                var finalVal = '';
+                for (var j = 0; j < row.length; j++) {
+                    var innerValue = row[j] === null ? '' : row[j].toString();
+                    if (row[j] instanceof Date) {
+                        innerValue = row[j].toLocaleString();
+                    };
+                    var result = innerValue.replace(/"/g, '""');
+                    if (result.search(/("|,|\n)/g) >= 0)
+                        result = '"' + result + '"';
+                    if (j > 0)
+                        finalVal += ',';
+                    finalVal += result;
+                }
+                return finalVal + '\n';
+            };
+
+            var csvFile = '';
+            for (var i = 0; i < rows.length; i++) {
+                csvFile += processRow(rows[i]);
+            }
+
+            var blob = new Blob([csvFile], { type: 'text/csv;charset=utf-8;' });
+            if (navigator.msSaveBlob) { // IE 10+
+                navigator.msSaveBlob(blob, filename);
+            } else {
+                var link = document.createElement("a");
+                if (link.download !== undefined) { // feature detection
+                    // Browsers that support HTML5 download attribute
+                    var url = URL.createObjectURL(blob);
+                    link.setAttribute("href", url);
+                    link.setAttribute("download", filename);
+                    link.style.visibility = 'hidden';
+                    document.body.appendChild(link);
+                    link.click();
+                    document.body.removeChild(link);
+                }
+            }
+        }
+  });
+</script>
+
+<ul id="messages"></ul>
+<div class="row">
+  <div class="col-lg-4 testBtn" id="scanBtn">Scans</div>
+  <div class="col-lg-4 testBtn" id="stopBtn">Stop</div>
+  <div class="col-lg-4 testBtn" id="exportBtn">Export</div>
+</div>

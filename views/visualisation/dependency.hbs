@@ -1,0 +1,221 @@
+<div class="main">
+	<div class="main-header">
+		<span class="logo">
+			<img src="/img/logo.png" alt="">
+		</span>
+
+		<span class="date"></span>
+		<!-- <span class="time"></span> -->
+
+		<span class="title">
+			<img src="/img/title.png" alt="">
+		</span>
+
+		<span id="one" class="option ">
+			<div class="row">
+				<div class="col"	><img src="/img/menuIcon.png"  alt=""></div>
+				<div class="col option-text-style">
+					Option
+				</div>
+			</div>
+		</span>
+	</div>
+
+	<div class="footer-logo" id="logo">
+		<img src="/img/crow-logo.png">
+	</div>
+
+	<div id="modal-container">
+	  <div class="modal-background">
+	    <div class="modal">
+				<div class="mBody">
+					<div class="row mHeader">
+						<div class="col-lg-3">
+							<img src="/img/crow-logo.png">
+						</div>
+						<div class="col-lg-9 mHeader-text">CHOOSE YOUR VISUALISATION</div>
+					</div>
+
+					<div class="row mContent">
+						<div class="row mRow">
+							<div class="col-lg-6">
+								<div class="mBox">
+									<div class="mContentText" id="lockyBtn">
+										LOCKY ANALYSIS
+									</div>
+								</div>
+							</div>
+
+							<div class="col-lg-6">
+								<div class="mBox">
+									<div class="mContentText" id="processBtn">
+										PROCESSES
+									</div>
+								</div>
+							</div>
+						</div>
+
+						<div class="row mRow">
+							<div class="col-lg-6">
+								<div class="mBox">
+									<div class="mContentText" id="fileBtn">
+										FILE ACTIVITY & DEPENDENCY
+									</div>
+								</div>
+							</div>
+
+						</div>
+					</div>
+				</div>
+	    </div>
+	  </div>
+	</div>
+
+	<div id="graphic-container"></div>
+		<div class="sidebackNav" id="backBtn"><span class="sidebackNavArrow">RETURN</span></div>
+	<div class="dependency-list1" id="pBottomPanel">
+		<div class="dependency-border-list1">
+			<div class="dependency-border-list1-wrapper">
+
+				<div class="row dependency-section">
+					<div class="col-lg-3">
+						<div class="dependency-item-label">Selected dependency</div>
+						<span class="pSelectedDependency dependency-item-value"></span>
+					</div>
+
+					<div class="col-lg-3">
+						<div class="dependency-item-label">CPU</div>
+						<span class="pCpu dependency-item-value"></span>
+					</div>
+
+					<div class="col-lg-3">
+						<div class="dependency-item-label">Memory</div>
+						<span class="pMemory dependency-item-value"></span>
+					</div>
+
+					<div class="col-lg-3">
+						<div class="dependency-item-label">Desciption</div>
+						<span class="pDescription dependency-item-value"></span>
+					</div>
+				</div>
+
+				<div class="row dependency-section">
+					<div class="col-lg-3">
+						<div class="dependency-item-label">Selected dependency</div>
+						<span class="pSelectedDependency dependency-item-value"></span>
+					</div>
+
+					<div class="col-lg-3">
+						<div class="dependency-item-label">CPU</div>
+						<span class="pCpu dependency-item-value"></span>
+					</div>
+
+					<div class="col-lg-3">
+						<div class="dependency-item-label">Memory</div>
+						<span class="pMemory dependency-item-value"></span>
+					</div>
+
+					<div class="col-lg-3">
+						<div class="dependency-item-label">Desciption</div>
+						<span class="pDescription dependency-item-value"></span>
+					</div>
+				</div>
+
+		</div>
+	 </div>
+	</div>
+
+	<div class="dependency-list2">
+		<div class="dependency-border-list2">
+			<div class="dependency-legend"></div>
+			<div class="row" >
+				<div class="row legend-centent">
+					<div class="col-lg-3" >
+						<div class="legend-icon icon-new" ></div>
+					</div>
+					<div class="col-lg-9" >
+						<div class="legend-text">New Dependency</div>
+					</div>
+				</div>
+				<div class="col">
+					<div class="row legend-centent">
+						<div class="col-lg-3" >
+							<div class="outer">
+								<div class="legend-icon icon-unfound" ></div>
+							</div>
+
+						</div>
+						<div class="col-lg-9" >
+							<div class="legend-text">Unfound Dependency</div>
+						</div>
+					</div>
+				</div>
+				<div class="col">
+					<div class="row legend-centent">
+						<div class="col-lg-3" >
+							<div class="legend-icon icon-original"></div>
+						</div>
+						<div class="col-lg-9" >
+							<div class="legend-text">Original Dependency</div>
+						</div>
+					</div>
+				</div>
+			</div>
+	  </div>
+	</div>
+
+	<div class="dependency-list3">
+		<div class="dependency-border-list3">
+			<div class="dependency-header-counter">
+				<div class="dependency-head-count">17</div>
+				<div class="dependency-head-text">DEPENDENCIES</div>
+			</div>
+			<div class="dependency-content-counter">
+				<div class="count-new">
+					<div class="dependency-content-count ">3</div>
+					<div class="dependency-content-text  count-new">NEW</div>
+				</div>
+				<div class="">
+					<div class="dependency-content-count ">5</div>
+					<div class="dependency-content-text count-unfound">UNFOUND</div>
+				</div>
+			</div>
+	  </div>
+	</div>
+
+	<div class="dependency-list4" >
+				<div class="dependency-border-list4">
+					<div class="row" >
+						<div class="col-lg-6 col-md-6 col-lg-6 col-xl-6 depButton depButtonSelected" id="direct">
+							Direct Dependency
+						</div>
+						<div class="col-lg-6 col-md-6 col-lg-6 col-xl-6 depButton" id="indirect">
+							Indirect Dependency
+						</div>
+					</div>
+				</div>
+	 </div>
+
+
+</div>
+
+
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/1.7.3/socket.io.js"></script>
+<script type="text/javascript" src="/vendor/threejs/three.js"></script>
+<script type="text/javascript" src="/vendor/threejs/TrackballControls.js"></script>
+<script type="text/javascript" src="/vendor/threejs/EffectComposer.js"></script>
+<script type="text/javascript" src="/vendor/threejs/RenderPass.js"></script>
+<script type="text/javascript" src="/vendor/threejs/ShaderPass.js"></script>
+<script type="text/javascript" src="/vendor/threejs/CopyShader.js"></script>
+<script type="text/javascript" src="/vendor/threejs/ThickLineShader.js"></script>
+<script type="text/javascript" src="/vendor/threejs/stats.js"></script>
+<script type="text/javascript" src="/vendor/threejs/CSS3DRenderer.js"></script>
+<script type="text/javascript" src="/vendor/threejs/CanvasRenderer.js"></script>
+<script type="text/javascript" src="/vendor/threejs/Projector.js"></script>
+<script type="text/javascript" src="/vendor/threejs/tween.min.js"></script>
+<script type="text/javascript" src="/vendor/threejs/threex.domevents.js"></script>
+<script type="text/javascript" src="/vendor/threejs/threex.linkify.js"></script>
+<script type="text/javascript" src="/vendor/moment.min.js"></script>
+<script type="text/javascript" src="/js/dependencyObject.js"></script>
+<script type="text/javascript" src="/js/dependency.js"></script>

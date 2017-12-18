@@ -18,59 +18,41 @@ router.get('/home', isLoggedIn, function (req, res, next) {
     res.render('page/home', {layout: 'layout/layout', firstname: req.session.useInfoo.firstname});
 });
 
+/* HOME PAGE */
+router.get('/visualisation', function(req, res, next) {
+    res.render('visualisation/index', { title: 'Visual Progger',layout: 'layout/visualisationlayout' });
+});
+
+// STATIC ANALYSIS
+router.get('/lockyAnalysis',isLoggedIn, function(req, res, next) {
+    res.render('visualisation/lockyAnalysis', { title: 'Locky Analysis',layout: 'layout/visualisationlayout' });
+});
+
+
+// REAL TIME PROCESS TRACKING
+router.get('/process',isLoggedIn, function(req, res, next) {
+    res.render('visualisation/process', { title: 'Process',layout: 'layout/visualisationlayout' });
+});
+
+
+// REAL TIME (FILE ACTIVITY + DEPENDENCY)
+router.get('/fileActivity',isLoggedIn, function(req, res, next) {
+    res.render('visualisation/fileActivity', { title: 'File Activity',layout: 'layout/visualisationlayout' });
+});
+
+// PERFORMANCE TESTING
+router.get('/performanceTesting',isLoggedIn, function(req, res, next) {
+    res.render('visualisation/performanceTesting', { title: 'PerformanceTesting' ,layout: 'layout/visualisationlayout'});
+});
+
+// MOCK DATA (DEPENDENCY)
+router.get('/fileActivity/dependency',isLoggedIn, function(req, res, next) {
+    res.render('visualisation/dependency', { title: 'Dependency',layout: 'layout/visualisationlayout' });
+});
+
 
 router.get('/register', function (req, res, next) {
 
-    // console.log("=====================");
-    //
-    // msginput="jamie oi";
-    //
-    // var salt = CryptoJS.lib.WordArray.random(128 / 8);
-    // console.log("FIRST SALT: "+salt);
-    //
-    // var key512Bits1000Iterations = CryptoJS.PBKDF2("Secret Passphrase", salt, {keySize: 512 / 32, iterations: 1000});
-    //
-    // console.log("Initial key: "+key512Bits1000Iterations);
-    //
-    // var iv = CryptoJS.lib.WordArray.random(128/8);
-    //
-    // console.log("FIRST IV: "+iv);
-    //
-    // var encrypted = CryptoJS.AES.encrypt(msginput, key512Bits1000Iterations, {
-    //     iv: iv,
-    //     padding: CryptoJS.pad.Pkcs7,
-    //     mode: CryptoJS.mode.CBC
-    //
-    // });
-    //
-    // var transitmessage = salt.toString()+ iv.toString() + encrypted.toString();
-    // console.log("Encrypted text: "+encrypted.toString());
-    // console.log(transitmessage);
-    //
-    // console.log("=========Above is encryption============");
-    // var saltdecrypt = CryptoJS.enc.Hex.parse(transitmessage.substr(0, 32));
-    // console.log("Second SALT: "+salt);
-    // var ivdecrypt = CryptoJS.enc.Hex.parse(transitmessage.substr(32, 32));
-    // console.log("Second iv: "+ivdecrypt);
-    // var encryptedForDecryption = transitmessage.substring(64);
-    // console.log("Encrypted text: "+encryptedForDecryption.toString());
-    // var keydecrypt = CryptoJS.PBKDF2("Secret Passphrase", saltdecrypt, {
-    //     keySize: 512/32,
-    //     iterations: 1000
-    // });
-    //
-    //
-    // console.log("End keyZ: "+keydecrypt);
-    // var decrypteddata = CryptoJS.AES.decrypt(encryptedForDecryption.toString(), keydecrypt, {
-    //     iv: ivdecrypt,
-    //     padding: CryptoJS.pad.Pkcs7,
-    //     mode: CryptoJS.mode.CBC
-    //
-    // });
-    //
-    // console.log("DECRYPYTED DATA: "+decrypteddata.toString(CryptoJS.enc.Utf8));
-    //
-    // console.log("==========Above is decryption===========");
 
     var messages = req.flash('error');
     console.log(messages);

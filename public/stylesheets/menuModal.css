@@ -1,0 +1,140 @@
+* {
+  box-sizing: border-box;
+}
+
+html.modal-active, body.modal-active {
+  overflow: hidden;
+}
+
+#modal-container {
+  position: fixed;
+  display: table;
+  height: 100%;
+  width: 100%;
+  top: 0;
+  left: 0;
+  transform: scale(0);
+  z-index: 1;
+}
+#modal-container.one {
+  transform: scaleY(0.01) scaleX(0);
+  animation: unfoldIn 1s cubic-bezier(0.165, 0.84, 0.44, 1) forwards;
+}
+#modal-container.one .modal-background .modal {
+  transform: scale(0);
+  animation: zoomIn 0.5s 0.8s cubic-bezier(0.165, 0.84, 0.44, 1) forwards;
+}
+#modal-container.one.out {
+  transform: scale(1);
+  animation: unfoldOut 1s 0.3s cubic-bezier(0.165, 0.84, 0.44, 1) forwards;
+}
+#modal-container.one.out .modal-background .modal {
+  animation: zoomOut 0.5s cubic-bezier(0.165, 0.84, 0.44, 1) forwards;
+}
+
+#modal-container .modal-background {
+  display: table-cell;
+  background: rgba(50, 50, 50, 0.6);
+  text-align: center;
+  z-index:5000;
+  vertical-align: middle;
+}
+
+#modal-container .modal-background .modal {
+  z-index:2000;
+  background:  black;
+  padding: 50px;
+  display: inline-block;
+  border-radius: 1em;
+  font-weight: 300;
+  position: relative;
+  box-shadow:inset 0 0 80px #bdc3c7;
+}
+
+#modal-container .modal-background .modal .mBody {
+  width:60em;
+  height:35em;
+}
+
+#modal-container .modal-background .modal .mBody img {
+  width:8em;
+  height:4em;
+}
+
+#modal-container .modal-background .modal .mBody .mHeader .mHeader-text {
+  color:white;
+  font-size: 2.5em;
+  font-family: 'Allerta Stencil';
+  text-align: left;
+  text-shadow: 0 0 10px rgba(255,255,255,1);
+}
+
+#modal-container .modal-background .modal .mBody .mContent .mRow {
+  margin: 5.5em 0 0 5.5em;
+}
+
+#modal-container .modal-background .modal .mBody .mContent .mBox .mContentText {
+  font-size: 1.5em;
+  font-family: 'Allerta Stencil';
+  padding:0 1em 0 1em;;
+  width:100%;
+  height:100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color:white;
+  text-shadow: 0 0 10px rgba(255,255,255,0.9);
+}
+
+.mBox {
+  height:9em;
+  width:20em;
+  border: 1px solid rgba(220, 220, 220, 0.5);
+  box-shadow:inset 0 0 15px white;
+  cursor: pointer;
+}
+
+.mBox:hover {
+  border: 1px solid rgba(255, 255, 255,1);
+  box-shadow:inset 0 0 20px white;
+}
+
+
+@keyframes unfoldIn {
+  0% {
+    transform: scaleY(0.005) scaleX(0);
+  }
+  50% {
+    transform: scaleY(0.005) scaleX(1);
+  }
+  100% {
+    transform: scaleY(1) scaleX(1);
+  }
+}
+@keyframes unfoldOut {
+  0% {
+    transform: scaleY(1) scaleX(1);
+  }
+  50% {
+    transform: scaleY(0.005) scaleX(1);
+  }
+  100% {
+    transform: scaleY(0.005) scaleX(0);
+  }
+}
+@keyframes zoomIn {
+  0% {
+    transform: scale(0);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+@keyframes zoomOut {
+  0% {
+    transform: scale(1);
+  }
+  100% {
+    transform: scale(0);
+  }
+}

@@ -1,0 +1,82 @@
+<html>
+<head>
+  <script>
+    $('document').ready(function(){
+      var $preload = $('#preload');
+      $preload.hide().remove();
+
+
+      var $preload = $('#preload');
+        $preload.hide().remove();
+
+      $('#modal-container').removeAttr('class').addClass('one');
+      $('body').addClass('modal-active');
+
+
+      var lockyBtn = document.getElementById( 'lockyBtn' );
+      lockyBtn.addEventListener( 'click', function ( event ) {
+          window.location.href = '/page/lockyAnalysis'
+      }, false );
+
+      var processBtn = document.getElementById( 'processBtn' );
+      processBtn.addEventListener( 'click', function ( event ) {
+         window.location.href = '/page/process'
+      }, false );
+
+      var fileBtn = document.getElementById( 'fileBtn' );
+      fileBtn.addEventListener( 'click', function ( event ) {
+         window.location.href = '/page/fileActivity'
+      }, false );
+    });
+  </script>
+</head>
+<body>
+
+<div id="modal-container">
+     <div class="modal-background">
+    	  <div class="modal">
+    		  <div class="mBody">
+    				<div class="row mHeader">
+    					<div class="col-lg-3">
+    						<img src="/img/crow-logo.png">
+    					</div>
+    					<div class="col-lg-9 mHeader-text">CHOOSE YOUR VISUALISATION</div>
+    				</div>
+
+    				<div class="row mContent">
+    					<div class="row mRow">
+    						<div class="col-lg-6">
+    							<div class="mBox">
+    								<div class="mContentText" id="lockyBtn">
+    									LOCKY ANALYSIS
+    								</div>
+    							</div>
+    						</div>
+
+    						<div class="col-lg-6">
+    							<div class="mBox">
+    								<div class="mContentText" id="processBtn">
+    									PROCESSES
+    								</div>
+    							</div>
+    						</div>
+    					</div>
+
+    					<div class="row mRow">
+    						<div class="col-lg-6">
+    							<div class="mBox">
+    								<div class="mContentText" id="fileBtn">
+    									FILE ACTIVITY & DEPENDENCY
+    								</div>
+    							</div>
+    						</div>
+
+    					</div>
+    				</div>
+    			</div>
+    	 </div>
+    </div>
+</div>
+
+</body>
+</html>
