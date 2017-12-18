@@ -19,7 +19,7 @@ router.get('/home', isLoggedIn, function (req, res, next) {
 });
 
 /* HOME PAGE */
-router.get('/visualisation', function(req, res, next) {
+router.get('/visualisation', isLoggedIn,function(req, res, next) {
     res.render('visualisation/index', { title: 'Visual Progger',layout: 'layout/visualisationlayout' });
 });
 
@@ -101,6 +101,17 @@ function isLoggedIn(req, res, next) {
         return next();
     }
     res.redirect("/")
+
+
+}
+
+function isLoggedout(req, res, next) {
+
+    if (!req.isAuthenticated()) {
+
+        return next();
+    }
+    res.redirect("/page/home")
 
 
 }

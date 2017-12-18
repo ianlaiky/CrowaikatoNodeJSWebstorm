@@ -170,9 +170,14 @@ passport.use('local.signin', new LocalStrategy({
             console.log("Return login");
             console.log(rows);
             console.log(err);
-            if (err)
-                return done(err);
+            if (err == null){
+                console.log("THERE IS ERROR");
+                return done(null, false, req.flash('errorLogin', [{
+                    param: "emailorpassWrong",
+                    msg: "Pass or email wrong"
+                }]));}
             if (rows.length) {
+                console.log("ROW LENGTH:"+rows.length);
                 if (!bcrypt.compareSync(password, rows[0].password))
                     return done(null, false, req.flash('errorLogin', [{
                         param: "emailorpassWrong",
