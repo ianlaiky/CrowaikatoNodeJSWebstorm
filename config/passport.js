@@ -170,19 +170,28 @@ passport.use('local.signin', new LocalStrategy({
             console.log("Return login");
             console.log(rows);
             console.log(err);
-            if (err == null){
-                console.log("THERE IS ERROR");
-                return done(null, false, req.flash('errorLogin', [{
-                    param: "emailorpassWrong",
-                    msg: "Pass or email wrong"
-                }]));}
+            if (err) {
+
+                return done(err);
+            }
+
+
             if (rows.length) {
-                console.log("ROW LENGTH:"+rows.length);
+                console.log("ROW LENGTH:");
+                console.log(rows.length);
                 if (!bcrypt.compareSync(password, rows[0].password))
                     return done(null, false, req.flash('errorLogin', [{
                         param: "emailorpassWrong",
                         msg: "Pass or email wrong"
                     }])); // create the loginMessage and save it to session as flashdata
+            } else {
+                console.log("ROW LEN:");
+                console.log(rows.length);
+                return done(null, false, req.flash('errorLogin', [{
+                    param: "emailorpassWrong",
+                    msg: "Pass or email wrong"
+                }]));
+
             }
 
             // if the user is found but the password is wrong
@@ -197,7 +206,7 @@ passport.use('local.signin', new LocalStrategy({
                 console.log(rowsInfo[0]);
 
                 var dbusername = rowsInfo[0].username;
-                var dbfirstname = decryptData(rowsInfo[0].firstname.toString(),rows[0].password);
+                var dbfirstname = decryptData(rowsInfo[0].firstname.toString(), rows[0].password);
                 // var dblastname = decryptData(rowsInfo[0].lastname.toString(),rows[0].password);
                 // var dbjobtitle = decryptData(rowsInfo[0].jobtitle.toString(),rows[0].password);
                 // var dbcompany = decryptData(rowsInfo[0].company.toString(),rows[0].password);
@@ -213,7 +222,7 @@ passport.use('local.signin', new LocalStrategy({
                 // var dbfulltimestudent = decryptData(rowsInfo[0].fulltimestudent.toString(),rows[0].password);
 
 
-                console.log("DECRUPT$ED TEST: "+dbfirstname);
+                console.log("DECRUPT$ED TEST: " + dbfirstname);
 
                 var sessiontoSave = {
                     username: dbusername,

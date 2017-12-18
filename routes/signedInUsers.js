@@ -51,7 +51,7 @@ router.get('/fileActivity/dependency',isLoggedIn, function(req, res, next) {
 });
 
 
-router.get('/register', function (req, res, next) {
+router.get('/register', isLoggedout,function (req, res, next) {
 
 
     var messages = req.flash('error');
