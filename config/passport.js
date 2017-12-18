@@ -12,8 +12,8 @@ var connection = mysql.createConnection(dbconfig.connection);
 connection.query('USE ' + dbconfig.database);
 console.log("Passport running");
 
-
-var SECRET = "6LeIxAcTAAAAAGG-vFI1TnRWxMZNFuojJ4WifJWe";
+// 6LeIxAcTAAAAAGG-vFI1TnRWxMZNFuojJ4WifJWe
+var SECRET = "6LdwBzwUAAAAAKavgcoL75Y4lF7QUQPKQyt_e6Qk";
 
 // POST request to google recaptcha
 function verifyRecaptcha(key, callback) {
