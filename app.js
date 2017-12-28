@@ -71,8 +71,7 @@ app.use('/', index);
 
 
 
-var http = require('http');
-var server = http.createServer(app);
+
 
 
 // response
