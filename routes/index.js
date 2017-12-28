@@ -19,6 +19,12 @@ router.get('/', function (req, res, next) {
 });
 
 
+//last
+
+router.get('*', function(req, res){
+    res.redirect("/page/home")
+});
+
 
 
 

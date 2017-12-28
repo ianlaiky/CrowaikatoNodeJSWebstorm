@@ -78,6 +78,16 @@ router.get('/logout', function (req, res, next) {
 });
 
 
+
+
+
+//last
+
+router.get('*', function(req, res){
+    res.redirect("/page/home")
+});
+
+
 router.post("/registerForm", passport.authenticate('local.signup', {
 
     successRedirect: '/page/register', // redirect to the secure profile section
