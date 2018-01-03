@@ -63,34 +63,12 @@ router.get('/fileActivity/dependency',isLoggedIn, function(req, res, next) {
 
 // Augmented reality
 router.get('/augmentedReality',isLoggedIn, function(req, res, next) {
-    // MongoDB.MongoClient.connect(arurl, function(err, db) {
-    //
-    //     if (err) {
-    //         console.log("conn error");
-    //     }
-    //     db.collection("ARmachine", function(err, machine) {
-    //         machine.find().toArray(function(err, result) {
-    //             if (err) {
-    //                 throw err;
-    //             } else {
-    //                 for (var i = 0; i < result.length; i++) {
-    //                     machines[i] = result[i];
-    //                 }
-    //
-    //                 app.get("/machines", function(request, response) {
-    //                     response.send(machines);
-    //                 });
-    //
-    //             }
-    //         });
-    //     });
-    //
-    // });
 
     res.render('augmentedReality/index', { title: 'Dependency',layout: 'layout/augmentedRealityLayout' });
 });
 
-console.log("RUNNNNNNN");
+// For AR
+
 MongoDB.MongoClient.connect(arurl, function(err, db) {
 
     if (err) {
@@ -104,8 +82,6 @@ MongoDB.MongoClient.connect(arurl, function(err, db) {
                 for (var i = 0; i < result.length; i++) {
                     machines[i] = result[i];
                 }
-
-
 
 
             }
