@@ -8,6 +8,7 @@ var bodyParser = require('body-parser');
 var request = require('request');
 var querystring = require('querystring');
 var https = require('https');
+var MongoDB = require('mongodb');
 
 var expressValidator = require('express-validator');
 var expressSession = require('express-session');
@@ -46,6 +47,7 @@ mongoose.Promise = Promise;
 
 
 
+
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'hbs');
@@ -62,6 +64,9 @@ app.use(expressSession({secret: 'ianlaicrowwebsite', saveUninitialized: false, r
 app.use(flash());
 app.use(passport.initialize());
 app.use(passport.session());
+
+
+
 
 
 app.use('/page', userAccounts);
@@ -125,6 +130,9 @@ app.use(function (err, req, res, next) {
     res.status(err.status || 500);
     res.render('error');
 });
+
+
+
 
 function allowed(req) {
     let ip = req.ip.replace(/^.*:/, '');

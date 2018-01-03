@@ -3,6 +3,16 @@ var passport = require('passport');
 var CryptoJS = require("crypto-js");
 
 var router = express.Router();
+var MongoDB = require('mongodb');
+
+
+///Variables - Connection strings for MongoDB Atlas Databases
+var oplogurl = 'mongodb://tester:cR0w_+35t@arproject-shard-00-00-cjsdl.mongodb.net:27017,arproject-shard-00-01-cjsdl.mongodb.net:27017,' +
+    'arproject-shard-00-02-cjsdl.mongodb.net:27017/local?ssl=true&replicaSet=ARPROJECT-shard-0&authSource=admin';
+var arurl = 'mongodb://tester:cR0w_+35t@arproject-shard-00-00-cjsdl.mongodb.net:27017,arproject-shard-00-01-cjsdl.mongodb.net:27017,' +
+    'arproject-shard-00-02-cjsdl.mongodb.net:27017/ARDB?ssl=true&replicaSet=ARPROJECT-shard-0&authSource=admin';
+
+var machines = [];
 
 
 /* GET users listing. */
@@ -53,11 +63,60 @@ router.get('/fileActivity/dependency',isLoggedIn, function(req, res, next) {
 
 // Augmented reality
 router.get('/augmentedReality',isLoggedIn, function(req, res, next) {
+    // MongoDB.MongoClient.connect(arurl, function(err, db) {
+    //
+    //     if (err) {
+    //         console.log("conn error");
+    //     }
+    //     db.collection("ARmachine", function(err, machine) {
+    //         machine.find().toArray(function(err, result) {
+    //             if (err) {
+    //                 throw err;
+    //             } else {
+    //                 for (var i = 0; i < result.length; i++) {
+    //                     machines[i] = result[i];
+    //                 }
+    //
+    //                 app.get("/machines", function(request, response) {
+    //                     response.send(machines);
+    //                 });
+    //
+    //             }
+    //         });
+    //     });
+    //
+    // });
 
     res.render('augmentedReality/index', { title: 'Dependency',layout: 'layout/augmentedRealityLayout' });
 });
 
+console.log("RUNNNNNNN");
+MongoDB.MongoClient.connect(arurl, function(err, db) {
 
+    if (err) {
+        console.log("conn error");
+    }
+    db.collection("ARmachine", function(err, machine) {
+        machine.find().toArray(function(err, result) {
+            if (err) {
+                throw err;
+            } else {
+                for (var i = 0; i < result.length; i++) {
+                    machines[i] = result[i];
+                }
+
+
+
+
+            }
+        });
+    });
+
+});
+
+router.get("/machines", isLoggedIn,function(request, response) {
+    response.send(machines);
+});
 
 router.get('/register', isLoggedout,function (req, res, next) {
 

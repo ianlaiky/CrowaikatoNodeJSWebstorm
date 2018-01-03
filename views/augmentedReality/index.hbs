@@ -108,7 +108,8 @@
         ///Section: Get A list of Machines and their data From Server-side
         $(function() {
 
-            $.get('/machines', function(machines) {
+            $.get('/page/machines', function(machines) {
+                console.log(machines);
                 for (var i = 0; i < machines.length; i++) {
                     machineArr[i] = machines[i];
                 }
@@ -117,7 +118,7 @@
         });
 
         ///Section: WEBGLRENDERER
-        renderer.setClearColor(new THREE.Color('lightgrey'), 0)
+        renderer.setClearColor(new THREE.Color('lightgrey'), 0);
         renderer.setSize(window.innerWidth, window.innerHeight);
         renderer.domElement.style.position = 'absolute'
         renderer.domElement.style.left = '0px';
@@ -718,6 +719,8 @@
         function dataListener() {
             ///Section: Socket.io stuff
             socket.on('action', function(sphere) {
+                console.log("Socket Client==============");
+                console.log(sphere);
 
                 /*Do not display repeating data(i.e new data inserted must not be 
                 same as the previous data inserted)*/
@@ -726,9 +729,13 @@
                     //Source and Dest Ip addresses of Action
                     srcSph = sphere.o.src;
                     destSph = sphere.o.dest;
+
+
                     /*Barcode Values of the markers that represent the 
                     machines(source & dest) involved in the action*/
                     var srcVal = getVal(srcSph);
+
+                    console.log(srcVal);
                     var destVal = getVal(destSph);
                     //Get the team of machine that is source of the action
                     var srcTeam = getTeamVal(srcSph);
