@@ -27,7 +27,7 @@ function handleError(res, reason, message, code) {
 
 /* REST GET API. */
 // Locky
-router.get('/processes', function(req,res) {
+router.get('/processes', isLoggedIn,function(req,res) {
     Locky.findOne({}, 'scanTimestamp').sort('-scanTimestamp').exec(function (err, result) {
         if (err)
             return handleError(res, err.message, "Failed to get processes");
@@ -192,5 +192,15 @@ router.get('/indirectDependencies', function(req,res) {
         });
 });
 
+function isLoggedIn(req, res, next) {
+
+    if (req.isAuthenticated()) {
+
+        return next();
+    }
+    res.redirect("/")
+
+
+}
 
 module.exports = router;
