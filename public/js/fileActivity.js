@@ -164,17 +164,17 @@ function menuButonListener(){
 
  	var lockyBtn = document.getElementById( 'lockyBtn' );
  	lockyBtn.addEventListener( 'click', function ( event ) {
- 		 window.location.href = '/lockyAnalysis'
+ 		 window.location.href = '/page/lockyAnalysis'
  	}, false );
 
  	var processBtn = document.getElementById( 'processBtn' );
  	processBtn.addEventListener( 'click', function ( event ) {
- 		 window.location.href = '/process'
+ 		 window.location.href = '/page/process'
  	}, false );
 
  	var fileBtn = document.getElementById( 'fileBtn' );
  	fileBtn.addEventListener( 'click', function ( event ) {
- 		 window.location.href = '/fileActivity'
+ 		 window.location.href = '/page/fileActivity'
  	}, false );
 }
 /**
