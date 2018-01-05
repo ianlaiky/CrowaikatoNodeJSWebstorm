@@ -169,6 +169,7 @@ passport.use('local.signin', new LocalStrategy({
         connection.query("SELECT * FROM users WHERE username = ?", [emailAddress], function (err, rows) {
             console.log("Return login");
             console.log(rows);
+            console.log(rows[0].id);
             console.log(err);
             if (err) {
 
@@ -193,6 +194,7 @@ passport.use('local.signin', new LocalStrategy({
                 }]));
 
             }
+
 
             // if the user is found but the password is wrong
 
@@ -225,6 +227,7 @@ passport.use('local.signin', new LocalStrategy({
                 console.log("DECRUPT$ED TEST: " + dbfirstname);
 
                 var sessiontoSave = {
+                    uid:rows[0].id,
                     username: dbusername,
                     firstname: dbfirstname,
                     // lastname: dblastname,
