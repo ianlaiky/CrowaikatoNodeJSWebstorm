@@ -142,8 +142,13 @@ router.get('/register',function (req, res, next) {
 });
 
 router.get('/logout', function (req, res, next) {
-    req.logout();
-    res.redirect("/")
+    req.session.destroy(function(err) {
+        if (err){console.log(err)}
+        req.logout();
+        res.redirect("/")
+
+    })
+
 
 });
 
