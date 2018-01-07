@@ -144,6 +144,7 @@ router.get('/register',function (req, res, next) {
 router.get('/logout', function (req, res, next) {
     req.session.destroy(function(err) {
         if (err){console.log(err)}
+        res.clearCookie('connect.sid');
         req.logout();
         res.redirect("/")
 

@@ -18,6 +18,12 @@ router.get('/', function (req, res, next) {
     res.render('index', {layout: 'layout/layout',messages:messages,hasError:messages.length>0});
 });
 
+/* GET home page. */
+router.get('/error', function (req, res, next) {
+
+
+    res.render('error', {layout: 'layout/layout'});
+});
 
 //last
 
