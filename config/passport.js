@@ -225,6 +225,8 @@ passport.use('local.signin', new LocalStrategy({
 
 
                 console.log("DECRUPT$ED TEST: " + dbfirstname);
+                console.log("DECRUPT$ED TEST: " + dbusername);
+
 
                 var sessiontoSave = {
                     uid:rows[0].id,
@@ -249,6 +251,47 @@ passport.use('local.signin', new LocalStrategy({
                 req.session.useInfoo = sessiontoSave;
                 req.session.save();
 
+
+                console.log("SESSION ID");
+                console.log(req.session.id);
+                console.log(dbusername);
+
+                connection.query("SELECT * FROM usersession WHERE email = ?",[dbusername],(err,rowSessionGet)=>{
+                    if(err) console.log(err);
+                    console.log("SESSION ID GET FROM DB");
+                    console.log(rowSessionGet);
+
+                    if (rowSessionGet.length == 0){
+
+                        let insertQuery = "INSERT INTO usersession ( email, sessionId ) values (?,?)";
+                        connection.query(insertQuery, [dbusername.toString(),req.session.id.toString()],(err,insertedrow)=>{
+
+                            if (err)
+                                console.log(err);
+                            console.log("Inserted Row for sessiondb");
+                            console.log(insertedrow);
+
+                        });
+
+
+                    }else{
+
+                        let updatequery = "UPDATE usersession SET sessionId = ? WHERE email = ?";
+                        connection.query(updatequery,[req.session.id.toString(),dbusername.toString()],(err,modifiedRow)=>{
+                            if (err)
+                                console.log(err);
+                            console.log("modified Row for sessiondb");
+                            console.log(modifiedRow);
+
+
+                        });
+
+
+
+
+                    }
+
+                });
 
             });
 

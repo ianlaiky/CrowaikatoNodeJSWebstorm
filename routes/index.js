@@ -24,7 +24,11 @@ router.get('/error', function (req, res, next) {
 
     res.render('error', {layout: 'layout/layout'});
 });
+router.get('/errorSession', function (req, res, next) {
 
+
+    res.render('errorSession', {layout: 'layout/layout'});
+});
 //last
 
 router.get('*', function(req, res){

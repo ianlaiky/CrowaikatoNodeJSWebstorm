@@ -47,6 +47,7 @@ router.get('/home', isLoggedIn, function (req, res, next) {
     // console.log("First name ics :"+req.session.useInfoo);
 
     console.log("First name ics :" + req.session.useInfoo.firstname);
+    console.log("email ics :" + req.session.useInfoo.username);
     console.log("First name ics :" + req.session.useInfoo.uid);
     console.log("First name ics :" + req.session.id);
     // console.log("First name is :"+req.session.useInfoo);
@@ -57,52 +58,52 @@ router.get('/home', isLoggedIn, function (req, res, next) {
 });
 
 /* HOME PAGE */
-router.get('/visualisation', isLoggedIn,function(req, res, next) {
-    res.render('visualisation/index', { title: 'Visual Progger',layout: 'layout/visualisationlayout' });
+router.get('/visualisation', isLoggedIn, function (req, res, next) {
+    res.render('visualisation/index', {title: 'Visual Progger', layout: 'layout/visualisationlayout'});
 });
 
 // STATIC ANALYSIS
-router.get('/lockyAnalysis',isLoggedIn, function(req, res, next) {
-    res.render('visualisation/lockyAnalysis', { title: 'Locky Analysis',layout: 'layout/visualisationlayout' });
+router.get('/lockyAnalysis', isLoggedIn, function (req, res, next) {
+    res.render('visualisation/lockyAnalysis', {title: 'Locky Analysis', layout: 'layout/visualisationlayout'});
 });
 
 
 // REAL TIME PROCESS TRACKING
-router.get('/process',isLoggedIn, function(req, res, next) {
-    res.render('visualisation/process', { title: 'Process',layout: 'layout/visualisationlayout' });
+router.get('/process', isLoggedIn, function (req, res, next) {
+    res.render('visualisation/process', {title: 'Process', layout: 'layout/visualisationlayout'});
 });
 
 
 // REAL TIME (FILE ACTIVITY + DEPENDENCY)
-router.get('/fileActivity',isLoggedIn, function(req, res, next) {
-    res.render('visualisation/fileActivity', { title: 'File Activity',layout: 'layout/visualisationlayout' });
+router.get('/fileActivity', isLoggedIn, function (req, res, next) {
+    res.render('visualisation/fileActivity', {title: 'File Activity', layout: 'layout/visualisationlayout'});
 });
 
 // PERFORMANCE TESTING
-router.get('/performanceTesting',isLoggedIn, function(req, res, next) {
-    res.render('visualisation/performanceTesting', { title: 'PerformanceTesting' ,layout: 'layout/visualisationlayout'});
+router.get('/performanceTesting', isLoggedIn, function (req, res, next) {
+    res.render('visualisation/performanceTesting', {title: 'PerformanceTesting', layout: 'layout/visualisationlayout'});
 });
 
 // MOCK DATA (DEPENDENCY)
-router.get('/fileActivity/dependency',isLoggedIn, function(req, res, next) {
-    res.render('visualisation/dependency', { title: 'Dependency',layout: 'layout/visualisationlayout' });
+router.get('/fileActivity/dependency', isLoggedIn, function (req, res, next) {
+    res.render('visualisation/dependency', {title: 'Dependency', layout: 'layout/visualisationlayout'});
 });
 
 // Augmented reality
-router.get('/augmentedReality',isLoggedIn, function(req, res, next) {
+router.get('/augmentedReality', isLoggedIn, function (req, res, next) {
 
-    res.render('augmentedReality/index', { title: 'Dependency',layout: 'layout/augmentedRealityLayout' });
+    res.render('augmentedReality/index', {title: 'Dependency', layout: 'layout/augmentedRealityLayout'});
 });
 
 // For AR
 
-MongoDB.MongoClient.connect(arurl, function(err, db) {
+MongoDB.MongoClient.connect(arurl, function (err, db) {
 
     if (err) {
         console.log("conn error");
     }
-    db.collection("ARmachine", function(err, machine) {
-        machine.find().toArray(function(err, result) {
+    db.collection("ARmachine", function (err, machine) {
+        machine.find().toArray(function (err, result) {
             if (err) {
                 throw err;
             } else {
@@ -117,11 +118,11 @@ MongoDB.MongoClient.connect(arurl, function(err, db) {
 
 });
 
-router.get("/machines", isLoggedIn,function(request, response) {
+router.get("/machines", isLoggedIn, function (request, response) {
     response.send(machines);
 });
 
-router.get('/register',function (req, res, next) {
+router.get('/register', function (req, res, next) {
 
 
     var messages = req.flash('error');
@@ -142,8 +143,10 @@ router.get('/register',function (req, res, next) {
 });
 
 router.get('/logout', function (req, res, next) {
-    req.session.destroy(function(err) {
-        if (err){console.log(err)}
+    req.session.destroy(function (err) {
+        if (err) {
+            console.log(err)
+        }
         res.clearCookie('connect.sid');
         req.logout();
         res.redirect("/")
@@ -154,48 +157,44 @@ router.get('/logout', function (req, res, next) {
 });
 
 
-
-
-
 //last
 
-router.get('*', function(req, res){
+router.get('*', function (req, res) {
     res.redirect("/page/home")
 });
 
 
-
 // file uploader
 
-router.post('/lockyUpload', isLoggedIn,function(req, res){
+router.post('/lockyUpload', isLoggedIn, function (req, res) {
 
     console.log("Run");
-    console.log("use uid: "+req.session.useInfoo.uid);
+    console.log("use uid: " + req.session.useInfoo.uid);
 
     let currentFileID;
     let newFileID;
 
-    connection.query("SELECT MAX(fileNo) AS fileNo FROM fileupload WHERE uid = ?",req.session.useInfoo.uid.toString(),(err,row)=>{
+    connection.query("SELECT MAX(fileNo) AS fileNo FROM fileupload WHERE uid = ?", req.session.useInfoo.uid.toString(), (err, row) => {
 
         if (err)
-           throw err;
+            throw err;
         console.log("Retrieved data for file upload");
         console.log(row);
         console.log(row[0].fileNo);
 
-        row[0].fileNo==null?currentFileID=0:currentFileID=row[0].fileNo;
+        row[0].fileNo == null ? currentFileID = 0 : currentFileID = row[0].fileNo;
 
 
         console.log("TYTTYT");
         console.log(currentFileID);
-        newFileID=parseInt(currentFileID)+1;
+        newFileID = parseInt(currentFileID) + 1;
         console.log(newFileID);
 
 
         var insertQuery = "INSERT INTO fileupload ( uid, fileNo ) values (?,?)";
-        connection.query(insertQuery, [req.session.useInfoo.uid.toString(),newFileID],(err,insertrows)=>{
+        connection.query(insertQuery, [req.session.useInfoo.uid.toString(), newFileID], (err, insertrows) => {
             if (err)
-                throw err;
+                console.log(err);
             console.log("Insert Row for file upload");
             console.log(insertrows);
 
@@ -203,10 +202,7 @@ router.post('/lockyUpload', isLoggedIn,function(req, res){
         });
 
 
-
-
     });
-
 
 
     // create an incoming form object
@@ -220,25 +216,25 @@ router.post('/lockyUpload', isLoggedIn,function(req, res){
 
     // every time a file has been uploaded successfully,
     // rename it to it's orignal name
-    form.on('file', function(field, file) {
+    form.on('file', function (field, file) {
         console.log("File directory");
         console.log(form.uploadDir);
-        fs.rename(file.path, path.join(form.uploadDir, req.session.useInfoo.uid.toString()+"_"+newFileID+".txt"),err=>{
-            if(err) throw err;
+        fs.rename(file.path, path.join(form.uploadDir, req.session.useInfoo.uid.toString() + "_" + newFileID + ".txt"), err => {
+            if (err) throw err;
         });
     });
 
     // log any errors that occur
-    form.on('error', function(err) {
+    form.on('error', function (err) {
         console.log('An error has occured: \n' + err);
     });
 
     // once all the files have been uploaded, send a response to the client
-    form.on('end', function() {
+    form.on('end', function () {
         res.end('success');
     });
 
-    form.parse(req,(err, fields, files)=>{
+    form.parse(req, (err, fields, files) => {
         console.log(fields);
         console.log(files);
 
@@ -252,15 +248,30 @@ router.post('/lockyUpload', isLoggedIn,function(req, res){
 });
 
 
-
-
 function isLoggedIn(req, res, next) {
 
+
+    let currentSessionId;
+
     if (req.isAuthenticated()) {
+        console.log("Page check username & session");
+        console.log(req.session.useInfoo.username);
+
+
+        connection.query("SELECT * FROM usersession WHERE email = ?", [req.session.useInfoo.username.toString()], (err, retrievedRow) => {
+
+            if (err) console.log(err);
+            console.log("Retrieved row from the db; page load");
+            console.log(retrievedRow[0].sessionId);
+
+            //compare session
+
+
+        });
 
         return next();
     }
-    res.redirect("/")
+    res.redirect("/error")
 
 
 }
