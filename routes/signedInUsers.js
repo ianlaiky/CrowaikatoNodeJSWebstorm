@@ -265,13 +265,19 @@ function isLoggedIn(req, res, next) {
             console.log(retrievedRow[0].sessionId);
 
             //compare session
+            if (req.session.id.toString() == retrievedRow[0].sessionId.toString()) {
+                return next();
+            } else {
+                res.redirect("/errorSession")
+            }
 
 
         });
 
-        return next();
+
+    } else {
+        res.redirect("/error")
     }
-    res.redirect("/error")
 
 
 }
