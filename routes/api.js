@@ -28,7 +28,10 @@ function handleError(res, reason, message, code) {
 /* REST GET API. */
 // Locky
 router.get('/processes', isLoggedIn,function(req,res) {
-    Locky.findOne({}, 'scanTimestamp').sort('-scanTimestamp').exec(function (err, result) {
+
+    Locky.findOne({uid:"1",fileNo:"1"}, 'scanTimestamp').sort('-scanTimestamp').exec(function (err, result) {
+        console.log("HGHHJH");
+        console.log(result);
         if (err)
             return handleError(res, err.message, "Failed to get processes");
 
@@ -52,7 +55,7 @@ router.get('/processes', isLoggedIn,function(req,res) {
 // /processes/{RANK}
 router.get('/processes/:rank', function(req,res) {
     Locky
-        .findOne({"rank": parseInt(req.params.rank)}, '_id scanTimestamp procPath procName score rank')
+        .findOne({uid:"1",fileNo:"1","rank": parseInt(req.params.rank)}, '_id scanTimestamp procPath procName score rank')
         .sort('-scanTimestamp')
         .exec(function (err, result) {
         if (err)
@@ -69,7 +72,7 @@ router.get('/processes/:rank', function(req,res) {
 // /processes/{RANK}/files
 router.get('/processes/:rank/files', function(req,res) {
     Locky
-        .findOne({"rank": parseInt(req.params.rank)}, 'rank files')
+        .findOne({uid:"1",fileNo:"1","rank": parseInt(req.params.rank)}, 'rank files')
         .sort('-scanTimestamp')
         .exec(function (err, result) {
             if (err)
@@ -86,7 +89,7 @@ router.get('/processes/:rank/files', function(req,res) {
 // /processes/{RANK}/lines
 router.get('/processes/:rank/lines', function(req,res) {
     Lines
-        .findOne({"rank": parseInt(req.params.rank)}, 'rank lines')
+        .findOne({uid:"1",fileNo:"1","rank": parseInt(req.params.rank)}, 'rank lines')
         .sort('-scanTimestamp')
         .exec(function (err, result) {
             if (err)
@@ -103,7 +106,7 @@ router.get('/processes/:rank/lines', function(req,res) {
 // /processes/{RANK}/traversals
 router.get('/processes/:rank/traversals', function(req,res) {
     Locky
-        .findOne({"rank": parseInt(req.params.rank)}, 'rank traversals')
+        .findOne({uid:"1",fileNo:"1","rank": parseInt(req.params.rank)}, 'rank traversals')
         .sort('-scanTimestamp')
         .exec(function (err, result) {
             if (err)
@@ -120,7 +123,7 @@ router.get('/processes/:rank/traversals', function(req,res) {
 // /processes/{RANK}/libraries
 router.get('/processes/:rank/libraries', function(req,res) {
     Locky
-        .findOne({"rank": parseInt(req.params.rank)}, 'rank libraries')
+        .findOne({uid:"1",fileNo:"1","rank": parseInt(req.params.rank)}, 'rank libraries')
         .sort('-scanTimestamp')
         .exec(function (err, result) {
             if (err)

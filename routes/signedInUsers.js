@@ -67,8 +67,8 @@ router.get('/home', isLoggedIn, function (req, res, next) {
 
             }
             fileuploadInfo=rowRet;
-            // req.session.fileUplaodData = rowRet;
-            // req.session.save();
+            req.session.fileUploadData = rowRet;
+            req.session.save();
             res.render('page/home', {layout: 'layout/layout', firstname: req.session.useInfoo.firstname,fileUploadata:fileuploadInfo,fileuploadHasitem:fileuploadInfo.length!=0});
 
         }else{
@@ -288,7 +288,7 @@ router.post('/lockyUpload', isLoggedIn, function (req, res) {
 });
 
 router.post('/fileSelect',isLoggedIn,(req,res)=>{
-
+    console.log("Selected file");
     console.log(req.body.fileselection);
     if(req.body.fileselection==""){
         res.redirect("/error")
