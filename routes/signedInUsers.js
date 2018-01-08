@@ -191,15 +191,7 @@ router.post('/lockyUpload', isLoggedIn, function (req, res) {
         console.log(newFileID);
 
 
-        var insertQuery = "INSERT INTO fileupload ( uid, fileNo ) values (?,?)";
-        connection.query(insertQuery, [req.session.useInfoo.uid.toString(), newFileID], (err, insertrows) => {
-            if (err)
-                console.log(err);
-            console.log("Insert Row for file upload");
-            console.log(insertrows);
 
-
-        });
 
 
     });
@@ -217,6 +209,15 @@ router.post('/lockyUpload', isLoggedIn, function (req, res) {
     // every time a file has been uploaded successfully,
     // rename it to it's orignal name
     form.on('file', function (field, file) {
+        var insertQuery = "INSERT INTO fileupload ( uid, fileNo ) values (?,?)";
+        connection.query(insertQuery, [req.session.useInfoo.uid.toString(), newFileID], (err, insertrows) => {
+            if (err)
+                console.log(err);
+            console.log("Insert Row for file upload");
+            console.log(insertrows);
+
+
+        });
         console.log("File directory");
         console.log(form.uploadDir);
         fs.rename(file.path, path.join(form.uploadDir, req.session.useInfoo.uid.toString() + "_" + newFileID + ".txt"), err => {
