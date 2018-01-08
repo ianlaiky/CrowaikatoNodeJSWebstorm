@@ -5,6 +5,7 @@ let Schema = mongoose.Schema;
 
 let liveSchema = new Schema({
     _id: {type: String},
+
     scanId: {type: Number},
     counter: {type: Number},
     processes: {

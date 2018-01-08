@@ -352,7 +352,8 @@ passport.use('local.signup', new LocalStrategy({
 
         console.log(req.body);
         req.check('emailAddress', "Please enter a valid email").trim().notEmpty().isEmail();
-        req.check('password', 'Password should contain lower and uppercase with numbers').trim().matches(/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])[0-9a-zA-Z]{8,}$/, "i");
+        // (?=.*\d)(?=.*[a-z])(?=.*[A-Z])[0-9a-zA-Z]{8,}
+        req.check('password', 'Password should contain lower and uppercase with numbers').trim().matches(/^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*])(?=.{8,})/, "i");
         req.check('password_cfm', "Password is empty or do not match").trim().equals(req.body.password);
 
 

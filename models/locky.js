@@ -5,6 +5,8 @@ let Schema = mongoose.Schema;
 
 let processSchema = new Schema({
     _id: {type: String},
+    uid:{type:String},
+    fileNo:{type:String},
     scanTimestamp: {type: Number},
     procPath: {type: String},
     procName: {type: String},
