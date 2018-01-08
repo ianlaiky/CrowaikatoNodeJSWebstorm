@@ -160,6 +160,32 @@ router.get('/logout', function (req, res, next) {
 //last
 
 router.get('*', function (req, res) {
+// do the list
+    // connection.query("SELECT * FROM fileupload WHERE uid = ?",[req.session.useInfoo.uid.toString()],(err,rowRet)=>{
+    //
+    //
+    //    if (rowRet.length!=0){
+    //        let sessionToSave = {
+    //
+    //        }
+    //
+    //    }
+    //
+    //
+    // });
+
+
+
+
+
+
+
+
+
+
+
+
+
     res.redirect("/page/home")
 });
 
@@ -173,6 +199,7 @@ router.post('/lockyUpload', isLoggedIn, function (req, res) {
 
     let currentFileID;
     let newFileID;
+
 
     connection.query("SELECT MAX(fileNo) AS fileNo FROM fileupload WHERE uid = ?", req.session.useInfoo.uid.toString(), (err, row) => {
 
@@ -209,19 +236,25 @@ router.post('/lockyUpload', isLoggedIn, function (req, res) {
     // every time a file has been uploaded successfully,
     // rename it to it's orignal name
     form.on('file', function (field, file) {
-        var insertQuery = "INSERT INTO fileupload ( uid, fileNo ) values (?,?)";
-        connection.query(insertQuery, [req.session.useInfoo.uid.toString(), newFileID], (err, insertrows) => {
+        console.log("File anme save");
+        console.log(file.name);
+
+
+        var insertQuery = "INSERT INTO fileupload ( uid, fileNo,fileName ) values (?,?,?)";
+        connection.query(insertQuery, [req.session.useInfoo.uid.toString(), newFileID,file.name], (err, insertrows) => {
             if (err)
                 console.log(err);
+
             console.log("Insert Row for file upload");
             console.log(insertrows);
+
 
 
         });
         console.log("File directory");
         console.log(form.uploadDir);
         fs.rename(file.path, path.join(form.uploadDir, req.session.useInfoo.uid.toString() + "_" + newFileID + ".txt"), err => {
-            if (err) throw err;
+            if (err) console.log(err);
         });
     });
 
@@ -238,6 +271,8 @@ router.post('/lockyUpload', isLoggedIn, function (req, res) {
     form.parse(req, (err, fields, files) => {
         console.log(fields);
         console.log(files);
+
+
 
 
     });
