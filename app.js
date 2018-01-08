@@ -40,9 +40,9 @@ app.io = io;
 mongoose.Promise = Promise;
 
 // Connect to MongoDB
-mongoose.connect('mongodb://192.168.204.129:27017/visualprogger', function(err) {
-    if(err) throw err;
-});
+// mongoose.connect('mongodb://192.168.204.129:27017/visualprogger', function(err) {
+//     if(err) throw err;
+// });
 
 
 

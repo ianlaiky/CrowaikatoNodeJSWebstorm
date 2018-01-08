@@ -45,16 +45,42 @@ router.post('/loginBackend', passport.authenticate('local.signin', {
 router.get('/home', isLoggedIn, function (req, res, next) {
 
     // console.log("First name ics :"+req.session.useInfoo);
-
+    let fileuploadInfo=[];
     console.log("First name ics :" + req.session.useInfoo.firstname);
     console.log("email ics :" + req.session.useInfoo.username);
     console.log("First name ics :" + req.session.useInfoo.uid);
     console.log("First name ics :" + req.session.id);
     // console.log("First name is :"+req.session.useInfoo);
 
+    // do the list
+    connection.query("SELECT * FROM fileupload WHERE uid = ?",[req.session.useInfoo.uid.toString()],(err,rowRet)=>{
+
+        console.log("ROW FROM FILEUPLAOD: ");
+        console.log(rowRet);
+
+        if (rowRet.length!=0){
+
+            for(let i=0;i<rowRet.length;i++){
+                console.log(rowRet[i].uid);
+                console.log(rowRet[i].fileNo);
+                console.log(rowRet[i].fileName);
+
+            }
+            fileuploadInfo=rowRet;
+            // req.session.fileUplaodData = rowRet;
+            // req.session.save();
+            res.render('page/home', {layout: 'layout/layout', firstname: req.session.useInfoo.firstname,fileUploadata:fileuploadInfo,fileuploadHasitem:fileuploadInfo.length!=0});
+
+        }else{
+            res.render('page/home', {layout: 'layout/layout', firstname: req.session.useInfoo.firstname,fileUploadata:fileuploadInfo,fileuploadHasitem:fileuploadInfo.length!=0});
+
+        }
+
+
+    });
+
 
     // res.render('index', { title: 'Express' });
-    res.render('page/home', {layout: 'layout/layout', firstname: req.session.useInfoo.firstname});
 });
 
 /* HOME PAGE */
@@ -160,28 +186,6 @@ router.get('/logout', function (req, res, next) {
 //last
 
 router.get('*', function (req, res) {
-// do the list
-    // connection.query("SELECT * FROM fileupload WHERE uid = ?",[req.session.useInfoo.uid.toString()],(err,rowRet)=>{
-    //
-    //
-    //    if (rowRet.length!=0){
-    //        let sessionToSave = {
-    //
-    //        }
-    //
-    //    }
-    //
-    //
-    // });
-
-
-
-
-
-
-
-
-
 
 
 
@@ -283,6 +287,18 @@ router.post('/lockyUpload', isLoggedIn, function (req, res) {
 
 });
 
+router.post('/fileSelect',isLoggedIn,(req,res)=>{
+
+    console.log(req.body.fileselection);
+    if(req.body.fileselection==""){
+        res.redirect("/error")
+    }else{
+        console.log("UHHHH");
+        res.redirect("/page/lockyAnalysis")
+    }
+
+
+});
 
 function isLoggedIn(req, res, next) {
 
