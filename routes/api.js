@@ -28,6 +28,10 @@ function handleError(res, reason, message, code) {
 /* REST GET API. */
 // Locky
 router.get('/processes', isLoggedIn,function(req,res) {
+    console.log("SESSION GET FILE LOCKY");
+    console.log(req.session.fileSelectedFileNo);
+    console.log(req.session.useInfoo.uid);
+
 
     Locky.findOne({uid:"1",fileNo:"1"}, 'scanTimestamp').sort('-scanTimestamp').exec(function (err, result) {
         console.log("HGHHJH");

@@ -45,7 +45,7 @@ router.post('/loginBackend', passport.authenticate('local.signin', {
 router.get('/home', isLoggedIn, function (req, res, next) {
 
     // console.log("First name ics :"+req.session.useInfoo);
-    let fileuploadInfo=[];
+    let fileuploadInfo = [];
     console.log("First name ics :" + req.session.useInfoo.firstname);
     console.log("email ics :" + req.session.useInfoo.username);
     console.log("First name ics :" + req.session.useInfoo.uid);
@@ -53,26 +53,36 @@ router.get('/home', isLoggedIn, function (req, res, next) {
     // console.log("First name is :"+req.session.useInfoo);
 
     // do the list
-    connection.query("SELECT * FROM fileupload WHERE uid = ?",[req.session.useInfoo.uid.toString()],(err,rowRet)=>{
+    connection.query("SELECT * FROM fileupload WHERE uid = ?", [req.session.useInfoo.uid.toString()], (err, rowRet) => {
 
         console.log("ROW FROM FILEUPLAOD: ");
         console.log(rowRet);
 
-        if (rowRet.length!=0){
+        if (rowRet.length != 0) {
 
-            for(let i=0;i<rowRet.length;i++){
+            for (let i = 0; i < rowRet.length; i++) {
                 console.log(rowRet[i].uid);
                 console.log(rowRet[i].fileNo);
                 console.log(rowRet[i].fileName);
 
             }
-            fileuploadInfo=rowRet;
+            fileuploadInfo = rowRet;
             req.session.fileUploadData = rowRet;
             req.session.save();
-            res.render('page/home', {layout: 'layout/layout', firstname: req.session.useInfoo.firstname,fileUploadata:fileuploadInfo,fileuploadHasitem:fileuploadInfo.length!=0});
+            res.render('page/home', {
+                layout: 'layout/layout',
+                firstname: req.session.useInfoo.firstname,
+                fileUploadata: fileuploadInfo,
+                fileuploadHasitem: fileuploadInfo.length != 0
+            });
 
-        }else{
-            res.render('page/home', {layout: 'layout/layout', firstname: req.session.useInfoo.firstname,fileUploadata:fileuploadInfo,fileuploadHasitem:fileuploadInfo.length!=0});
+        } else {
+            res.render('page/home', {
+                layout: 'layout/layout',
+                firstname: req.session.useInfoo.firstname,
+                fileUploadata: fileuploadInfo,
+                fileuploadHasitem: fileuploadInfo.length != 0
+            });
 
         }
 
@@ -82,6 +92,12 @@ router.get('/home', isLoggedIn, function (req, res, next) {
 
     // res.render('index', { title: 'Express' });
 });
+
+// PERFORMANCE TESTING
+router.get('/adminConsole', isLoggedInAdmin, function (req, res, next) {
+    res.render('page/adminConsole', {layout: 'layout/layout'});
+});
+
 
 /* HOME PAGE */
 router.get('/visualisation', isLoggedIn, function (req, res, next) {
@@ -183,11 +199,10 @@ router.get('/logout', function (req, res, next) {
 });
 
 
+
 //last
 
 router.get('*', function (req, res) {
-
-
 
 
     res.redirect("/page/home")
@@ -222,9 +237,6 @@ router.post('/lockyUpload', isLoggedIn, function (req, res) {
         console.log(newFileID);
 
 
-
-
-
     });
 
 
@@ -245,13 +257,12 @@ router.post('/lockyUpload', isLoggedIn, function (req, res) {
 
 
         var insertQuery = "INSERT INTO fileupload ( uid, fileNo,fileName ) values (?,?,?)";
-        connection.query(insertQuery, [req.session.useInfoo.uid.toString(), newFileID,file.name], (err, insertrows) => {
+        connection.query(insertQuery, [req.session.useInfoo.uid.toString(), newFileID, file.name], (err, insertrows) => {
             if (err)
                 console.log(err);
 
             console.log("Insert Row for file upload");
             console.log(insertrows);
-
 
 
         });
@@ -277,8 +288,6 @@ router.post('/lockyUpload', isLoggedIn, function (req, res) {
         console.log(files);
 
 
-
-
     });
 
 
@@ -287,44 +296,106 @@ router.post('/lockyUpload', isLoggedIn, function (req, res) {
 
 });
 
-router.post('/fileSelect',isLoggedIn,(req,res)=>{
+router.post('/fileSelect', isLoggedIn, (req, res) => {
     console.log("Selected file");
     console.log(req.body.fileselection);
-    if(req.body.fileselection==""){
+    if (req.body.fileselection == "") {
         res.redirect("/error")
-    }else{
-        console.log("UHHHH");
+    } else {
+
+
+        req.session.fileSelectedFileNo = req.body.fileselection;
+        req.session.save();
         res.redirect("/page/lockyAnalysis")
     }
 
 
 });
 
+function isLoggedInAdmin(req, res, next) {
+
+console.log("admin cehck print");
+console.log(req.session.useInfoo.userrole.toString());
+
+
+    if (req.isAuthenticated()) {
+
+
+        if (req.session.useInfoo.userrole.toString() == "admin") {
+            console.log("Page check username & session");
+            console.log(req.session.useInfoo.username);
+
+
+            connection.query("SELECT * FROM usersession WHERE email = ?", [req.session.useInfoo.username.toString()], (err, retrievedRow) => {
+
+                if (err) console.log(err);
+                console.log("Retrieved row from the db; page load");
+                console.log(retrievedRow[0].sessionId);
+
+                //compare session
+                if (req.session.id.toString() == retrievedRow[0].sessionId.toString()) {
+                    return next();
+                } else {
+                    res.redirect("/errorSession")
+                }
+
+
+            });
+
+
+        } else {
+            res.redirect("/error")
+        }
+
+
+    } else {
+        res.redirect("/error")
+    }
+
+
+}
+
 function isLoggedIn(req, res, next) {
 
 
-    let currentSessionId;
 
     if (req.isAuthenticated()) {
-        console.log("Page check username & session");
-        console.log(req.session.useInfoo.username);
 
 
-        connection.query("SELECT * FROM usersession WHERE email = ?", [req.session.useInfoo.username.toString()], (err, retrievedRow) => {
 
-            if (err) console.log(err);
-            console.log("Retrieved row from the db; page load");
-            console.log(retrievedRow[0].sessionId);
-
-            //compare session
-            if (req.session.id.toString() == retrievedRow[0].sessionId.toString()) {
-                return next();
-            } else {
-                res.redirect("/errorSession")
-            }
+        if (req.session.useInfoo.userrole.toString() == "member") {
 
 
-        });
+            console.log("Page check username & session");
+            console.log(req.session.useInfoo.username);
+
+
+            connection.query("SELECT * FROM usersession WHERE email = ?", [req.session.useInfoo.username.toString()], (err, retrievedRow) => {
+
+                if (err) console.log(err);
+                console.log("Retrieved row from the db; page load");
+                console.log(retrievedRow[0].sessionId);
+
+                //compare session
+                if (req.session.id.toString() == retrievedRow[0].sessionId.toString()) {
+                    return next();
+                } else {
+                    res.redirect("/errorSession")
+                }
+
+
+            });
+
+
+
+        }else{
+            res.redirect("/error")
+        }
+
+
+
+
+
 
 
     } else {

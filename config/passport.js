@@ -195,6 +195,9 @@ passport.use('local.signin', new LocalStrategy({
 
             }
 
+            console.log("Print row from user db");
+            console.log(rows);
+            console.log(rows[0].roles);
 
             // if the user is found but the password is wrong
 
@@ -232,6 +235,7 @@ passport.use('local.signin', new LocalStrategy({
                     uid:rows[0].id,
                     username: dbusername,
                     firstname: dbfirstname,
+                    userrole:rows[0].roles
                     // lastname: dblastname,
                     // jobtitle: dbjobtitle,
                     // company: dbcompany,
@@ -435,9 +439,9 @@ passport.use('local.signup', new LocalStrategy({
                         password: bcrypt.hashSync(password, null, null)  // use the generateHash function in our user model
                     };
 
-                    var insertQuery = "INSERT INTO users ( username, password ) values (?,?)";
+                    var insertQuery = "INSERT INTO users ( username, password, roles) values (?,?,?)";
 
-                    connection.query(insertQuery, [newUserMysql.username, newUserMysql.password], function (err, rows) {
+                    connection.query(insertQuery, [newUserMysql.username, newUserMysql.password, "member"], function (err, rows) {
                         console.log("====");
                         console.log(newUserMysql.username);
                         console.log(newUserMysql.password);
