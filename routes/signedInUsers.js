@@ -35,11 +35,26 @@ router.post("/registerForm", passport.authenticate('local.signup', {
 
 router.post('/loginBackend', passport.authenticate('local.signin', {
 
-    successRedirect: '/page/home', // redirect to the secure profile section
+    // successRedirect: '/page/home', // redirect to the secure profile section
     failureRedirect: '/', // redirect back to the signup page if there is an error
     failureFlash: true // allow flash messages
 
-}));
+}),(req,res)=>{
+    console.log("Switch roles running");
+
+
+    if (req.session.useInfoo.userrole.toString()=="admin"){
+        res.redirect("/page/adminConsole")
+    }else{
+        res.redirect("/page/home")
+
+    }
+
+
+
+
+
+});
 
 /* GET users listing. */
 router.get('/home', isLoggedIn, function (req, res, next) {
@@ -58,8 +73,6 @@ router.get('/home', isLoggedIn, function (req, res, next) {
         console.log("ROW FROM FILEUPLAOD: ");
         console.log(rowRet);
 
-        if (rowRet.length != 0) {
-
             for (let i = 0; i < rowRet.length; i++) {
                 console.log(rowRet[i].uid);
                 console.log(rowRet[i].fileNo);
@@ -76,15 +89,7 @@ router.get('/home', isLoggedIn, function (req, res, next) {
                 fileuploadHasitem: fileuploadInfo.length != 0
             });
 
-        } else {
-            res.render('page/home', {
-                layout: 'layout/layout',
-                firstname: req.session.useInfoo.firstname,
-                fileUploadata: fileuploadInfo,
-                fileuploadHasitem: fileuploadInfo.length != 0
-            });
 
-        }
 
 
     });
@@ -95,7 +100,7 @@ router.get('/home', isLoggedIn, function (req, res, next) {
 
 // PERFORMANCE TESTING
 router.get('/adminConsole', isLoggedInAdmin, function (req, res, next) {
-    res.render('page/adminConsole', {layout: 'layout/layout'});
+    res.render('page/adminConsole', {layout: 'layout/layout',firstname: req.session.useInfoo.firstname});
 });
 
 

@@ -275,6 +275,9 @@ passport.use('local.signin', new LocalStrategy({
                             console.log("Inserted Row for sessiondb");
                             console.log(insertedrow);
 
+                            console.log("Login validation done");
+                            return done(null, rows[0]);
+
                         });
 
 
@@ -286,7 +289,8 @@ passport.use('local.signin', new LocalStrategy({
                                 console.log(err);
                             console.log("modified Row for sessiondb");
                             console.log(modifiedRow);
-
+                            console.log("Login validation done");
+                            return done(null, rows[0]);
 
                         });
 
@@ -299,8 +303,8 @@ passport.use('local.signin', new LocalStrategy({
 
             });
 
-
-            return done(null, rows[0]);
+        //     console.log("Login validation done");
+        //     return done(null, rows[0]);
         });
 
     }
