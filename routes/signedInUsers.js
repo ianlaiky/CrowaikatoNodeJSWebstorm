@@ -39,19 +39,30 @@ router.post('/loginBackend', passport.authenticate('local.signin', {
     failureRedirect: '/', // redirect back to the signup page if there is an error
     failureFlash: true // allow flash messages
 
-}),(req,res)=>{
+}), (req, res) => {
     console.log("Switch roles running");
 
 
-    if (req.session.useInfoo.userrole.toString()=="admin"){
+    if (req.session.useInfoo.userrole.toString() == "admin") {
         res.redirect("/page/adminConsole?sortBy=year&year=2018")
-    }else{
-        res.redirect("/page/home")
+    } else {
 
+        let insertQueryLog = "INSERT INTO userlog ( year, month, date, day, mode ) values (?,?,?,?,?)";
+        let now = new Date();
+        let saveYear = now.getFullYear();
+        let saveMonth = now.getMonth() + 1;
+        let saveDate = now.getDate();
+        let saveDay = now.getDay();
+        let saveMode = "login";
+
+
+        connection.query(insertQueryLog, [saveYear.toString(), saveMonth.toString(), saveDate.toString(), saveDay.toString(), saveMode.toString()], (err, insertedLog) => {
+            if (err) console.log(err);
+            console.log("Logs inserted");
+            console.log(insertedLog);
+            res.redirect("/page/home")
+        });
     }
-
-
-
 
 
 });
@@ -73,23 +84,21 @@ router.get('/home', isLoggedIn, function (req, res, next) {
         console.log("ROW FROM FILEUPLAOD: ");
         console.log(rowRet);
 
-            for (let i = 0; i < rowRet.length; i++) {
-                console.log(rowRet[i].uid);
-                console.log(rowRet[i].fileNo);
-                console.log(rowRet[i].fileName);
+        for (let i = 0; i < rowRet.length; i++) {
+            console.log(rowRet[i].uid);
+            console.log(rowRet[i].fileNo);
+            console.log(rowRet[i].fileName);
 
-            }
-            fileuploadInfo = rowRet;
-            req.session.fileUploadData = rowRet;
-            req.session.save();
-            res.render('page/home', {
-                layout: 'layout/layout',
-                firstname: req.session.useInfoo.firstname,
-                fileUploadata: fileuploadInfo,
-                fileuploadHasitem: fileuploadInfo.length != 0
-            });
-
-
+        }
+        fileuploadInfo = rowRet;
+        req.session.fileUploadData = rowRet;
+        req.session.save();
+        res.render('page/home', {
+            layout: 'layout/layout',
+            firstname: req.session.useInfoo.firstname,
+            fileUploadata: fileuploadInfo,
+            fileuploadHasitem: fileuploadInfo.length != 0
+        });
 
 
     });
@@ -105,20 +114,30 @@ router.get('/adminConsole', isLoggedInAdmin, function (req, res, next) {
     console.log(req.query.year);
 
 
+    if (req.query.sortBy.toString() == "year") {
 
-    if(req.query.sortBy.toString()=="year"){
+        let monthsMaplogin = [0,0,0,0,0,0,0,0,0,0,0,0];
+        let monthsMapregister = [0,0,0,0,0,0,0,0,0,0,0,0];
+        let monthsLabel = ["'January'", "'February'", "'March'", "'April'", "'May'", "'June'", "'July'", "'August'", "'September'", "'October'", "'November'", "'December'"];
 
-        let monthsMap = {1:0,2:0,3:0,4:0,5:0,6:0,7:0,8:0,9:0,10:0,11:0,12:0};
+        connection.query("Select * from userlog where year = ?", [req.query.year.toString()], (err, logsRet) => {
 
-        connection.query("Select * from userlog where year = ?",[req.query.year.toString()],(err,logsRet)=>{
+            console.log(logsRet);
+            for (let i = 0; i < logsRet.length; i++) {
+                console.log("Print");
+                console.log(logsRet[i].month);
+                if(logsRet[i].mode.toString()=="login"){
+                    monthsMaplogin[logsRet[i].month-1] = monthsMaplogin[logsRet[i].month-1] + 1;
 
-           console.log(logsRet);
-           for (let i =0;i<logsRet.length;i++){
-               console.log("Print");
-               console.log(logsRet[i].month);
-               monthsMap[logsRet[i].month]=monthsMap[logsRet[i].month]+1;
-           }
-           console.log(monthsMap);
+                }else{
+                    monthsMapregister[logsRet[i].month-1] = monthsMapregister[logsRet[i].month-1] + 1;
+
+                }
+            }
+            console.log(monthsMaplogin);
+            console.log(monthsMapregister);
+            console.log(monthsLabel);
+            res.render('page/adminConsole', {layout: 'layout/layout', firstname: req.session.useInfoo.firstname,graphLabel:monthsLabel,graphData1:monthsMaplogin,graphData2:monthsMapregister});
 
         });
 
@@ -128,8 +147,9 @@ router.get('/adminConsole', isLoggedInAdmin, function (req, res, next) {
 
     }
 
+//comment this out later
+//     res.render('page/adminConsole', {layout: 'layout/layout', firstname: req.session.useInfoo.firstname,graphLabel:monthsLabel,graphData1:monthsMaplogin,graphData2:monthsMapregister});
 
-    res.render('page/adminConsole', {layout: 'layout/layout',firstname: req.session.useInfoo.firstname});
 });
 
 
@@ -231,7 +251,6 @@ router.get('/logout', function (req, res, next) {
 
 
 });
-
 
 
 //last
@@ -348,8 +367,8 @@ router.post('/fileSelect', isLoggedIn, (req, res) => {
 
 function isLoggedInAdmin(req, res, next) {
 
-console.log("admin cehck print");
-console.log(req.session.useInfoo.userrole.toString());
+    console.log("admin cehck print");
+    console.log(req.session.useInfoo.userrole.toString());
 
 
     if (req.isAuthenticated()) {
@@ -392,9 +411,7 @@ console.log(req.session.useInfoo.userrole.toString());
 function isLoggedIn(req, res, next) {
 
 
-
     if (req.isAuthenticated()) {
-
 
 
         if (req.session.useInfoo.userrole.toString() == "member") {
@@ -421,15 +438,9 @@ function isLoggedIn(req, res, next) {
             });
 
 
-
-        }else{
+        } else {
             res.redirect("/error")
         }
-
-
-
-
-
 
 
     } else {

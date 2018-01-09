@@ -102,16 +102,16 @@
 
         // The data for our dataset
         data: {
-            labels: ["January", "February", "March", "April", "May", "June", "July"],
+            labels: [{{{graphLabel}}}],
             datasets: [{
-                label: "My First dataset",
+                label: "Login",
                 borderColor: 'rgb(255, 99, 132)',
-                data: [0, 10, 5, 2, 20, 30, 15],
+                data: [{{graphData1}}],
                 fill:false
             },{
-                label: "My second dataset",
+                label: "Register",
                 borderColor: 'rgb(0, 191, 255)',
-                data: [10, 5, 51, 12, 210, 310, 115],
+                data: [{{graphData2}}],
                 fill:false
             }]
         },

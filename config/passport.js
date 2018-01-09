@@ -266,19 +266,6 @@ passport.use('local.signin', new LocalStrategy({
                     console.log(rowSessionGet);
 
 
-                    let insertQueryLog = "INSERT INTO userlog ( year, month, date, day, mode ) values (?,?,?,?,?)";
-                    let now = new Date();
-                    let saveYear = now.getFullYear();
-                    let saveMonth = now.getMonth() + 1;
-                    let saveDate = now.getDate();
-                    let saveDay = now.getDay();
-                    let saveMode = "login";
-
-
-                    connection.query(insertQueryLog, [saveYear.toString(), saveMonth.toString(), saveDate.toString(), saveDay.toString(), saveMode.toString()], (err, insertedLog) => {
-                        if (err) console.log(err);
-                        console.log("Logs inserted");
-                        console.log(insertedLog);
 
 
                         if (rowSessionGet.length == 0) {
@@ -311,7 +298,7 @@ passport.use('local.signin', new LocalStrategy({
                             });
 
                         }
-                    });
+
                 });
 
             });
