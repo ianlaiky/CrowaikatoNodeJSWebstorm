@@ -130,7 +130,14 @@ app.use(function (err, req, res, next) {
     res.status(err.status || 500);
     res.render('error');
 });
-
+// var now = new Date();
+//
+//
+//
+// console.log(now.getFullYear());
+// console.log(now.getMonth()+1);
+// console.log(now.getDate());
+// console.log(now.getDay());
 
 
 

@@ -44,7 +44,7 @@ router.post('/loginBackend', passport.authenticate('local.signin', {
 
 
     if (req.session.useInfoo.userrole.toString()=="admin"){
-        res.redirect("/page/adminConsole")
+        res.redirect("/page/adminConsole?sortBy=year&year=2018")
     }else{
         res.redirect("/page/home")
 
@@ -100,6 +100,35 @@ router.get('/home', isLoggedIn, function (req, res, next) {
 
 // PERFORMANCE TESTING
 router.get('/adminConsole', isLoggedInAdmin, function (req, res, next) {
+    console.log("testing adminconsole param get");
+    console.log(req.query.sortBy);
+    console.log(req.query.year);
+
+
+
+    if(req.query.sortBy.toString()=="year"){
+
+        let monthsMap = {1:0,2:0,3:0,4:0,5:0,6:0,7:0,8:0,9:0,10:0,11:0,12:0};
+
+        connection.query("Select * from userlog where year = ?",[req.query.year.toString()],(err,logsRet)=>{
+
+           console.log(logsRet);
+           for (let i =0;i<logsRet.length;i++){
+               console.log("Print");
+               console.log(logsRet[i].month);
+               monthsMap[logsRet[i].month]=monthsMap[logsRet[i].month]+1;
+           }
+           console.log(monthsMap);
+
+        });
+
+        // for(let i=1;i<13;i++){
+        //
+        // }
+
+    }
+
+
     res.render('page/adminConsole', {layout: 'layout/layout',firstname: req.session.useInfoo.firstname});
 });
 

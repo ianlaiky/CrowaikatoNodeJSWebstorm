@@ -232,10 +232,10 @@ passport.use('local.signin', new LocalStrategy({
 
 
                 var sessiontoSave = {
-                    uid:rows[0].id,
+                    uid: rows[0].id,
                     username: dbusername,
                     firstname: dbfirstname,
-                    userrole:rows[0].roles
+                    userrole: rows[0].roles
                     // lastname: dblastname,
                     // jobtitle: dbjobtitle,
                     // company: dbcompany,
@@ -260,51 +260,64 @@ passport.use('local.signin', new LocalStrategy({
                 console.log(req.session.id);
                 console.log(dbusername);
 
-                connection.query("SELECT * FROM usersession WHERE email = ?",[dbusername],(err,rowSessionGet)=>{
-                    if(err) console.log(err);
+                connection.query("SELECT * FROM usersession WHERE email = ?", [dbusername], (err, rowSessionGet) => {
+                    if (err) console.log(err);
                     console.log("SESSION ID GET FROM DB");
                     console.log(rowSessionGet);
 
-                    if (rowSessionGet.length == 0){
 
-                        let insertQuery = "INSERT INTO usersession ( email, sessionId ) values (?,?)";
-                        connection.query(insertQuery, [dbusername.toString(),req.session.id.toString()],(err,insertedrow)=>{
-
-                            if (err)
-                                console.log(err);
-                            console.log("Inserted Row for sessiondb");
-                            console.log(insertedrow);
-
-                            console.log("Login validation done");
-                            return done(null, rows[0]);
-
-                        });
+                    let insertQueryLog = "INSERT INTO userlog ( year, month, date, day, mode ) values (?,?,?,?,?)";
+                    let now = new Date();
+                    let saveYear = now.getFullYear();
+                    let saveMonth = now.getMonth() + 1;
+                    let saveDate = now.getDate();
+                    let saveDay = now.getDay();
+                    let saveMode = "login";
 
 
-                    }else{
-
-                        let updatequery = "UPDATE usersession SET sessionId = ? WHERE email = ?";
-                        connection.query(updatequery,[req.session.id.toString(),dbusername.toString()],(err,modifiedRow)=>{
-                            if (err)
-                                console.log(err);
-                            console.log("modified Row for sessiondb");
-                            console.log(modifiedRow);
-                            console.log("Login validation done");
-                            return done(null, rows[0]);
-
-                        });
+                    connection.query(insertQueryLog, [saveYear.toString(), saveMonth.toString(), saveDate.toString(), saveDay.toString(), saveMode.toString()], (err, insertedLog) => {
+                        if (err) console.log(err);
+                        console.log("Logs inserted");
+                        console.log(insertedLog);
 
 
+                        if (rowSessionGet.length == 0) {
+
+                            let insertQuery = "INSERT INTO usersession ( email, sessionId ) values (?,?)";
+                            connection.query(insertQuery, [dbusername.toString(), req.session.id.toString()], (err, insertedrow) => {
+
+                                if (err)
+                                    console.log(err);
+                                console.log("Inserted Row for sessiondb");
+                                console.log(insertedrow);
+
+                                console.log("Login validation done");
+                                return done(null, rows[0]);
+
+                            });
 
 
-                    }
+                        } else {
 
+                            let updatequery = "UPDATE usersession SET sessionId = ? WHERE email = ?";
+                            connection.query(updatequery, [req.session.id.toString(), dbusername.toString()], (err, modifiedRow) => {
+                                if (err)
+                                    console.log(err);
+                                console.log("modified Row for sessiondb");
+                                console.log(modifiedRow);
+                                console.log("Login validation done");
+                                return done(null, rows[0]);
+
+                            });
+
+                        }
+                    });
                 });
 
             });
 
-        //     console.log("Login validation done");
-        //     return done(null, rows[0]);
+            //     console.log("Login validation done");
+            //     return done(null, rows[0]);
         });
 
     }
@@ -489,17 +502,41 @@ passport.use('local.signup', new LocalStrategy({
 
                         connection.query(insertQueryinfo, [req.body.emailAddress, encryptedRetriencryptedRvedfirstName, encryptedRetriedlastName, encryptedRetrievedjobtitle, encryptedRetrievedinstitution, encryptedRetrievedcountryName, encryptedRetrievedstate, encryptedRetverievedcityName, encryptedRetrievedzipcode, encryptedRetrievedinputAddress, encryptedRetrievedphoneNumber, encryptedRetrievedfaxNumber, encryptedRetrievedworkSector, encryptedRetrievedjobFunction, encryptedRetrievedexampleRadios], function (err, userRow) {
 
+
+
                             console.log(userRow);
                             console.log(err);
 
 
                             console.log(userRow);
 
+                            let insertQueryLogReg = "INSERT INTO userlog ( year, month, date, day, mode ) values (?,?,?,?,?)";
+                            let now = new Date();
+                            let saveYear = now.getFullYear();
+                            let saveMonth = now.getMonth() + 1;
+                            let saveDate = now.getDate();
+                            let saveDay = now.getDay();
+                            let saveMode = "register";
+
+                            connection.query(insertQueryLogReg,[saveYear.toString(), saveMonth.toString(), saveDate.toString(), saveDay.toString(), saveMode.toString()],(err,insertRegLogRow)=>{
+                                if (err) console.log(err);
+                                console.log("register logged");
+                                console.log(insertRegLogRow);
+
+
+
+                                newUserMysql.id = rows.insertId;
+                                req.session.success = true;
+
+                                return done(null, newUserMysql);
+                            });
+
+
+
+
                         });
 
-                        newUserMysql.id = rows.insertId;
-                        req.session.success = true;
-                        return done(null, newUserMysql);
+
                     });
                 }
             });
