@@ -101,8 +101,8 @@
 
                    <div class="panel-body">
                        <label>Sort by: </label>
-                       <select class="form-control" name="sortBy">
-
+                       <select id="sortBy" class="form-control" name="sortBy" onchange="myFunction()" required>
+                           <option value="">Select a option</option>
                            <option value="year">Year</option>
                            <option value="month">Month</option>
                        </select>
@@ -113,7 +113,7 @@
 
 
                    </div>
-                   <div id="monthSelect" class="panel-body">
+                   <div id="monthSelect" class="panel-body monthdisplay" style="visibility: hidden">
                        <label>Select Month: </label>
                        <input name="month" class="form-control" type="text" id="datepickermonth">
 
@@ -188,11 +188,21 @@ function myFunction(){
 
 
     console.log("rer");
-    let year = document.getElementById("datepickeryears").value;
-    let month = document.getElementById("monthSelect").value;
+    let selection = document.getElementById("sortBy").value;
 
 
-    console.log(new Date(parseInt(year), parseInt(month),0).getDate());
+    if(selection.toString()=="month"){
+        document.getElementById("monthSelect").style.visibility="visible";
+    }else{
+        document.getElementById("monthSelect").style.visibility="hidden";
+
+    }
+    
+    
+
+console.log(selection)
+
+
 }
 
 

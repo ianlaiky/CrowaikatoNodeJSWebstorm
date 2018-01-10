@@ -146,13 +146,16 @@ router.get('/adminConsole', isLoggedInAdmin, function (req, res, next) {
         // }
 
     }else if(req.query.sortBy.toString() == "month"){
+        let monthsLabelIndex = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+
 
 
         console.log(req.query.year);
-        console.log(req.query.month);
+        console.log(monthsLabelIndex.indexOf(req.query.month)+1);
 
         // days in the month
-        let noOfDaysInMonth = new Date(parseInt(req.query.year), parseInt(req.query.month),0).getDate();
+        let noOfDaysInMonth = new Date(parseInt(req.query.year), parseInt(parseInt(monthsLabelIndex.indexOf(req.query.month))+1),0).getDate();
+        let monthN = parseInt(parseInt(monthsLabelIndex.indexOf(req.query.month))+1);
         console.log(noOfDaysInMonth);
         //
         let arrayOfDaysLogin = [];
@@ -169,17 +172,17 @@ router.get('/adminConsole', isLoggedInAdmin, function (req, res, next) {
         console.log("no of days in the month"+noOfDaysInMonth);
         console.log("Length of array"+arrayOfDaysLogin.length);
 
-        connection.query("Select * from userlog where year = ? and month = ?", [req.query.year.toString(),req.query.month.toString()], (err, logsRet) => {
+        connection.query("Select * from userlog where year = ? and month = ?", [req.query.year.toString(),monthN.toString()], (err, logsRet) => {
 
             console.log(logsRet);
             for (let i = 0; i < logsRet.length; i++) {
                 console.log("Print");
                 console.log(logsRet[i].month);
                 if(logsRet[i].mode.toString()=="login"){
-                    arrayOfDaysLogin[logsRet[i].day-1] = arrayOfDaysLogin[logsRet[i].day-1] + 1;
+                    arrayOfDaysLogin[logsRet[i].date-1] = arrayOfDaysLogin[logsRet[i].date-1] + 1;
 
                 }else{
-                    arrayOfDaysRegister[logsRet[i].day-1] = arrayOfDaysRegister[logsRet[i].day-1] + 1;
+                    arrayOfDaysRegister[logsRet[i].date-1] = arrayOfDaysRegister[logsRet[i].date-1] + 1;
 
                 }
             }
