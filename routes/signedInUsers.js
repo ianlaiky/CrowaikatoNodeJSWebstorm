@@ -145,6 +145,54 @@ router.get('/adminConsole', isLoggedInAdmin, function (req, res, next) {
         //
         // }
 
+    }else if(req.query.sortBy.toString() == "month"){
+
+
+        console.log(req.query.year);
+        console.log(req.query.month);
+
+        // days in the month
+        let noOfDaysInMonth = new Date(parseInt(req.query.year), parseInt(req.query.month),0).getDate();
+        console.log(noOfDaysInMonth);
+        //
+        let arrayOfDaysLogin = [];
+        let arrayOfDaysRegister = [];
+        let daysLabel=[];
+
+
+        for (let x = 0;x<parseInt(noOfDaysInMonth);x++){
+            arrayOfDaysLogin.push(0);
+            arrayOfDaysRegister.push(0);
+            daysLabel.push(x+1);
+        }
+
+        console.log("no of days in the month"+noOfDaysInMonth);
+        console.log("Length of array"+arrayOfDaysLogin.length);
+
+        connection.query("Select * from userlog where year = ? and month = ?", [req.query.year.toString(),req.query.month.toString()], (err, logsRet) => {
+
+            console.log(logsRet);
+            for (let i = 0; i < logsRet.length; i++) {
+                console.log("Print");
+                console.log(logsRet[i].month);
+                if(logsRet[i].mode.toString()=="login"){
+                    arrayOfDaysLogin[logsRet[i].day-1] = arrayOfDaysLogin[logsRet[i].day-1] + 1;
+
+                }else{
+                    arrayOfDaysRegister[logsRet[i].day-1] = arrayOfDaysRegister[logsRet[i].day-1] + 1;
+
+                }
+            }
+            console.log(arrayOfDaysLogin);
+            console.log(arrayOfDaysRegister);
+            console.log(daysLabel);
+            res.render('page/adminConsole', {layout: 'layout/layout', firstname: req.session.useInfoo.firstname,graphLabel:daysLabel,graphData1:arrayOfDaysLogin,graphData2:arrayOfDaysRegister});
+
+        });
+
+
+
+
     }
 
 //comment this out later

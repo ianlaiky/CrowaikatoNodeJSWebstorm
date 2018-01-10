@@ -137,7 +137,7 @@ app.use(function (err, req, res, next) {
 // console.log(now.getFullYear());
 // console.log(now.getMonth()+1);
 // console.log(now.getDate());
-// console.log(now.getDay());
+// console.log(new Date(2018, 2,0).getDate());
 
 
 
