@@ -9,25 +9,31 @@ init = () => {
     }
 
 
-    let box = getBox(1, 1, 1);
-    let plane = getPlane(20);
-    let pointLight = getPointLight(1);
+
+    let plane = getPlane(30);
+    let directionalLight = getDirectionalLight(1);
     let sphere = getSphere(0.05);
+    let boxGrid = getBoxGrid(10,1.5);
+    let helper = new THREE.CameraHelper(directionalLight.shadow.camera);
 
     plane.name = 'plane-1';
 
-    box.position.y = box.geometry.parameters.height / 2;
+
     plane.rotation.x = Math.PI / 2;
-    pointLight.position.y = 2;
-    pointLight.add(sphere);
-    pointLight.intensity = 2;
+    directionalLight.position.y = 4;
+    directionalLight.add(sphere);
+    directionalLight.intensity = 2;
 
-    gui.add(pointLight, 'intensity', 0, 10);
-    gui.add(pointLight.position, 'y', 0, 5);
+    gui.add(directionalLight, 'intensity', 0, 10);
+    gui.add(directionalLight.position, 'x', 0, 20);
+    gui.add(directionalLight.position, 'y', 0, 20);
+    gui.add(directionalLight.position, 'z', 0, 20);
+    // gui.add(directionalLight,'penumbra',0,1);
 
-    scene.add(box);
     scene.add(plane);
-    scene.add(pointLight);
+    scene.add(directionalLight);
+    scene.add(boxGrid);
+    scene.add(helper);
 
     let camera = new THREE.PerspectiveCamera(
         45,
@@ -97,6 +103,48 @@ getPointLight = (intensity) => {
     return light;
 };
 
+getSpotLight = (intensity) => {
+    let light = new THREE.SpotLight(0xffffff, intensity);
+    light.castShadow = true;
+
+    light.shadow.bias=0.001;
+    light.shadow.mapSize.width=2048;
+    light.shadow.mapSize.height=2048;
+    return light;
+};
+
+getDirectionalLight = (intensity) => {
+    let light = new THREE.DirectionalLight(0xffffff, intensity);
+    light.castShadow = true;
+
+ light.shadow.camera.left=-5;
+ light.shadow.camera.bottom=-5;
+ light.shadow.camera.right=-5;
+    return light;
+};
+getBoxGrid = (amount, separationMultiplier)=>{
+    console.log("RUN 1");
+    let group = new THREE.Group();
+    for(let i=0;i<amount;i++){
+        let obj = getBox(1,1,1);
+        obj.position.x=i*separationMultiplier;
+        obj.position.y=obj.geometry.parameters.height/2;
+        group.add(obj);
+        for(let j=1;j<amount;j++){
+            console.log("rimmm");
+            let obj = getBox(1,1,1);
+            obj.position.x=i*separationMultiplier;
+            obj.position.y=obj.geometry.parameters.height/2;
+            obj.position.z=j*separationMultiplier;
+            group.add(obj);
+        }
+    }
+    group.position.x=-(separationMultiplier*(amount-1))/2;
+    group.position.z=-(separationMultiplier*(amount-1))/2;
+
+    return group;
+
+};
 
 update = (renderer, scene, camera, controls) => {
 
