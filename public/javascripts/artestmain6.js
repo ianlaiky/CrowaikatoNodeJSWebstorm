@@ -50,9 +50,18 @@ function init() {
 
     var composer = new THREE.EffectComposer(renderer);
     var renderPass = new THREE.RenderPass(scene,camera);
-    renderPass.renderToScreen = true;
+    // renderPass.renderToScreen = true;
     composer.addPass(renderPass);
 
+    var vignetteEffect = new THREE.ShaderPass(THREE.VignetteShader);
+    vignetteEffect.uniforms['darkness'].value = 2;
+    composer.addPass(vignetteEffect);
+
+    var rgbShiftShader = new THREE.ShaderPass(THREE.RGBShiftShader);
+    rgbShiftShader.uniforms['amount'].value=0.003;
+    rgbShiftShader.renderToScreen=true;
+
+    composer.addPass(rgbShiftShader);
     // controls
     var controls = new THREE.OrbitControls(camera, renderer.domElement);
 
