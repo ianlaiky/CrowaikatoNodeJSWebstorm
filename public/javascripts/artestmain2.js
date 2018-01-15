@@ -7,7 +7,7 @@ function init() {
     var sphere = getSphere(sphereMaterial, 1, 24);
 
     var planeMaterial = getMaterial('standard', 'rgb(255, 255, 255)');
-    var plane = getPlane(planeMaterial, 30);
+    var plane = getPlane(planeMaterial, 300);
 
     var lightLeft = getSpotLight(1, 'rgb(255, 220, 180)');
     var lightRight = getSpotLight(1, 'rgb(255, 220, 180)');
@@ -36,6 +36,8 @@ function init() {
     var reflectionCube = new THREE.CubeTextureLoader().load(urls);
     reflectionCube.format = THREE.RGBFormat;
 
+    scene.background = reflectionCube;
+
     var loader = new THREE.TextureLoader();
     planeMaterial.map = loader.load('/images/arDemo/textures/concrete.jpg');
     planeMaterial.bumpMap = loader.load('/images/arDemo/textures/concrete.jpg');
@@ -43,9 +45,9 @@ function init() {
     planeMaterial.bumpScale = 0.01;
     planeMaterial.metalness = 0.1;
     planeMaterial.roughness = 0.7;
-    planeMaterial.envMa = reflectionCube;
+    planeMaterial.envMap = reflectionCube;
     sphereMaterial.roughnessMap = loader.load('/images/arDemo/textures/fingerprints.jpg');
-    sphereMaterial.envMa= reflectionCube;
+    sphereMaterial.envMap= reflectionCube;
 
 
     var maps = ['map', 'bumpMap', 'roughnessMap'];
@@ -53,7 +55,7 @@ function init() {
         var texture = planeMaterial[mapName];
         texture.wrapS = THREE.RepeatWrapping;
         texture.wrapT = THREE.RepeatWrapping;
-        texture.repeat.set(1.5, 1.5);
+        texture.repeat.set(15, 15);
     });
 
     // dat.gui
