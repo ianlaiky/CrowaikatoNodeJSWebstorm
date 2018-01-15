@@ -17,11 +17,11 @@ router.get('/',isLoggedout, function (req, res, next) {
     console.log(messages.length>0);
     res.render('index', {layout: 'layout/layout',messages:messages,hasError:messages.length>0});
 });
-router.get('/artest', function (req, res, next) {
-
-
-    res.render('artest');
-});
+// router.get('/artest', function (req, res, next) {
+//
+//
+//     res.render('artest');
+// });
 
 /* GET home page. */
 router.get('/error', function (req, res, next) {

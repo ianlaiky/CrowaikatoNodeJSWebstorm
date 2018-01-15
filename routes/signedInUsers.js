@@ -269,7 +269,7 @@ router.get("/machines", isLoggedIn, function (request, response) {
     response.send(machines);
 });
 
-router.get('/register', function (req, res, next) {
+router.get('/register', isLoggedout,function (req, res, next) {
 
 
     var messages = req.flash('error');
