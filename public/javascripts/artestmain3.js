@@ -208,7 +208,7 @@ function update(renderer, scene, camera, clock) {
         } else {
             currentObj.visible = false;
         }
-    })
+    });
 
     renderer.render(scene, camera);
     requestAnimationFrame(function() {

@@ -9,7 +9,7 @@ var router = express.Router();
 
 
 /* GET home page. */
-router.get('/', function (req, res, next) {
+router.get('/',isLoggedout, function (req, res, next) {
 
     var messages = req.flash('errorLogin');
     console.log(messages);
@@ -44,4 +44,14 @@ router.get('*', function(req, res){
 
 
 
+function isLoggedout(req, res, next) {
+
+    if (!req.isAuthenticated()) {
+
+        return next();
+    }
+    res.redirect("/page/home")
+
+
+}
 module.exports = router;
