@@ -283,7 +283,7 @@ io.on('connection', function (socket) {
             // console.log("initialal stuff");
             // console.log(stuffInside);
 
-
+            var queryForTime;
             stuffInside.find({}, {
                 dateTime: 1
             }).sort({
@@ -318,7 +318,9 @@ io.on('connection', function (socket) {
                 console.log("query datetime");
                 // console.log(queryForTime);
 
-                var cursor = stuffInside.find();
+                var cursor = stuffInside.find({
+                    dateTime:queryForTime
+                });
                 cursor.addCursorFlag('tailable',true);
                 var stream = cursor.stream();
 
