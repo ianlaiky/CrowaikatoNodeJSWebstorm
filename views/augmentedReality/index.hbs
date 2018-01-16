@@ -34,12 +34,13 @@
         var start = marker5;
         var end = marker3;
 
-        //Variables - For AR Markers 
+        //Variables - For AR Markers
         var controls3, controls5;
         var marker3 = new THREE.Group;
         var marker5 = new THREE.Group;
         var midpoint = new THREE.Vector3();
-        var portalUrl = 'https://rawgit.com/Xdecosee/ar-data-insertion/master/resources/plane-with-holes.json';
+        var portalUrl = '/jsonObjectsThreeJs/laptop.json';
+        // var portalUrl = 'https://rawgit.com/Xdecosee/ar-data-insertion/master/resources/plane-with-holes.json';
         //Holds the animation(3D objs) that are displayed when markers are in camera view
         var sphereZone = new THREE.Group;
 
@@ -101,7 +102,7 @@
         ///Section: Set the position of User Controls
         guiDiv.style.position = 'absolute';
         guiDiv.style.zIndex = 10;
-        guiDiv.style.top = '0px'
+        guiDiv.style.top = '0px';
         document.body.appendChild(guiDiv);
         guiDiv.appendChild(gui.domElement);
 
@@ -180,7 +181,7 @@
         var singleObj = new THREE.CSS3DObject(singleDiv);
 
         ///Section: Dat.GUI (User Controls)
-        /* User can choose if they want to see more information about an action. 
+        /* User can choose if they want to see more information about an action.
         If they check the checkbox, tables will be added into the AR scene to display more information about actions.
         Note: Tables can be seen when markers within camera view */
         var FizzyText = function() {
@@ -203,10 +204,10 @@
 
         });
         gui.add(text, 'View').name("View Source Code");
-        
+
       ;(function() {
             ///Section: CSS3D - Create Tables
-            /*When the webpage load, each Table will have three empty rows which will 
+            /*When the webpage load, each Table will have three empty rows which will
             eventually be filled with the latest three insertions of data*/
             //Table When Two Markers are in view
             createDouble();
@@ -219,13 +220,13 @@
             ///Section: Trigger Socket.IO to start listening for incoming data(action) from server
             dataListener();
 
-            ///Section: Add SphereZone to scene. 
-            /*SphereZone(A THREE.Group)contains 3D objects (CurvePath, Logo, Spheres, Action Text) 
+            ///Section: Add SphereZone to scene.
+            /*SphereZone(A THREE.Group)contains 3D objects (CurvePath, Logo, Spheres, Action Text)
             that will be displayed when both markers are in camera view.*/
             scene.add(sphereZone);
 
             /// Section: Scaling CROW LOGO
-            crowMap.minFilter = THREE.LinearFilter
+            crowMap.minFilter = THREE.LinearFilter;
             crowLogo.scale.set(1, 0.40, 1);
 
             ///Section: Loads Default Action Text into SphereZone
@@ -246,7 +247,7 @@
             /*
             Add markers controls to scene for detecting physical markers.
             Assign relevant barcode values for application to identify the physical markers
-            THREE.Group is like a container and its coordinates can help us to determine 
+            THREE.Group is like a container and its coordinates can help us to determine
             the position of the marker in the scene.
             We also assign a coloured box for each marker so users know which team the machine belongs to.
             */
@@ -268,7 +269,7 @@
             markerVals.push([controls5.parameters.barcodeValue, controls5.object3d]);
             redPointer(marker5);
 
-            
+
           //Section: DoubleVis & SingleVis
           /* singleVis and doubleVis are arrays created to keep incoming data and group them
           according to the markers that they belong to.*/
@@ -288,9 +289,9 @@
                 singleVis.push(singleArr);
             }
 
-        
+
             ///Section: Display Animation When Markers Visible
-            /*Allow the application display the relevant animation according 
+            /*Allow the application display the relevant animation according
             to the number of physical markers within camera view*/
             onRenderFcts.push(function() {
 
@@ -324,7 +325,7 @@
                     sphereZone.add(crowLogo);
                     sphereZone.visible = true;
 
-                    ///Section: CSS3D Table display when Two Markers visible 
+                    ///Section: CSS3D Table display when Two Markers visible
                     if (visibleT == true) {
 
                         //Load Machines' Ip and Hostname into Table
@@ -333,7 +334,7 @@
                         //Set position of table and visibility of Table to Visible
                         twoPosVis();
 
-                        /*Load the last three insertions of data (related to the two 
+                        /*Load the last three insertions of data (related to the two
                         markers in camera view)into the table. */
                         for (var i = 0; i < doubleVis.length; i++) {
 
@@ -388,9 +389,9 @@
 
         })()
 
-      
+
         ///Section: Move coloured spheres on their individual paths
-        /* Each sphere represent an action inserted recently. Function displays 
+        /* Each sphere represent an action inserted recently. Function displays
         coloured spheres when the two markers relating to the action are visible*/
         function threadsLoad() {
 
@@ -501,7 +502,7 @@
 
         }
 
-      
+
         ///Section: Create Tables to be displayed when either two or one markers in camera view
         //Table For One Visible Marker
         function createSingle() {
@@ -678,7 +679,7 @@
 
         }
 
-      
+
         ///Section: Create MultiPaths(Curves) for Spheres to choose and move from one marker to another
         function initPathVar() {
 
@@ -699,8 +700,8 @@
 
             var el = [];
             var path;
-            /* Each path has its own sphere. This Sets the default sphere colour and 
-            visibility of sphere to false. When there is new data, the sphere will be 
+            /* Each path has its own sphere. This Sets the default sphere colour and
+            visibility of sphere to false. When there is new data, the sphere will be
             coloured and the visibility will be true.
             */
             var newSphere = new THREE.Mesh(defaultGeo, defaultMat);
@@ -714,7 +715,7 @@
 
         }
 
-      
+
         ///Section: Listen for Incoming Data(Actions) through Socket.IO
         function dataListener() {
             ///Section: Socket.io stuff
@@ -722,7 +723,7 @@
                 console.log("Socket Client==============");
                 console.log(sphere);
 
-                /*Do not display repeating data(i.e new data inserted must not be 
+                /*Do not display repeating data(i.e new data inserted must not be
                 same as the previous data inserted)*/
                 if (sphere.o.actionType != previousType) {
 
@@ -731,7 +732,7 @@
                     destSph = sphere.o.dest;
 
 
-                    /*Barcode Values of the markers that represent the 
+                    /*Barcode Values of the markers that represent the
                     machines(source & dest) involved in the action*/
                     var srcVal = getVal(srcSph);
 
@@ -743,7 +744,7 @@
                     var begin = getGrp(srcVal);
                     var finish = getGrp(destVal);
                     var teamValue, element, queue;
-                    /*If team value is 1, the machine's team is Red. 
+                    /*If team value is 1, the machine's team is Red.
                     If team value is 0, the machine's team is Blue*/
                     if (srcTeam == 0) {
                         teamValue = blueText;
@@ -759,7 +760,7 @@
 
                     element = queueElement(sphere.o.actionType, begin, finish);
 
-                    /*Save Action information into doubleVis so that it can be displayed in the 
+                    /*Save Action information into doubleVis so that it can be displayed in the
                     table when the both markers relevant to the action are visible*/
                     for (var i = 0; i < doubleVis.length; i++) {
                         testOne = doubleVis[i][0];
@@ -777,7 +778,7 @@
                         }
                     }
 
-                    /*Save Action information into singleVis so that it can be displayed in the 
+                    /*Save Action information into singleVis so that it can be displayed in the
                     table when any of the markers relevant to the action is visible*/
                     singleEmptyPush(begin, sphere.o.dateTime, element[2], destSph, "Outbound");
                     singleEmptyPush(finish, sphere.o.dateTime, element[2], srcSph, "Inbound");
@@ -787,7 +788,7 @@
 
                         /* Select a queue for the action to be inserted into. The queue is a waiting
                         area for the actions before they are 'popped' out of the queue for display when two markers are
-                        in camera view. Queues are essential as if there is rapid large amounts of data inserted into DB 
+                        in camera view. Queues are essential as if there is rapid large amounts of data inserted into DB
                         together at once, the application wont be able to display all actions in form of coloured spheres
                         immediately. Hence, the display of spheres is actually slightly delayed from the actual time
                         the action was inserted into the datbase.*/
@@ -995,7 +996,7 @@
 
         }
 
-      
+
         ///Section: Assign Boxes to be displayed on markers based the team of each machine
         function bluePointer(group) {
 
@@ -1027,6 +1028,8 @@
                     paint(obj);
                     group.add(obj);
                     obj.scale.set(0.8, 0.8, 0.8);
+                    obj.position.z=2.8;
+
                     blueLight.target = obj;
 
                 },
@@ -1063,6 +1066,8 @@
                     paint(obj);
                     group.add(obj);
                     obj.scale.set(0.8, 0.8, 0.8);
+                    obj.position.z=2.8;
+
                     redLight.target = obj;
 
                 },
@@ -1070,14 +1075,14 @@
 
         }
 
-      
-        ///Section: Pull action information out of the three queues 
+
+        ///Section: Pull action information out of the three queues
         /* Takes the first element of the queue and display the information in the form of
         coloured sphere*/
         function popFromQueue() {
             var firstItem, queue, sphere, startVector, endVector;
             var midVector = new THREE.Vector3();
-            
+
             for (var i = 0; i < pathVar.length; i++) {
                 //constantly check for new action data in the three queues
                 if (pathVar[i][2].length > 0) {
@@ -1087,7 +1092,7 @@
                     sphere = pathVar[i][1];
                     path = pathVar[i][0];
                     val = pathVar[i][3];
-                    
+
                     /*Sets the midpoint of the curve based on the middle point between both markers.
                     All three curves will have different height as 'val' is added onto
                     the y-value of the midpoint*/
@@ -1095,7 +1100,7 @@
                     midVector.y += val;
 
                     if (sphere.visible == false) {
-                        
+
                         //Sets the colour to the sphere
                         sphere.geometry = firstItem[0];
                         sphere.material = firstItem[1];
@@ -1125,7 +1130,7 @@
 
         }
 
-      
+
         ///Section: Display information into table when two markers visible
         function appendData(group) {
 
@@ -1156,8 +1161,8 @@
 
         }
 
-      
-        ///Section: Display information into table when one Marker visible 
+
+        ///Section: Display information into table when one Marker visible
         function oneMarkerVisible(group) {
 
             if (visibleT == true) {
@@ -1236,7 +1241,7 @@
 
         }
 
-      
+
         ///Section: Other Repeatedly used Functions
         //Hide Tables
         function hideTable(div, obj) {
@@ -1245,7 +1250,7 @@
             obj.position.set(0, 0, 0);
 
         }
-        //Empty All Three Queues 
+        //Empty All Three Queues
         function emptyQueue() {
 
             for (var i = 0; i < pathVar.length; i++) {
@@ -1266,7 +1271,7 @@
             textMesh.material = mat;
         }
 
-      
+
         ///Section: 'Getters'
         //Get the barcode value assigned to the machine based on its ip address
         function getVal(ip) {
@@ -1348,16 +1353,16 @@
 
             }
         }
-      
-      
+
+
         /// Section: Push function to Render the scene
         onRenderFcts.push(function() {
             renderer.render(scene, camera);
 
         })
 
-      
-        ///Section: Continuously render and Run the functinos in onRenderFct 
+
+        ///Section: Continuously render and Run the functinos in onRenderFct
         requestAnimationFrame(function animate(nowMsec) {
             renderer2.render(scene2, camera);
             requestAnimationFrame(animate);
