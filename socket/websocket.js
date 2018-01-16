@@ -283,49 +283,76 @@ io.on('connection', function (socket) {
             // console.log("initialal stuff");
             // console.log(stuffInside);
 
+
             stuffInside.find({}, {
-                dateTimeMongoFormat: 1
+                dateTime: 1
             }).sort({
                 $natural: -1
             }).limit(1).toArray(function (err, data) {
 
                 var queryForTime;
                 console.log(data);
-                var lastTime = data[0].dateTimeMongoFormat;
-
+                var lastTime = data[0].dateTime;
+                console.log("waddd");
+                console.log(lastTime);
                 if (lastTime) {
+
                     queryForTime = {
-                        $gt: lastTime
+                        $gt: new Date(lastTime)
                     };
                 } else {
-                    var tstamp = new MongoDB.Timestamp(0, Math.floor(new Date().getTime() / 1000))
+
+                    var tstamp = new Date();
                     queryForTime = {
                         $gt: tstamp
                     };
                 }
 // console.log("STUFF INSIDE");
-// stuffInside.find({}).toArray().then(function (res) {
-//     console.log(res)
+// stuffInside.find({}).toArray(function (res,sddsf) {
+//     console.log(sddsf)
 // });
 
 
 
 
                 console.log("query datetime");
-                console.log(queryForTime);
+                // console.log(queryForTime);
 
-                var cursor = stuffInside.find({},{
-                    dateTimeMongoFormat: queryForTime
-                            }).toArray(function (data) {
+                var cursor = stuffInside.find();
+                cursor.addCursorFlag('tailable',true);
+                var stream = cursor.stream();
 
-                    console.log("Cursor data");
-                    console.log(data);
+                stream.on('data',function (erera) {
+                    console.log(erera)
+                })
+
+
                 });
+
+
+
+                // console.log(cursor);
+
+
+                // var stream = cursor.stream();
+                // stream.on('data', function (data) {
+                //     console.log("dasdsadasdsa datetime");
+                //     console.log(data);
+                // });
+
+
+                // var stream = cursor.stream();
+                // stream.on('data',function (dataaa) {
+                //     console.log("stream");
+                //     console.log(dataaa);
+                //
+                // });
+
+
                 // console.log("CURSOR");
                 // console.log(cursor);
             });
 
-        });
 
 
         //
