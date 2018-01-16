@@ -280,18 +280,18 @@ io.on('connection', function (socket) {
                 console.log(err);
             }
 
-            console.log("initialal stuff");
-            console.log(stuffInside);
+            // console.log("initialal stuff");
+            // console.log(stuffInside);
 
             stuffInside.find({}, {
-                dateTime: 1
+                dateTimeMongoFormat: 1
             }).sort({
                 $natural: -1
             }).limit(1).toArray(function (err, data) {
 
-
+                var queryForTime;
                 console.log(data);
-                var lastTime = data[0].dateTime;
+                var lastTime = data[0].dateTimeMongoFormat;
 
                 if (lastTime) {
                     queryForTime = {
@@ -303,15 +303,24 @@ io.on('connection', function (socket) {
                         $gt: tstamp
                     };
                 }
-console.log("STUFF INSIDE");
-console.log(stuffInside.find({}).toArray());
+// console.log("STUFF INSIDE");
+// stuffInside.find({}).toArray().then(function (res) {
+//     console.log(res)
+// });
 
+
+                console.log("query datetime");
+                console.log(queryForTime);
 
                 var cursor = stuffInside.find({},{
-                                dateTime: queryForTime
-                            });
-                console.log("CURSOR");
-                console.log(cursor);
+                    dateTimeMongoFormat: queryForTime
+                            }).toArray(function (data) {
+
+                    console.log("Cursor data");
+                    console.log(data);
+                });
+                // console.log("CURSOR");
+                // console.log(cursor);
             });
 
         });

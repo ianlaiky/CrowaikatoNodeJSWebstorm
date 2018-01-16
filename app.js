@@ -97,7 +97,8 @@ function randAction() {
     var toinsert = {
             owner_id: "1a168ad8058429ca16336c1b",
             actionType: data[0],
-            dateTime: new MongoDB.Timestamp(0, Math.floor(new Date().getTime() / 1000)),
+            dateTime: new Date(),
+            dateTimeMongoFormat: new MongoDB.Timestamp(0, Math.floor(new Date().getTime() / 1000)),
             src: data[1],
             dest: data[2]
         };
