@@ -277,6 +277,17 @@ io.on('connection', function (socket) {
         }, 500);
     });
 
+// AR SIDE Interval selection
+
+    socket.on('intervalSelection',function (socket) {
+
+        console.log(socket);
+
+
+    });
+
+
+
 
     //Connect to Oplog Collection and listen for insertion of data(actions)
     MongoDB.MongoClient.connect(oplogurl, function (err, db) {
