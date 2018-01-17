@@ -325,6 +325,7 @@ io.on('connection', function (socket) {
                 var stream = cursor.stream();
 
                 stream.on('data',function (erera) {
+                    socket.emit('action', erera);
                     console.log(erera)
                 })
 

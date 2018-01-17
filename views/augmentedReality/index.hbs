@@ -725,11 +725,11 @@
 
                 /*Do not display repeating data(i.e new data inserted must not be
                 same as the previous data inserted)*/
-                if (sphere.o.actionType != previousType) {
+                if (sphere.actionType != previousType) {
 
                     //Source and Dest Ip addresses of Action
-                    srcSph = sphere.o.src;
-                    destSph = sphere.o.dest;
+                    srcSph = sphere.src;
+                    destSph = sphere.dest;
 
 
                     /*Barcode Values of the markers that represent the
@@ -758,7 +758,7 @@
                     on to be displayed on the sphere. The action's naming will be displayed
                     below the logo and other relevant information are displayed in the tables.*/
 
-                    element = queueElement(sphere.o.actionType, begin, finish);
+                    element = queueElement(sphere.actionType, begin, finish);
 
                     /*Save Action information into doubleVis so that it can be displayed in the
                     table when the both markers relevant to the action are visible*/
@@ -767,7 +767,7 @@
                         testTwo = doubleVis[i][1];
                         if ((testOne == begin && testTwo == finish) || (testOne == finish && testTwo == begin)) {
 
-                            doubleData = genArrTwo(element[2], sphere.o.dateTime, teamValue);
+                            doubleData = genArrTwo(element[2], sphere.dateTime, teamValue);
 
                             if (doubleVis[i].length == 5) {
                                 doubleVis[i].splice(2, 1);
@@ -780,8 +780,8 @@
 
                     /*Save Action information into singleVis so that it can be displayed in the
                     table when any of the markers relevant to the action is visible*/
-                    singleEmptyPush(begin, sphere.o.dateTime, element[2], destSph, "Outbound");
-                    singleEmptyPush(finish, sphere.o.dateTime, element[2], srcSph, "Inbound");
+                    singleEmptyPush(begin, sphere.dateTime, element[2], destSph, "Outbound");
+                    singleEmptyPush(finish, sphere.dateTime, element[2], srcSph, "Inbound");
 
                     //Push Action information into any queue when both markers are visible
                     if (begin.visible === true && finish.visible === true) {
@@ -797,7 +797,7 @@
 
                     }
 
-                    previousType = sphere.o.actionType;
+                    previousType = sphere.actionType;
                 }
             });
 
