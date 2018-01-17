@@ -242,6 +242,11 @@ router.get('/augmentedReality', isLoggedIn, function (req, res, next) {
     res.render('augmentedReality/index', {title: 'Dependency', layout: 'layout/augmentedRealityLayout'});
 });
 
+router.get('/augmentedRealityStatic', isLoggedIn, function (req, res, next) {
+
+    res.render('augmentedReality/indexStatic', {title: 'Dependency', layout: 'layout/augmentedRealityLayout'});
+});
+
 // For AR
 
 MongoDB.MongoClient.connect(arurl, function (err, db) {
