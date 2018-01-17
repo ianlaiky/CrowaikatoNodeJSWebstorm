@@ -360,8 +360,9 @@ passport.use('local.signup', new LocalStrategy({
 
         console.log(req.body);
         req.check('emailAddress', "Please enter a valid email").trim().notEmpty().isEmail();
+        req.check('emailAddress', "Reached Character Limit (Max: 200)").trim().notEmpty().isLength({max:200});
         // (?=.*\d)(?=.*[a-z])(?=.*[A-Z])[0-9a-zA-Z]{8,}
-        req.check('password', 'Password should contain lower and uppercase with numbers').trim().matches(/^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*])(?=.{8,})/, "i");
+        req.check('password', 'Password should contain alphanumeric character with uppercase, lowercase and special characters (!,@,#,$,%,^,&,*)').trim().matches(/^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*])(?=.{8,})/, "i");
         req.check('password_cfm', "Password is empty or do not match").trim().equals(req.body.password);
 
 
@@ -401,9 +402,9 @@ passport.use('local.signup', new LocalStrategy({
             if (!errors) {
 
                 errors = [];
-                errors.push({"param": "captcha", "msg": "Captcha failed"});
+                errors.push({"param": "captcha", "msg": "Please do the captcha"});
             } else {
-                errors.push({"param": "captcha", "msg": "Captcha failed"});
+                errors.push({"param": "captcha", "msg": "Please do the captcha"});
             }
 
         }
@@ -433,7 +434,7 @@ passport.use('local.signup', new LocalStrategy({
                 if (rows.length) {
 
                     req.session.success = false;
-                    return done(null, false, req.flash('error', [{param: 'existinguser', msg: 'Existing user found'}]));
+                    return done(null, false, req.flash('error', [{param: 'emailAddress', msg: 'Existing user found'}]));
                 } else {
                     // if there is no user with that username
                     // create the user
