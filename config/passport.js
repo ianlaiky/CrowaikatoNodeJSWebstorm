@@ -362,7 +362,7 @@ passport.use('local.signup', new LocalStrategy({
         req.check('emailAddress', "Please enter a valid email").trim().notEmpty().isEmail();
         req.check('emailAddress', "Reached Character Limit (Max: 200)").trim().notEmpty().isLength({max:200});
         // (?=.*\d)(?=.*[a-z])(?=.*[A-Z])[0-9a-zA-Z]{8,}
-        req.check('password', 'Password should contain alphanumeric character with uppercase, lowercase and special characters (!,@,#,$,%,^,&,*)').trim().matches(/^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*])(?=.{8,})/, "i");
+        req.check('password', 'Password should contain alphanumeric character with uppercase, lowercase and special characters (!,@,#,$,%,^,&,*)').trim().matches(/^(?=.*\d)(?=.*[!@#\$%\^&\*])(?=.*[a-z])(?=.*[A-Z]).{8,}/, "i");
         req.check('password', 'Reached Character Limit (Max: 200)').trim().notEmpty().isLength({max:200});
         req.check('password_cfm', "Password is empty or do not match").trim().equals(req.body.password);
         req.check('password_cfm', "Reached Character Limit (Max: 200)").trim().notEmpty().isLength({max:200});

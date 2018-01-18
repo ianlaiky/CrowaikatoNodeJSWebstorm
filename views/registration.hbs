@@ -186,7 +186,7 @@
                 <div class="panel-body">
                     <div class="form-group col-md-6">
                         <label>Password</label>
-                        <input type="password" class="form-control" id="password" placeholder="Password" name="password"
+                        <input type="password" class="form-control" id="password" placeholder="Password" name="password" pattern="^(?=.*\d)(?=.*[!@#\$%\^&\*])(?=.*[a-z])(?=.*[A-Z]).{8,}" title="Password should contain alphanumeric character with uppercase, lowercase and special characters (!,@,#,$,%,^,&,*)"
                                required>
                         <label id="passwordLabel" style="color: red;visibility: hidden;"></label>
 
@@ -539,7 +539,7 @@
                     <div class="form-group col-md-6">
                         <label>Phone Number (With area code)</label>
                         <input type="tel" class="form-control" id="phoneNumber" placeholder="E.g. +64123456"
-                               name="phoneNumber" required>
+                               name="phoneNumber" pattern="[\+][\d]+" title="Format: +[CountryCode][PhoneNumber] E.g.+64067512345" required>
 
                         <label id="phoneNumberLabel" style="color: red;visibility: hidden;"></label>
 
@@ -548,7 +548,7 @@
                     <div class="form-group col-md-6">
                         <label>Fax Number (With area code)</label>
                         <input type="tel" class="form-control" id="faxNumber" placeholder="E.g. +64123456"
-                               name="faxNumber" required>
+                               name="faxNumber" pattern="[\+][\d]+" title="Format: +[CountryCode][PhoneNumber] E.g.+64067512345" required>
 
                         <label id="faxNumberLabel" style="color: red;visibility: hidden;"></label>
 
