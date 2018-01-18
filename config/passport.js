@@ -363,28 +363,44 @@ passport.use('local.signup', new LocalStrategy({
         req.check('emailAddress', "Reached Character Limit (Max: 200)").trim().notEmpty().isLength({max:200});
         // (?=.*\d)(?=.*[a-z])(?=.*[A-Z])[0-9a-zA-Z]{8,}
         req.check('password', 'Password should contain alphanumeric character with uppercase, lowercase and special characters (!,@,#,$,%,^,&,*)').trim().matches(/^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*])(?=.{8,})/, "i");
+        req.check('password', 'Reached Character Limit (Max: 200)').trim().notEmpty().isLength({max:200});
         req.check('password_cfm', "Password is empty or do not match").trim().equals(req.body.password);
+        req.check('password_cfm', "Reached Character Limit (Max: 200)").trim().notEmpty().isLength({max:200});
 
 
         req.check('firstName', "Please enter something").trim().notEmpty();
+        req.check('firstName', "Reached Character Limit (Max: 200)").trim().notEmpty().isLength({max:200});
         req.check('lastName', "Please enter something").trim().notEmpty();
+        req.check('lastName', "PReached Character Limit (Max: 200)").trim().notEmpty().isLength({max:200});
 
         req.check('jobtitle', "Please enter something").trim().notEmpty();
+        req.check('jobtitle', "Reached Character Limit (Max: 200)").trim().notEmpty().isLength({max:200});
         req.check('institution', "Please enter something").trim().notEmpty();
+        req.check('institution', "Reached Character Limit (Max: 200)").trim().notEmpty().isLength({max:200});
 
         req.check('countryName', "Please select something").trim().notEmpty();
+        req.check('countryName', "Reached Character Limit (Max: 200)").trim().notEmpty().isLength({max:200});
         req.check('state', "Please enter something").trim().notEmpty();
+        req.check('state', "Reached Character Limit (Max: 200)").trim().notEmpty().isLength({max:200});
         req.check('cityName', "Please enter something").trim().notEmpty();
+        req.check('cityName', "Reached Character Limit (Max: 200)").trim().notEmpty().isLength({max:200});
         req.check('zipcode', "Please enter something").trim().notEmpty();
+        req.check('zipcode', "Reached Character Limit (Max: 200)").trim().notEmpty().isLength({max:200});
         req.check('inputAddress', "Please enter something").notEmpty();
+        req.check('inputAddress', "Reached Character Limit (Max: 200)").trim().notEmpty().isLength({max:200});
 
         req.check('phoneNumber', 'Invalid phone No').trim().matches(/^[+][\d]+$/, "i");
+        req.check('phoneNumber', 'Reached Character Limit (Max: 200)').trim().notEmpty().isLength({max:200});
         req.check('faxNumber', 'Invalid fax No').trim().matches(/^[+][\d]+$/, "i");
+        req.check('faxNumber', 'Reached Character Limit (Max: 200)').trim().notEmpty().isLength({max:200});
 
         req.check('workSector', "Please select something").trim().notEmpty();
+        req.check('workSector', "Reached Character Limit (Max: 200)").trim().notEmpty().isLength({max:200});
         req.check('jobFunction', "Please select something").trim().notEmpty();
+        req.check('jobFunction', "Reached Character Limit (Max: 200)").trim().notEmpty().isLength({max:200});
 
         req.check('exampleRadios', "Please select an option").trim().notEmpty();
+        req.check('exampleRadios', "Reached Character Limit (Max: 200)").trim().notEmpty().isLength({max:200});
 
 
         //santise
