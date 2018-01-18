@@ -24,7 +24,7 @@
                 <span class="sr-only">Toggle navigation</span> Menu <i class="fa fa-bars"></i>
             </button>
             <a class="navbar-brand page-scroll" href="/"><img src="/img/crow-logo.png" alt="CROW Logo"
-                                                                      style="width:auto;height:40px;border:0;"/></a>
+                                                              style="width:auto;height:40px;border:0;"/></a>
         </div>
 
         <!-- Collect the nav links, forms, and other content for toggling -->
@@ -178,8 +178,7 @@
                         <label>Email</label>
                         <input type="email" class="form-control" id="emailAddress" placeholder="Email"
                                name="emailAddress" required>
-                        <label id="emailAddressLabel" style="color: red;visibility: hidden;"></label><br>
-                        <label id="existinguserLabel" style="color: red;visibility: hidden;"></label>
+                        <label id="emailAddressLabel" style="color: red;visibility: hidden;"></label>
                     </div>
 
                 </div>
@@ -640,7 +639,9 @@
                 <br>
                 <br>
             </form>
-
+            <script>
+                let temp2;
+            </script>
             <!--<button onclick="checktempinarr()">df</button>-->
             {{# if hasError}}
                 {{#each messages}}
@@ -648,8 +649,9 @@
 
                         document.getElementById('{{param}}Label').style.visibility = "visible";
 
-                        let temp2 = document.getElementById('{{param}}Label').innerText;
-                        document.getElementById('{{param}}Label').innerText=temp2+"{{msg}}";
+                        temp2 = document.getElementById('{{param}}Label').innerHTML;
+                        document.getElementById('{{param}}Label').innerHTML = temp2 + "<br>{{msg}}";
+                        console.log(document.getElementById('{{param}}Label').innerHTML);
 
 
                     </script>
@@ -1283,7 +1285,6 @@
                             <!--<li>Category: Graphic Design</li>-->
                             <!--</ul>-->
                             <script src='https://www.google.com/recaptcha/api.js'></script>
-
 
 
                             <form method="post" action="/loginBackend" class="text-center">
