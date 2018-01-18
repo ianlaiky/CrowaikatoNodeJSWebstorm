@@ -20,14 +20,6 @@
 <script>
 
 
-    $( document ).ready(function() {
-        console.log( "ready!" );
-    });
-
-
-
-
-
 </script>
 <!-- Navigation -->
 <nav id="mainNav" class="navbar navbar-default navbar-custom navbar-fixed-top">
@@ -72,7 +64,8 @@
 
                 <li>
 
-                    <a href="#loginpop" class="solutions-link btn btn-primary btn-sm" data-toggle="modal"
+                    <a id="loginpopClick" href="#loginpop" class="solutions-link btn btn-primary btn-sm"
+                       data-toggle="modal"
                        style="border-radius: 3px;">Login</a>
                 </li>
             </ul>
@@ -822,9 +815,9 @@
                                     </script>
 
                                 {{/each}}
-
-
-
+                                <script>
+                                    document.getElementById("loginpopClick").click();
+                                </script>
                             {{/if}}
 
                             <hr>
