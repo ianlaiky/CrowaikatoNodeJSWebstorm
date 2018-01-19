@@ -445,7 +445,19 @@ function isLoggedInAdmin(req, res, next) {
                 if (req.session.id.toString() == retrievedRow[0].sessionId.toString()) {
                     return next();
                 } else {
-                    res.redirect("/errorSession")
+
+
+                    req.session.destroy(function (err) {
+                        if (err) {
+                            console.log(err)
+                        }
+                        res.clearCookie('connect.sid');
+                        req.logout();
+                        res.redirect("/errorSession")
+
+                    });
+
+
                 }
 
 
@@ -487,7 +499,16 @@ function isLoggedIn(req, res, next) {
                 if (req.session.id.toString() == retrievedRow[0].sessionId.toString()) {
                     return next();
                 } else {
-                    res.redirect("/errorSession")
+                    req.session.destroy(function (err) {
+                        if (err) {
+                            console.log(err)
+                        }
+                        res.clearCookie('connect.sid');
+                        req.logout();
+                        res.redirect("/errorSession")
+
+                    });
+
                 }
 
 
