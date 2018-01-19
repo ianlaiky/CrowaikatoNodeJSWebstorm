@@ -520,7 +520,9 @@ passport.use('local.signup', new LocalStrategy({
                                 newUserMysql.id = rows.insertId;
                                 req.session.success = true;
 
+
                                 return done(null, newUserMysql);
+
                             });
 
 
