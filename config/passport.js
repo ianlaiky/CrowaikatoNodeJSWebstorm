@@ -12,7 +12,7 @@ var connection = mysql.createConnection(dbconfig.connection);
 connection.query('USE ' + dbconfig.database);
 console.log("Passport running");
 
-// 6LeIxAcTAAAAAGG-vFI1TnRWxMZNFuojJ4WifJWe
+// Google captcha
 var SECRET = "6LdwBzwUAAAAAKavgcoL75Y4lF7QUQPKQyt_e6Qk";
 
 // POST request to google recaptcha
@@ -322,11 +322,6 @@ passport.use('local.signup', new LocalStrategy({
 
 
 
-
-
-
-    //uncomment this ltr**
-
     var captchaValidationResult = false;
     console.log("before" + captchaValidationResult);
     if (req.body['g-recaptcha-response'] === undefined || req.body['g-recaptcha-response'] === '' || req.body['g-recaptcha-response'] === null) {
@@ -334,13 +329,6 @@ passport.use('local.signup', new LocalStrategy({
 
     }
 
-    // Put your secret key here.
-
-
-    // Hitting GET request to the URL, Google will respond with success or error scenario.
-
-
-    //uncomment this
 
     verifyRecaptcha(req.body["g-recaptcha-response"], function (success) {
 
