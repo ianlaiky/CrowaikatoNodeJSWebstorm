@@ -27,20 +27,15 @@ var machines = [];
 
 router.post("/registerForm", passport.authenticate('local.signup', {
 
-    successRedirect: '/page/register', // redirect to the secure profile section
+    // successRedirect: '/page/register', // redirect to the secure profile section
     failureRedirect: '/page/register', // redirect back to the signup page if there is an error
     failureFlash: true // allow flash messages
 }), (req, res)=>{
-console.log("dsfsdfsdfdsfsdfdsfds");
-    req.session.destroy(function (err) {
-        if (err) {
-            console.log(err)
-        }
-        res.clearCookie('connect.sid');
+
+
         req.logout();
         res.redirect("/page/register")
 
-    });
 
 
 });
