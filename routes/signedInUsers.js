@@ -114,20 +114,96 @@ router.get('/home', isLoggedIn, function (req, res, next) {
     // res.render('index', { title: 'Express' });
 });
 
+
+router.post("/adminContactUsArchive",isLoggedInAdmin,(req,res,next)=>{
+
+console.log(req.body);
+console.log(req.body.id);
+
+    connection.query("select * from contact_us where id=?",[req.body.id],(err,row)=>{
+        if(err)console.log(err);
+        console.log("from db");
+        console.log(row);
+        if(row.length!=0){
+
+
+
+            connection.query("update contact_us set archive='true' where id=?",[req.body.id],function (err,updateRow) {
+
+                if (err)console.log(err);
+
+                console.log("Update row");
+                console.log(updateRow);
+
+                res.redirect("/page/adminContactUs");
+
+
+            });
+
+
+        }else{
+            res.redirect("/error");
+        }
+
+    });
+
+
+});
+
+
+router.get("/adminContactUs", isLoggedInAdmin, (req, res, next) => {
+
+    connection.query("select * from contact_us where archive='false'", (err, row) => {
+
+        if (err) {
+            res.redirect("/error");
+        } else {
+            console.log(row);
+            res.render('page/adminContactUs', {
+                layout: 'layout/layout',
+                firstname: req.session.useInfoo.firstname,
+                rowData: row,
+                rowDataHasItem:row.length>0
+            });
+
+        }
+
+
+    });
+
+
+});
+
+
 // PERFORMANCE TESTING
 router.get('/adminConsole', isLoggedInAdmin, function (req, res, next) {
     console.log("testing adminconsole param get");
-    console.log(req.query.sortBy);
-    console.log(req.query.year);
+
+    let sortBy;
+    let year;
+
+    // console.log(req.query.sortBy);
+    // console.log(req.query.year);
+
+    if(!req.query.sortBy){
+        sortBy="year";
+    }else{
+        sortBy=req.query.sortBy;
+    }
+    if(!req.query.year){
+        year="2018";
+    }else{
+        year=req.query.year;
+    }
 
 
-    if (req.query.sortBy.toString() == "year") {
+    if (sortBy.toString() == "year") {
 
         let monthsMaplogin = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
         let monthsMapregister = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
         let monthsLabel = ["'January'", "'February'", "'March'", "'April'", "'May'", "'June'", "'July'", "'August'", "'September'", "'October'", "'November'", "'December'"];
 
-        connection.query("Select * from userlog where year = ?", [req.query.year.toString()], (err, logsRet) => {
+        connection.query("Select * from userlog where year = ?", [year.toString()], (err, logsRet) => {
 
             console.log(logsRet);
             for (let i = 0; i < logsRet.length; i++) {
@@ -158,15 +234,15 @@ router.get('/adminConsole', isLoggedInAdmin, function (req, res, next) {
         //
         // }
 
-    } else if (req.query.sortBy.toString() == "month") {
+    } else if (sortBy.toString() == "month") {
         let monthsLabelIndex = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
 
 
-        console.log(req.query.year);
+        console.log(year);
         console.log(monthsLabelIndex.indexOf(req.query.month) + 1);
 
         // days in the month
-        let noOfDaysInMonth = new Date(parseInt(req.query.year), parseInt(parseInt(monthsLabelIndex.indexOf(req.query.month)) + 1), 0).getDate();
+        let noOfDaysInMonth = new Date(parseInt(year), parseInt(parseInt(monthsLabelIndex.indexOf(req.query.month)) + 1), 0).getDate();
         let monthN = parseInt(parseInt(monthsLabelIndex.indexOf(req.query.month)) + 1);
         console.log(noOfDaysInMonth);
         //
@@ -184,7 +260,7 @@ router.get('/adminConsole', isLoggedInAdmin, function (req, res, next) {
         console.log("no of days in the month" + noOfDaysInMonth);
         console.log("Length of array" + arrayOfDaysLogin.length);
 
-        connection.query("Select * from userlog where year = ? and month = ?", [req.query.year.toString(), monthN.toString()], (err, logsRet) => {
+        connection.query("Select * from userlog where year = ? and month = ?", [year.toString(), monthN.toString()], (err, logsRet) => {
 
             console.log(logsRet);
             for (let i = 0; i < logsRet.length; i++) {

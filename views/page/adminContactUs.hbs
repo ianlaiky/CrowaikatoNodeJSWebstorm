@@ -4,10 +4,11 @@
 <script src="/vendor/jquery/jquery.min.js"></script>
 
 
-<link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.5.0/css/bootstrap-datepicker.css" rel="stylesheet">
+<link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.5.0/css/bootstrap-datepicker.css"
+      rel="stylesheet">
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.5.0/js/bootstrap-datepicker.js"></script> </head>
-
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.5.0/js/bootstrap-datepicker.js"></script>
+</head>
 
 
 <!--</style>-->
@@ -42,7 +43,7 @@
                 <ul class="nav navbar-nav navbar-right">
 
                     <li>
-                        <a class="page-scroll " href="/page/adminContactUs">View Forms</a>
+                        <a class="page-scroll " href="/page/adminConsole">View Stats</a>
                     </li>
                     <li>
 
@@ -75,129 +76,62 @@
 
 <!-- Services Section -->
 <section id="overview" class="bg-light-gray">
-    <div class="container" style="width:80%;">
+
+    <div class="container">
+        <h2>Contact Us</h2>
+        <!--<p>The .table-responsive class creates a responsive table which will scroll horizontally on small devices (under 768px). When viewing on anything larger than 768px wide, there is no difference:</p>-->
+        <div class="table-responsive">
+            <table class="table">
+                <thead>
+                <tr>
+                    <th>#</th>
+                    <th>Name</th>
+                    <th>Email</th>
+                    <th>Phone</th>
+                    <th>Message</th>
+                    <th>Archive</th>
+                </tr>
+                </thead>
+                <tbody>
+
+                {{# if rowDataHasItem}}
+                    {{#each rowData}}
+
+
+                        <tr>
+                            <td>{{id}}</td>
+                            <td>{{name}}</td>
+                            <td>{{email}}</td>
+                            <td>{{phone}}</td>
+                            <td>{{message}}</td>
+
+
+                            <td>
+                                <form action="/page/adminContactUsArchive" method="post">
+                                    <input type="text" value="{{id}}" name="id" hidden>
+                                    <button type="submit" class="btn btn-primary btn-sm">Archive</button>
+
+                                </form>
+                            </td>
+
+                        </tr>
+
+
+                    {{/each}}
+
+
+                {{/if}}
 
 
 
-        <div class="row">
-            <div class="col-lg-10 text-center">
 
-                <canvas id="myChart"></canvas>
-
-            </div>
-            <div class="col-lg-2 text-center">
-
-
-               <form class="panel panel-default" method="get" action="/page/adminConsole">
-
-                   <div class="panel-body">
-                       <label>Sort by: </label>
-                       <select id="sortBy" class="form-control" name="sortBy" onchange="myFunction()" required>
-                           <option value="">Select a option</option>
-                           <option value="year">Year</option>
-                           <option value="month">Month</option>
-                       </select>
-                   </div>
-                   <div class="panel-body">
-                       <label>Select Year: </label>
-                       <input name="year" class="form-control" type="text" id="datepickeryear">
-
-
-                   </div>
-                   <div id="monthSelect" class="panel-body monthdisplay" style="visibility: hidden">
-                       <label>Select Month: </label>
-                       <input name="month" class="form-control" type="text" id="datepickermonth">
-
-
-                       </select>
-                   </div>
-                   <button type="submit" class="btn btn-primary btn-md">Show</button>
-                   <br>
-                   <br>
-
-
-               </form>
-
-            </div>
-
+                </tbody>
+            </table>
         </div>
-
-
-
-
-
-
     </div>
+
+
 </section>
-
-<script>
-
-
-
-    $( function() {
-        $( "#datepickeryear" ).datepicker({
-            minViewMode: 'years',
-            autoclose: true,
-            format: 'yyyy'
-        });
-
-        $( "#datepickermonth" ).datepicker({
-            minViewMode: 'months',
-            autoclose: true,
-            format: 'MM'
-        });
-
-    } );
-
-    var ctx = document.getElementById('myChart').getContext('2d');
-    var chart = new Chart(ctx, {
-        // The type of chart we want to create
-        type: 'line',
-
-        // The data for our dataset
-        data: {
-            labels: [{{{graphLabel}}}],
-            datasets: [{
-                label: "Login",
-                borderColor: 'rgb(255, 99, 132)',
-                data: [{{graphData1}}],
-                fill:false
-            },{
-                label: "Register",
-                borderColor: 'rgb(0, 191, 255)',
-                data: [{{graphData2}}],
-                fill:false
-            }]
-        },
-
-        // Configuration options go here
-        options: {}
-    });
-
-
-function myFunction(){
-
-
-    console.log("rer");
-    let selection = document.getElementById("sortBy").value;
-
-
-    if(selection.toString()=="month"){
-        document.getElementById("monthSelect").style.visibility="visible";
-    }else{
-        document.getElementById("monthSelect").style.visibility="hidden";
-
-    }
-    
-    
-
-console.log(selection)
-
-
-}
-
-
-</script>
 
 <!-- Portfolio Grid Section -->
 <!--<section id="solutions">-->
