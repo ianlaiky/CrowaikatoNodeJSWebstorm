@@ -10,9 +10,11 @@
 
 
 
-    <!--<script>-->
-        <!--document.getElementById("contactUsClick").click();-->
-    <!--</script>-->
+    <script>
+        $( document ).ready(function() {
+            document.getElementById("contactUsClick").click();
+        });
+    </script>
 <!--{{/if}}-->
 
 
@@ -55,7 +57,7 @@
                 <a class="page-scroll" href="#team">Team</a>
               </li> -->
                 <li>
-                    <a class="page-scroll" href="#contact">Contact</a>
+                    <a id="contactUsClick" class="page-scroll" href="#contact">Contact</a>
                 </li>
 
                 <li>
@@ -724,7 +726,7 @@
 
                                 temp2 = document.getElementById('{{param}}ContactUsLabel').innerHTML;
                                 document.getElementById('{{param}}ContactUsLabel').innerHTML = temp2 + "<br>{{msg}}";
-                                console.log(document.getElementById('{{param}}Label').innerHTML);
+
 
 
                             </script>
@@ -865,7 +867,9 @@
 
                                 {{/each}}
                                 <script>
-                                    document.getElementById("loginpopClick").click();
+                                    $( document ).ready(function() {
+                                        document.getElementById("loginpopClick").click();
+                                    });
                                 </script>
                             {{/if}}
 
