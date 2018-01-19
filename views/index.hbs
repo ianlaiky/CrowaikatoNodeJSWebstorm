@@ -4,10 +4,19 @@
 <script src="/vendor/jquery/jquery.min.js"></script>
 
 <script src='https://www.google.com/recaptcha/api.js'></script>
-<script>
+
+<!--{{redirectContactUs}}-->
+<!--{{#if redirectContactUs}}-->
 
 
-</script>
+
+    <!--<script>-->
+        <!--document.getElementById("contactUsClick").click();-->
+    <!--</script>-->
+<!--{{/if}}-->
+
+
+
 <!-- Navigation -->
 <nav id="mainNav" class="navbar navbar-default navbar-custom navbar-fixed-top">
     <div class="container">
@@ -72,6 +81,7 @@
         </div>
     </div>
 </header>
+<!--<button id="contactUsClick" style="display: none;" href="#contact"></button>-->
 
 <!-- Services Section -->
 <section id="overview" class="bg-light-gray">
@@ -639,45 +649,92 @@
         </div>
         <div class="row">
             <div class="col-lg-12">
-                <form action="/contactUsSubmit" method="post">
+                {{#if contactUsSuccess}}
+
                     <div class="row">
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                <input type="text" class="form-control" placeholder="Your Name *" id="name" name="name" pattern="^.{1,200}$" title="Maximun character of 200 reached" required>
-                                <p class="help-block text-danger"></p>
-                            </div>
-                            <div class="form-group">
-                                <input type="email" class="form-control" placeholder="Your Email *" id="email" name="email" pattern="^.{1,200}$" title="Maximun character of 200 reached" required>
-                                <p class="help-block text-danger"></p>
-                            </div>
-                            <div class="form-group">
-                                <input type="tel" class="form-control" placeholder="Your Phone *" id="phone" name="phone" pattern="^.{1,200}$" title="Maximun character of 200 reached" required>
-                                <p class="help-block text-danger"></p>
-                            </div>
-                        </div>
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                <textarea class="form-control" placeholder="Your Message *" id="message" name="message" pattern="^.{1,200}$" title="Maximun character of 200 reached" required></textarea>
-                                <p class="help-block text-danger"></p>
-                            </div>
-                        </div>
-                        <div class="clearfix"></div>
-                        <div class="col-lg-12 text-center">
-                            <div id="success"></div>
-                            <button type="submit" class="btn btn-xl">Send Message</button>
-                            <br><br>
-                            <div id="rc-imageselect" class="g-recaptcha" style="display: inline-block;"
-                                 data-sitekey="6LdwBzwUAAAAAPA3xKJV4d5b5wQQ49f3sIYW9Clv"></div>
+                        <div class="col-md-12 text-center">
+
+                          <h3 class="section-heading">  Your message has been received!</h3>
+
 
                         </div>
-
-
-
 
 
 
                     </div>
-                </form>
+
+                {{else}}
+                    <form action="/contactUsSubmit" method="post">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <input type="text" class="form-control" placeholder="Your Name *" id="name"
+                                           name="name"
+                                           pattern="^.{1,200}$" title="Maximun character of 200 reached" required>
+
+                                    <label id="nameContactUsLabel" style="color: red;visibility: hidden;"></label>
+
+                                </div>
+                                <div class="form-group">
+                                    <input type="email" class="form-control" placeholder="Your Email *" id="email"
+                                           name="email" pattern="^.{1,200}$" title="Maximun character of 200 reached"
+                                           required>
+                                    <label id="emailContactUsLabel" style="color: red;visibility: hidden;"></label>
+                                </div>
+                                <div class="form-group">
+                                    <input type="tel" class="form-control" placeholder="Your Phone *" id="phone"
+                                           name="phone" pattern="[\+][\d]+" title="Format: +[CountryCode][PhoneNumber] E.g.+64067512345"
+                                           required>
+                                    <label id="phoneContactUsLabel" style="color: red;visibility: hidden;"></label>
+
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                <textarea class="form-control" placeholder="Your Message *" id="message" name="message"
+                                          pattern="^.{1,200}$" title="Maximun character of 200 reached"
+                                          required></textarea>
+                                    <label id="messageContactUsLabel" style="color: red;visibility: hidden;"></label>
+
+                                </div>
+                            </div>
+                            <div class="clearfix"></div>
+                            <div class="col-lg-12 text-center">
+                                <div id="success"></div>
+                                <button type="submit" class="btn btn-xl">Send Message</button>
+                                <br><br>
+                                <div id="rc-imageselect" class="g-recaptcha" style="display: inline-block;"
+                                     data-sitekey="6LdwBzwUAAAAAPA3xKJV4d5b5wQQ49f3sIYW9Clv"></div>
+                                <br>
+                                <label id="captchaContactUsLabel" style="color: red;visibility: hidden;"></label>
+
+                            </div>
+
+
+                        </div>
+                    </form>
+                    <script>
+                        var temp2;
+                    </script>
+                    {{# if contactHasError}}
+                        {{#each messageContactUs}}
+                            <script>
+
+                                document.getElementById('{{param}}ContactUsLabel').style.visibility = "visible";
+
+                                temp2 = document.getElementById('{{param}}ContactUsLabel').innerHTML;
+                                document.getElementById('{{param}}ContactUsLabel').innerHTML = temp2 + "<br>{{msg}}";
+                                console.log(document.getElementById('{{param}}Label').innerHTML);
+
+
+                            </script>
+                        {{/each}}
+
+                    {{/if}}
+
+                {{/if}}
+
+
             </div>
         </div>
     </div>
@@ -743,7 +800,6 @@
                             <!--<li>Client: Round Icons</li>-->
                             <!--<li>Category: Graphic Design</li>-->
                             <!--</ul>-->
-
 
 
                             <form method="post" action="/page/loginBackend" class="text-center">
@@ -1123,7 +1179,6 @@
         </div>
     </div>
 </div>
-
 
 
 <!-- Bootstrap Core JavaScript -->

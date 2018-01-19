@@ -2,7 +2,10 @@ var express = require('express');
 var querystring = require('querystring');
 var https = require('https');
 var passport = require('passport');
-
+var mysql = require('mysql');
+var dbconfig = require('../config/database');
+var connection = mysql.createConnection(dbconfig.connection);
+connection.query('USE ' + dbconfig.database);
 var router = express.Router();
 
 
@@ -89,6 +92,60 @@ router.post("/contactUsSubmit", isLoggedout, (req, res, next) => {
 
         req.check('message', 'Reached Character Limit (Max: 200)').trim().notEmpty().isLength({max:200});
 
+        var errors = req.validationErrors();
+
+        console.log("Captcha result" + captchaValidationResult);
+
+        if (captchaValidationResult == false) {
+
+            if (!errors) {
+
+                errors = [];
+                errors.push({"param": "captcha", "msg": "Please do the captcha"});
+            } else {
+                errors.push({"param": "captcha", "msg": "Please do the captcha"});
+            }
+
+        }
+
+        console.log("Errors for contact us");
+        console.log(errors);
+
+
+
+
+        if (errors) {
+            console.log("RUN 1");
+
+            req.flash('errorContactUs', errors);
+
+            res.redirect("/");
+
+
+        }else{
+
+            let name = req.body.name;
+            let email = req.body.email;
+            let phone = req.body.phone;
+            let message = req.body.message;
+
+            var insertQuery = "INSERT INTO contact_us ( name, email, phone, message, archive) values (?,?,?,?,?)";
+
+            connection.query(insertQuery,[name,email,phone,message,"false"],(err,rows)=>{
+
+                if (err) console.log(err);
+
+                console.log("ROW inserted contact us");
+                console.log(rows);
+
+
+                req.flash('errorContactUsSuccess',"true");
+
+                res.redirect("/");
+            });
+
+
+        }
 
 
 
@@ -101,12 +158,30 @@ router.post("/contactUsSubmit", isLoggedout, (req, res, next) => {
 
 /* GET home page. */
 router.get('/', isLoggedout, function (req, res, next) {
+    var cotactusSucessFin = false;
 
+    var autoRedirect = false;
     var messages = req.flash('errorLogin');
+    var messagesContactUs = req.flash('errorContactUs');
+    var messagesContactUsSuccess = req.flash('errorContactUsSuccess');
     console.log(messages);
     console.log(messages.length);
     console.log(messages.length > 0);
-    res.render('index', {layout: 'layout/layout', messages: messages, hasError: messages.length > 0});
+
+
+    console.log("error contact us");
+    console.log(messagesContactUs);
+    console.log(messagesContactUsSuccess);
+
+    if (messagesContactUsSuccess=="true"){
+        cotactusSucessFin=true;
+    }
+
+    if (messagesContactUs.length>0||messagesContactUsSuccess=="true"){
+        autoRedirect=true;
+    }
+
+    res.render('index', {layout: 'layout/layout', messages: messages, hasError: messages.length > 0,messageContactUs:messagesContactUs,contactHasError:messagesContactUs.length>0,contactUsSuccess:cotactusSucessFin,redirectContactUs:autoRedirect});
 });
 // router.get('/artest', function (req, res, next) {
 //

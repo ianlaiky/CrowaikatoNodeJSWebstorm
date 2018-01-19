@@ -30,12 +30,11 @@ router.post("/registerForm", passport.authenticate('local.signup', {
     // successRedirect: '/page/register', // redirect to the secure profile section
     failureRedirect: '/page/register', // redirect back to the signup page if there is an error
     failureFlash: true // allow flash messages
-}), (req, res)=>{
+}), (req, res) => {
 
 
-        req.logout();
-        res.redirect("/page/register")
-
+    req.logout();
+    res.redirect("/page/register")
 
 
 });
@@ -124,8 +123,8 @@ router.get('/adminConsole', isLoggedInAdmin, function (req, res, next) {
 
     if (req.query.sortBy.toString() == "year") {
 
-        let monthsMaplogin = [0,0,0,0,0,0,0,0,0,0,0,0];
-        let monthsMapregister = [0,0,0,0,0,0,0,0,0,0,0,0];
+        let monthsMaplogin = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
+        let monthsMapregister = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
         let monthsLabel = ["'January'", "'February'", "'March'", "'April'", "'May'", "'June'", "'July'", "'August'", "'September'", "'October'", "'November'", "'December'"];
 
         connection.query("Select * from userlog where year = ?", [req.query.year.toString()], (err, logsRet) => {
@@ -134,18 +133,24 @@ router.get('/adminConsole', isLoggedInAdmin, function (req, res, next) {
             for (let i = 0; i < logsRet.length; i++) {
                 console.log("Print");
                 console.log(logsRet[i].month);
-                if(logsRet[i].mode.toString()=="login"){
-                    monthsMaplogin[logsRet[i].month-1] = monthsMaplogin[logsRet[i].month-1] + 1;
+                if (logsRet[i].mode.toString() == "login") {
+                    monthsMaplogin[logsRet[i].month - 1] = monthsMaplogin[logsRet[i].month - 1] + 1;
 
-                }else{
-                    monthsMapregister[logsRet[i].month-1] = monthsMapregister[logsRet[i].month-1] + 1;
+                } else {
+                    monthsMapregister[logsRet[i].month - 1] = monthsMapregister[logsRet[i].month - 1] + 1;
 
                 }
             }
             console.log(monthsMaplogin);
             console.log(monthsMapregister);
             console.log(monthsLabel);
-            res.render('page/adminConsole', {layout: 'layout/layout', firstname: req.session.useInfoo.firstname,graphLabel:monthsLabel,graphData1:monthsMaplogin,graphData2:monthsMapregister});
+            res.render('page/adminConsole', {
+                layout: 'layout/layout',
+                firstname: req.session.useInfoo.firstname,
+                graphLabel: monthsLabel,
+                graphData1: monthsMaplogin,
+                graphData2: monthsMapregister
+            });
 
         });
 
@@ -153,55 +158,58 @@ router.get('/adminConsole', isLoggedInAdmin, function (req, res, next) {
         //
         // }
 
-    }else if(req.query.sortBy.toString() == "month"){
+    } else if (req.query.sortBy.toString() == "month") {
         let monthsLabelIndex = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
 
 
-
         console.log(req.query.year);
-        console.log(monthsLabelIndex.indexOf(req.query.month)+1);
+        console.log(monthsLabelIndex.indexOf(req.query.month) + 1);
 
         // days in the month
-        let noOfDaysInMonth = new Date(parseInt(req.query.year), parseInt(parseInt(monthsLabelIndex.indexOf(req.query.month))+1),0).getDate();
-        let monthN = parseInt(parseInt(monthsLabelIndex.indexOf(req.query.month))+1);
+        let noOfDaysInMonth = new Date(parseInt(req.query.year), parseInt(parseInt(monthsLabelIndex.indexOf(req.query.month)) + 1), 0).getDate();
+        let monthN = parseInt(parseInt(monthsLabelIndex.indexOf(req.query.month)) + 1);
         console.log(noOfDaysInMonth);
         //
         let arrayOfDaysLogin = [];
         let arrayOfDaysRegister = [];
-        let daysLabel=[];
+        let daysLabel = [];
 
 
-        for (let x = 0;x<parseInt(noOfDaysInMonth);x++){
+        for (let x = 0; x < parseInt(noOfDaysInMonth); x++) {
             arrayOfDaysLogin.push(0);
             arrayOfDaysRegister.push(0);
-            daysLabel.push(x+1);
+            daysLabel.push(x + 1);
         }
 
-        console.log("no of days in the month"+noOfDaysInMonth);
-        console.log("Length of array"+arrayOfDaysLogin.length);
+        console.log("no of days in the month" + noOfDaysInMonth);
+        console.log("Length of array" + arrayOfDaysLogin.length);
 
-        connection.query("Select * from userlog where year = ? and month = ?", [req.query.year.toString(),monthN.toString()], (err, logsRet) => {
+        connection.query("Select * from userlog where year = ? and month = ?", [req.query.year.toString(), monthN.toString()], (err, logsRet) => {
 
             console.log(logsRet);
             for (let i = 0; i < logsRet.length; i++) {
                 console.log("Print");
                 console.log(logsRet[i].month);
-                if(logsRet[i].mode.toString()=="login"){
-                    arrayOfDaysLogin[logsRet[i].date-1] = arrayOfDaysLogin[logsRet[i].date-1] + 1;
+                if (logsRet[i].mode.toString() == "login") {
+                    arrayOfDaysLogin[logsRet[i].date - 1] = arrayOfDaysLogin[logsRet[i].date - 1] + 1;
 
-                }else{
-                    arrayOfDaysRegister[logsRet[i].date-1] = arrayOfDaysRegister[logsRet[i].date-1] + 1;
+                } else {
+                    arrayOfDaysRegister[logsRet[i].date - 1] = arrayOfDaysRegister[logsRet[i].date - 1] + 1;
 
                 }
             }
             console.log(arrayOfDaysLogin);
             console.log(arrayOfDaysRegister);
             console.log(daysLabel);
-            res.render('page/adminConsole', {layout: 'layout/layout', firstname: req.session.useInfoo.firstname,graphLabel:daysLabel,graphData1:arrayOfDaysLogin,graphData2:arrayOfDaysRegister});
+            res.render('page/adminConsole', {
+                layout: 'layout/layout',
+                firstname: req.session.useInfoo.firstname,
+                graphLabel: daysLabel,
+                graphData1: arrayOfDaysLogin,
+                graphData2: arrayOfDaysRegister
+            });
 
         });
-
-
 
 
     }
@@ -282,7 +290,7 @@ router.get("/machines", isLoggedIn, function (request, response) {
     response.send(machines);
 });
 
-router.get('/register', isLoggedout,function (req, res, next) {
+router.get('/register', isLoggedout, function (req, res, next) {
 
 
     var messages = req.flash('error');
