@@ -74,6 +74,18 @@ router.post('/loginBackend', passport.authenticate('local.signin', {
 
 });
 
+
+router.get("/homeSettings",isLoggedIn,(req,res,next)=>{
+
+    res.render('page/homeSettings', {
+        layout: 'layout/layout',
+        firstname: req.session.useInfoo.firstname,
+
+    });
+
+});
+
+
 /* GET users listing. */
 router.get('/home', isLoggedIn, function (req, res, next) {
 
