@@ -57,6 +57,7 @@ function verifyRecaptcha(key, callback) {
 
 
 router.post("/contactUsSubmit", isLoggedout, (req, res, next) => {
+    console.log("RUNNING contact us");
 
 
     var captchaValidationResult = false;
@@ -90,7 +91,7 @@ router.post("/contactUsSubmit", isLoggedout, (req, res, next) => {
         req.check('phone', 'Reached Character Limit (Max: 200)').trim().notEmpty().isLength({max:200});
 
 
-        req.check('message', 'Reached Character Limit (Max: 200)').trim().notEmpty().isLength({max:200});
+        req.check('message', 'Reached Character Limit (Max: 1000)').trim().notEmpty().isLength({max:1000});
 
         var errors = req.validationErrors();
 
