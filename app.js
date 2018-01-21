@@ -96,49 +96,49 @@ mongoose.connect(dbconfigMongo.connection, function(err) {
 //     console.log("DB ADDDD");
 //
 // }
-
-
-
-//Each action is either an attack or a defense.
-//If is an attack, source Ip will be red machine and dest Ip will be blue machine
-//If is a defense, source Ip will be blue machine and dest Ip will be red machine
-function getData(type) {
-    var data = [];
-
-    if (type == 1 || type == 2 || type == 3 || type == 4 || type == 5 || type == 6 || type == 7 || type == 8 || type == 9) {
-
-        attack();
-
-    } else if (type == 10 || type == 11 || type == 12) {
-
-        defend();
-    } else {
-
-        console.log("error Input");
-        attack();
-    }
-
-    data.push(type);
-    data.push(srcIP);
-    data.push(destIP);
-
-    return data;
-
-}
-
-function attack() {
-    srcIP = redIp;
-    destIP = blueIp;
-}
-
-function defend() {
-    srcIP = blueIp;
-    destIP = redIp;
-}
-
-
-
-
+//
+//
+//
+// //Each action is either an attack or a defense.
+// //If is an attack, source Ip will be red machine and dest Ip will be blue machine
+// //If is a defense, source Ip will be blue machine and dest Ip will be red machine
+// function getData(type) {
+//     var data = [];
+//
+//     if (type == 1 || type == 2 || type == 3 || type == 4 || type == 5 || type == 6 || type == 7 || type == 8 || type == 9) {
+//
+//         attack();
+//
+//     } else if (type == 10 || type == 11 || type == 12) {
+//
+//         defend();
+//     } else {
+//
+//         console.log("error Input");
+//         attack();
+//     }
+//
+//     data.push(type);
+//     data.push(srcIP);
+//     data.push(destIP);
+//
+//     return data;
+//
+// }
+//
+// function attack() {
+//     srcIP = redIp;
+//     destIP = blueIp;
+// }
+//
+// function defend() {
+//     srcIP = blueIp;
+//     destIP = redIp;
+// }
+//
+//
+//
+//
 
 
 
@@ -179,7 +179,7 @@ app.use('/', index);
 
 // response
 
-
+// todo unused delete ltr
 app.post('/registerForm', function (req, res) {
     console.log(req.body);
 
@@ -228,14 +228,7 @@ app.use(function (err, req, res, next) {
     res.status(err.status || 500);
     res.redirect('/error');
 });
-// var now = new Date();
-//
-//
-//
-// console.log(now.getFullYear());
-// console.log(now.getMonth()+1);
-// console.log(now.getDate());
-// console.log(new Date(2018, 2,0).getDate());
+
 
 
 
