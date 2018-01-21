@@ -25,7 +25,7 @@ var userAccounts = require('./routes/signedInUsers');
 const api = require('./routes/api');
 const io = require('./socket/websocket');
 
-
+var dbconfigMongo = require('./config/databaseMongo');
 require('./config/passport');
 
 
@@ -42,7 +42,7 @@ app.io = io;
 mongoose.Promise = Promise;
 
 // Connect to MongoDB
-mongoose.connect('mongodb://192.168.204.129:27017/ARDB', function(err) {
+mongoose.connect(dbconfigMongo.connection, function(err) {
     if(err) throw err;
 });
 
