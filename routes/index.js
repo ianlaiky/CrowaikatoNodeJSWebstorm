@@ -199,6 +199,14 @@ router.get('/error', function (req, res, next) {
 });
 
 
+/* GET errorForApp page. */
+router.get('/errors', function (req, res, next) {
+
+
+    res.render('errorForApp', {layout: 'layout/layout'});
+
+});
+
 router.get('/errorSession', function (req, res, next) {
 
 

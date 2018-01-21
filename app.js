@@ -226,7 +226,7 @@ app.use(function (err, req, res, next) {
     console.log(err.status);
     // render the error page
     res.status(err.status || 500);
-    res.redirect('/error');
+    res.redirect('/errors');
 });
 
 
