@@ -74,6 +74,15 @@ router.post('/loginBackend', passport.authenticate('local.signin', {
 
 });
 
+
+router.post("homeSettingsDetailsEdit",isLoggedIn,(req,res,next)=>{
+    console.log("Data get from details get");
+    console.log(req.body);
+
+
+
+});
+
 // change password/details
 router.get("/homeSettings",isLoggedIn,(req,res,next)=>{
 
