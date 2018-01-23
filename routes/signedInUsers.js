@@ -74,7 +74,7 @@ router.post('/loginBackend', passport.authenticate('local.signin', {
 
 });
 
-
+// change password/details
 router.get("/homeSettings",isLoggedIn,(req,res,next)=>{
 
     res.render('page/homeSettings', {
@@ -84,6 +84,7 @@ router.get("/homeSettings",isLoggedIn,(req,res,next)=>{
     });
 
 });
+
 
 
 /* GET users listing. */
