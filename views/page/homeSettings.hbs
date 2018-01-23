@@ -147,14 +147,14 @@
 
                            <div class="form-group col-md-6 col-xs-6">
                                <label>First Name</label>
-                               <input type="text" class="form-control" id="firstName" placeholder="First Name" name="firstName"
+                               <input type="text" class="form-control" id="firstName" placeholder="First Name" name="firstName" value="{{firstname}}"
                                       required>
                                <label id="firstNameLabel" style="color: red;visibility: hidden;"></label>
 
                            </div>
                            <div class="form-group col-md-6 col-xs-6">
                                <label>Last Name</label>
-                               <input type="text" class="form-control" id="lastName" placeholder="Last Name" name="lastName"
+                               <input type="text" class="form-control" id="lastName" placeholder="Last Name" name="lastName" value="{{lastname}}"
                                       required>
                                <label id="lastNameLabel" style="color: red;visibility: hidden;"></label>
 
@@ -167,14 +167,14 @@
                        <div class="panel-body">
                            <div class="form-group col-md-6">
                                <label>Job Title</label>
-                               <input type="text" class="form-control" id="jobtitle" placeholder="Job title" name="jobtitle"
+                               <input type="text" class="form-control" id="jobtitle" placeholder="Job title" name="jobtitle" value="{{jobtitle}}"
                                       required>
                                <label id="jobtitleLabel" style="color: red;visibility: hidden;"></label>
 
                            </div>
                            <div class="form-group col-md-6">
                                <label>Company/Institution</label>
-                               <input type="text" class="form-control" id="institution" placeholder="Institution"
+                               <input type="text" class="form-control" id="institution" placeholder="Institution" value="{{company}}"
                                       name="institution" required>
                                <label id="institutionLabel" style="color: red;visibility: hidden;"></label>
 
@@ -187,7 +187,7 @@
                        <div class="panel-body">
                            <div class="form-group col-md-3">
                                <label>Country</label>
-                               <select class="form-control" name="countryName" required>
+                               <select id="countrySelectjs" class="form-control" name="countryName" required>
 
                                    <option value="">-Select a value-</option>
                                    <option value="AF">Afghanistan</option>
@@ -445,7 +445,7 @@
                            </div>
                            <div class="form-group col-md-3">
                                <label>State</label>
-                               <input type="text" class="form-control" id="state" placeholder="State" name="state" required>
+                               <input type="text" class="form-control" id="state" placeholder="State" name="state" value="{{state}}" required>
 
                                <label id="stateLabel" style="color: red;visibility: hidden;"></label>
 
@@ -453,7 +453,7 @@
                            </div>
                            <div class="form-group col-md-3">
                                <label>City</label>
-                               <input type="text" class="form-control" id="city" placeholder="City" name="cityName" required>
+                               <input type="text" class="form-control" id="city" placeholder="City" name="cityName" value="{{city}}" required>
 
                                <label id="cityLabel" style="color: red;visibility: hidden;"></label>
 
@@ -462,7 +462,7 @@
 
                            <div class="form-group col-md-3">
                                <label>Zip code</label>
-                               <input type="number" class="form-control" id="zipcode" name="zipcode" required>
+                               <input type="number" class="form-control" id="zipcode" name="zipcode" value="{{zipcode}}" required>
 
                                <label id="zipcodeLabel" style="color: red;visibility: hidden;"></label>
 
@@ -472,7 +472,7 @@
 
                        <div class="panel-body">
                            <label>Address</label>
-                           <input type="text" class="form-control" id="inputAddress" placeholder="1234 Main St"
+                           <input type="text" class="form-control" id="inputAddress" placeholder="1234 Main St" value="{{address}}"
                                   name="inputAddress"
                                   required>
 
@@ -484,7 +484,7 @@
                            <div class="form-group col-md-6">
                                <label>Phone Number (With area code)</label>
                                <input type="tel" class="form-control" id="phoneNumber" placeholder="E.g. +64123456"
-                                      name="phoneNumber" pattern="[\+][\d]+" title="Format: +[CountryCode][PhoneNumber] E.g.+64067512345" required>
+                                      name="phoneNumber" pattern="[\+][\d]+" title="Format: +[CountryCode][PhoneNumber] E.g.+64067512345" value="{{phoneno}}" required>
 
                                <label id="phoneNumberLabel" style="color: red;visibility: hidden;"></label>
 
@@ -492,7 +492,7 @@
 
                            <div class="form-group col-md-6">
                                <label>Fax Number (With area code)</label>
-                               <input type="tel" class="form-control" id="faxNumber" placeholder="E.g. +64123456"
+                               <input type="tel" class="form-control" id="faxNumber" placeholder="E.g. +64123456" value="{{faxno}}"
                                       name="faxNumber" pattern="[\+][\d]+" title="Format: +[CountryCode][PhoneNumber] E.g.+64067512345" required>
 
                                <label id="faxNumberLabel" style="color: red;visibility: hidden;"></label>
@@ -503,7 +503,7 @@
 
                            <div class="form-group col-md-6">
                                <label>What sector do you work?</label>
-                               <select class="form-control" name="workSector" required>
+                               <select id="sectorSelectjs" class="form-control" name="workSector" required>
 
 
                                    <option value="">-Select a value-</option>
@@ -519,7 +519,7 @@
                            </div>
                            <div class="form-group col-md-6">
                                <label>What is your primary job function?</label>
-                               <select class="form-control" name="jobFunction" required>
+                               <select id="jobFunctionSelectjs" class="form-control" name="jobFunction" required>
 
 
                                    <option value="">-Select a value-</option>
@@ -546,14 +546,14 @@
                            <div class="row">
                                <div class="form-check col-md-2 col-xs-2">
                                    <label class="form-check-label">
-                                       <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios1"
+                                       <input class="form-check-input" type="radio" name="exampleRadios" id="Radios1"
                                               value="option1" required>
                                        Yes
                                    </label>
                                </div>
                                <div class="form-check">
                                    <label class="form-check-label col-xs-2">
-                                       <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios2"
+                                       <input class="form-check-input" type="radio" name="exampleRadios" id="Radios2"
                                               value="option2" required>
                                        No
                                    </label>
@@ -579,7 +579,27 @@
     </div>
 </section>
 
+<script>
+    $( document ).ready(function() {
 
+        $('#countrySelectjs').val('{{country}}');
+        $('#sectorSelectjs').val('{{sectorwork}}');
+        $('#jobFunctionSelectjs').val('{{jobfunction}}');
+
+        var checkRadio = "{{fulltimestudent}}";
+
+        if (checkRadio =="yes"){
+            document.getElementById("Radios1").checked = true;
+        }else{
+            document.getElementById("Radios2").checked = true;
+        }
+
+
+    });
+
+
+
+</script>
 
 <footer>
     <div class="container">

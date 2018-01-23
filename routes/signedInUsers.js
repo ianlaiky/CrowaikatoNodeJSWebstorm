@@ -80,6 +80,19 @@ router.get("/homeSettings",isLoggedIn,(req,res,next)=>{
     res.render('page/homeSettings', {
         layout: 'layout/layout',
         firstname: req.session.useInfoo.firstname,
+        lastname: req.session.useInfoo.lastname,
+        jobtitle: req.session.useInfoo.jobtitle,
+        company: req.session.useInfoo.company,
+        country: req.session.useInfoo.country,
+        state: req.session.useInfoo.state,
+        city: req.session.useInfoo.city,
+        zipcode: req.session.useInfoo.zipcode,
+        address: req.session.useInfoo.address,
+        phoneno: req.session.useInfoo.phoneno,
+        faxno: req.session.useInfoo.faxno,
+        sectorwork: req.session.useInfoo.sectorwork,
+        jobfunction: req.session.useInfoo.jobfunction,
+        fulltimestudent: req.session.useInfoo.fulltimestudent
 
     });
 
