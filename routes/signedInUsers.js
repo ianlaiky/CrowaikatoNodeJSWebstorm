@@ -75,9 +75,64 @@ router.post('/loginBackend', passport.authenticate('local.signin', {
 });
 
 
-router.post("homeSettingsDetailsEdit",isLoggedIn,(req,res,next)=>{
+router.post("/homeSettingsDetailsEdit",isLoggedIn,(req,res,next)=>{
     console.log("Data get from details get");
+
     console.log(req.body);
+    req.check('firstName', "Please enter something").trim().notEmpty();
+    req.check('firstName', "Reached Character Limit (Max: 200)").trim().isLength({max:200});
+    req.check('lastName', "Please enter something").trim().notEmpty();
+    req.check('lastName', "PReached Character Limit (Max: 200)").trim().isLength({max:200});
+    req.check('jobtitle', "Please enter something").trim().notEmpty();
+    req.check('jobtitle', "Reached Character Limit (Max: 200)").trim().isLength({max:200});
+
+    req.check('institution', "Please enter something").trim().notEmpty();
+    req.check('institution', "Reached Character Limit (Max: 200)").trim().isLength({max:200});
+
+    req.check('countryName', "Please select something").trim().notEmpty();
+    req.check('countryName', "Reached Character Limit (Max: 200)").trim().isLength({max:200});
+
+    req.check('state', "Please enter something").trim().notEmpty();
+    req.check('state', "Reached Character Limit (Max: 200)").trim().isLength({max:200});
+
+    req.check('cityName', "Please enter something").trim().notEmpty();
+    req.check('cityName', "Reached Character Limit (Max: 200)").trim().isLength({max:200});
+    req.check('zipcode', "Please enter something").trim().notEmpty();
+    req.check('zipcode', "Reached Character Limit (Max: 200)").trim().isLength({max:200});
+    req.check('inputAddress', "Please enter something").notEmpty();
+    req.check('inputAddress', "Reached Character Limit (Max: 200)").trim().isLength({max:200});
+
+    req.check('phoneNumber', 'Invalid phone No').trim().matches(/^[+][\d]+$/, "i");
+    req.check('phoneNumber', 'Reached Character Limit (Max: 200)').trim().isLength({max:200});
+    req.check('faxNumber', 'Invalid fax No').trim().matches(/^[+][\d]+$/, "i");
+    req.check('faxNumber', 'Reached Character Limit (Max: 200)').trim().isLength({max:200});
+
+    req.check('workSector', "Please select something").trim().notEmpty();
+    req.check('workSector', "Reached Character Limit (Max: 200)").trim().isLength({max:200});
+    req.check('jobFunction', "Please select something").trim().notEmpty();
+    req.check('jobFunction', "Reached Character Limit (Max: 200)").trim().isLength({max:200});
+
+    req.check('exampleRadios', "Please select an option").trim().notEmpty();
+    req.check('exampleRadios', "Reached Character Limit (Max: 200)").trim().isLength({max:200});
+
+
+    var errors = req.validationErrors();
+
+    console.log(errors);
+
+    if (errors){
+        console.log("edit errors");
+        req.flash('errorHomeSettingDetail', errors);
+        res.redirect("/page/homeSettings");
+
+    }else{
+
+
+
+
+    }
+
+
 
 
 
@@ -85,6 +140,10 @@ router.post("homeSettingsDetailsEdit",isLoggedIn,(req,res,next)=>{
 
 // change password/details
 router.get("/homeSettings",isLoggedIn,(req,res,next)=>{
+    console.log("Home setting");
+    let errormsgDetail =  req.flash('errorHomeSettingDetail');
+    console.log(errormsgDetail);
+
 
     res.render('page/homeSettings', {
         layout: 'layout/layout',
@@ -101,7 +160,9 @@ router.get("/homeSettings",isLoggedIn,(req,res,next)=>{
         faxno: req.session.useInfoo.faxno,
         sectorwork: req.session.useInfoo.sectorwork,
         jobfunction: req.session.useInfoo.jobfunction,
-        fulltimestudent: req.session.useInfoo.fulltimestudent
+        fulltimestudent: req.session.useInfoo.fulltimestudent,
+        errormsgDetail:errormsgDetail,
+        errorHasErrorDetail:errormsgDetail.length>0
 
     });
 
