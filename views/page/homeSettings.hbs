@@ -64,40 +64,78 @@
     <!-- /.container-fluid -->
 </nav>
 
-<!-- Header -->
-<!--<header>-->
-<!--<div class="container">-->
-<!--<div class="intro-text">-->
-<!--<div class="intro-lead-in">CROW Lab</div>-->
-<!--<div class="intro-heading">SECURITY TOOLS</div>-->
-<!--<a href="#solutions" class="page-scroll btn btn-xl">Jump to solutions</a>-->
-<!--</div>-->
-<!--</div>-->
-<!--</header>-->
+<script language='javascript' type='text/javascript'>
 
-<!-- Services Section -->
+
+    function check(input) {
+        if (input.value != document.getElementById('password').value) {
+            input.setCustomValidity('Password Must be Matching.');
+        } else {
+            // input is valid -- reset the error message
+            input.setCustomValidity('');
+        }
+    }
+</script>
+
+
 <section id="overview" class="bg-light-gray">
     <div class="container" style="width:90%;">
 
 
-
-<div class="row">
-    <div class="col-lg-12">
-
-
-    </div>
-
-    <div class="col-lg-12">
+        <div class="row">
+            <div class="col-lg-6">
+                <form class="panel panel-default col-lg-12" action='/page/registerForm' method="post"
+                      id="updatePassword">
+                    <fieldset>
 
 
-    </div>
+                        <legend class="text-center">Change Password:</legend>
+                        <div class="panel-body">
+                            <div class="form-group col-md-12">
+                                <label>Current Password</label>
+                                <input type="password" class="form-control" id="password" placeholder="Password"
+                                       name="password" pattern="^(?=.*\d)(?=.*[!@#\$%\^&\*])(?=.*[a-z])(?=.*[A-Z]).{8,}"
+                                       title="Password should contain alphanumeric character with uppercase, lowercase and special characters (!,@,#,$,%,^,&,*)"
+                                       required>
+                                <label id="passwordLabel" style="color: red;visibility: hidden;"></label>
+
+                            </div>
+                        </div>
+
+                        <div class="panel-body">
+                            <div class="form-group col-md-6">
+                                <label>New Password</label>
+                                <input type="password" class="form-control" id="password" placeholder="Password"
+                                       name="password" pattern="^(?=.*\d)(?=.*[!@#\$%\^&\*])(?=.*[a-z])(?=.*[A-Z]).{8,}"
+                                       title="Password should contain alphanumeric character with uppercase, lowercase and special characters (!,@,#,$,%,^,&,*)"
+                                       required>
+                                <label id="passwordLabel" style="color: red;visibility: hidden;"></label>
+
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label>Confirm Password</label>
+                                <input type="password" class="form-control" id="password_cfm" placeholder="Password"
+                                       name="password_cfm" oninput="check(this)" required>
+                                <label id="password_cfmLabel" style="color: red;visibility: hidden;"></label>
+
+                            </div>
+                        </div>
+                    </fieldset>
+                </form>
 
 
+            </div>
+
+            <div class="col-lg-6">
+
+                <form class="panel panel-default" action='/page/registerForm' method="post" id="updateDetails">
+
+                    fsd
+                </form>
+            </div>
 
 
-
-</div>
-
+        </div>
 
 
     </div>
