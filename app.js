@@ -46,6 +46,31 @@ mongoose.connect(dbconfigMongo.connection, function(err) {
     if(err) throw err;
 });
 
+// view engine setup
+app.set('views', path.join(__dirname, 'views'));
+app.set('view engine', 'hbs');
+
+// uncomment after placing your favicon in /public
+app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
+app.use(logger('dev'));
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({extended: true}));
+app.use(expressValidator());
+app.use(cookieParser());
+app.use(express.static(path.join(__dirname, 'public')));
+app.use(expressSession({secret: 'ianlaicrowwebsite', saveUninitialized: false, resave: false}));
+app.use(flash());
+app.use(passport.initialize());
+app.use(passport.session());
+
+
+
+
+
+app.use('/page', userAccounts);
+app.use('/api', api);
+app.use('/', index);
+
 
 //testing purpose only AR
 // var conn = mongoose.connection;
@@ -145,31 +170,6 @@ mongoose.connect(dbconfigMongo.connection, function(err) {
 
 
 
-
-// view engine setup
-app.set('views', path.join(__dirname, 'views'));
-app.set('view engine', 'hbs');
-
-// uncomment after placing your favicon in /public
-app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
-app.use(logger('dev'));
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({extended: true}));
-app.use(expressValidator());
-app.use(cookieParser());
-app.use(express.static(path.join(__dirname, 'public')));
-app.use(expressSession({secret: 'ianlaicrowwebsite', saveUninitialized: false, resave: false}));
-app.use(flash());
-app.use(passport.initialize());
-app.use(passport.session());
-
-
-
-
-
-app.use('/page', userAccounts);
-app.use('/api', api);
-app.use('/', index);
 
 
 
