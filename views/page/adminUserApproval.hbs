@@ -37,7 +37,7 @@
                 <div class="col-md-6 text-center" style="color: white;">
                     <h2>
 
-                        Welcome
+                        Welcome, {{firstname}}
 
                     </h2>
                 </div>
@@ -78,22 +78,104 @@
 
 <!-- Services Section -->
 <section id="overview" class="bg-light-gray">
-    <div class="container" style="width:90%;">
+
+    <div class="container">
+        <div class="row">
+            <div class="col-md-10">
+                <h2>List of users</h2>
+                <!--<p>The .table-responsive class creates a responsive table which will scroll horizontally on small devices (under 768px). When viewing on anything larger than 768px wide, there is no difference:</p>-->
+                <div class="table-responsive">
+                    <table class="table">
+                        <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>Email</th>
+                            <th>Access Status</th>
+                            <th>Toggle Access</th>
+
+                        </tr>
+                        </thead>
+                        <tbody>
+
+                        {{# if rowDataHasItem}}
+                            {{#each rowData}}
+
+
+                                <tr>
+                                    <td>{{id}}</td>
+                                    <td>{{name}}</td>
+                                    <td>{{email}}</td>
+                                    <td>{{phone}}</td>
+                                    <td>{{message}}</td>
+
+
+                                    <td>
+                                        <form action="/page/adminContactUsArchive" method="post">
+                                            <input type="text" value="{{id}}" name="id" hidden>
+                                            <button type="submit" class="btn btn-primary btn-sm">Archive</button>
+
+                                        </form>
+                                    </td>
+
+                                </tr>
+
+
+                            {{/each}}
+
+
+                        {{/if}}
 
 
 
-Stuff here
+
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <div class="col-md-2">
 
 
+                <form class="panel panel-default" action='/page/adminUserApprovalToggle' method="post" id="registerForm">
+                    <div class="panel-body">
+                        <div class="row">
+                            <div class="form-check col-md-3">
+                                <label>Options</label>
+                            </div>
+                        </div>
 
+                        <div class="row">
+                            <div class="form-check col-md-1 col-xs-2">
+                                <label class="form-check-label">
+                                    <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios1"
+                                           value="option1" required>
+                                    1
+                                </label>
+                            </div>
+                            <div class="form-check">
+                                <label class="form-check-label col-xs-2">
+                                    <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios2"
+                                           value="option2" required>
+                                    2
+                                </label>
+                            </div>
 
+                            <div class="form-check">
+                                <label class="form-check-label col-xs-2">
+                                    <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios2"
+                                           value="option2" required>
+                                    3
+                                </label>
+                            </div>
+                        </div>
+                        <label id="exampleRadiosLabel" style="color: red;visibility: hidden;"></label>
 
-
-
-
-
-
+                    </div>
+                </form>
+            </div>
+        </div>
     </div>
+
 </section>
 
 <!-- Portfolio Grid Section -->
