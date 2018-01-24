@@ -13,9 +13,8 @@ var MongoDB = require('mongodb');
 
 
 var expressValidator = require('express-validator');
-var expressSession = require('express-session')({secret: 'ianlaicrowwebsite', saveUninitialized: false, resave: false});
-var sharedsession = require("express-socket.io-session");
-let io = require('socket.io')();
+var expressSession = require('express-session');
+
 var passport = require('passport');
 var flash = require('connect-flash');
 
@@ -25,8 +24,8 @@ var index = require('./routes/index');
 var userAccounts = require('./routes/signedInUsers');
 const api = require('./routes/api');
 
-io.use(sharedsession(expressSession));
-const server = require('./socket/websocket');
+
+const io = require('./socket/websocket');
 
 var dbconfigMongo = require('./config/databaseMongo');
 require('./config/passport');
@@ -38,7 +37,7 @@ var app = express();
 
 
 // Assigns app io variable
-app.io = server;
+app.io = io;
 
 
 // Set bluebird as mongoose's promise
@@ -61,7 +60,7 @@ app.use(bodyParser.urlencoded({extended: true}));
 app.use(expressValidator());
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
-app.use(expressSession);
+app.use(expressSession({secret: 'ianlaicrowwebsite', saveUninitialized: false, resave: false}));
 app.use(flash());
 app.use(passport.initialize());
 app.use(passport.session());
