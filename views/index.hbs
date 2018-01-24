@@ -835,8 +835,7 @@
                                         <label id="emailAddressLabel" style="color: red;visibility: hidden;">Please
                                             enter a valid
                                             email</label><br>
-                                        <label id="emailorpassWrongLabel" style="color: red;visibility: hidden;">Username
-                                            or password wrong</label>
+                                        <label id="emailorpassWrongLabel" style="color: red;visibility: hidden;"></label>
                                     </div>
 
                                 </div>
@@ -860,6 +859,8 @@
 
                                         document.getElementById('{{param}}Label').style.visibility = "visible";
 
+                                        temp2 = document.getElementById('{{param}}Label').innerHTML;
+                                        document.getElementById('{{param}}Label').innerHTML = temp2 + "<br>{{msg}}";
 
                                     </script>
 

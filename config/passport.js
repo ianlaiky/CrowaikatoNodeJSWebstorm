@@ -159,7 +159,7 @@ passport.use('local.signin', new LocalStrategy({
 
         return done(null, false, req.flash('errorLogin', [{
             param: "emailorpassWrong",
-            msg: "Pass or email wrong"
+            msg: "Username or Password Wrong"
         }])); // create the loginMessage and save it to session as flashdata
 
     } else {
@@ -183,14 +183,14 @@ passport.use('local.signin', new LocalStrategy({
                 if (!bcrypt.compareSync(password, rows[0].password))
                     return done(null, false, req.flash('errorLogin', [{
                         param: "emailorpassWrong",
-                        msg: "Pass or email wrong"
+                        msg: "Username or Password Wrong"
                     }])); // create the loginMessage and save it to session as flashdata
             } else {
                 console.log("ROW LEN:");
                 console.log(rows.length);
                 return done(null, false, req.flash('errorLogin', [{
                     param: "emailorpassWrong",
-                    msg: "Pass or email wrong"
+                    msg: "Username or Password Wrong"
                 }]));
 
             }
@@ -198,6 +198,23 @@ passport.use('local.signin', new LocalStrategy({
             console.log("Print row from user db");
             console.log(rows);
             console.log(rows[0].roles);
+
+
+            console.log(rows[0].approved);
+
+            if (rows[0].approved=="false"){
+                return done(null, false, req.flash('errorLogin', [{
+                    param: "emailorpassWrong",
+                    msg: "You are not approved to use our services"
+                }]));
+
+
+            }
+
+
+
+
+
 
             // if the user is found but the password is wrong
 
@@ -461,9 +478,9 @@ passport.use('local.signup', new LocalStrategy({
                         password: bcrypt.hashSync(password, null, null)  // use the generateHash function in our user model
                     };
 
-                    var insertQuery = "INSERT INTO users ( username, password, roles) values (?,?,?)";
+                    var insertQuery = "INSERT INTO users ( username, password, roles, approved) values (?,?,?,?)";
 
-                    connection.query(insertQuery, [newUserMysql.username, newUserMysql.password, "member"], function (err, rows) {
+                    connection.query(insertQuery, [newUserMysql.username, newUserMysql.password, "member","false"], function (err, rows) {
                         console.log("====");
                         console.log(newUserMysql.username);
                         console.log(newUserMysql.password);
