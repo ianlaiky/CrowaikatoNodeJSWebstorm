@@ -1,18 +1,19 @@
 <body id="page-top" class="index">
-<script src="/javascripts/Chart.min.js"></script>
-<!-- jQuery -->
-<script src="/vendor/jquery/jquery.min.js"></script>
+<!--<style> @media screen and (max-height: 650px) {-->
+<!--#rc-imageselect, .g-recaptcha {-->
 
-
-<link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.5.0/css/bootstrap-datepicker.css"
-      rel="stylesheet">
-
-<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.5.0/js/bootstrap-datepicker.js"></script>
-</head>
+<!--transform: scale(0.7);-->
+<!---webkit-transform: scale(0.7);-->
+<!--transform-origin: 0 0;-->
+<!---webkit-transform-origin: 0 0;-->
+<!--}-->
+<!--}-->
 
 
 <!--</style>-->
 
+<!-- jQuery -->
+<script src="/vendor/jquery/jquery.min.js"></script>
 
 <!-- Navigation -->
 <nav id="mainNav" class="navbar navbar-default navbar-custom navbar-fixed-top"
@@ -36,16 +37,16 @@
                 <div class="col-md-6 text-center" style="color: white;">
                     <h2>
 
-                        Welcome,{{firstname}}
+                        Welcome
 
                     </h2>
                 </div>
                 <ul class="nav navbar-nav navbar-right">
                     <li>
-                        <a class="page-scroll " href="/page/adminUserApproval">Approve/Deny Users</a>
+                        <a class="page-scroll " href="/page/adminConsole">View Stats</a>
                     </li>
                     <li>
-                        <a class="page-scroll " href="/page/adminConsole">View Stats</a>
+                        <a class="page-scroll " href="/page/adminContactUs">View Forms</a>
                     </li>
                     <li>
 
@@ -75,64 +76,24 @@
 <!--</div>-->
 <!--</header>-->
 
-
 <!-- Services Section -->
 <section id="overview" class="bg-light-gray">
-
-    <div class="container">
-        <h2>Contact Us</h2>
-        <!--<p>The .table-responsive class creates a responsive table which will scroll horizontally on small devices (under 768px). When viewing on anything larger than 768px wide, there is no difference:</p>-->
-        <div class="table-responsive">
-            <table class="table">
-                <thead>
-                <tr>
-                    <th>#</th>
-                    <th>Name</th>
-                    <th>Email</th>
-                    <th>Phone</th>
-                    <th>Message</th>
-                    <th>Archive</th>
-                </tr>
-                </thead>
-                <tbody>
-
-                {{# if rowDataHasItem}}
-                    {{#each rowData}}
+    <div class="container" style="width:90%;">
 
 
-                        <tr>
-                            <td>{{id}}</td>
-                            <td>{{name}}</td>
-                            <td>{{email}}</td>
-                            <td>{{phone}}</td>
-                            <td>{{message}}</td>
 
-
-                            <td>
-                                <form action="/page/adminContactUsArchive" method="post">
-                                    <input type="text" value="{{id}}" name="id" hidden>
-                                    <button type="submit" class="btn btn-primary btn-sm">Archive</button>
-
-                                </form>
-                            </td>
-
-                        </tr>
-
-
-                    {{/each}}
-
-
-                {{/if}}
+Stuff here
 
 
 
 
-                </tbody>
-            </table>
-        </div>
+
+
+
+
+
+
     </div>
-
-
 </section>
 
 <!-- Portfolio Grid Section -->
@@ -1052,7 +1013,7 @@
     </div>
 </div>
 
-</body>
+
 <!-- Bootstrap Core JavaScript -->
 <script src="/vendor/bootstrap/js/bootstrap.min.js"></script>
 
@@ -1065,4 +1026,3 @@
 
 <!-- Theme JavaScript -->
 <script src="/js/agency.min.js"></script>
-

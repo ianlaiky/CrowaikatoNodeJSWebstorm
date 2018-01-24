@@ -285,6 +285,17 @@ router.post("/adminContactUsArchive", isLoggedInAdmin, (req, res, next) => {
 
 });
 
+router.get("/adminUserApproval", isLoggedInAdmin,(req,res,next)=>{
+console.log("RRRR");
+
+    res.render('page/adminUserApproval', {
+        layout: 'layout/layout',
+        firstname: req.session.useInfoo.firstname,
+
+    });
+
+});
+
 
 router.get("/adminContactUs", isLoggedInAdmin, (req, res, next) => {
 
