@@ -1,7 +1,7 @@
 var express = require('express');
 var passport = require('passport');
 var CryptoJS = require("crypto-js");
-
+var bcrypt = require('bcrypt-nodejs');
 var router = express.Router();
 var MongoDB = require('mongodb');
 
@@ -74,74 +74,115 @@ router.post('/loginBackend', passport.authenticate('local.signin', {
 
 });
 
+router.post("/homeSettingsPasswordEdit", isLoggedIn, (req, res, next) => {
 
-router.post("/homeSettingsDetailsEdit",isLoggedIn,(req,res,next)=>{
+
+    console.log(req.body);
+    let password = req.body.currentpassword;
+    console.log(password);
+    if (password==undefined)password="";
+    connection.query("select * from users where username = ?",[req.session.useInfoo.username.toString()],(err,row)=>{
+
+        if (err)console.log(err);
+        console.log("ROws");
+        console.log(row);
+
+        if (bcrypt.compareSync(password, row[0].password)){
+
+            console.log("pass match");
+
+
+
+            req.check('password', 'Password should contain alphanumeric character with uppercase, lowercase and special characters (!,@,#,$,%,^,&,*)').trim().matches(/^(?=.*\d)(?=.*[!@#\$%\^&\*])(?=.*[a-z])(?=.*[A-Z]).{8,}/, "i");
+            req.check('password', 'Reached Character Limit (Max: 200)').trim().isLength({max:200});
+            req.check('password_cfm', "Password is empty or do not match").trim().equals(req.body.password);
+            req.check('password_cfm', "Reached Character Limit (Max: 200)").trim().isLength({max:200});
+
+            var errors = req.validationErrors();
+
+            req.flash('errorHomeSettingDetail',errors);
+            res.redirect("/page/homeSettings");
+
+
+        }else{
+
+            console.log("pass not match");
+            req.flash('errorHomeSettingDetail', [{
+                param: "currentpassword",
+                msg: "Password entered does not match with our database"
+            }]);
+            res.redirect("/page/homeSettings");
+        }
+
+
+    });
+
+
+});
+
+
+router.post("/homeSettingsDetailsEdit", isLoggedIn, (req, res, next) => {
     console.log("Data get from details get");
 
     console.log(req.body);
     req.check('firstName', "Please enter something").trim().notEmpty();
-    req.check('firstName', "Reached Character Limit (Max: 200)").trim().isLength({max:200});
+    req.check('firstName', "Reached Character Limit (Max: 200)").trim().isLength({max: 200});
     req.check('lastName', "Please enter something").trim().notEmpty();
-    req.check('lastName', "PReached Character Limit (Max: 200)").trim().isLength({max:200});
+    req.check('lastName', "PReached Character Limit (Max: 200)").trim().isLength({max: 200});
     req.check('jobtitle', "Please enter something").trim().notEmpty();
-    req.check('jobtitle', "Reached Character Limit (Max: 200)").trim().isLength({max:200});
+    req.check('jobtitle', "Reached Character Limit (Max: 200)").trim().isLength({max: 200});
 
     req.check('institution', "Please enter something").trim().notEmpty();
-    req.check('institution', "Reached Character Limit (Max: 200)").trim().isLength({max:200});
+    req.check('institution', "Reached Character Limit (Max: 200)").trim().isLength({max: 200});
 
     req.check('countryName', "Please select something").trim().notEmpty();
-    req.check('countryName', "Reached Character Limit (Max: 200)").trim().isLength({max:200});
+    req.check('countryName', "Reached Character Limit (Max: 200)").trim().isLength({max: 200});
 
     req.check('state', "Please enter something").trim().notEmpty();
-    req.check('state', "Reached Character Limit (Max: 200)").trim().isLength({max:200});
+    req.check('state', "Reached Character Limit (Max: 200)").trim().isLength({max: 200});
 
     req.check('cityName', "Please enter something").trim().notEmpty();
-    req.check('cityName', "Reached Character Limit (Max: 200)").trim().isLength({max:200});
+    req.check('cityName', "Reached Character Limit (Max: 200)").trim().isLength({max: 200});
     req.check('zipcode', "Please enter something").trim().notEmpty();
-    req.check('zipcode', "Reached Character Limit (Max: 200)").trim().isLength({max:200});
+    req.check('zipcode', "Reached Character Limit (Max: 200)").trim().isLength({max: 200});
     req.check('inputAddress', "Please enter something").notEmpty();
-    req.check('inputAddress', "Reached Character Limit (Max: 200)").trim().isLength({max:200});
+    req.check('inputAddress', "Reached Character Limit (Max: 200)").trim().isLength({max: 200});
 
     req.check('phoneNumber', 'Invalid phone No').trim().matches(/^[+][\d]+$/, "i");
-    req.check('phoneNumber', 'Reached Character Limit (Max: 200)').trim().isLength({max:200});
+    req.check('phoneNumber', 'Reached Character Limit (Max: 200)').trim().isLength({max: 200});
     req.check('faxNumber', 'Invalid fax No').trim().matches(/^[+][\d]+$/, "i");
-    req.check('faxNumber', 'Reached Character Limit (Max: 200)').trim().isLength({max:200});
+    req.check('faxNumber', 'Reached Character Limit (Max: 200)').trim().isLength({max: 200});
 
     req.check('workSector', "Please select something").trim().notEmpty();
-    req.check('workSector', "Reached Character Limit (Max: 200)").trim().isLength({max:200});
+    req.check('workSector', "Reached Character Limit (Max: 200)").trim().isLength({max: 200});
     req.check('jobFunction', "Please select something").trim().notEmpty();
-    req.check('jobFunction', "Reached Character Limit (Max: 200)").trim().isLength({max:200});
+    req.check('jobFunction', "Reached Character Limit (Max: 200)").trim().isLength({max: 200});
 
     req.check('exampleRadios', "Please select an option").trim().notEmpty();
-    req.check('exampleRadios', "Reached Character Limit (Max: 200)").trim().isLength({max:200});
+    req.check('exampleRadios', "Reached Character Limit (Max: 200)").trim().isLength({max: 200});
 
 
     var errors = req.validationErrors();
 
     console.log(errors);
 
-    if (errors){
+    if (errors) {
         console.log("edit errors");
         req.flash('errorHomeSettingDetail', errors);
         res.redirect("/page/homeSettings");
 
-    }else{
-
-
-
+    } else {
+// do sucess
 
     }
-
-
-
 
 
 });
 
 // change password/details
-router.get("/homeSettings",isLoggedIn,(req,res,next)=>{
+router.get("/homeSettings", isLoggedIn, (req, res, next) => {
     console.log("Home setting");
-    let errormsgDetail =  req.flash('errorHomeSettingDetail');
+    let errormsgDetail = req.flash('errorHomeSettingDetail');
     console.log(errormsgDetail);
 
 
@@ -161,13 +202,12 @@ router.get("/homeSettings",isLoggedIn,(req,res,next)=>{
         sectorwork: req.session.useInfoo.sectorwork,
         jobfunction: req.session.useInfoo.jobfunction,
         fulltimestudent: req.session.useInfoo.fulltimestudent,
-        errormsgDetail:errormsgDetail,
-        errorHasErrorDetail:errormsgDetail.length>0
+        errormsgDetail: errormsgDetail,
+        errorHasErrorDetail: errormsgDetail.length > 0
 
     });
 
 });
-
 
 
 /* GET users listing. */
@@ -211,22 +251,21 @@ router.get('/home', isLoggedIn, function (req, res, next) {
 });
 
 
-router.post("/adminContactUsArchive",isLoggedInAdmin,(req,res,next)=>{
+router.post("/adminContactUsArchive", isLoggedInAdmin, (req, res, next) => {
 
-console.log(req.body);
-console.log(req.body.id);
+    console.log(req.body);
+    console.log(req.body.id);
 
-    connection.query("select * from contact_us where id=?",[req.body.id],(err,row)=>{
-        if(err)console.log(err);
+    connection.query("select * from contact_us where id=?", [req.body.id], (err, row) => {
+        if (err) console.log(err);
         console.log("from db");
         console.log(row);
-        if(row.length!=0){
+        if (row.length != 0) {
 
 
+            connection.query("update contact_us set archive='true' where id=?", [req.body.id], function (err, updateRow) {
 
-            connection.query("update contact_us set archive='true' where id=?",[req.body.id],function (err,updateRow) {
-
-                if (err)console.log(err);
+                if (err) console.log(err);
 
                 console.log("Update row");
                 console.log(updateRow);
@@ -237,7 +276,7 @@ console.log(req.body.id);
             });
 
 
-        }else{
+        } else {
             res.redirect("/error");
         }
 
@@ -259,7 +298,7 @@ router.get("/adminContactUs", isLoggedInAdmin, (req, res, next) => {
                 layout: 'layout/layout',
                 firstname: req.session.useInfoo.firstname,
                 rowData: row,
-                rowDataHasItem:row.length>0
+                rowDataHasItem: row.length > 0
             });
 
         }
@@ -281,15 +320,15 @@ router.get('/adminConsole', isLoggedInAdmin, function (req, res, next) {
     // console.log(req.query.sortBy);
     // console.log(req.query.year);
 
-    if(!req.query.sortBy){
-        sortBy="year";
-    }else{
-        sortBy=req.query.sortBy;
+    if (!req.query.sortBy) {
+        sortBy = "year";
+    } else {
+        sortBy = req.query.sortBy;
     }
-    if(!req.query.year){
-        year="2018";
-    }else{
-        year=req.query.year;
+    if (!req.query.year) {
+        year = "2018";
+    } else {
+        year = req.query.year;
     }
 
 
