@@ -136,11 +136,11 @@
             <div class="col-md-2">
 
 
-                <form class="panel panel-default" action='/page/adminUserApprovalToggle' method="post" id="registerForm">
+                <form class="panel panel-default" action='/page/adminUserApprovalToggle' method="get" id="registerForm">
                     <div class="panel-body">
                         <div class="row">
                             <div class="form-check col-md-3">
-                                <label>Options</label>
+                                <label style="text-decoration: underline;">Approve/Deny</label>
                             </div>
                         </div>
 
@@ -148,27 +148,33 @@
                             <div class="form-check col-md-1 col-xs-2">
                                 <label class="form-check-label">
                                     <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios1"
-                                           value="option1" required>
-                                    1
-                                </label>
-                            </div>
-                            <div class="form-check">
-                                <label class="form-check-label col-xs-2">
-                                    <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios2"
-                                           value="option2" required>
-                                    2
-                                </label>
-                            </div>
-
-                            <div class="form-check">
-                                <label class="form-check-label col-xs-2">
-                                    <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios2"
-                                           value="option2" required>
-                                    3
+                                           value="requests" required>
+                                    Requests
                                 </label>
                             </div>
                         </div>
+                        <div class="row">
+                            <div class="form-check">
+                                <label class="form-check-label col-xs-2">
+                                    <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios2"
+                                           value="approved" required>
+                                    Approved
+                                </label>
+                            </div>
+                            </div>
+                        <div class="row">
+                            <div class="form-check">
+                                <label class="form-check-label col-xs-2">
+                                    <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios2"
+                                           value="all" required>
+                                    All
+                                </label>
+                            </div>
+                            </div>
+
                         <label id="exampleRadiosLabel" style="color: red;visibility: hidden;"></label>
+<br>
+                        <button type="submit" class="btn btn-sm">Submit</button>
 
                     </div>
                 </form>

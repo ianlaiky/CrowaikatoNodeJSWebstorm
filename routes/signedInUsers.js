@@ -437,9 +437,9 @@ router.post("/homeSettingsDetailsEdit", isLoggedIn, (req, res, next) => {
 
 // change password/details
 router.get("/homeSettings", isLoggedIn, (req, res, next) => {
-    console.log("Home setting");
     let errormsgDetail = req.flash('errorHomeSettingDetail');
-    let passwordChangeSucc = req.flash('passwordChangeSucc');
+    let passwordChangeSucc = req.flash('passw\n' +
+        '    console.log("Home setting");ordChangeSucc');
     let detailschangesucc = req.flash('detailsChangeSucc');
     console.log(errormsgDetail);
     console.log(passwordChangeSucc);
@@ -553,6 +553,18 @@ router.post("/adminContactUsArchive", isLoggedInAdmin, (req, res, next) => {
 
 
 });
+
+
+router.get("/adminUserApprovalToggle",isLoggedInAdmin,(req,res,next)=>{
+
+    console.log("List of users waiting for approval");
+    console.log(req.body);
+
+
+
+
+});
+
 
 router.get("/adminUserApproval", isLoggedInAdmin, (req, res, next) => {
     console.log("RRRR");
