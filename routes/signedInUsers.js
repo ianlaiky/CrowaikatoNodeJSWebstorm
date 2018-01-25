@@ -402,6 +402,21 @@ router.post("/homeSettingsDetailsEdit", isLoggedIn, (req, res, next) => {
                             console.log(err)
                         } else {
 
+                            req.session.useInfoo.firstname= req.body.firstName;
+                            req.session.useInfoo.lastname = req.body.lastName;
+                            req.session.useInfoo.jobtitle = req.body.jobtitle;
+                            req.session.useInfoo.company = req.body.institution;
+                            req.session.useInfoo.country = req.body.countryName;
+                            req.session.useInfoo.state = req.body.state;
+                            req.session.useInfoo.city = req.body.cityName;
+                            req.session.useInfoo.zipcode = req.body.zipcode;
+                            req.session.useInfoo.address = req.body.inputAddress;
+                            req.session.useInfoo.phoneno = req.body.phoneNumber;
+                            req.session.useInfoo.faxno = req.body.faxNumber;
+                            req.session.useInfoo.sectorwork = req.body.workSector;
+                            req.session.useInfoo.jobfunction = req.body.jobFunction;
+                            req.session.useInfoo.fulltimestudent = req.body.exampleRadios;
+
                             console.log("Updated details");
                             console.log(rowinserteddupdate);
                             req.flash('detailsChangeSucc', "true");
