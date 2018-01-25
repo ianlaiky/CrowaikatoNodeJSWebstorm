@@ -25,6 +25,36 @@ var arurl = 'mongodb://tester:cR0w_+35t@arproject-shard-00-00-cjsdl.mongodb.net:
 
 var machines = [];
 
+//encryption for details change
+function encryptData(msginput, pass) {
+    //salt for the pass der
+    var salt = CryptoJS.lib.WordArray.random(128 / 8);
+    console.log("FIRST SALT: " + salt);
+
+    //password deriv
+    var key512Bits1000Iterations = CryptoJS.PBKDF2(pass, salt, {keySize: 512 / 32, iterations: 1000});
+
+    console.log("Initial key: " + key512Bits1000Iterations);
+
+    //iv for encrypt
+    var iv = CryptoJS.lib.WordArray.random(128 / 8);
+
+    console.log("FIRST IV: " + iv);
+
+
+    var encrypted = CryptoJS.AES.encrypt(msginput, key512Bits1000Iterations, {
+        iv: iv,
+        padding: CryptoJS.pad.Pkcs7,
+        mode: CryptoJS.mode.CBC
+
+    });
+
+    var transitmessage = salt.toString() + iv.toString() + encrypted.toString();
+    console.log("Encrypted text: " + encrypted.toString());
+    console.log(transitmessage);
+    return transitmessage;
+}
+
 router.post("/registerForm", passport.authenticate('local.signup', {
 
     // successRedirect: '/page/register', // redirect to the secure profile section
@@ -79,32 +109,107 @@ router.post("/homeSettingsPasswordEdit", isLoggedIn, (req, res, next) => {
 
     console.log(req.body);
     let password = req.body.currentpassword;
+    let newPass = req.body.password;
     console.log(password);
-    if (password==undefined)password="";
-    connection.query("select * from users where username = ?",[req.session.useInfoo.username.toString()],(err,row)=>{
+    console.log("New pass");
+    console.log(newPass);
+    if (password == undefined) password = "";
+    connection.query("select * from users where username = ?", [req.session.useInfoo.username.toString()], (err, row) => {
 
-        if (err)console.log(err);
+        if (err) console.log(err);
         console.log("ROws");
         console.log(row);
 
-        if (bcrypt.compareSync(password, row[0].password)){
+        if (bcrypt.compareSync(password, row[0].password)) {
 
             console.log("pass match");
 
 
-
             req.check('password', 'Password should contain alphanumeric character with uppercase, lowercase and special characters (!,@,#,$,%,^,&,*)').trim().matches(/^(?=.*\d)(?=.*[!@#\$%\^&\*])(?=.*[a-z])(?=.*[A-Z]).{8,}/, "i");
-            req.check('password', 'Reached Character Limit (Max: 200)').trim().isLength({max:200});
+            req.check('password', 'Reached Character Limit (Max: 200)').trim().isLength({max: 200});
             req.check('password_cfm', "Password is empty or do not match").trim().equals(req.body.password);
-            req.check('password_cfm', "Reached Character Limit (Max: 200)").trim().isLength({max:200});
+            req.check('password_cfm', "Reached Character Limit (Max: 200)").trim().isLength({max: 200});
 
             var errors = req.validationErrors();
 
-            req.flash('errorHomeSettingDetail',errors);
-            res.redirect("/page/homeSettings");
+            req.flash('errorHomeSettingDetail', errors);
+
+            if (errors) {
+
+                res.redirect("/page/homeSettings");
 
 
-        }else{
+            } else {
+
+                console.log(bcrypt.genSaltSync(8));
+                var updateuserMysql = bcrypt.hashSync(newPass, null, null);
+
+                let updatequery = "update users set password = ? where username = ?";
+                connection.query(updatequery, [updateuserMysql, req.session.useInfoo.username.toString()], (err, rows) => {
+
+                    if (err) {
+                        console.log(err)
+                    } else {
+                        console.log(rows);
+
+                        let firstname = req.session.useInfoo.firstname;
+                        let lastname = req.session.useInfoo.lastname;
+                        let jobtitle = req.session.useInfoo.jobtitle;
+                        let company = req.session.useInfoo.company;
+                        let country = req.session.useInfoo.country;
+                        let state = req.session.useInfoo.state;
+                        let city = req.session.useInfoo.city;
+                        let zipcode = req.session.useInfoo.zipcode;
+                        let address = req.session.useInfoo.address;
+                        let phoneno = req.session.useInfoo.phoneno;
+                        let faxno = req.session.useInfoo.faxno;
+                        let sectorwork = req.session.useInfoo.sectorwork;
+                        let jobfunction = req.session.useInfoo.jobfunction;
+                        let fulltimestudent = req.session.useInfoo.fulltimestudent;
+
+
+                        let encrypteDfirstname = encryptData(firstname, updateuserMysql);
+                        let encrypteDlastname = encryptData(lastname, updateuserMysql);
+                        let encrypteDjobtitle = encryptData(jobtitle, updateuserMysql);
+                        let encrypteDcompany = encryptData(company, updateuserMysql);
+                        let encrypteDcountry = encryptData(country, updateuserMysql);
+                        let encrypteDstate = encryptData(state, updateuserMysql);
+                        let encrypteDcity = encryptData(city, updateuserMysql);
+                        let encrypteDzipcode = encryptData(zipcode, updateuserMysql);
+                        let encrypteDaddress = encryptData(address, updateuserMysql);
+                        let encrypteDphoneno = encryptData(phoneno, updateuserMysql);
+                        let encrypteDfaxno = encryptData(faxno, updateuserMysql);
+                        let encrypteDsectorwork = encryptData(sectorwork, updateuserMysql);
+                        let encrypteDjobfunction = encryptData(jobfunction, updateuserMysql);
+                        let encrypteDfulltimestudent = encryptData(fulltimestudent, updateuserMysql);
+
+
+                        var updateQueryinfo = "update userinfo set firstname = ?, lastname = ?, jobtitle = ?, company = ?, country = ?, state = ?, city = ?, zipcode = ?, address = ?, phoneno = ?, faxno = ?, sectorwork = ?, jobfunction = ?, fulltimestudent =? where username = ?";
+
+
+                        connection.query(updateQueryinfo, [encrypteDfirstname, encrypteDlastname, encrypteDjobtitle, encrypteDcompany, encrypteDcountry, encrypteDstate, encrypteDcity, encrypteDzipcode, encrypteDaddress, encrypteDphoneno, encrypteDfaxno, encrypteDsectorwork, encrypteDjobfunction, encrypteDfulltimestudent, req.session.useInfoo.username.toString()], (err, rowww) => {
+
+                            if (err) {
+                                console.log(err)
+                            } else {
+                                console.log(rowww)
+                            }
+                            console.log("EDIT SUCESSFULL PASS CHANGED");
+                            req.flash('passwordChangeSucc', "true");
+                            res.redirect("/page/homeSettings");
+
+                        });
+
+                    }
+
+
+                });
+
+
+            }
+
+
+        } else {
 
             console.log("pass not match");
             req.flash('errorHomeSettingDetail', [{
@@ -172,7 +277,59 @@ router.post("/homeSettingsDetailsEdit", isLoggedIn, (req, res, next) => {
         res.redirect("/page/homeSettings");
 
     } else {
-// do sucess
+
+
+        let passwordforEncryption;
+        connection.query("select password from users where username = ?", [req.session.useInfoo.username.toString()], (err, rowspr) => {
+
+            if (err) {
+                console.log(err)
+            } else {
+                console.log("PASSWORD SELECT");
+                console.log(rowspr);
+                console.log(rowspr[0].password);
+                passwordforEncryption = rowspr[0].password;
+
+
+                console.log("BODY REQ");
+                console.log(req.body);
+
+                let firstNameRetrieve = encryptData(req.body.firstName, passwordforEncryption);
+                let lastNameRetrieve = encryptData(req.body.lastName, passwordforEncryption);
+                let jobtitleRetrieve = encryptData(req.body.jobtitle, passwordforEncryption);
+                let institutionRetrieve = encryptData(req.body.institution, passwordforEncryption);
+                let countryNameRetrieve = encryptData(req.body.countryName, passwordforEncryption);
+                let stateRetrieve = encryptData(req.body.state, passwordforEncryption);
+                let cityNameRetrieve = encryptData(req.body.cityName, passwordforEncryption);
+                let zipcodeRetrieve = encryptData(req.body.zipcode, passwordforEncryption);
+                let inputAddressRetrieve = encryptData(req.body.inputAddress, passwordforEncryption);
+                let phoneNumberRetrieve = encryptData(req.body.phoneNumber, passwordforEncryption);
+                let faxNumberRetrieve = encryptData(req.body.faxNumber, passwordforEncryption);
+                let workSectorRetrieve = encryptData(req.body.workSector, passwordforEncryption);
+                let jobFunctionRetrieve = encryptData(req.body.jobFunction, passwordforEncryption);
+                let exampleRadiosRetrieve = encryptData(req.body.exampleRadios, passwordforEncryption);
+
+                let udpatedetailsquery = "update userinfo set firstname = ?, lastname = ?, jobtitle = ?, company = ?, country = ?, state = ?, city = ?, zipcode = ?, address = ?, phoneno = ?, faxno = ?, sectorwork = ?, jobfunction = ?, fulltimestudent = ? where username = ?";
+
+                connection.query(udpatedetailsquery, [firstNameRetrieve, lastNameRetrieve, jobtitleRetrieve, institutionRetrieve, countryNameRetrieve, stateRetrieve, cityNameRetrieve, zipcodeRetrieve, inputAddressRetrieve, phoneNumberRetrieve, faxNumberRetrieve, workSectorRetrieve, jobFunctionRetrieve, exampleRadiosRetrieve, req.session.useInfoo.username.toString()], (err, rowinserteddupdate) => {
+
+
+                    if (err) {
+                        console.log(err)
+                    } else {
+
+                        console.log("Updated details");
+                        console.log(rowinserteddupdate);
+                        req.flash('detailsChangeSucc', "true");
+                        res.redirect("/page/homeSettings");
+                    }
+                });
+
+            }
+
+
+        });
+
 
     }
 
@@ -183,7 +340,18 @@ router.post("/homeSettingsDetailsEdit", isLoggedIn, (req, res, next) => {
 router.get("/homeSettings", isLoggedIn, (req, res, next) => {
     console.log("Home setting");
     let errormsgDetail = req.flash('errorHomeSettingDetail');
+    let passwordChangeSucc = req.flash('passwordChangeSucc');
+    let detailschangesucc = req.flash('detailsChangeSucc');
     console.log(errormsgDetail);
+    console.log(passwordChangeSucc);
+    var boolvalueForpassChange = false;
+    let boolvalueFordetailChange = false;
+    if (passwordChangeSucc.length > 0) {
+        boolvalueForpassChange = true;
+    }
+    if (detailschangesucc.length > 0) {
+        boolvalueFordetailChange = true;
+    }
 
 
     res.render('page/homeSettings', {
@@ -203,7 +371,9 @@ router.get("/homeSettings", isLoggedIn, (req, res, next) => {
         jobfunction: req.session.useInfoo.jobfunction,
         fulltimestudent: req.session.useInfoo.fulltimestudent,
         errormsgDetail: errormsgDetail,
-        errorHasErrorDetail: errormsgDetail.length > 0
+        errorHasErrorDetail: errormsgDetail.length > 0,
+        passwordChangeSucc: boolvalueForpassChange,
+        detailschangesucc: boolvalueFordetailChange,
 
     });
 
@@ -285,8 +455,8 @@ router.post("/adminContactUsArchive", isLoggedInAdmin, (req, res, next) => {
 
 });
 
-router.get("/adminUserApproval", isLoggedInAdmin,(req,res,next)=>{
-console.log("RRRR");
+router.get("/adminUserApproval", isLoggedInAdmin, (req, res, next) => {
+    console.log("RRRR");
 
     res.render('page/adminUserApproval', {
         layout: 'layout/layout',
