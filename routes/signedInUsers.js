@@ -4,7 +4,8 @@ var CryptoJS = require("crypto-js");
 var bcrypt = require('bcrypt-nodejs');
 var router = express.Router();
 var MongoDB = require('mongodb');
-
+var querystring = require('querystring');
+var https = require('https');
 var path = require('path');
 var formidable = require('formidable');
 var fs = require('fs');
@@ -25,7 +26,8 @@ var arurl = 'mongodb://tester:cR0w_+35t@arproject-shard-00-00-cjsdl.mongodb.net:
 
 var machines = [];
 
-
+// API FOR captcha
+var SECRET = "6LdwBzwUAAAAAKavgcoL75Y4lF7QUQPKQyt_e6Qk";
 
 // POST request to google recaptcha
 function verifyRecaptcha(key, callback) {
@@ -100,10 +102,7 @@ function encryptData(msginput, pass) {
 }
 
 
-
 // The start of routing
-
-
 
 
 router.post("/registerForm", passport.authenticate('local.signup', {
@@ -278,112 +277,146 @@ router.post("/homeSettingsPasswordEdit", isLoggedIn, (req, res, next) => {
 
 
 router.post("/homeSettingsDetailsEdit", isLoggedIn, (req, res, next) => {
-    console.log("Data get from details get");
-
     console.log(req.body);
-    req.check('firstName', "Please enter something").trim().notEmpty();
-    req.check('firstName', "Reached Character Limit (Max: 200)").trim().isLength({max: 200});
-    req.check('lastName', "Please enter something").trim().notEmpty();
-    req.check('lastName', "PReached Character Limit (Max: 200)").trim().isLength({max: 200});
-    req.check('jobtitle', "Please enter something").trim().notEmpty();
-    req.check('jobtitle', "Reached Character Limit (Max: 200)").trim().isLength({max: 200});
+    console.log(req.body["g-recaptcha-response"]);
 
-    req.check('institution', "Please enter something").trim().notEmpty();
-    req.check('institution', "Reached Character Limit (Max: 200)").trim().isLength({max: 200});
-
-    req.check('countryName', "Please select something").trim().notEmpty();
-    req.check('countryName', "Reached Character Limit (Max: 200)").trim().isLength({max: 200});
-
-    req.check('state', "Please enter something").trim().notEmpty();
-    req.check('state', "Reached Character Limit (Max: 200)").trim().isLength({max: 200});
-
-    req.check('cityName', "Please enter something").trim().notEmpty();
-    req.check('cityName', "Reached Character Limit (Max: 200)").trim().isLength({max: 200});
-    req.check('zipcode', "Please enter something").trim().notEmpty();
-    req.check('zipcode', "Reached Character Limit (Max: 200)").trim().isLength({max: 200});
-    req.check('inputAddress', "Please enter something").notEmpty();
-    req.check('inputAddress', "Reached Character Limit (Max: 200)").trim().isLength({max: 200});
-
-    req.check('phoneNumber', 'Invalid phone No').trim().matches(/^[+][\d]+$/, "i");
-    req.check('phoneNumber', 'Reached Character Limit (Max: 200)').trim().isLength({max: 200});
-    req.check('faxNumber', 'Invalid fax No').trim().matches(/^[+][\d]+$/, "i");
-    req.check('faxNumber', 'Reached Character Limit (Max: 200)').trim().isLength({max: 200});
-
-    req.check('workSector', "Please select something").trim().notEmpty();
-    req.check('workSector', "Reached Character Limit (Max: 200)").trim().isLength({max: 200});
-    req.check('jobFunction', "Please select something").trim().notEmpty();
-    req.check('jobFunction', "Reached Character Limit (Max: 200)").trim().isLength({max: 200});
-
-    req.check('exampleRadios', "Please select an option").trim().notEmpty();
-    req.check('exampleRadios', "Reached Character Limit (Max: 200)").trim().isLength({max: 200});
-
-
-    var errors = req.validationErrors();
-
-    console.log(errors);
-
-    if (errors) {
-        console.log("edit errors");
-        req.flash('errorHomeSettingDetail', errors);
-        res.redirect("/page/homeSettings");
-
-    } else {
-
-
-        let passwordforEncryption;
-        connection.query("select password from users where username = ?", [req.session.useInfoo.username.toString()], (err, rowspr) => {
-
-            if (err) {
-                console.log(err)
-            } else {
-                console.log("PASSWORD SELECT");
-                console.log(rowspr);
-                console.log(rowspr[0].password);
-                passwordforEncryption = rowspr[0].password;
-
-
-                console.log("BODY REQ");
-                console.log(req.body);
-
-                let firstNameRetrieve = encryptData(req.body.firstName, passwordforEncryption);
-                let lastNameRetrieve = encryptData(req.body.lastName, passwordforEncryption);
-                let jobtitleRetrieve = encryptData(req.body.jobtitle, passwordforEncryption);
-                let institutionRetrieve = encryptData(req.body.institution, passwordforEncryption);
-                let countryNameRetrieve = encryptData(req.body.countryName, passwordforEncryption);
-                let stateRetrieve = encryptData(req.body.state, passwordforEncryption);
-                let cityNameRetrieve = encryptData(req.body.cityName, passwordforEncryption);
-                let zipcodeRetrieve = encryptData(req.body.zipcode, passwordforEncryption);
-                let inputAddressRetrieve = encryptData(req.body.inputAddress, passwordforEncryption);
-                let phoneNumberRetrieve = encryptData(req.body.phoneNumber, passwordforEncryption);
-                let faxNumberRetrieve = encryptData(req.body.faxNumber, passwordforEncryption);
-                let workSectorRetrieve = encryptData(req.body.workSector, passwordforEncryption);
-                let jobFunctionRetrieve = encryptData(req.body.jobFunction, passwordforEncryption);
-                let exampleRadiosRetrieve = encryptData(req.body.exampleRadios, passwordforEncryption);
-
-                let udpatedetailsquery = "update userinfo set firstname = ?, lastname = ?, jobtitle = ?, company = ?, country = ?, state = ?, city = ?, zipcode = ?, address = ?, phoneno = ?, faxno = ?, sectorwork = ?, jobfunction = ?, fulltimestudent = ? where username = ?";
-
-                connection.query(udpatedetailsquery, [firstNameRetrieve, lastNameRetrieve, jobtitleRetrieve, institutionRetrieve, countryNameRetrieve, stateRetrieve, cityNameRetrieve, zipcodeRetrieve, inputAddressRetrieve, phoneNumberRetrieve, faxNumberRetrieve, workSectorRetrieve, jobFunctionRetrieve, exampleRadiosRetrieve, req.session.useInfoo.username.toString()], (err, rowinserteddupdate) => {
-
-
-                    if (err) {
-                        console.log(err)
-                    } else {
-
-                        console.log("Updated details");
-                        console.log(rowinserteddupdate);
-                        req.flash('detailsChangeSucc', "true");
-                        res.redirect("/page/homeSettings");
-                    }
-                });
-
-            }
-
-
-        });
-
+    var captchaValidationResult = false;
+    console.log("before" + captchaValidationResult);
+    if (req.body['g-recaptcha-response'] === undefined || req.body['g-recaptcha-response'] === '' || req.body['g-recaptcha-response'] === null) {
+        captchaValidationResult = false;
 
     }
 
+    verifyRecaptcha(req.body["g-recaptcha-response"], function (success) {
+
+        if (success) {
+            captchaValidationResult = true;
+            console.log("aftwer Captcha " + captchaValidationResult)
+            // return res.json({"responseCode": 0, "responseDesc": "Sucess"});
+        } else {
+            captchaValidationResult = false;
+            // return res.json({"responseCode": 1, "responseDesc": "Failed captcha verification"});
+        }
+
+        console.log("VALICDATION OF CAPTCHSA" + captchaValidationResult);
+        console.log("Data get from details get");
+
+        console.log(req.body);
+        req.check('firstName', "Please enter something").trim().notEmpty();
+        req.check('firstName', "Reached Character Limit (Max: 200)").trim().isLength({max: 200});
+        req.check('lastName', "Please enter something").trim().notEmpty();
+        req.check('lastName', "PReached Character Limit (Max: 200)").trim().isLength({max: 200});
+        req.check('jobtitle', "Please enter something").trim().notEmpty();
+        req.check('jobtitle', "Reached Character Limit (Max: 200)").trim().isLength({max: 200});
+
+        req.check('institution', "Please enter something").trim().notEmpty();
+        req.check('institution', "Reached Character Limit (Max: 200)").trim().isLength({max: 200});
+
+        req.check('countryName', "Please select something").trim().notEmpty();
+        req.check('countryName', "Reached Character Limit (Max: 200)").trim().isLength({max: 200});
+
+        req.check('state', "Please enter something").trim().notEmpty();
+        req.check('state', "Reached Character Limit (Max: 200)").trim().isLength({max: 200});
+
+        req.check('cityName', "Please enter something").trim().notEmpty();
+        req.check('cityName', "Reached Character Limit (Max: 200)").trim().isLength({max: 200});
+        req.check('zipcode', "Please enter something").trim().notEmpty();
+        req.check('zipcode', "Reached Character Limit (Max: 200)").trim().isLength({max: 200});
+        req.check('inputAddress', "Please enter something").notEmpty();
+        req.check('inputAddress', "Reached Character Limit (Max: 200)").trim().isLength({max: 200});
+
+        req.check('phoneNumber', 'Invalid phone No').trim().matches(/^[+][\d]+$/, "i");
+        req.check('phoneNumber', 'Reached Character Limit (Max: 200)').trim().isLength({max: 200});
+        req.check('faxNumber', 'Invalid fax No').trim().matches(/^[+][\d]+$/, "i");
+        req.check('faxNumber', 'Reached Character Limit (Max: 200)').trim().isLength({max: 200});
+
+        req.check('workSector', "Please select something").trim().notEmpty();
+        req.check('workSector', "Reached Character Limit (Max: 200)").trim().isLength({max: 200});
+        req.check('jobFunction', "Please select something").trim().notEmpty();
+        req.check('jobFunction', "Reached Character Limit (Max: 200)").trim().isLength({max: 200});
+
+        req.check('exampleRadios', "Please select an option").trim().notEmpty();
+        req.check('exampleRadios', "Reached Character Limit (Max: 200)").trim().isLength({max: 200});
+
+
+        var errors = req.validationErrors();
+
+        console.log(errors);
+
+        if (captchaValidationResult == false) {
+
+            if (!errors) {
+
+                errors = [];
+                errors.push({"param": "captcha", "msg": "Please do the captcha"});
+            } else {
+                errors.push({"param": "captcha", "msg": "Please do the captcha"});
+            }
+
+        }
+
+        if (errors) {
+            console.log("edit errors");
+            req.flash('errorHomeSettingDetail', errors);
+            res.redirect("/page/homeSettings");
+
+        } else {
+
+
+            let passwordforEncryption;
+            connection.query("select password from users where username = ?", [req.session.useInfoo.username.toString()], (err, rowspr) => {
+
+                if (err) {
+                    console.log(err)
+                } else {
+                    console.log("PASSWORD SELECT");
+                    console.log(rowspr);
+                    console.log(rowspr[0].password);
+                    passwordforEncryption = rowspr[0].password;
+
+
+                    console.log("BODY REQ");
+                    console.log(req.body);
+
+                    let firstNameRetrieve = encryptData(req.body.firstName, passwordforEncryption);
+                    let lastNameRetrieve = encryptData(req.body.lastName, passwordforEncryption);
+                    let jobtitleRetrieve = encryptData(req.body.jobtitle, passwordforEncryption);
+                    let institutionRetrieve = encryptData(req.body.institution, passwordforEncryption);
+                    let countryNameRetrieve = encryptData(req.body.countryName, passwordforEncryption);
+                    let stateRetrieve = encryptData(req.body.state, passwordforEncryption);
+                    let cityNameRetrieve = encryptData(req.body.cityName, passwordforEncryption);
+                    let zipcodeRetrieve = encryptData(req.body.zipcode, passwordforEncryption);
+                    let inputAddressRetrieve = encryptData(req.body.inputAddress, passwordforEncryption);
+                    let phoneNumberRetrieve = encryptData(req.body.phoneNumber, passwordforEncryption);
+                    let faxNumberRetrieve = encryptData(req.body.faxNumber, passwordforEncryption);
+                    let workSectorRetrieve = encryptData(req.body.workSector, passwordforEncryption);
+                    let jobFunctionRetrieve = encryptData(req.body.jobFunction, passwordforEncryption);
+                    let exampleRadiosRetrieve = encryptData(req.body.exampleRadios, passwordforEncryption);
+
+                    let udpatedetailsquery = "update userinfo set firstname = ?, lastname = ?, jobtitle = ?, company = ?, country = ?, state = ?, city = ?, zipcode = ?, address = ?, phoneno = ?, faxno = ?, sectorwork = ?, jobfunction = ?, fulltimestudent = ? where username = ?";
+
+                    connection.query(udpatedetailsquery, [firstNameRetrieve, lastNameRetrieve, jobtitleRetrieve, institutionRetrieve, countryNameRetrieve, stateRetrieve, cityNameRetrieve, zipcodeRetrieve, inputAddressRetrieve, phoneNumberRetrieve, faxNumberRetrieve, workSectorRetrieve, jobFunctionRetrieve, exampleRadiosRetrieve, req.session.useInfoo.username.toString()], (err, rowinserteddupdate) => {
+
+
+                        if (err) {
+                            console.log(err)
+                        } else {
+
+                            console.log("Updated details");
+                            console.log(rowinserteddupdate);
+                            req.flash('detailsChangeSucc', "true");
+                            res.redirect("/page/homeSettings");
+                        }
+                    });
+
+                }
+
+
+            });
+
+
+        }
+    });
 
 });
 
