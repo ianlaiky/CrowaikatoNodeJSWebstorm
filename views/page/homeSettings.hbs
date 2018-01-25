@@ -8,7 +8,7 @@
 <!---webkit-transform-origin: 0 0;-->
 <!--}-->
 <!--}-->
-
+<script src='https://www.google.com/recaptcha/api.js'></script>
 
 <!--</style>-->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.0.4/socket.io.js"></script>
@@ -597,10 +597,16 @@
                             <label id="exampleRadiosLabel" style="color: red;visibility: hidden;"></label>
 
                         </div>
-                        <div class="row text-center">
-                            <button type="submit" class="btn btn-primary btn-lg">Submit</button>
 
-                        </div>
+
+                            <div class="row text-center">
+                                <div id="rc-imageselect" class="g-recaptcha" style="display: inline-block;"
+                                     data-sitekey="6LdwBzwUAAAAAPA3xKJV4d5b5wQQ49f3sIYW9Clv" data-size="compact"></div><br>
+                                <button type="submit" class="btn btn-primary btn-lg">Submit</button>
+
+                            </div>
+
+
                         <br>
 
                     </form>
@@ -718,7 +724,7 @@
                             <!--<li>Client: Round Icons</li>-->
                             <!--<li>Category: Graphic Design</li>-->
                             <!--</ul>-->
-                            <script src='https://www.google.com/recaptcha/api.js'></script>
+
 
 
                             <form method="post" action="/loginBackend" class="text-center">
