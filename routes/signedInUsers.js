@@ -901,7 +901,8 @@ router.get('/register', isLoggedout, function (req, res, next) {
     console.log(messages.length > 0);
     // console.log("this shoudl dis");
     // console.log(req.session.success);
-    var listtoPort;
+    let listtoPort;
+    let existingdata =false;
     if(messages.length > 0) {
         if (messages[0].userDetails != undefined) {
             listtoPort = {
@@ -923,6 +924,8 @@ router.get('/register', isLoggedout, function (req, res, next) {
 
 
             };
+            existingdata=true;
+
             console.log("Print what is saved from flah");
             console.log(listtoPort);
         } else {
@@ -955,7 +958,8 @@ router.get('/register', isLoggedout, function (req, res, next) {
         messages: messages,
         hasError: messages.length > 0,
         success: req.session.success,
-        listtoPort:listtoPort
+        listtoPort:listtoPort,
+        existingdata:existingdata
     });
     req.session.errors = null;
 });
