@@ -402,7 +402,7 @@ router.post("/homeSettingsDetailsEdit", isLoggedIn, (req, res, next) => {
                             console.log(err)
                         } else {
 
-                            req.session.useInfoo.firstname= req.body.firstName;
+                            req.session.useInfoo.firstname = req.body.firstName;
                             req.session.useInfoo.lastname = req.body.lastName;
                             req.session.useInfoo.jobtitle = req.body.jobtitle;
                             req.session.useInfoo.company = req.body.institution;
@@ -555,48 +555,45 @@ router.post("/adminContactUsArchive", isLoggedInAdmin, (req, res, next) => {
 });
 
 // handling access toggle
-router.post("/adminUserApprovalToggle",isLoggedInAdmin,(req,res,next)=>{
+router.post("/adminUserApprovalToggle", isLoggedInAdmin, (req, res, next) => {
 
-    if(req.body.id){
+    if (req.body.id) {
         console.log("there is snth");
 
-        connection.query("select approved from users where id = ?",[req.body.id],(err,rowtt)=>{
+        connection.query("select approved from users where id = ?", [req.body.id], (err, rowtt) => {
 
-            if(err){
+            if (err) {
                 console.log(err);
                 res.redirect("/error");
 
-            }else if(rowtt.length>0){
+            } else if (rowtt.length > 0) {
                 let currentdb = rowtt[0].approved;
                 let newsave;
-                if (currentdb=="denied"){
-                    newsave="approved";
-                }else{
-                    newsave="denied";
+                if (currentdb == "denied") {
+                    newsave = "approved";
+                } else {
+                    newsave = "denied";
                 }
 
 
-                connection.query("update users set approved = ? where id = ?",[newsave.toString(),req.body.id.toString()],(err,updated)=>{
+                connection.query("update users set approved = ? where id = ?", [newsave.toString(), req.body.id.toString()], (err, updated) => {
 
-                    if(err){
+                    if (err) {
                         console.log(err);
                         res.redirect("/error");
-                    }else{
+                    } else {
                         res.redirect("/page/adminUserApproval")
                     }
 
                 });
 
-            }else{
+            } else {
                 res.redirect("/page/adminUserApproval")
             }
         });
 
 
-
-
-
-    }else{
+    } else {
         console.log("nth");
         res.redirect("/adminUserApproval")
     }
@@ -615,43 +612,51 @@ router.get("/adminUserApproval", isLoggedInAdmin, (req, res, next) => {
 
 
     let checkbox;
-    let saveuserdat=[];
-    if(req.session.chpoice==undefined){
-        req.session.chpoice="denied";
+    let saveuserdat = [];
+    if (req.session.chpoice == undefined) {
+        req.session.chpoice = "denied";
         checkbox = "denied";
     }
 
     console.log(req.session.chpoice);
 
-    if(req.query.submitclicked){
-        if(!req.query.approvalcheckbox){
+    if (req.query.submitclicked) {
+        if (!req.query.approvalcheckbox) {
             console.log("BONE");
             checkbox = "approved";
-            req.session.chpoice="approved";
+            req.session.chpoice = "approved";
 
-        }else{
+        } else {
             checkbox = "denied";
-            req.session.chpoice="denied";
+            req.session.chpoice = "denied";
 
         }
     }
 
-console.log("before conenction");
-console.log(req.session.chpoice);
 
-    connection.query("select id,username,approved from users where approved = ?",[req.session.chpoice.toString()],(err,rowpr)=>{
+
+
+    console.log("before conenction");
+    console.log(req.session.chpoice);
+    let toggleslider = false;
+    if(req.session.chpoice=="approved"){
+        toggleslider = true;
+
+    }
+
+    connection.query("select id,username,approved from users where approved = ?", [req.session.chpoice.toString()], (err, rowpr) => {
         if (err) {
             console.log(err);
             res.redirect("/error");
-        }else if (rowpr.length!=0){
+        } else if (rowpr.length != 0) {
             console.log(rowpr);
             for (let obj of rowpr) {
                 console.log(obj);
                 saveuserdat.push({
 
-                    id:obj.id,
-                    name:obj.username,
-                    accessStatus:obj.approved
+                    id: obj.id,
+                    name: obj.username,
+                    accessStatus: obj.approved
                 });
             }
 
@@ -660,15 +665,13 @@ console.log(req.session.chpoice);
         res.render('page/adminUserApproval', {
             layout: 'layout/layout',
             firstname: req.session.useInfoo.firstname,
-            rowDataHasItem:saveuserdat.length>0,
-            rowData:saveuserdat
+            rowDataHasItem: saveuserdat.length > 0,
+            rowData: saveuserdat,
+            toggleslider:toggleslider
 
         });
 
     });
-
-
-
 
 
 });
