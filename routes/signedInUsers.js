@@ -634,12 +634,10 @@ router.get("/adminUserApproval", isLoggedInAdmin, (req, res, next) => {
     }
 
 
-
-
     console.log("before conenction");
     console.log(req.session.chpoice);
     let toggleslider = false;
-    if(req.session.chpoice=="approved"){
+    if (req.session.chpoice == "approved") {
         toggleslider = true;
 
     }
@@ -667,7 +665,7 @@ router.get("/adminUserApproval", isLoggedInAdmin, (req, res, next) => {
             firstname: req.session.useInfoo.firstname,
             rowDataHasItem: saveuserdat.length > 0,
             rowData: saveuserdat,
-            toggleslider:toggleslider
+            toggleslider: toggleslider
 
         });
 
@@ -897,17 +895,67 @@ router.get('/register', isLoggedout, function (req, res, next) {
 
     var messages = req.flash('error');
     console.log(messages);
+    console.log("just to see if null");
+    // console.log(messages[0].userDetails);
     console.log(messages.length);
     console.log(messages.length > 0);
     // console.log("this shoudl dis");
     // console.log(req.session.success);
+    var listtoPort;
+    if(messages.length > 0) {
+        if (messages[0].userDetails != undefined) {
+            listtoPort = {
+
+                firstName: messages[0].userDetails.firstName,
+                lastName: messages[0].userDetails.lastName,
+                jobtitle: messages[0].userDetails.jobtitle,
+                institution: messages[0].userDetails.institution,
+                countryName: messages[0].userDetails.countryName,
+                state: messages[0].userDetails.state,
+                cityName: messages[0].userDetails.cityName,
+                zipcode: messages[0].userDetails.zipcode,
+                inputAddress: messages[0].userDetails.inputAddress,
+                phoneNumber: messages[0].userDetails.phoneNumber,
+                faxNumber: messages[0].userDetails.faxNumber,
+                workSector: messages[0].userDetails.workSector,
+                jobFunction: messages[0].userDetails.jobFunction,
+                exampleRadios: messages[0].userDetails.exampleRadios
+
+
+            };
+            console.log("Print what is saved from flah");
+            console.log(listtoPort);
+        } else {
+            console.log("undefined ran works");
+            listtoPort = {
+
+                firstName: "",
+                lastName: "",
+                jobtitle: "",
+                institution: "",
+                countryName: "",
+                state: "",
+                cityName: "",
+                zipcode: "",
+                inputAddress: "",
+                phoneNumber: "",
+                faxNumber: "",
+                workSector: "",
+                jobFunction: "",
+                exampleRadios: ""
+
+
+            };
+        }
+    }
 
 
     res.render('registration', {
         layout: 'layout/layout',
         messages: messages,
         hasError: messages.length > 0,
-        success: req.session.success
+        success: req.session.success,
+        listtoPort:listtoPort
     });
     req.session.errors = null;
 });

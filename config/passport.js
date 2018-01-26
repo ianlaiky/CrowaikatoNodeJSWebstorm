@@ -202,7 +202,7 @@ passport.use('local.signin', new LocalStrategy({
 
             console.log(rows[0].approved);
 
-            if (rows[0].approved=="denied"){
+            if (rows[0].approved == "denied") {
                 return done(null, false, req.flash('errorLogin', [{
                     param: "emailorpassWrong",
                     msg: "You are not approved to use our services"
@@ -210,10 +210,6 @@ passport.use('local.signin', new LocalStrategy({
 
 
             }
-
-
-
-
 
 
             // if the user is found but the password is wrong
@@ -229,19 +225,19 @@ passport.use('local.signin', new LocalStrategy({
 
                 var dbusername = rowsInfo[0].username;
                 var dbfirstname = decryptData(rowsInfo[0].firstname.toString(), rows[0].password);
-                var dblastname = decryptData(rowsInfo[0].lastname.toString(),rows[0].password);
-                var dbjobtitle = decryptData(rowsInfo[0].jobtitle.toString(),rows[0].password);
-                var dbcompany = decryptData(rowsInfo[0].company.toString(),rows[0].password);
-                var dbcountry = decryptData(rowsInfo[0].country.toString(),rows[0].password);
-                var dbstate = decryptData(rowsInfo[0].state.toString(),rows[0].password);
-                var dbcity = decryptData(rowsInfo[0].city.toString(),rows[0].password);
-                var dbzipcode = decryptData(rowsInfo[0].zipcode.toString(),rows[0].password);
-                var dbaddress = decryptData(rowsInfo[0].address.toString(),rows[0].password);
-                var dbphoneno = decryptData(rowsInfo[0].phoneno.toString(),rows[0].password);
-                var dbfaxno = decryptData(rowsInfo[0].faxno.toString(),rows[0].password);
-                var dbsectorwork = decryptData(rowsInfo[0].sectorwork.toString(),rows[0].password);
-                var dbjobfunction = decryptData(rowsInfo[0].jobfunction.toString(),rows[0].password);
-                var dbfulltimestudent = decryptData(rowsInfo[0].fulltimestudent.toString(),rows[0].password);
+                var dblastname = decryptData(rowsInfo[0].lastname.toString(), rows[0].password);
+                var dbjobtitle = decryptData(rowsInfo[0].jobtitle.toString(), rows[0].password);
+                var dbcompany = decryptData(rowsInfo[0].company.toString(), rows[0].password);
+                var dbcountry = decryptData(rowsInfo[0].country.toString(), rows[0].password);
+                var dbstate = decryptData(rowsInfo[0].state.toString(), rows[0].password);
+                var dbcity = decryptData(rowsInfo[0].city.toString(), rows[0].password);
+                var dbzipcode = decryptData(rowsInfo[0].zipcode.toString(), rows[0].password);
+                var dbaddress = decryptData(rowsInfo[0].address.toString(), rows[0].password);
+                var dbphoneno = decryptData(rowsInfo[0].phoneno.toString(), rows[0].password);
+                var dbfaxno = decryptData(rowsInfo[0].faxno.toString(), rows[0].password);
+                var dbsectorwork = decryptData(rowsInfo[0].sectorwork.toString(), rows[0].password);
+                var dbjobfunction = decryptData(rowsInfo[0].jobfunction.toString(), rows[0].password);
+                var dbfulltimestudent = decryptData(rowsInfo[0].fulltimestudent.toString(), rows[0].password);
 
 
                 console.log("DECRUPT$ED TEST: " + dbfirstname);
@@ -296,38 +292,36 @@ passport.use('local.signin', new LocalStrategy({
                     console.log(rowSessionGet);
 
 
+                    if (rowSessionGet.length == 0) {
+
+                        let insertQuery = "INSERT INTO usersession ( email, sessionId ) values (?,?)";
+                        connection.query(insertQuery, [dbusername.toString(), req.session.id.toString()], (err, insertedrow) => {
+
+                            if (err)
+                                console.log(err);
+                            console.log("Inserted Row for sessiondb");
+                            console.log(insertedrow);
+
+                            console.log("Login validation done");
+                            return done(null, rows[0]);
+
+                        });
 
 
-                        if (rowSessionGet.length == 0) {
+                    } else {
 
-                            let insertQuery = "INSERT INTO usersession ( email, sessionId ) values (?,?)";
-                            connection.query(insertQuery, [dbusername.toString(), req.session.id.toString()], (err, insertedrow) => {
+                        let updatequery = "UPDATE usersession SET sessionId = ? WHERE email = ?";
+                        connection.query(updatequery, [req.session.id.toString(), dbusername.toString()], (err, modifiedRow) => {
+                            if (err)
+                                console.log(err);
+                            console.log("modified Row for sessiondb");
+                            console.log(modifiedRow);
+                            console.log("Login validation done");
+                            return done(null, rows[0]);
 
-                                if (err)
-                                    console.log(err);
-                                console.log("Inserted Row for sessiondb");
-                                console.log(insertedrow);
+                        });
 
-                                console.log("Login validation done");
-                                return done(null, rows[0]);
-
-                            });
-
-
-                        } else {
-
-                            let updatequery = "UPDATE usersession SET sessionId = ? WHERE email = ?";
-                            connection.query(updatequery, [req.session.id.toString(), dbusername.toString()], (err, modifiedRow) => {
-                                if (err)
-                                    console.log(err);
-                                console.log("modified Row for sessiondb");
-                                console.log(modifiedRow);
-                                console.log("Login validation done");
-                                return done(null, rows[0]);
-
-                            });
-
-                        }
+                    }
 
                 });
 
@@ -349,7 +343,6 @@ passport.use('local.signup', new LocalStrategy({
     passReqToCallback: true
 
 }, function (req, emailAddress, password, done) {
-
 
 
     var captchaValidationResult = false;
@@ -378,47 +371,47 @@ passport.use('local.signup', new LocalStrategy({
 
         console.log(req.body);
         req.check('emailAddress', "Please enter a valid email").trim().notEmpty().isEmail();
-        req.check('emailAddress', "Reached Character Limit (Max: 200)").trim().isLength({max:200});
+        req.check('emailAddress', "Reached Character Limit (Max: 200)").trim().isLength({max: 200});
         // (?=.*\d)(?=.*[a-z])(?=.*[A-Z])[0-9a-zA-Z]{8,}
         req.check('password', 'Password should contain alphanumeric character with uppercase, lowercase and special characters (!,@,#,$,%,^,&,*)').trim().matches(/^(?=.*\d)(?=.*[!@#\$%\^&\*])(?=.*[a-z])(?=.*[A-Z]).{8,}/, "i");
-        req.check('password', 'Reached Character Limit (Max: 200)').trim().isLength({max:200});
+        req.check('password', 'Reached Character Limit (Max: 200)').trim().isLength({max: 200});
         req.check('password_cfm', "Password is empty or do not match").trim().equals(req.body.password);
-        req.check('password_cfm', "Reached Character Limit (Max: 200)").trim().isLength({max:200});
+        req.check('password_cfm', "Reached Character Limit (Max: 200)").trim().isLength({max: 200});
 
 
         req.check('firstName', "Please enter something").trim().notEmpty();
-        req.check('firstName', "Reached Character Limit (Max: 200)").trim().isLength({max:200});
+        req.check('firstName', "Reached Character Limit (Max: 200)").trim().isLength({max: 200});
         req.check('lastName', "Please enter something").trim().notEmpty();
-        req.check('lastName', "PReached Character Limit (Max: 200)").trim().isLength({max:200});
+        req.check('lastName', "PReached Character Limit (Max: 200)").trim().isLength({max: 200});
 
         req.check('jobtitle', "Please enter something").trim().notEmpty();
-        req.check('jobtitle', "Reached Character Limit (Max: 200)").trim().isLength({max:200});
+        req.check('jobtitle', "Reached Character Limit (Max: 200)").trim().isLength({max: 200});
         req.check('institution', "Please enter something").trim().notEmpty();
-        req.check('institution', "Reached Character Limit (Max: 200)").trim().isLength({max:200});
+        req.check('institution', "Reached Character Limit (Max: 200)").trim().isLength({max: 200});
 
         req.check('countryName', "Please select something").trim().notEmpty();
-        req.check('countryName', "Reached Character Limit (Max: 200)").trim().isLength({max:200});
+        req.check('countryName', "Reached Character Limit (Max: 200)").trim().isLength({max: 200});
         req.check('state', "Please enter something").trim().notEmpty();
-        req.check('state', "Reached Character Limit (Max: 200)").trim().isLength({max:200});
+        req.check('state', "Reached Character Limit (Max: 200)").trim().isLength({max: 200});
         req.check('cityName', "Please enter something").trim().notEmpty();
-        req.check('cityName', "Reached Character Limit (Max: 200)").trim().isLength({max:200});
+        req.check('cityName', "Reached Character Limit (Max: 200)").trim().isLength({max: 200});
         req.check('zipcode', "Please enter something").trim().notEmpty();
-        req.check('zipcode', "Reached Character Limit (Max: 200)").trim().isLength({max:200});
+        req.check('zipcode', "Reached Character Limit (Max: 200)").trim().isLength({max: 200});
         req.check('inputAddress', "Please enter something").notEmpty();
-        req.check('inputAddress', "Reached Character Limit (Max: 200)").trim().isLength({max:200});
+        req.check('inputAddress', "Reached Character Limit (Max: 200)").trim().isLength({max: 200});
 
         req.check('phoneNumber', 'Invalid phone No').trim().matches(/^[+][\d]+$/, "i");
-        req.check('phoneNumber', 'Reached Character Limit (Max: 200)').trim().isLength({max:200});
+        req.check('phoneNumber', 'Reached Character Limit (Max: 200)').trim().isLength({max: 200});
         req.check('faxNumber', 'Invalid fax No').trim().matches(/^[+][\d]+$/, "i");
-        req.check('faxNumber', 'Reached Character Limit (Max: 200)').trim().isLength({max:200});
+        req.check('faxNumber', 'Reached Character Limit (Max: 200)').trim().isLength({max: 200});
 
         req.check('workSector', "Please select something").trim().notEmpty();
-        req.check('workSector', "Reached Character Limit (Max: 200)").trim().isLength({max:200});
+        req.check('workSector', "Reached Character Limit (Max: 200)").trim().isLength({max: 200});
         req.check('jobFunction', "Please select something").trim().notEmpty();
-        req.check('jobFunction', "Reached Character Limit (Max: 200)").trim().isLength({max:200});
+        req.check('jobFunction', "Reached Character Limit (Max: 200)").trim().isLength({max: 200});
 
         req.check('exampleRadios', "Please select an option").trim().notEmpty();
-        req.check('exampleRadios', "Reached Character Limit (Max: 200)").trim().isLength({max:200});
+        req.check('exampleRadios', "Reached Character Limit (Max: 200)").trim().isLength({max: 200});
 
 
         //santise
@@ -468,7 +461,26 @@ passport.use('local.signup', new LocalStrategy({
                 if (rows.length) {
 
                     req.session.success = false;
-                    return done(null, false, req.flash('error', [{param: 'emailAddress', msg: 'Existing user found'}]));
+
+                    let detailsofuserbeforesave = {
+                        firstName: req.body.firstName,
+                        lastName: req.body.lastName,
+                        jobtitle: req.body.jobtitle,
+                        institution: req.body.institution,
+                        countryName: req.body.countryName,
+                        state: req.body.state,
+                        cityName: req.body.cityName,
+                        zipcode: req.body.zipcode,
+                        inputAddress: req.body.inputAddress,
+                        phoneNumber: req.body.phoneNumber,
+                        faxNumber: req.body.faxNumber,
+                        workSector: req.body.workSector,
+                        jobFunction: req.body.jobFunction,
+                        exampleRadios: req.body.exampleRadios
+                    };
+
+
+                    return done(null, false, req.flash('error', [{param: 'emailAddress', msg: 'Existing user found',userDetails:detailsofuserbeforesave}]));
                 } else {
                     // if there is no user with that username
                     // create the user
@@ -480,7 +492,7 @@ passport.use('local.signup', new LocalStrategy({
 
                     var insertQuery = "INSERT INTO users ( username, password, roles, approved) values (?,?,?,?)";
 
-                    connection.query(insertQuery, [newUserMysql.username, newUserMysql.password, "member","denied"], function (err, rows) {
+                    connection.query(insertQuery, [newUserMysql.username, newUserMysql.password, "member", "denied"], function (err, rows) {
                         console.log("====");
                         console.log(newUserMysql.username);
                         console.log(newUserMysql.password);
@@ -525,7 +537,6 @@ passport.use('local.signup', new LocalStrategy({
                         connection.query(insertQueryinfo, [req.body.emailAddress, encryptedRetriencryptedRvedfirstName, encryptedRetriedlastName, encryptedRetrievedjobtitle, encryptedRetrievedinstitution, encryptedRetrievedcountryName, encryptedRetrievedstate, encryptedRetverievedcityName, encryptedRetrievedzipcode, encryptedRetrievedinputAddress, encryptedRetrievedphoneNumber, encryptedRetrievedfaxNumber, encryptedRetrievedworkSector, encryptedRetrievedjobFunction, encryptedRetrievedexampleRadios], function (err, userRow) {
 
 
-
                             console.log(userRow);
                             console.log(err);
 
@@ -540,11 +551,10 @@ passport.use('local.signup', new LocalStrategy({
                             let saveDay = now.getDay();
                             let saveMode = "register";
 
-                            connection.query(insertQueryLogReg,[saveYear.toString(), saveMonth.toString(), saveDate.toString(), saveDay.toString(), saveMode.toString()],(err,insertRegLogRow)=>{
+                            connection.query(insertQueryLogReg, [saveYear.toString(), saveMonth.toString(), saveDate.toString(), saveDay.toString(), saveMode.toString()], (err, insertRegLogRow) => {
                                 if (err) console.log(err);
                                 console.log("register logged");
                                 console.log(insertRegLogRow);
-
 
 
                                 newUserMysql.id = rows.insertId;
@@ -554,8 +564,6 @@ passport.use('local.signup', new LocalStrategy({
                                 return done(null, newUserMysql);
 
                             });
-
-
 
 
                         });
