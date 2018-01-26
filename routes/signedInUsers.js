@@ -554,33 +554,107 @@ router.post("/adminContactUsArchive", isLoggedInAdmin, (req, res, next) => {
 
 });
 
+// handling access toggle
+router.post("/adminUserApprovalToggle",isLoggedInAdmin,(req,res,next)=>{
+
+    if(req.body.id){
+        console.log("there is snth");
+
+        connection.query("select approved from users where id = ?",[req.body.id],(err,rowtt)=>{
+
+            if(err){
+                console.log(err);
+                res.redirect("/error");
+
+            }else if(rowtt.length>0){
+                let currentdb = rowtt[0].approved;
+                let newsave;
+                if (currentdb=="denied"){
+                    newsave="approved";
+                }else{
+                    newsave="denied";
+                }
+
+
+                connection.query("update users set approved = ? where id = ?",[newsave.toString(),req.body.id.toString()],(err,updated)=>{
+
+                    if(err){
+                        console.log(err);
+                        res.redirect("/error");
+                    }else{
+                        res.redirect("/page/adminUserApproval")
+                    }
+
+                });
+
+            }else{
+                res.redirect("/page/adminUserApproval")
+            }
+        });
+
+
+
+
+
+    }else{
+        console.log("nth");
+        res.redirect("/adminUserApproval")
+    }
+
+
+});
+
 
 router.get("/adminUserApproval", isLoggedInAdmin, (req, res, next) => {
 
     console.log("RRRR");
     console.log(req.query);
 
+
+    console.log(req.session.chpoice);
+
+
     let checkbox;
     let saveuserdat=[];
-
-    if(!req.query.approvalcheckbox){
-        console.log("BONE");
-        checkbox = "approved";
-    }else{
+    if(req.session.chpoice==undefined){
+        req.session.chpoice="denied";
         checkbox = "denied";
     }
 
-    connection.query("select id,username,approved from users where approved = ?",[checkbox],(err,rowpr)=>{
+    console.log(req.session.chpoice);
+
+    if(req.query.submitclicked){
+        if(!req.query.approvalcheckbox){
+            console.log("BONE");
+            checkbox = "approved";
+            req.session.chpoice="approved";
+
+        }else{
+            checkbox = "denied";
+            req.session.chpoice="denied";
+
+        }
+    }
+
+console.log("before conenction");
+console.log(req.session.chpoice);
+
+    connection.query("select id,username,approved from users where approved = ?",[req.session.chpoice.toString()],(err,rowpr)=>{
         if (err) {
             console.log(err);
             res.redirect("/error");
         }else if (rowpr.length!=0){
             console.log(rowpr);
-            saveuserdat.push({
-                id:rowpr[0].id,
-                name:rowpr[0].username,
-                accessStatus:rowpr[0].approved
-            });
+            for (let obj of rowpr) {
+                console.log(obj);
+                saveuserdat.push({
+
+                    id:obj.id,
+                    name:obj.username,
+                    accessStatus:obj.approved
+                });
+            }
+
         }
 
         res.render('page/adminUserApproval', {

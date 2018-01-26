@@ -231,6 +231,8 @@ app.use(function (err, req, res, next) {
     res.redirect('/errors');
 });
 
+console.log("CURRENT DEV");
+console.log(process.env.NODE_ENV);
 
 
 
