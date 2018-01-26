@@ -555,25 +555,47 @@ router.post("/adminContactUsArchive", isLoggedInAdmin, (req, res, next) => {
 });
 
 
-router.get("/adminUserApprovalToggle",isLoggedInAdmin,(req,res,next)=>{
-
-    console.log("List of users waiting for approval");
-    console.log(req.body);
-
-
-
-
-});
-
-
 router.get("/adminUserApproval", isLoggedInAdmin, (req, res, next) => {
-    console.log("RRRR");
 
-    res.render('page/adminUserApproval', {
-        layout: 'layout/layout',
-        firstname: req.session.useInfoo.firstname,
+    console.log("RRRR");
+    console.log(req.query);
+
+    let checkbox;
+    let saveuserdat=[];
+
+    if(!req.query.approvalcheckbox){
+        console.log("BONE");
+        checkbox = "approved";
+    }else{
+        checkbox = "denied";
+    }
+
+    connection.query("select id,username,approved from users where approved = ?",[checkbox],(err,rowpr)=>{
+        if (err) {
+            console.log(err);
+            res.redirect("/error");
+        }else if (rowpr.length!=0){
+            console.log(rowpr);
+            saveuserdat.push({
+                id:rowpr[0].id,
+                name:rowpr[0].username,
+                accessStatus:rowpr[0].approved
+            });
+        }
+
+        res.render('page/adminUserApproval', {
+            layout: 'layout/layout',
+            firstname: req.session.useInfoo.firstname,
+            rowDataHasItem:saveuserdat.length>0,
+            rowData:saveuserdat
+
+        });
 
     });
+
+
+
+
 
 });
 

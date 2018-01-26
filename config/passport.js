@@ -202,7 +202,7 @@ passport.use('local.signin', new LocalStrategy({
 
             console.log(rows[0].approved);
 
-            if (rows[0].approved=="false"){
+            if (rows[0].approved=="denied"){
                 return done(null, false, req.flash('errorLogin', [{
                     param: "emailorpassWrong",
                     msg: "You are not approved to use our services"
@@ -480,7 +480,7 @@ passport.use('local.signup', new LocalStrategy({
 
                     var insertQuery = "INSERT INTO users ( username, password, roles, approved) values (?,?,?,?)";
 
-                    connection.query(insertQuery, [newUserMysql.username, newUserMysql.password, "member","false"], function (err, rows) {
+                    connection.query(insertQuery, [newUserMysql.username, newUserMysql.password, "member","denied"], function (err, rows) {
                         console.log("====");
                         console.log(newUserMysql.username);
                         console.log(newUserMysql.password);

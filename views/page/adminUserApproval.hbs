@@ -14,6 +14,8 @@
 
 <!-- jQuery -->
 <script src="/vendor/jquery/jquery.min.js"></script>
+<link href="/vendor/bootstrap/css/bootstrap-toggle.min.css" rel="stylesheet">
+<script src="/vendor/bootstrap/js/bootstrap-toggle.min.js"></script>
 
 <!-- Navigation -->
 <nav id="mainNav" class="navbar navbar-default navbar-custom navbar-fixed-top"
@@ -104,15 +106,14 @@
                                 <tr>
                                     <td>{{id}}</td>
                                     <td>{{name}}</td>
-                                    <td>{{email}}</td>
-                                    <td>{{phone}}</td>
-                                    <td>{{message}}</td>
+                                    <td>{{accessStatus}}</td>
+
 
 
                                     <td>
                                         <form action="/page/adminContactUsArchive" method="post">
                                             <input type="text" value="{{id}}" name="id" hidden>
-                                            <button type="submit" class="btn btn-primary btn-sm">Archive</button>
+                                            <button type="submit" class="btn btn-primary btn-sm">Toggle</button>
 
                                         </form>
                                     </td>
@@ -136,44 +137,27 @@
             <div class="col-md-2">
 
 
-                <form class="panel panel-default" action='/page/adminUserApprovalToggle' method="get" id="registerForm">
+                <form class="panel panel-default" action='/page/adminUserApproval' method="get" id="registerForm">
                     <div class="panel-body">
                         <div class="row">
                             <div class="form-check col-md-3">
                                 <label style="text-decoration: underline;">Approve/Deny</label>
                             </div>
                         </div>
+                        <br>
 
                         <div class="row">
-                            <div class="form-check col-md-1 col-xs-2">
-                                <label class="form-check-label">
-                                    <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios1"
-                                           value="requests" required>
-                                    Requests
-                                </label>
+                            <div class="form-check col-md-3">
+                                <div class="form-check">
+                                    <input type="checkbox" name="approvalcheckbox" checked data-toggle="toggle"
+                                           data-on="Requesting" data-off="Approved" data-offstyle="info">
+                                </div>
                             </div>
                         </div>
-                        <div class="row">
-                            <div class="form-check">
-                                <label class="form-check-label col-xs-2">
-                                    <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios2"
-                                           value="approved" required>
-                                    Approved
-                                </label>
-                            </div>
-                            </div>
-                        <div class="row">
-                            <div class="form-check">
-                                <label class="form-check-label col-xs-2">
-                                    <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios2"
-                                           value="all" required>
-                                    All
-                                </label>
-                            </div>
-                            </div>
+
 
                         <label id="exampleRadiosLabel" style="color: red;visibility: hidden;"></label>
-<br>
+                        <br>
                         <button type="submit" class="btn btn-sm">Submit</button>
 
                     </div>
