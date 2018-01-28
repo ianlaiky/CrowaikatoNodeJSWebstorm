@@ -906,6 +906,7 @@ router.get('/register', isLoggedout, function (req, res, next) {
     if(messages.length > 0) {
         if (messages[0].userDetails != undefined) {
             listtoPort = {
+                emailadd: messages[0].userDetails.emailadd,
 
                 firstName: messages[0].userDetails.firstName,
                 lastName: messages[0].userDetails.lastName,
@@ -931,7 +932,7 @@ router.get('/register', isLoggedout, function (req, res, next) {
         } else {
             console.log("undefined ran works");
             listtoPort = {
-
+                emailadd:"",
                 firstName: "",
                 lastName: "",
                 jobtitle: "",
