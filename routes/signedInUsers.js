@@ -857,6 +857,16 @@ router.get('/augmentedReality', isLoggedIn, function (req, res, next) {
 
     res.render('augmentedReality/index', {title: 'Dependency', layout: 'layout/augmentedRealityLayout'});
 });
+// Augmented reality porting
+router.post('/augmentedRealityPorting', isLoggedIn, function (req, res, next) {
+
+
+
+
+
+    res.redirect("/page/augmentedReality");
+});
+
 
 router.get('/augmentedRealityStatic', isLoggedIn, function (req, res, next) {
 
