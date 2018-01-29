@@ -858,15 +858,49 @@ router.get('/augmentedReality', isLoggedIn, function (req, res, next) {
     res.render('augmentedReality/index', {title: 'Dependency', layout: 'layout/augmentedRealityLayout'});
 });
 // Augmented reality porting
-router.post('/augmentedRealityPorting', isLoggedIn, function (req, res, next) {
+router.get('/augmentedRealityPorting', isLoggedIn, function (req, res, next) {
+
+    console.log("proting running");
+    console.log(req.query);
+
+    console.log(req.query.arselect);
+
+    if (req.query.arselect == undefined) {
+        res.redirect("/page/home")
+    } else if (req.query.arselect == "live") {
+        res.redirect("/page/augmentedReality");
+    } else if (req.query.arselect == "static") {
+        res.redirect("/page/augmentedRealityStatic");
+    } else {
+        res.redirect("/page/home")
+    }
 
 
-
-
-
-    res.redirect("/page/augmentedReality");
+    // res.redirect("/page/home");
+    // res.redirect("/page/augmentedRealityStatic");
 });
 
+router.get("/arcameraConfirm",isLoggedIn,(req,res,next)=>{
+
+    let selection;
+
+    console.log(req.query.arselect);
+
+    if(req.query.arselect==undefined){
+        selection=""
+    }else{
+        selection=req.query.arselect;
+    }
+
+
+    res.render('page/arcameraConfirm', {
+        layout: 'layout/layout',
+        firstname: req.session.useInfoo.firstname,
+        arselection:selection
+
+    });
+
+});
 
 router.get('/augmentedRealityStatic', isLoggedIn, function (req, res, next) {
 
@@ -912,8 +946,8 @@ router.get('/register', isLoggedout, function (req, res, next) {
     // console.log("this shoudl dis");
     // console.log(req.session.success);
     let listtoPort;
-    let existingdata =false;
-    if(messages.length > 0) {
+    let existingdata = false;
+    if (messages.length > 0) {
         if (messages[0].userDetails != undefined) {
             listtoPort = {
                 emailadd: messages[0].userDetails.emailadd,
@@ -935,14 +969,14 @@ router.get('/register', isLoggedout, function (req, res, next) {
 
 
             };
-            existingdata=true;
+            existingdata = true;
 
             console.log("Print what is saved from flah");
             console.log(listtoPort);
         } else {
             console.log("undefined ran works");
             listtoPort = {
-                emailadd:"",
+                emailadd: "",
                 firstName: "",
                 lastName: "",
                 jobtitle: "",
@@ -969,8 +1003,8 @@ router.get('/register', isLoggedout, function (req, res, next) {
         messages: messages,
         hasError: messages.length > 0,
         success: req.session.success,
-        listtoPort:listtoPort,
-        existingdata:existingdata
+        listtoPort: listtoPort,
+        existingdata: existingdata
     });
     req.session.errors = null;
 });
