@@ -19,14 +19,12 @@ var oplogurl = 'mongodb://192.168.204.129:27017/ARDB';
 var machines = [];
 
 
-
 //MYSQL
 var mysql = require('mysql');
 
 var dbconfig = require('../config/database');
 var connection = mysql.createConnection(dbconfig.connection);
 connection.query('USE ' + dbconfig.database);
-
 
 
 let clients = [];
@@ -459,18 +457,15 @@ io.on('connection', function (socket) {
         console.log("checking existing user");
         console.log(dat);
 
-        connection.query("select id from users where username = ?",[dat],(err,rowret)=>{
+        connection.query("select id from users where username = ?", [dat], (err, rowret) => {
             console.log(rowret);
-            if(rowret.length!=0){
+            if (rowret.length != 0) {
                 socket.emit("receiveExistingUser", "false");
-            }else{
+            } else {
                 socket.emit("receiveExistingUser", "true");
             }
 
         });
-
-
-
 
 
     })
