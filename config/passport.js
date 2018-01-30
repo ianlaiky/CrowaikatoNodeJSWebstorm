@@ -12,8 +12,10 @@ var connection = mysql.createConnection(dbconfig.connection);
 connection.query('USE ' + dbconfig.database);
 console.log("Passport running");
 
+var recaptchaConfig = require('./googleCaptchaKey');
+
 // Google captcha
-var SECRET = "6LdwBzwUAAAAAKavgcoL75Y4lF7QUQPKQyt_e6Qk";
+var SECRET = recaptchaConfig.secret;
 
 // POST request to google recaptcha
 function verifyRecaptcha(key, callback) {

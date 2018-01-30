@@ -16,6 +16,8 @@ var mysql = require('mysql');
 var dbconfig = require('../config/database');
 var connection = mysql.createConnection(dbconfig.connection);
 connection.query('USE ' + dbconfig.database);
+// captcha key
+var recaptchaConfig = require('../config/googleCaptchaKey');
 
 
 ///Variables - Connection strings for MongoDB Atlas Databases
@@ -27,7 +29,7 @@ var arurl = 'mongodb://tester:cR0w_+35t@arproject-shard-00-00-cjsdl.mongodb.net:
 var machines = [];
 
 // API FOR captcha
-var SECRET = "6LdwBzwUAAAAAKavgcoL75Y4lF7QUQPKQyt_e6Qk";
+var SECRET = recaptchaConfig.secret;
 
 // POST request to google recaptcha
 function verifyRecaptcha(key, callback) {

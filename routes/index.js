@@ -8,9 +8,10 @@ var connection = mysql.createConnection(dbconfig.connection);
 connection.query('USE ' + dbconfig.database);
 var router = express.Router();
 
+var recaptchaConfig = require('/config/googleCaptchaKey');
 
 // Google captcha
-var SECRET = "6LdwBzwUAAAAAKavgcoL75Y4lF7QUQPKQyt_e6Qk";
+var SECRET = recaptchaConfig.secret;
 
 
 // POST request to google recaptcha
