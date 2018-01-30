@@ -30,6 +30,7 @@ var machines = [];
 
 // API FOR captcha
 var SECRET = recaptchaConfig.secret;
+var clientSideSecret = recaptchaConfig.clientSideSecret;
 
 // POST request to google recaptcha
 function verifyRecaptcha(key, callback) {
@@ -475,6 +476,7 @@ router.get("/homeSettings", isLoggedIn, (req, res, next) => {
         errorHasErrorDetail: errormsgDetail.length > 0,
         passwordChangeSucc: boolvalueForpassChange,
         detailschangesucc: boolvalueFordetailChange,
+        captchaClientKey:clientSideSecret
 
     });
 
@@ -1006,7 +1008,8 @@ router.get('/register', isLoggedout, function (req, res, next) {
         hasError: messages.length > 0,
         success: req.session.success,
         listtoPort: listtoPort,
-        existingdata: existingdata
+        existingdata: existingdata,
+        captchaClientKey:clientSideSecret
     });
     req.session.errors = null;
 });

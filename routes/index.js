@@ -8,11 +8,11 @@ var connection = mysql.createConnection(dbconfig.connection);
 connection.query('USE ' + dbconfig.database);
 var router = express.Router();
 
-var recaptchaConfig = require('/config/googleCaptchaKey');
+var recaptchaConfig = require('../config/googleCaptchaKey');
 
 // Google captcha
 var SECRET = recaptchaConfig.secret;
-
+let clientSecretKey = recaptchaConfig.clientSideSecret;
 
 // POST request to google recaptcha
 function verifyRecaptcha(key, callback) {
@@ -183,7 +183,7 @@ router.get('/', isLoggedout, function (req, res, next) {
         autoRedirect=true;
     }
 
-    res.render('index', {layout: 'layout/layout', messages: messages, hasError: messages.length > 0,messageContactUs:messagesContactUs,contactHasError:messagesContactUs.length>0,contactUsSuccess:cotactusSucessFin,redirectContactUs:autoRedirect});
+    res.render('index', {layout: 'layout/layout', messages: messages, hasError: messages.length > 0,messageContactUs:messagesContactUs,contactHasError:messagesContactUs.length>0,contactUsSuccess:cotactusSucessFin,redirectContactUs:autoRedirect,captchaClientKey:clientSecretKey});
 });
 // router.get('/artest', function (req, res, next) {
 //
