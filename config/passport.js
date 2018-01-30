@@ -248,6 +248,7 @@ passport.use('local.signin', new LocalStrategy({
 
                 var sessiontoSave = {
                     uid: rows[0].id,
+                    emailAddress:emailAddress,
                     username: dbusername,
                     firstname: dbfirstname,
                     lastname: dblastname,
@@ -564,7 +565,7 @@ passport.use('local.signup', new LocalStrategy({
 
                             console.log(userRow);
 
-                            let insertQueryLogReg = "INSERT INTO userlog ( year, month, date, day, mode ) values (?,?,?,?,?)";
+                            let insertQueryLogReg = "INSERT INTO userlog ( year, month, date, day, mode,username ) values (?,?,?,?,?,?)";
                             let now = new Date();
                             let saveYear = now.getFullYear();
                             let saveMonth = now.getMonth() + 1;
@@ -572,7 +573,7 @@ passport.use('local.signup', new LocalStrategy({
                             let saveDay = now.getDay();
                             let saveMode = "register";
 
-                            connection.query(insertQueryLogReg, [saveYear.toString(), saveMonth.toString(), saveDate.toString(), saveDay.toString(), saveMode.toString()], (err, insertRegLogRow) => {
+                            connection.query(insertQueryLogReg, [saveYear.toString(), saveMonth.toString(), saveDate.toString(), saveDay.toString(), saveMode.toString(),newUserMysql.username.toString()], (err, insertRegLogRow) => {
                                 if (err) console.log(err);
                                 console.log("register logged");
                                 console.log(insertRegLogRow);

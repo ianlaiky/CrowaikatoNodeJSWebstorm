@@ -468,7 +468,34 @@ io.on('connection', function (socket) {
         });
 
 
-    })
+    });
+    socket.on("findcloestUserAdm",(dat)=>{
+
+
+        console.log(dat);
+        connection.query("select username from users where username like ?",[dat],(err,row)=>{
+           console.log("RUN");
+            if(err)console.log(err);
+
+           console.log(row);
+           socket.emit("sendlistofusers",row);
+        });
+
+
+    });
+
+    socket.on("reqgraphdata",(data)=>{
+        console.log(data);
+        let sortby;
+        let year;
+        let month;
+        let user;
+
+
+
+
+
+    });
 
 
 });

@@ -137,16 +137,16 @@ router.post('/loginBackend', passport.authenticate('local.signin', {
         res.redirect("/page/adminConsole?sortBy=year&year=2018")
     } else {
 
-        let insertQueryLog = "INSERT INTO userlog ( year, month, date, day, mode ) values (?,?,?,?,?)";
+        let insertQueryLog = "INSERT INTO userlog ( year, month, date, day, mode,username ) values (?,?,?,?,?,?)";
         let now = new Date();
         let saveYear = now.getFullYear();
         let saveMonth = now.getMonth() + 1;
         let saveDate = now.getDate();
         let saveDay = now.getDay();
         let saveMode = "login";
+        let emailaddress =  req.session.useInfoo.emailAddress;
 
-
-        connection.query(insertQueryLog, [saveYear.toString(), saveMonth.toString(), saveDate.toString(), saveDay.toString(), saveMode.toString()], (err, insertedLog) => {
+        connection.query(insertQueryLog, [saveYear.toString(), saveMonth.toString(), saveDate.toString(), saveDay.toString(), saveMode.toString(),emailaddress.toString()], (err, insertedLog) => {
             if (err) console.log(err);
             console.log("Logs inserted");
             console.log(insertedLog);

@@ -4,10 +4,12 @@
 <script src="/vendor/jquery/jquery.min.js"></script>
 
 
-<link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.5.0/css/bootstrap-datepicker.css" rel="stylesheet">
+<link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.5.0/css/bootstrap-datepicker.css"
+      rel="stylesheet">
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.5.0/js/bootstrap-datepicker.js"></script> </head>
-
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.5.0/js/bootstrap-datepicker.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.0.4/socket.io.js"></script>
+</head>
 
 
 <!--</style>-->
@@ -80,7 +82,6 @@
     <div class="container" style="width:80%;">
 
 
-
         <div class="row">
             <div class="col-lg-10 text-center">
 
@@ -90,43 +91,60 @@
             <div class="col-lg-2 text-center">
 
 
-               <form class="panel panel-default" method="get" action="/page/adminConsole">
+                <!--<form class="panel panel-default" method="get" action="/page/adminConsole">-->
 
-                   <div class="panel-body">
-                       <label>Sort by: </label>
-                       <select id="sortBy" class="form-control" name="sortBy" onchange="myFunction()" required>
-                           <option value="">Select a option</option>
-                           <option value="year">Year</option>
-                           <option value="month">Month</option>
-                       </select>
-                   </div>
-                   <div class="panel-body">
-                       <label>Select Year: </label>
-                       <input name="year" class="form-control" type="text" id="datepickeryear">
+                <div class="panel-body">
+                    <label>Sort by: </label>
+                    <select id="sortBy" class="form-control" name="sortBy" onchange="myFunction()" required>
+                        <option value="">Select a option</option>
+                        <option value="year">Year</option>
+                        <option value="month">Month</option>
+                    </select>
+                </div>
+                <div id="userselect" class="panel-body userselect">
+                    <label>User Options: </label>
+                    <input id="userselection" name="userselection" class="form-control" type="text">
 
-
-                   </div>
-                   <div id="monthSelect" class="panel-body monthdisplay" style="visibility: hidden">
-                       <label>Select Month: </label>
-                       <input name="month" class="form-control" type="text" id="datepickermonth">
+                    <button onclick="findCloesetUser()" id="findcloestuser" class="btn btn-primary btn-sm">Find closest user</button>
+                    <select id="sectorSelectjs" class="form-control" name="workSector" required>
 
 
-                       </select>
-                   </div>
-                   <button type="submit" class="btn btn-primary btn-md">Show</button>
-                   <br>
-                   <br>
+                        <option value=""></option>
 
 
-               </form>
+                    </select>
+
+                    <input class="form-check-input" type="checkbox" value="" id="defaultCheck1"
+                           onclick="oncheckboxcheck()">
+
+                    <label class="form-check-label" for="defaultCheck1">
+                        Show all users
+
+
+                </div>
+                <div class="panel-body">
+                    <label>Select Year: </label>
+                    <input name="year" class="form-control" type="text" id="datepickeryear">
+
+
+                </div>
+                <div id="monthSelect" class="panel-body monthdisplay" style="visibility: hidden">
+                    <label>Select Month: </label>
+                    <input name="month" class="form-control" type="text" id="datepickermonth">
+
+
+                </div>
+
+                <button type="button" onclick="getinputdat()" class="btn btn-primary btn-md">Show</button>
+                <br>
+                <br>
+
+
+                <!--</form>-->
 
             </div>
 
         </div>
-
-
-
-
 
 
     </div>
@@ -135,21 +153,20 @@
 <script>
 
 
-
-    $( function() {
-        $( "#datepickeryear" ).datepicker({
+    $(function () {
+        $("#datepickeryear").datepicker({
             minViewMode: 'years',
             autoclose: true,
             format: 'yyyy'
         });
 
-        $( "#datepickermonth" ).datepicker({
+        $("#datepickermonth").datepicker({
             minViewMode: 'months',
             autoclose: true,
             format: 'MM'
         });
 
-    } );
+    });
 
     var ctx = document.getElementById('myChart').getContext('2d');
     var chart = new Chart(ctx, {
@@ -163,12 +180,12 @@
                 label: "Login",
                 borderColor: 'rgb(255, 99, 132)',
                 data: [{{graphData1}}],
-                fill:false
-            },{
+                fill: false
+            }, {
                 label: "Register",
                 borderColor: 'rgb(0, 191, 255)',
                 data: [{{graphData2}}],
-                fill:false
+                fill: false
             }]
         },
 
@@ -176,27 +193,91 @@
         options: {}
     });
 
+    function oncheckboxcheck() {
+        if (document.getElementById("defaultCheck1").checked) {
+            document.getElementById("userselection").value = "All";
+            document.getElementById("sectorSelectjs").value = "All";
+            document.getElementById("userselection").setAttribute("readonly", true);
+            document.getElementById("sectorSelectjs").setAttribute("readonly", true);
+            document.getElementById("findcloestuser").style.visibility = "hidden";
 
-function myFunction(){
-
-
-    console.log("rer");
-    let selection = document.getElementById("sortBy").value;
-
-
-    if(selection.toString()=="month"){
-        document.getElementById("monthSelect").style.visibility="visible";
-    }else{
-        document.getElementById("monthSelect").style.visibility="hidden";
+        } else {
+            document.getElementById("userselection").value = "";
+            document.getElementById("sectorSelectjs").val = "";
+            document.getElementById("userselection").removeAttribute("readonly");
+            document.getElementById("sectorSelectjs").removeAttribute("readonly");
+            document.getElementById("findcloestuser").style.visibility = "visible";
+        }
 
     }
-    
-    
 
-console.log(selection)
+    var socket = io();
+
+    function getinputdat() {
+        let sortby = document.getElementById("sortBy").value;
+        let year = document.getElementById("datepickeryear").value;
+        let month = document.getElementById("datepickermonth").value;
+
+        console.log(sortby);
+        console.log(year);
+        console.log(month);
+
+        if (sortby == "year") {
+
+            let senddat = {
+                sortby: sortby,
+                year: year
+            };
+
+            socket.emit("reqgraphdata", senddat)
+
+        }
+    }
+
+    function findCloesetUser() {
+        console.log("RUNN");
+let username = document.getElementById("userselection").value;
+console.log(username);
+        socket.emit("findcloestUserAdm",username);
+
+    }
+    socket.on("sendlistofusers",function (data) {
+
+        console.log(data);
+
+        var select = document.getElementById("sectorSelectjs");
+
+        for(var i = 0; i <=data.length; i++) {
 
 
-}
+            var opt2 = document.createElement("option");
+            opt2.text = data[i].username;
+            opt2.value = data[i].username;
+            select.options.add(opt2);
+        }
+
+    });
+
+
+    function myFunction() {
+
+
+        console.log("rer");
+        let selection = document.getElementById("sortBy").value;
+
+
+        if (selection.toString() == "month") {
+            document.getElementById("monthSelect").style.visibility = "visible";
+        } else {
+            document.getElementById("monthSelect").style.visibility = "hidden";
+
+        }
+
+
+        console.log(selection)
+
+
+    }
 
 
 </script>
