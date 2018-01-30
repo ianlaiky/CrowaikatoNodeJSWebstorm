@@ -18,6 +18,17 @@ var arurl = 'mongodb://tester:cR0w_+35t@arproject-shard-00-00-cjsdl.mongodb.net:
 var oplogurl = 'mongodb://192.168.204.129:27017/ARDB';
 var machines = [];
 
+
+
+//MYSQL
+var mysql = require('mysql');
+
+var dbconfig = require('../config/database');
+var connection = mysql.createConnection(dbconfig.connection);
+connection.query('USE ' + dbconfig.database);
+
+
+
 let clients = [];
 
 var processIntervalsArr = [];
@@ -32,7 +43,7 @@ let io = require('socket.io')();
 
 io.on('connection', function (socket) {
     console.log('New client connected, SOCKETID: ' + socket.id);
-    disconnected=false;
+    disconnected = false;
 
     socket.on('disconnect', function () {
         clients[socket.id] = false;
@@ -279,14 +290,14 @@ io.on('connection', function (socket) {
 
 // AR SIDE Interval selection
 
-    socket.on('intervalSelection',function (socket) {
+    socket.on('intervalSelection', function (socket) {
 
         console.log(socket);
 
 
     });
 
-    socket.on("arStartLive",(socketin)=>{
+    socket.on("arStartLive", (socketin) => {
         console.log("startArstartLive");
         //Connect to Oplog Collection and listen for insertion of data(actions)
         MongoDB.MongoClient.connect(oplogurl, function (err, db) {
@@ -352,11 +363,9 @@ io.on('connection', function (socket) {
     });
 
 
+    socket.on("arStartStatic", (socketon) => {
 
-
-    socket.on("arStartStatic",(socketon)=>{
-
-       console.log("arStartStatic");
+        console.log("arStartStatic");
 
 // static
         MongoDB.MongoClient.connect(oplogurl, function (err, db) {
@@ -445,12 +454,26 @@ io.on('connection', function (socket) {
 
     });
 
+    socket.on("checkexistinguser", (dat) => {
+
+        console.log("checking existing user");
+        console.log(dat);
+
+        connection.query("select id from users where username = ?",[dat],(err,rowret)=>{
+            console.log(rowret);
+            if(rowret.length!=0){
+                socket.emit("receiveExistingUser", "false");
+            }else{
+                socket.emit("receiveExistingUser", "true");
+            }
+
+        });
 
 
 
 
 
-
+    })
 
 
 });
