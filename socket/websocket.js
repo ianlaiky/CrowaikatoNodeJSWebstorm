@@ -286,63 +286,64 @@ io.on('connection', function (socket) {
 
     });
 
+    socket.on("arStartLive",(socketin)=>{
+        console.log("startArstartLive");
+        //Connect to Oplog Collection and listen for insertion of data(actions)
+        MongoDB.MongoClient.connect(oplogurl, function (err, db) {
 
 
+            db.collection('ARaction', (err, stuffInside) => {
 
-    //Connect to Oplog Collection and listen for insertion of data(actions)
-    MongoDB.MongoClient.connect(oplogurl, function (err, db) {
+                if (err) {
 
+                    console.log("conn error");
+                    console.log(err);
+                }
 
-        db.collection('ARaction', (err, stuffInside) => {
-
-            if (err) {
-
-                console.log("conn error");
-                console.log(err);
-            }
-
-            // console.log("initialal stuff");
-            // console.log(stuffInside);
-
-            var queryForTime;
-            stuffInside.find({}, {
-                dateTime: 1
-            }).sort({
-                $natural: -1
-            }).limit(1).toArray(function (err, data) {
+                // console.log("initialal stuff");
+                // console.log(stuffInside);
 
                 var queryForTime;
-                console.log(data);
-                var lastTime = data[0].dateTime;
-                console.log("waddd");
-                console.log(lastTime);
-                if (lastTime) {
+                stuffInside.find({}, {
+                    dateTime: 1
+                }).sort({
+                    $natural: -1
+                }).limit(1).toArray(function (err, data) {
 
-                    queryForTime = {
-                        $gt: new Date(lastTime)
-                    };
-                } else {
+                    var queryForTime;
+                    console.log(data);
+                    var lastTime = data[0].dateTime;
+                    console.log("waddd");
+                    console.log(lastTime);
+                    if (lastTime) {
 
-                    var tstamp = new Date();
-                    queryForTime = {
-                        $gt: tstamp
-                    };
-                }
+                        queryForTime = {
+                            $gt: new Date(lastTime)
+                        };
+                    } else {
+
+                        var tstamp = new Date();
+                        queryForTime = {
+                            $gt: tstamp
+                        };
+                    }
 
 
-                console.log("query datetime");
-                // console.log(queryForTime);
+                    console.log("query datetime");
+                    // console.log(queryForTime);
 
-                var cursor = stuffInside.find({
-                    dateTime: queryForTime
+                    var cursor = stuffInside.find({
+                        dateTime: queryForTime
+                    });
+                    cursor.addCursorFlag('tailable', true);
+                    var stream = cursor.stream();
+
+                    stream.on('data', function (erera) {
+                        socket.emit('action', erera);
+                        console.log(erera)
+                    })
+
                 });
-                cursor.addCursorFlag('tailable', true);
-                var stream = cursor.stream();
-
-                stream.on('data', function (erera) {
-                    socket.emit('action', erera);
-                    console.log(erera)
-                })
 
             });
 
@@ -350,91 +351,106 @@ io.on('connection', function (socket) {
 
     });
 
+
+
+
+    socket.on("arStartStatic",(socketon)=>{
+
+       console.log("arStartStatic");
 
 // static
-    MongoDB.MongoClient.connect(oplogurl, function (err, db) {
-        console.log("Static infor start");
+        MongoDB.MongoClient.connect(oplogurl, function (err, db) {
+            console.log("Static infor start");
 
-        db.collection('ARactionStatic', (err, stuffInside) => {
+            db.collection('ARactionStatic', (err, stuffInside) => {
 
-            if (err) {
+                if (err) {
 
-                console.log("conn error Static");
-                console.log(err);
-            }
-
-            console.log("Static infor");
-            stuffInside.find().toArray(function (err, info) {
-                console.log("Static infor");
-                console.log(info);
-                var index = 0;
-                // let staticInterval = setInterval(function () {
-                //
-                //     if (index == info.length - 1) {
-                //         clearInterval(staticInterval);
-                //         return;
-                //     }
-                //     console.log("LALALALAL");
-                //     console.log(info[index]);
-                //
-                //     socket.emit('actionStatic', info[index]);
-                //     index += 1;
-                //
-                //
-                // }, 5000);
-                var timeoutSettings = 2000;
-
-                function looper(callback) {
-                    let emitNewData = function () {
-
-
-                        console.log("staticTimeoit");
-
-
-                        if (index < info.length - 1 && disconnected == false) {
-                            console.log("Disconnection");
-                            console.log(disconnected);
-                            let date1 = new Date(info[index].dateTime);
-                            let date2 = new Date(info[index + 1].dateTime);
-                            let difference = date2.getTime() - date1.getTime();
-
-                            var Seconds_from_T1_to_T2 = difference / 1000;
-                            var Seconds_Between_Dates = Math.abs(Seconds_from_T1_to_T2);
-
-
-                            timeoutSettings = Seconds_Between_Dates;
-                            timeoutSettings = timeoutSettings * 1000;
-                            console.log(timeoutSettings);
-
-                            setTimeout(emitNewData, timeoutSettings);
-                        } else {
-                            return;
-                        }
-
-
-                        index += 1;
-                        console.log("Index " + index);
-                        // console.log("Index "+info.length);
-                        callback();
-
-                    };
-                    setTimeout(emitNewData, 1)
-
+                    console.log("conn error Static");
+                    console.log(err);
                 }
 
+                console.log("Static infor");
+                stuffInside.find().toArray(function (err, info) {
+                    console.log("Static infor");
+                    console.log(info);
+                    var index = 0;
+                    // let staticInterval = setInterval(function () {
+                    //
+                    //     if (index == info.length - 1) {
+                    //         clearInterval(staticInterval);
+                    //         return;
+                    //     }
+                    //     console.log("LALALALAL");
+                    //     console.log(info[index]);
+                    //
+                    //     socket.emit('actionStatic', info[index]);
+                    //     index += 1;
+                    //
+                    //
+                    // }, 5000);
+                    var timeoutSettings = 2000;
 
-                looper(function () {
-                    socket.emit('actionStatic', info[index]);
-                    console.log("asdsad")
+                    function looper(callback) {
+                        let emitNewData = function () {
+
+
+                            console.log("staticTimeoit");
+
+
+                            if (index < info.length - 1 && disconnected == false) {
+                                console.log("Disconnection");
+                                console.log(disconnected);
+                                let date1 = new Date(info[index].dateTime);
+                                let date2 = new Date(info[index + 1].dateTime);
+                                let difference = date2.getTime() - date1.getTime();
+
+                                var Seconds_from_T1_to_T2 = difference / 1000;
+                                var Seconds_Between_Dates = Math.abs(Seconds_from_T1_to_T2);
+
+
+                                timeoutSettings = Seconds_Between_Dates;
+                                timeoutSettings = timeoutSettings * 1000;
+                                console.log(timeoutSettings);
+
+                                setTimeout(emitNewData, timeoutSettings);
+                            } else {
+                                return;
+                            }
+
+
+                            index += 1;
+                            console.log("Index " + index);
+                            // console.log("Index "+info.length);
+                            callback();
+
+                        };
+                        setTimeout(emitNewData, 1)
+
+                    }
+
+
+                    looper(function () {
+                        socket.emit('actionStatic', info[index]);
+                        console.log("asdsad")
+                    });
+
+
                 });
 
 
             });
 
-
         });
 
     });
+
+
+
+
+
+
+
 
 
 });

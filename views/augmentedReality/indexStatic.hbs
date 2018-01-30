@@ -28,6 +28,7 @@
 
         //Vairables - For Real-Time Data Retrieval
         var socket = io();
+        socket.emit("arStartStatic");
         var machineArr = [];
         var markerVals = [];
         var destSph, srcSph;
