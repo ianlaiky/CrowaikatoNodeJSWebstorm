@@ -93,52 +93,55 @@
 
                 <form class="panel panel-default" method="get" action="/page/adminConsole">
 
-                <div class="panel-body">
-                    <label>Sort by: </label>
-                    <select id="sortBy" class="form-control" name="sortBy" onchange="myFunction()" required>
-                        <option value="">Select a option</option>
-                        <option value="year">Year</option>
-                        <option value="month">Month</option>
-                    </select>
-                </div>
-                <div id="userselect" class="panel-body userselect">
-                    <label>User Options: </label>
-                    <input id="userselection" name="userselection" class="form-control" type="text">
+                    <div class="panel-body">
+                        <label>Sort by: </label>
+                        <select id="sortBy" class="form-control" name="sortBy" onchange="myFunction()" required>
+                            <option value="">Select a option</option>
+                            <option value="year">Year</option>
+                            <option value="month">Month</option>
+                        </select>
+                    </div>
+                    <div id="userselect" class="panel-body userselect">
+                        <label>User Options: </label>
+                        <input id="userselection" name="userselection" class="form-control" type="text">
 
-                    <button type="button" onclick="findCloesetUser()" id="findcloestuser" class="btn btn-primary btn-sm">Find closest user</button>
-                    <select id="sectorSelectjs" class="form-control" name="workSector" onchange="selectorChange()" required>
+                        <button type="button" onclick="findCloesetUser()" id="findcloestuser"
+                                class="btn btn-primary btn-sm">Find closest user
+                        </button>
+                        <select id="sectorSelectjs" class="form-control" name="workSector" onchange="selectorChange()"
+                                required>
 
 
-                        <option value=""></option>
+                            <option value=""></option>
 
 
-                    </select>
+                        </select>
 
-                    <input class="form-check-input" type="checkbox" value="" id="defaultCheck1"
-                           onclick="oncheckboxcheck()">
+                        <input class="form-check-input" type="checkbox" value="" id="defaultCheck1"
+                               onclick="oncheckboxcheck()">
 
-                    <label class="form-check-label" for="defaultCheck1"></label>
+                        <label class="form-check-label" for="defaultCheck1"></label>
                         Show all users
 
 
-                </div>
+                    </div>
 
-                <div class="panel-body">
-                    <label>Select Year: </label>
-                    <input name="year" class="form-control" type="text" id="datepickeryear">
-
-
-                </div>
-                <div id="monthSelect" class="panel-body monthdisplay" style="visibility: hidden">
-                    <label>Select Month: </label>
-                    <input name="month" class="form-control" type="text" id="datepickermonth">
+                    <div class="panel-body">
+                        <label>Select Year: </label>
+                        <input name="year" class="form-control" type="text" id="datepickeryear">
 
 
-                </div>
+                    </div>
+                    <div id="monthSelect" class="panel-body monthdisplay" style="visibility: hidden">
+                        <label>Select Month: </label>
+                        <input name="month" class="form-control" type="text" id="datepickermonth">
+
+
+                    </div>
                     <!--onclick="getinputdat()"-->
                     <button type="submit" class="btn btn-primary btn-md">Show</button>
-                <br>
-                <br>
+                    <br>
+                    <br>
 
 
                 </form>
@@ -193,14 +196,14 @@
         // Configuration options go here
         options: {}
     });
-    
+
     function selectorChange() {
         console.log("DUN HELLO");
         var x = document.getElementById("sectorSelectjs").value;
         console.log(x);
         document.getElementById("userselection").value = x;
     }
-    
+
 
     function oncheckboxcheck() {
         if (document.getElementById("defaultCheck1").checked) {
@@ -245,12 +248,13 @@
 
     function findCloesetUser() {
         console.log("RUNN");
-let username = document.getElementById("userselection").value;
-console.log(username);
-        socket.emit("findcloestUserAdm",username);
+        let username = document.getElementById("userselection").value;
+        console.log(username);
+        socket.emit("findcloestUserAdm", username);
 
     }
-    socket.on("sendlistofusers",function (data) {
+
+    socket.on("sendlistofusers", function (data) {
 
         console.log(data);
 
@@ -261,7 +265,7 @@ console.log(username);
             select.remove(0);
         }
 
-        for(var i = 0; i <data.length; i++) {
+        for (var i = 0; i < data.length; i++) {
 
             // console.log(data.length);
             var opt2 = document.createElement("option");
