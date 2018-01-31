@@ -512,31 +512,244 @@ io.on('connection', function (socket) {
     });
 
     socket.on("reqgraphdata", (dat) => {
-
-
-
-        console.log(dat.username);
+        let emailAddress;
+        let session;
         console.log(dat.emailAddress);
         console.log(dat.session);
 
-        connection.query("select * from usersession where email = ? and sessionId = ?", [dat.emailAddress.toString(), dat.session.toString()], (err, rowget) => {
+        if (dat.emailAddress == undefined) {
+            emailAddress = ""
+        } else {
+            emailAddress = dat.emailAddress
+        }
+        if (dat.session == undefined) {
+            session = "";
+        } else {
+            session = dat.session
+        }
+
+
+        connection.query("select * from usersession where email = ? and sessionId = ?", [emailAddress.toString(), session.toString()], (err, rowget) => {
+
+            if (err) console.log(err);
+
+            console.log(rowget);
+
+            if (rowget.length) {
+                console.log(dat);
+
+                let sortby;
+                let year;
+                let month;
+                let user;
+
+                if (dat.sortby == undefined) {
+                    sortby = ""
+                } else {
+                    sortby = dat.sortby
+                }
+                if (dat.year == undefined) {
+                    year = ""
+                } else {
+                    year = dat.year
+                }
+                if (dat.month == undefined) {
+                    month = ""
+                } else {
+                    month = dat.month
+                }
+                if (dat.user == undefined) {
+                    user = "All"
+                } else {
+                    user = dat.user
+                }
+
+                if (sortby == "") {
+                    sortby == "year";
+                }
+                if (year == "") {
+                    year = "2018"
+                }
+                if (month == "") {
+                    month = "January";
+                }
+                if (user == "") {
+                    user = "All"
+                }
+
+                console.log(sortby);
+                console.log(year);
+                console.log(month);
+                console.log(user);
+
+                if (sortby == "year") {
+
+
+                    console.log("year!");
+
+                    console.log("Run 1");
+                    let monthsMaplogin = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
+                    let monthsMapregister = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
+                    let monthsLabel = ["'January'", "'February'", "'March'", "'April'", "'May'", "'June'", "'July'", "'August'", "'September'", "'October'", "'November'", "'December'"];
+                    if (user == "All") {
+                        connection.query("Select * from userlog where year = ?", [year.toString()], (err, logsRet) => {
+                            console.log("Run 1.1");
+
+                            console.log(logsRet);
+                            for (let i = 0; i < logsRet.length; i++) {
+                                console.log("Print");
+                                console.log(logsRet[i].month);
+                                if (logsRet[i].mode.toString() == "login") {
+                                    monthsMaplogin[logsRet[i].month - 1] = monthsMaplogin[logsRet[i].month - 1] + 1;
+
+                                } else {
+                                    monthsMapregister[logsRet[i].month - 1] = monthsMapregister[logsRet[i].month - 1] + 1;
+
+                                }
+                            }
+                            console.log(monthsMaplogin);
+                            console.log(monthsMapregister);
+                            console.log(monthsLabel);
+                            let readyToSend = {
+
+                                graphLabel: monthsLabel,
+                                graphData1: monthsMaplogin,
+                                graphData2: monthsMapregister,
+
+                            };
+                            socket.emit("graphDataLoadAdm",readyToSend);
+
+                        });
+                    } else {
+                        console.log("Run 1.2");
+                        connection.query("Select * from userlog where year = ? and username = ?", [year.toString(), user.toString()], (err, logsRet) => {
+                            if (err) throw err;
+                            console.log(logsRet);
+                            for (let i = 0; i < logsRet.length; i++) {
+                                console.log("Print");
+                                console.log(logsRet[i].month);
+                                if (logsRet[i].mode.toString() == "login") {
+                                    monthsMaplogin[logsRet[i].month - 1] = monthsMaplogin[logsRet[i].month - 1] + 1;
+
+                                } else {
+                                    monthsMapregister[logsRet[i].month - 1] = monthsMapregister[logsRet[i].month - 1] + 1;
+
+                                }
+                            }
+                            console.log(monthsMaplogin);
+                            console.log(monthsMapregister);
+                            console.log(monthsLabel);
+                           let readytoSend = {
+
+                                graphLabel: monthsLabel,
+                                graphData1: monthsMaplogin,
+                                graphData2: monthsMapregister,
+
+                            };
+                            socket.emit("graphDataLoadAdm",readytoSend);
+
+                        });
+
+                    }
+
+                }else if(sortby.toString() == "month"){
 
 
 
-            console.log(data);
-            let sortby;
-            let year;
-            let month;
-            let user;
+                    console.log("Run 2");
+                    let monthsLabelIndex = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+
+
+                    console.log(year);
+                    console.log(monthsLabelIndex.indexOf(month) + 1);
+
+                    // days in the month
+                    let noOfDaysInMonth = new Date(parseInt(year), parseInt(parseInt(monthsLabelIndex.indexOf(month)) + 1), 0).getDate();
+                    let monthN = parseInt(parseInt(monthsLabelIndex.indexOf(month)) + 1);
+                    console.log(noOfDaysInMonth);
+                    //
+                    let arrayOfDaysLogin = [];
+                    let arrayOfDaysRegister = [];
+                    let daysLabel = [];
+
+
+                    for (let x = 0; x < parseInt(noOfDaysInMonth); x++) {
+                        arrayOfDaysLogin.push(0);
+                        arrayOfDaysRegister.push(0);
+                        daysLabel.push(x + 1);
+                    }
+
+                    console.log("no of days in the month" + noOfDaysInMonth);
+                    console.log("Length of array" + arrayOfDaysLogin.length);
+                    if (user == "All") {
+                        connection.query("Select * from userlog where year = ? and month = ?", [year.toString(), monthN.toString()], (err, logsRet) => {
+
+                            console.log(logsRet);
+                            for (let i = 0; i < logsRet.length; i++) {
+                                console.log("Print");
+                                console.log(logsRet[i].month);
+                                if (logsRet[i].mode.toString() == "login") {
+                                    arrayOfDaysLogin[logsRet[i].date - 1] = arrayOfDaysLogin[logsRet[i].date - 1] + 1;
+
+                                } else {
+                                    arrayOfDaysRegister[logsRet[i].date - 1] = arrayOfDaysRegister[logsRet[i].date - 1] + 1;
+
+                                }
+                            }
+                            console.log(arrayOfDaysLogin);
+                            console.log(arrayOfDaysRegister);
+                            console.log(daysLabel);
+                           let datatosend = {
+
+                                graphLabel: daysLabel,
+                                graphData1: arrayOfDaysLogin,
+                                graphData2: arrayOfDaysRegister,
+
+                            };
+                            socket.emit("graphDataLoadAdm",datatosend);
+
+                        });
+                    } else {
+
+
+                        connection.query("Select * from userlog where year = ? and month = ? and username = ?", [year.toString(), monthN.toString(), user.toString()], (err, logsRet) => {
+
+                            console.log(logsRet);
+                            for (let i = 0; i < logsRet.length; i++) {
+                                console.log("Print");
+                                console.log(logsRet[i].month);
+                                if (logsRet[i].mode.toString() == "login") {
+                                    arrayOfDaysLogin[logsRet[i].date - 1] = arrayOfDaysLogin[logsRet[i].date - 1] + 1;
+
+                                } else {
+                                    arrayOfDaysRegister[logsRet[i].date - 1] = arrayOfDaysRegister[logsRet[i].date - 1] + 1;
+
+                                }
+                            }
+                            console.log(arrayOfDaysLogin);
+                            console.log(arrayOfDaysRegister);
+                            console.log(daysLabel);
+                            let readytosend =  {
+
+                                graphLabel: daysLabel,
+                                graphData1: arrayOfDaysLogin,
+                                graphData2: arrayOfDaysRegister,
+
+                            };
+
+                            socket.emit("graphDataLoadAdm",readytosend);
+
+                        });
+
+
+                    }
 
 
 
 
-
+                }
+            }
         });
-
-
-
 
 
     });

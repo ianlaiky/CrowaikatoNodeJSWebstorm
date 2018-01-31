@@ -91,60 +91,61 @@
             <div class="col-lg-2 text-center">
 
 
-                <form class="panel panel-default" method="get" action="/page/adminConsole">
+                <!--<form class="panel panel-default" method="get" action="/page/adminConsole">-->
 
-                    <div class="panel-body">
-                        <label>Sort by: </label>
-                        <select id="sortBy" class="form-control" name="sortBy" onchange="myFunction()" required>
-                            <option value="">Select a option</option>
-                            <option value="year">Year</option>
-                            <option value="month">Month</option>
-                        </select>
-                    </div>
-                    <div id="userselect" class="panel-body userselect">
-                        <label>User Options: </label>
-                        <input id="userselection" name="userselection" class="form-control" type="text">
+                <div class="panel-body">
+                    <label>Sort by: </label>
+                    <select id="sortBy" class="form-control" name="sortBy" onchange="myFunction()" required>
+                        <option value="">Select a option</option>
+                        <option value="year">Year</option>
+                        <option value="month">Month</option>
+                    </select>
+                </div>
+                <div id="userselect" class="panel-body userselect">
+                    <label>User Options: </label>
+                    <input id="userselection" name="userselection" class="form-control" type="text">
 
-                        <button type="button" onclick="findCloesetUser()" id="findcloestuser"
-                                class="btn btn-primary btn-sm">Find closest user
-                        </button>
-                        <select id="sectorSelectjs" class="form-control" name="workSector" onchange="selectorChange()"
-                                required>
-
-
-                            <option value=""></option>
+                    <button type="button" onclick="findCloesetUser()" id="findcloestuser"
+                            class="btn btn-primary btn-sm">Find closest user
+                    </button>
+                    <select id="sectorSelectjs" class="form-control" name="workSector" onchange="selectorChange()"
+                            required>
 
 
-                        </select>
-
-                        <input class="form-check-input" type="checkbox" value="" id="defaultCheck1"
-                               onclick="oncheckboxcheck()">
-
-                        <label class="form-check-label" for="defaultCheck1"></label>
-                        Show all users
+                        <option value=""></option>
 
 
-                    </div>
+                    </select>
 
-                    <div class="panel-body">
-                        <label>Select Year: </label>
-                        <input name="year" class="form-control" type="text" id="datepickeryear">
+                    <input class="form-check-input" type="checkbox" value="" id="defaultCheck1"
+                           onclick="oncheckboxcheck()">
 
-
-                    </div>
-                    <div id="monthSelect" class="panel-body monthdisplay" style="visibility: hidden">
-                        <label>Select Month: </label>
-                        <input name="month" class="form-control" type="text" id="datepickermonth">
+                    <label class="form-check-label" for="defaultCheck1"></label>
+                    Show all users
 
 
-                    </div>
-                    <!--onclick="getinputdat()"-->
-                    <button type="submit" class="btn btn-primary btn-md">Show</button>
-                    <br>
-                    <br>
+                </div>
+
+                <div class="panel-body">
+                    <label>Select Year: </label>
+                    <input name="year" class="form-control" type="text" id="datepickeryear">
 
 
-                </form>
+                </div>
+                <div id="monthSelect" class="panel-body monthdisplay" style="visibility: hidden">
+                    <label>Select Month: </label>
+                    <input name="month" class="form-control" type="text" id="datepickermonth">
+
+
+                </div>
+                <!--onclick="getinputdat()"-->
+                <button onclick="getinputdat()" type="button" class="btn btn-primary btn-md">Show</button>
+                <!--<button onclick="testingfunction()" type="button" class="btn btn-primary btn-md">Show</button>-->
+                <br>
+                <br>
+
+
+                <!--</form>-->
 
             </div>
 
@@ -170,32 +171,77 @@
             format: 'MM'
         });
 
+
+        var senddat = {
+            emailAddress: '{{emailAddress}}',
+            session: '{{session}}',
+            sortby: "year",
+            year: "2018",
+            month: "",
+            user: ""
+
+        };
+
+        socket.emit("reqgraphdata", senddat)
+
+
     });
 
-    var ctx = document.getElementById('myChart').getContext('2d');
-    var chart = new Chart(ctx, {
-        // The type of chart we want to create
-        type: 'line',
 
-        // The data for our dataset
-        data: {
-            labels: [{{{graphLabel}}}],
-            datasets: [{
-                label: "Login",
-                borderColor: 'rgb(255, 99, 132)',
-                data: [{{graphData1}}],
-                fill: false
-            }, {
-                label: "Register",
-                borderColor: 'rgb(0, 191, 255)',
-                data: [{{graphData2}}],
-                fill: false
-            }]
-        },
 
-        // Configuration options go here
-        options: {}
-    });
+    function newGraphData(graph1,graph2,graph3) {
+console.log(graph1);
+console.log(graph2);
+console.log(graph3);
+
+
+
+        var ctx = document.getElementById('myChart').getContext('2d');
+        var chart = new Chart(ctx, {
+            // The type of chart we want to create
+            type: 'line',
+
+            // The data for our dataset
+            data: {
+                labels: graph1,
+                datasets: [{
+                    label: "Login",
+                    borderColor: 'rgb(255, 99, 132)',
+                    data:graph2,
+                    fill: false
+                }, {
+                    label: "Register",
+                    borderColor: 'rgb(0, 191, 255)',
+                    data: graph3,
+                    fill: false
+                }]
+            },
+
+            // Configuration options go here
+            options: {}
+        });
+        Chart.defaults.global.animation.duration = 3000;
+
+
+    }
+
+
+    //  function removeData(chart) {
+    //      chart.data.labels.pop();
+    //      chart.data.datasets.forEach((dataset) => {
+    //          dataset.data.pop();
+    //      });
+    //      chart.update();
+    //  }
+    //
+    // function addData(chart, label, data) {
+    //      chart.data.labels.push(label);
+    //      chart.data.datasets.forEach((dataset) => {
+    //          dataset.data.push(data);
+    //      });
+    //      chart.update();
+    //  }
+
 
     function selectorChange() {
         console.log("DUN HELLO");
@@ -226,24 +272,28 @@
     var socket = io();
 
     function getinputdat() {
-        let sortby = document.getElementById("sortBy").value;
-        let year = document.getElementById("datepickeryear").value;
-        let month = document.getElementById("datepickermonth").value;
+        var sortby = document.getElementById("sortBy").value;
+        var year = document.getElementById("datepickeryear").value;
+        var month = document.getElementById("datepickermonth").value;
+        var userselection = document.getElementById("userselection").value;
 
         console.log(sortby);
         console.log(year);
         console.log(month);
 
-        if (sortby == "year") {
 
-            let senddat = {
-                sortby: sortby,
-                year: year
-            };
+        var senddat = {
+            emailAddress: '{{emailAddress}}',
+            session: '{{session}}',
+            sortby: sortby,
+            year: year,
+            month: month,
+            user: userselection
+        };
 
-            socket.emit("reqgraphdata", senddat)
+        socket.emit("reqgraphdata", senddat)
 
-        }
+
     }
 
     function findCloesetUser() {
@@ -253,9 +303,9 @@
 
 
         let toSendSocket = {
-            username:username,
-            emailAddress:'{{emailAddress}}',
-            session:'{{session}}'
+            username: username,
+            emailAddress: '{{emailAddress}}',
+            session: '{{session}}'
 
 
         };
@@ -274,7 +324,10 @@
         while (select.options.length > 0) {
             select.remove(0);
         }
-
+        var opt2 = document.createElement("option");
+        opt2.text = "--Select--";
+        opt2.value = "";
+        select.options.add(opt2);
         for (var i = 0; i < data.length; i++) {
 
             // console.log(data.length);
@@ -283,6 +336,12 @@
             opt2.value = data[i];
             select.options.add(opt2);
         }
+
+    });
+
+    socket.on("graphDataLoadAdm", function (data) {
+
+        newGraphData(data.graphLabel,data.graphData1,data.graphData2);
 
     });
 
