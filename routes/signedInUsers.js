@@ -766,14 +766,16 @@ router.get('/adminConsole', isLoggedInAdmin, function (req, res, next) {
                     firstname: req.session.useInfoo.firstname,
                     graphLabel: monthsLabel,
                     graphData1: monthsMaplogin,
-                    graphData2: monthsMapregister
+                    graphData2: monthsMapregister,
+                    emailAddress: req.session.useInfoo.emailAddress,
+                    session: req.session.id
                 });
 
             });
         } else {
             console.log("Run 1.2");
             connection.query("Select * from userlog where year = ? and username = ?", [year.toString(), userselection.toString()], (err, logsRet) => {
-                if(err)throw err;
+                if (err) throw err;
                 console.log(logsRet);
                 for (let i = 0; i < logsRet.length; i++) {
                     console.log("Print");
@@ -794,7 +796,9 @@ router.get('/adminConsole', isLoggedInAdmin, function (req, res, next) {
                     firstname: req.session.useInfoo.firstname,
                     graphLabel: monthsLabel,
                     graphData1: monthsMaplogin,
-                    graphData2: monthsMapregister
+                    graphData2: monthsMapregister,
+                    emailAddress: req.session.useInfoo.emailAddress,
+                    session: req.session.id
                 });
 
             });
@@ -854,14 +858,16 @@ router.get('/adminConsole', isLoggedInAdmin, function (req, res, next) {
                     firstname: req.session.useInfoo.firstname,
                     graphLabel: daysLabel,
                     graphData1: arrayOfDaysLogin,
-                    graphData2: arrayOfDaysRegister
+                    graphData2: arrayOfDaysRegister,
+                    emailAddress: req.session.useInfoo.emailAddress,
+                    session: req.session.id
                 });
 
             });
         } else {
 
 
-            connection.query("Select * from userlog where year = ? and month = ? and username = ?", [year.toString(), monthN.toString(),userselection.toString()], (err, logsRet) => {
+            connection.query("Select * from userlog where year = ? and month = ? and username = ?", [year.toString(), monthN.toString(), userselection.toString()], (err, logsRet) => {
 
                 console.log(logsRet);
                 for (let i = 0; i < logsRet.length; i++) {
@@ -883,11 +889,12 @@ router.get('/adminConsole', isLoggedInAdmin, function (req, res, next) {
                     firstname: req.session.useInfoo.firstname,
                     graphLabel: daysLabel,
                     graphData1: arrayOfDaysLogin,
-                    graphData2: arrayOfDaysRegister
+                    graphData2: arrayOfDaysRegister,
+                    emailAddress: req.session.useInfoo.emailAddress,
+                    session: req.session.id
                 });
 
             });
-
 
 
         }

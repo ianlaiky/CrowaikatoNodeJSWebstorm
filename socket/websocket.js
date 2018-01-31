@@ -471,36 +471,52 @@ io.on('connection', function (socket) {
     });
 
 
-    socket.on("findcloestUserAdm",(dat)=>{
+    socket.on("findcloestUserAdm", (dat) => {
 
 
-        console.log(dat);
-        connection.query("select username from users where username like ?",[dat],(err,row)=>{
-           console.log("RUN");
-            if(err)console.log(err);
+        console.log(dat.username);
+        console.log(dat.emailAddress);
+        console.log(dat.session);
 
-           console.log(row);
-            let arrtopish =[];
-            for (let obj of row) {
+        connection.query("select * from usersession where email = ? and sessionId = ?", [dat.emailAddress.toString(), dat.session.toString()], (err, rowget) => {
 
-                arrtopish.push(obj.username)
+            if (err) {
+                throw err;
+            }
+            else {
+                console.log(rowget);
+                if (rowget.length) {
+                    console.log(dat.username);
+                    connection.query("select username from users where username like ?", [dat.username], (err, row) => {
+                        console.log("RUN");
+                        if (err) console.log(err);
+
+                        console.log(row);
+                        let arrtopish = [];
+                        for (let obj of row) {
+
+                            arrtopish.push(obj.username)
+                        }
+
+                        socket.emit("sendlistofusers", arrtopish);
+                    });
+
+
+                }
             }
 
-           socket.emit("sendlistofusers",arrtopish);
+
         });
 
 
     });
 
-    socket.on("reqgraphdata",(data)=>{
+    socket.on("reqgraphdata", (data) => {
         console.log(data);
         let sortby;
         let year;
         let month;
         let user;
-
-
-
 
 
     });

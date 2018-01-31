@@ -250,7 +250,17 @@
         console.log("RUNN");
         let username = document.getElementById("userselection").value;
         console.log(username);
-        socket.emit("findcloestUserAdm", username);
+
+
+        let toSendSocket = {
+            username:username,
+            emailAddress:'{{emailAddress}}',
+            session:'{{session}}'
+
+
+        };
+
+        socket.emit("findcloestUserAdm", toSendSocket);
 
     }
 

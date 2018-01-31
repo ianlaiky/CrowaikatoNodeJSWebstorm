@@ -265,19 +265,7 @@ passport.use('local.signin', new LocalStrategy({
                     jobfunction: dbjobfunction,
                     fulltimestudent: dbfulltimestudent,
                     userrole: rows[0].roles
-                    // lastname: dblastname,
-                    // jobtitle: dbjobtitle,
-                    // company: dbcompany,
-                    // country: dbcountry,
-                    // state: dbstate,
-                    // city: dbcity,
-                    // zipcode: dbzipcode,
-                    // address: dbaddress,
-                    // phoneno: dbphoneno,
-                    // faxno: dbfaxno,
-                    // sectorwork: dbsectorwork,
-                    // jobfunction: dbjobfunction,
-                    // fulltimestudent: dbfulltimestudent
+
                 };
 
 
