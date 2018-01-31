@@ -84,8 +84,12 @@
 
         <div class="row">
             <div class="col-lg-10 text-center">
+<h5>SortBy: <span id="sortbyMtd" style="text-decoration: underline;"></span> | Year: <span id="yearmtd" style="text-decoration: underline;"></span> | Month: <span id="monthmtd" style="text-decoration: underline;"></span> | Displayed User: <span id="usermtd" style="text-decoration: underline;"></span></h5>
 
-                <canvas id="myChart"></canvas>
+                <div id="canvasChartjs">
+                    <canvas id="myChart"></canvas>
+                </div>
+
 
             </div>
             <div class="col-lg-2 text-center">
@@ -188,16 +192,22 @@
     });
 
 
+    function newGraphData(graph1, graph2, graph3) {
+        console.log(graph1);
+        console.log(graph2);
+        console.log(graph3);
+       // var element = document.getElementById("myChart");
+       //
+       //  element.parentNode.removeChild(element);
+        if(window.myNewChart1 != null){
+            window.myNewChart1.destroy();
+        }
 
-    function newGraphData(graph1,graph2,graph3) {
-console.log(graph1);
-console.log(graph2);
-console.log(graph3);
 
 
 
         var ctx = document.getElementById('myChart').getContext('2d');
-        var chart = new Chart(ctx, {
+        window.myNewChart1 = new Chart(ctx, {
             // The type of chart we want to create
             type: 'line',
 
@@ -207,7 +217,7 @@ console.log(graph3);
                 datasets: [{
                     label: "Login",
                     borderColor: 'rgb(255, 99, 132)',
-                    data:graph2,
+                    data: graph2,
                     fill: false
                 }, {
                     label: "Register",
@@ -341,7 +351,25 @@ console.log(graph3);
 
     socket.on("graphDataLoadAdm", function (data) {
 
-        newGraphData(data.graphLabel,data.graphData1,data.graphData2);
+        newGraphData(data.graphLabel, data.graphData1, data.graphData2);
+
+        var currentsortby = data.sortmtd;
+        var currentYear = data.yearmtd;
+        var curentmonth = data.monthmtd;
+        var currentuser = data.usermtd;
+        console.log(currentYear);
+
+        document.getElementById("sortbyMtd").innerHTML = currentsortby;
+        document.getElementById("yearmtd").innerHTML = currentYear;
+
+        document.getElementById("usermtd").innerHTML = currentuser;
+
+
+        if(currentsortby=="year"){
+            document.getElementById("monthmtd").innerHTML = "NIL";
+        }else{
+            document.getElementById("monthmtd").innerHTML = curentmonth;
+        }
 
     });
 

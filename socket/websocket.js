@@ -615,9 +615,14 @@ io.on('connection', function (socket) {
                                 graphLabel: monthsLabel,
                                 graphData1: monthsMaplogin,
                                 graphData2: monthsMapregister,
+                                sortmtd: sortby,
+                                yearmtd: year,
+                                monthmtd: month,
+                                usermtd: user
+
 
                             };
-                            socket.emit("graphDataLoadAdm",readyToSend);
+                            socket.emit("graphDataLoadAdm", readyToSend);
 
                         });
                     } else {
@@ -639,21 +644,24 @@ io.on('connection', function (socket) {
                             console.log(monthsMaplogin);
                             console.log(monthsMapregister);
                             console.log(monthsLabel);
-                           let readytoSend = {
+                            let readytoSend = {
 
                                 graphLabel: monthsLabel,
                                 graphData1: monthsMaplogin,
                                 graphData2: monthsMapregister,
+                                sortmtd: sortby,
+                                yearmtd: year,
+                                monthmtd: month,
+                                usermtd: user
 
                             };
-                            socket.emit("graphDataLoadAdm",readytoSend);
+                            socket.emit("graphDataLoadAdm", readytoSend);
 
                         });
 
                     }
 
-                }else if(sortby.toString() == "month"){
-
+                } else if (sortby.toString() == "month") {
 
 
                     console.log("Run 2");
@@ -699,14 +707,18 @@ io.on('connection', function (socket) {
                             console.log(arrayOfDaysLogin);
                             console.log(arrayOfDaysRegister);
                             console.log(daysLabel);
-                           let datatosend = {
+                            let datatosend = {
 
                                 graphLabel: daysLabel,
                                 graphData1: arrayOfDaysLogin,
                                 graphData2: arrayOfDaysRegister,
+                                sortmtd: sortby,
+                                yearmtd: year,
+                                monthmtd: month,
+                                usermtd: user
 
                             };
-                            socket.emit("graphDataLoadAdm",datatosend);
+                            socket.emit("graphDataLoadAdm", datatosend);
 
                         });
                     } else {
@@ -729,22 +741,24 @@ io.on('connection', function (socket) {
                             console.log(arrayOfDaysLogin);
                             console.log(arrayOfDaysRegister);
                             console.log(daysLabel);
-                            let readytosend =  {
+                            let readytosend = {
 
                                 graphLabel: daysLabel,
                                 graphData1: arrayOfDaysLogin,
                                 graphData2: arrayOfDaysRegister,
+                                sortmtd: sortby,
+                                yearmtd: year,
+                                monthmtd: month,
+                                usermtd: user
 
                             };
 
-                            socket.emit("graphDataLoadAdm",readytosend);
+                            socket.emit("graphDataLoadAdm", readytosend);
 
                         });
 
 
                     }
-
-
 
 
                 }
