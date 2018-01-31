@@ -511,12 +511,32 @@ io.on('connection', function (socket) {
 
     });
 
-    socket.on("reqgraphdata", (data) => {
-        console.log(data);
-        let sortby;
-        let year;
-        let month;
-        let user;
+    socket.on("reqgraphdata", (dat) => {
+
+
+
+        console.log(dat.username);
+        console.log(dat.emailAddress);
+        console.log(dat.session);
+
+        connection.query("select * from usersession where email = ? and sessionId = ?", [dat.emailAddress.toString(), dat.session.toString()], (err, rowget) => {
+
+
+
+            console.log(data);
+            let sortby;
+            let year;
+            let month;
+            let user;
+
+
+
+
+
+        });
+
+
+
 
 
     });
