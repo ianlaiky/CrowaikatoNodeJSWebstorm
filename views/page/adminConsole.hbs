@@ -91,7 +91,7 @@
             <div class="col-lg-2 text-center">
 
 
-                <!--<form class="panel panel-default" method="get" action="/page/adminConsole">-->
+                <form class="panel panel-default" method="get" action="/page/adminConsole">
 
                 <div class="panel-body">
                     <label>Sort by: </label>
@@ -105,8 +105,8 @@
                     <label>User Options: </label>
                     <input id="userselection" name="userselection" class="form-control" type="text">
 
-                    <button onclick="findCloesetUser()" id="findcloestuser" class="btn btn-primary btn-sm">Find closest user</button>
-                    <select id="sectorSelectjs" class="form-control" name="workSector" required>
+                    <button type="button" onclick="findCloesetUser()" id="findcloestuser" class="btn btn-primary btn-sm">Find closest user</button>
+                    <select id="sectorSelectjs" class="form-control" name="workSector" onchange="selectorChange()" required>
 
 
                         <option value=""></option>
@@ -117,11 +117,12 @@
                     <input class="form-check-input" type="checkbox" value="" id="defaultCheck1"
                            onclick="oncheckboxcheck()">
 
-                    <label class="form-check-label" for="defaultCheck1">
+                    <label class="form-check-label" for="defaultCheck1"></label>
                         Show all users
 
 
                 </div>
+
                 <div class="panel-body">
                     <label>Select Year: </label>
                     <input name="year" class="form-control" type="text" id="datepickeryear">
@@ -134,13 +135,13 @@
 
 
                 </div>
-
-                <button type="button" onclick="getinputdat()" class="btn btn-primary btn-md">Show</button>
+                    <!--onclick="getinputdat()"-->
+                    <button type="submit" class="btn btn-primary btn-md">Show</button>
                 <br>
                 <br>
 
 
-                <!--</form>-->
+                </form>
 
             </div>
 
@@ -192,6 +193,14 @@
         // Configuration options go here
         options: {}
     });
+    
+    function selectorChange() {
+        console.log("DUN HELLO");
+        var x = document.getElementById("sectorSelectjs").value;
+        console.log(x);
+        document.getElementById("userselection").value = x;
+    }
+    
 
     function oncheckboxcheck() {
         if (document.getElementById("defaultCheck1").checked) {
@@ -247,12 +256,17 @@ console.log(username);
 
         var select = document.getElementById("sectorSelectjs");
 
-        for(var i = 0; i <=data.length; i++) {
 
+        while (select.options.length > 0) {
+            select.remove(0);
+        }
 
+        for(var i = 0; i <data.length; i++) {
+
+            // console.log(data.length);
             var opt2 = document.createElement("option");
-            opt2.text = data[i].username;
-            opt2.value = data[i].username;
+            opt2.text = data[i];
+            opt2.value = data[i];
             select.options.add(opt2);
         }
 

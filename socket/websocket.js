@@ -478,7 +478,13 @@ io.on('connection', function (socket) {
             if(err)console.log(err);
 
            console.log(row);
-           socket.emit("sendlistofusers",row);
+            let arrtopish =[];
+            for (let obj of row) {
+
+                arrtopish.push(obj.username)
+            }
+
+           socket.emit("sendlistofusers",arrtopish);
         });
 
 

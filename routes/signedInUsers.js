@@ -144,9 +144,9 @@ router.post('/loginBackend', passport.authenticate('local.signin', {
         let saveDate = now.getDate();
         let saveDay = now.getDay();
         let saveMode = "login";
-        let emailaddress =  req.session.useInfoo.emailAddress;
+        let emailaddress = req.session.useInfoo.emailAddress;
 
-        connection.query(insertQueryLog, [saveYear.toString(), saveMonth.toString(), saveDate.toString(), saveDay.toString(), saveMode.toString(),emailaddress.toString()], (err, insertedLog) => {
+        connection.query(insertQueryLog, [saveYear.toString(), saveMonth.toString(), saveDate.toString(), saveDay.toString(), saveMode.toString(), emailaddress.toString()], (err, insertedLog) => {
             if (err) console.log(err);
             console.log("Logs inserted");
             console.log(insertedLog);
@@ -476,7 +476,7 @@ router.get("/homeSettings", isLoggedIn, (req, res, next) => {
         errorHasErrorDetail: errormsgDetail.length > 0,
         passwordChangeSucc: boolvalueForpassChange,
         detailschangesucc: boolvalueFordetailChange,
-        captchaClientKey:clientSideSecret
+        captchaClientKey: clientSideSecret
 
     });
 
@@ -706,15 +706,19 @@ router.get("/adminContactUs", isLoggedInAdmin, (req, res, next) => {
 // PERFORMANCE TESTING
 router.get('/adminConsole', isLoggedInAdmin, function (req, res, next) {
     console.log("testing adminconsole param get");
+    console.log(req.query);
+
 
     let sortBy;
     let year;
+    let userselection;
 
     // console.log(req.query.sortBy);
     // console.log(req.query.year);
 
     if (!req.query.sortBy) {
         sortBy = "year";
+        userselection = "All";
     } else {
         sortBy = req.query.sortBy;
     }
@@ -724,45 +728,85 @@ router.get('/adminConsole', isLoggedInAdmin, function (req, res, next) {
         year = req.query.year;
     }
 
+    if (!req.query.userselection) {
+        console.log("REQ OFF");
+        userselection = "All";
+    } else {
+        userselection = req.query.userselection;
+    }
+
 
     if (sortBy.toString() == "year") {
 
+        console.log("Run 1");
         let monthsMaplogin = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
         let monthsMapregister = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
         let monthsLabel = ["'January'", "'February'", "'March'", "'April'", "'May'", "'June'", "'July'", "'August'", "'September'", "'October'", "'November'", "'December'"];
+        if (userselection == "All") {
+            connection.query("Select * from userlog where year = ?", [year.toString()], (err, logsRet) => {
+                console.log("Run 1.1");
 
-        connection.query("Select * from userlog where year = ?", [year.toString()], (err, logsRet) => {
+                console.log(logsRet);
+                for (let i = 0; i < logsRet.length; i++) {
+                    console.log("Print");
+                    console.log(logsRet[i].month);
+                    if (logsRet[i].mode.toString() == "login") {
+                        monthsMaplogin[logsRet[i].month - 1] = monthsMaplogin[logsRet[i].month - 1] + 1;
 
-            console.log(logsRet);
-            for (let i = 0; i < logsRet.length; i++) {
-                console.log("Print");
-                console.log(logsRet[i].month);
-                if (logsRet[i].mode.toString() == "login") {
-                    monthsMaplogin[logsRet[i].month - 1] = monthsMaplogin[logsRet[i].month - 1] + 1;
+                    } else {
+                        monthsMapregister[logsRet[i].month - 1] = monthsMapregister[logsRet[i].month - 1] + 1;
 
-                } else {
-                    monthsMapregister[logsRet[i].month - 1] = monthsMapregister[logsRet[i].month - 1] + 1;
-
+                    }
                 }
-            }
-            console.log(monthsMaplogin);
-            console.log(monthsMapregister);
-            console.log(monthsLabel);
-            res.render('page/adminConsole', {
-                layout: 'layout/layout',
-                firstname: req.session.useInfoo.firstname,
-                graphLabel: monthsLabel,
-                graphData1: monthsMaplogin,
-                graphData2: monthsMapregister
+                console.log(monthsMaplogin);
+                console.log(monthsMapregister);
+                console.log(monthsLabel);
+                res.render('page/adminConsole', {
+                    layout: 'layout/layout',
+                    firstname: req.session.useInfoo.firstname,
+                    graphLabel: monthsLabel,
+                    graphData1: monthsMaplogin,
+                    graphData2: monthsMapregister
+                });
+
+            });
+        } else {
+            console.log("Run 1.2");
+            connection.query("Select * from userlog where year = ? and username = ?", [year.toString(), userselection.toString()], (err, logsRet) => {
+                if(err)throw err;
+                console.log(logsRet);
+                for (let i = 0; i < logsRet.length; i++) {
+                    console.log("Print");
+                    console.log(logsRet[i].month);
+                    if (logsRet[i].mode.toString() == "login") {
+                        monthsMaplogin[logsRet[i].month - 1] = monthsMaplogin[logsRet[i].month - 1] + 1;
+
+                    } else {
+                        monthsMapregister[logsRet[i].month - 1] = monthsMapregister[logsRet[i].month - 1] + 1;
+
+                    }
+                }
+                console.log(monthsMaplogin);
+                console.log(monthsMapregister);
+                console.log(monthsLabel);
+                res.render('page/adminConsole', {
+                    layout: 'layout/layout',
+                    firstname: req.session.useInfoo.firstname,
+                    graphLabel: monthsLabel,
+                    graphData1: monthsMaplogin,
+                    graphData2: monthsMapregister
+                });
+
             });
 
-        });
+        }
 
         // for(let i=1;i<13;i++){
         //
         // }
 
     } else if (sortBy.toString() == "month") {
+        console.log("Run 2");
         let monthsLabelIndex = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
 
 
@@ -787,33 +831,66 @@ router.get('/adminConsole', isLoggedInAdmin, function (req, res, next) {
 
         console.log("no of days in the month" + noOfDaysInMonth);
         console.log("Length of array" + arrayOfDaysLogin.length);
+        if (userselection == "All") {
+            connection.query("Select * from userlog where year = ? and month = ?", [year.toString(), monthN.toString()], (err, logsRet) => {
 
-        connection.query("Select * from userlog where year = ? and month = ?", [year.toString(), monthN.toString()], (err, logsRet) => {
+                console.log(logsRet);
+                for (let i = 0; i < logsRet.length; i++) {
+                    console.log("Print");
+                    console.log(logsRet[i].month);
+                    if (logsRet[i].mode.toString() == "login") {
+                        arrayOfDaysLogin[logsRet[i].date - 1] = arrayOfDaysLogin[logsRet[i].date - 1] + 1;
 
-            console.log(logsRet);
-            for (let i = 0; i < logsRet.length; i++) {
-                console.log("Print");
-                console.log(logsRet[i].month);
-                if (logsRet[i].mode.toString() == "login") {
-                    arrayOfDaysLogin[logsRet[i].date - 1] = arrayOfDaysLogin[logsRet[i].date - 1] + 1;
+                    } else {
+                        arrayOfDaysRegister[logsRet[i].date - 1] = arrayOfDaysRegister[logsRet[i].date - 1] + 1;
 
-                } else {
-                    arrayOfDaysRegister[logsRet[i].date - 1] = arrayOfDaysRegister[logsRet[i].date - 1] + 1;
-
+                    }
                 }
-            }
-            console.log(arrayOfDaysLogin);
-            console.log(arrayOfDaysRegister);
-            console.log(daysLabel);
-            res.render('page/adminConsole', {
-                layout: 'layout/layout',
-                firstname: req.session.useInfoo.firstname,
-                graphLabel: daysLabel,
-                graphData1: arrayOfDaysLogin,
-                graphData2: arrayOfDaysRegister
+                console.log(arrayOfDaysLogin);
+                console.log(arrayOfDaysRegister);
+                console.log(daysLabel);
+                res.render('page/adminConsole', {
+                    layout: 'layout/layout',
+                    firstname: req.session.useInfoo.firstname,
+                    graphLabel: daysLabel,
+                    graphData1: arrayOfDaysLogin,
+                    graphData2: arrayOfDaysRegister
+                });
+
+            });
+        } else {
+
+
+            connection.query("Select * from userlog where year = ? and month = ? and username = ?", [year.toString(), monthN.toString(),userselection.toString()], (err, logsRet) => {
+
+                console.log(logsRet);
+                for (let i = 0; i < logsRet.length; i++) {
+                    console.log("Print");
+                    console.log(logsRet[i].month);
+                    if (logsRet[i].mode.toString() == "login") {
+                        arrayOfDaysLogin[logsRet[i].date - 1] = arrayOfDaysLogin[logsRet[i].date - 1] + 1;
+
+                    } else {
+                        arrayOfDaysRegister[logsRet[i].date - 1] = arrayOfDaysRegister[logsRet[i].date - 1] + 1;
+
+                    }
+                }
+                console.log(arrayOfDaysLogin);
+                console.log(arrayOfDaysRegister);
+                console.log(daysLabel);
+                res.render('page/adminConsole', {
+                    layout: 'layout/layout',
+                    firstname: req.session.useInfoo.firstname,
+                    graphLabel: daysLabel,
+                    graphData1: arrayOfDaysLogin,
+                    graphData2: arrayOfDaysRegister
+                });
+
             });
 
-        });
+
+
+        }
 
 
     }
@@ -884,23 +961,23 @@ router.get('/augmentedRealityPorting', isLoggedIn, function (req, res, next) {
     // res.redirect("/page/augmentedRealityStatic");
 });
 
-router.get("/arcameraConfirm",isLoggedIn,(req,res,next)=>{
+router.get("/arcameraConfirm", isLoggedIn, (req, res, next) => {
 
     let selection;
 
     console.log(req.query.arselect);
 
-    if(req.query.arselect==undefined){
-        selection=""
-    }else{
-        selection=req.query.arselect;
+    if (req.query.arselect == undefined) {
+        selection = ""
+    } else {
+        selection = req.query.arselect;
     }
 
 
     res.render('page/arcameraConfirm', {
         layout: 'layout/layout',
         firstname: req.session.useInfoo.firstname,
-        arselection:selection
+        arselection: selection
 
     });
 
@@ -1009,7 +1086,7 @@ router.get('/register', isLoggedout, function (req, res, next) {
         success: req.session.success,
         listtoPort: listtoPort,
         existingdata: existingdata,
-        captchaClientKey:clientSideSecret
+        captchaClientKey: clientSideSecret
     });
     req.session.errors = null;
 });
