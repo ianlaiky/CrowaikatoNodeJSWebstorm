@@ -451,7 +451,35 @@ passport.use('local.signup', new LocalStrategy({
 
         if (errors) {
             console.log("RUN 1");
+            let detailsofuserbeforesave = {
+                emailadd:req.body.emailAddress,
+                firstName: req.body.firstName,
+                lastName: req.body.lastName,
+                jobtitle: req.body.jobtitle,
+                institution: req.body.institution,
+                countryName: req.body.countryName,
+                state: req.body.state,
+                cityName: req.body.cityName,
+                zipcode: req.body.zipcode,
+                inputAddress: req.body.inputAddress,
+                phoneNumber: req.body.phoneNumber,
+                faxNumber: req.body.faxNumber,
+                workSector: req.body.workSector,
+                jobFunction: req.body.jobFunction,
+                exampleRadios: req.body.exampleRadios
+            };
 
+            let tempMap = errors[0];
+
+            let intempMap = {
+                location:tempMap.location,
+                param:tempMap.param,
+                msg:tempMap.msg,
+                value:tempMap.value,
+                userDetails:detailsofuserbeforesave
+            };
+
+            errors[0]=intempMap;
             req.session.success = false;
 
             return done(null, false, req.flash('error', errors));
