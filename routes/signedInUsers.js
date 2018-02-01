@@ -687,11 +687,72 @@ router.get("/adminContactUs", isLoggedInAdmin, (req, res, next) => {
             res.redirect("/error");
         } else {
             console.log(row);
+
+            let tempRow = [];
+            if (row.length > 0) {
+
+                for (let obj of row) {
+                    let nameSub;
+                    if(obj.name.length>10){
+                        nameSub= obj.name.substring(0, 10);
+                        nameSub=nameSub+"…";
+
+                    }else{
+                        nameSub= obj.name;
+                    }
+                    let emailSub;
+                    if(obj.email.length>10){
+                        emailSub = obj.email.substring(0, 10);
+                        emailSub=emailSub+"…";
+                    }else{
+                        emailSub = obj.email;
+                    }
+                    let phoneSub;
+                    if(obj.phone.length>10){
+                        phoneSub = obj.phone.substring(0, 10);
+                        phoneSub=phoneSub+"…";
+                    }else{
+                        phoneSub = obj.phone;
+                    }
+
+                    let messagSub;
+                    if(obj.message.length>10){
+                        messagSub = obj.message.substring(0, 10);
+                        messagSub=messagSub+"…"
+                    }else{
+                        messagSub = obj.message;
+                    }
+
+
+
+
+
+
+
+                    let tempMap = {
+                        id: obj.id,
+                        name: obj.name,
+                        email: obj.email,
+                        phone: obj.phone,
+                        message: obj.message,
+                        archive: obj.archive,
+                        nameSub: nameSub,
+                        emailSub: emailSub,
+                        phoneSub: phoneSub,
+                        messagSub: messagSub,
+
+
+                    };
+                    tempRow.push(tempMap);
+                }
+            }
+
+
             res.render('page/adminContactUs', {
                 layout: 'layout/layout',
                 firstname: req.session.useInfoo.firstname,
-                rowData: row,
-                rowDataHasItem: row.length > 0
+                rowData: tempRow,
+                rowDataHasItem: tempRow.length > 0
             });
 
         }
@@ -907,12 +968,12 @@ router.get('/adminConsole', isLoggedInAdmin, function (req, res, next) {
 
 
     res.render('page/adminConsole', {
-                        layout: 'layout/layout',
-                        firstname: req.session.useInfoo.firstname,
+        layout: 'layout/layout',
+        firstname: req.session.useInfoo.firstname,
 
-                        emailAddress: req.session.useInfoo.emailAddress,
-                        session: req.session.id
-                    });
+        emailAddress: req.session.useInfoo.emailAddress,
+        session: req.session.id
+    });
 });
 
 

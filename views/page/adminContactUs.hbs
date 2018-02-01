@@ -11,7 +11,31 @@
 </head>
 
 
-<!--</style>-->
+<style>
+    .tooltip {
+        position: relative;
+        display: inline-block;
+        border-bottom: 1px dotted black;
+    }
+
+    .tooltip .tooltiptext {
+        visibility: hidden;
+        width: 120px;
+        background-color: black;
+        color: #fff;
+        text-align: center;
+        border-radius: 6px;
+        padding: 5px 0;
+
+        /* Position the tooltip */
+        position: absolute;
+        z-index: 1;
+    }
+
+    .tooltip:hover .tooltiptext {
+        visibility: visible;
+    }
+</style>
 
 
 <!-- Navigation -->
@@ -76,59 +100,135 @@
 <!--</header>-->
 
 
+<script>
+function loadMsg(id) {
+
+
+
+}
+
+</script>
+
+
 <!-- Services Section -->
 <section id="overview" class="bg-light-gray">
 
     <div class="container">
         <h2>Contact Us</h2>
         <!--<p>The .table-responsive class creates a responsive table which will scroll horizontally on small devices (under 768px). When viewing on anything larger than 768px wide, there is no difference:</p>-->
-        <div class="table-responsive">
-            <table class="table">
-                <thead>
-                <tr>
-                    <th>#</th>
-                    <th>Name</th>
-                    <th>Email</th>
-                    <th>Phone</th>
-                    <th>Message</th>
-                    <th>Archive</th>
-                </tr>
-                </thead>
-                <tbody>
 
-                {{# if rowDataHasItem}}
-                    {{#each rowData}}
+        <div class="row">
+            <div class="col-md-8">
+                <div class="table-responsive" style=" height: 650px;overflow-y: auto; ">
 
 
+                    <table class="table">
+                        <thead>
                         <tr>
-                            <td>{{id}}</td>
-                            <td>{{name}}</td>
-                            <td>{{email}}</td>
-                            <td>{{phone}}</td>
-                            <td>{{message}}</td>
-
-
-                            <td>
-                                <form action="/page/adminContactUsArchive" method="post">
-                                    <input type="text" value="{{id}}" name="id" hidden>
-                                    <button type="submit" class="btn btn-primary btn-sm">Archive</button>
-
-                                </form>
-                            </td>
+                            <th>#</th>
+                            <th>Name</th>
+                            <th>Email</th>
+                            <th>Phone</th>
+                            <th>Message</th>
+                            <th>Show more</th>
+                            <th>Archive</th>
 
                         </tr>
+                        </thead>
+                        <tbody>
+
+                        {{# if rowDataHasItem}}
+                            {{#each rowData}}
 
 
-                    {{/each}}
+                                <tr>
+                                    <td>{{id}}</td>
+                                    <td>{{nameSub}}</td>
+                                    <td>{{emailSub}}</td>
+                                    <td>{{phoneSub}}</td>
+                                    <td>{{messagSub}}</td>
+<td><button type="button" class="btn btn-secondary">More</button></td>
+
+                                    <td>
+                                        <form action="/page/adminContactUsArchive" method="post">
+                                            <input type="text" value="{{id}}" name="id" hidden>
+                                            <button type="submit" class="btn btn-primary btn-sm">Archive</button>
+
+                                        </form>
+                                    </td>
+                                    <input id="hiddenName{{id}}" value="{{name}}" hidden>
+                                    <input id="hiddenEmail{{id}}" value="{{email}}" hidden>
+                                    <input id="hiddenPhone{{id}}" value="{{phone}}" hidden>
+                                    <input id="hiddenMessage{{id}}" value="{{message}}" hidden>
+
+                                </tr>
 
 
-                {{/if}}
+                            {{/each}}
+
+
+                        {{/if}}
 
 
 
 
-                </tbody>
-            </table>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="panel panel-default">
+
+
+                    <div class="panel-body">
+                     <h6>
+                         #:
+                     </h6>
+
+                        <p id="col1Data">
+
+                            dasds
+                        </p>
+
+
+                        <h6>
+                            Name:
+                        </h6>
+                        <p id="col2Data">
+
+                            dasds
+                        </p>
+
+                        <h6>
+                            Email:
+                        </h6>
+                        <p id="col3Data">
+
+                            dasds
+                        </p>
+
+                        <h6>
+                            Phone:
+                        </h6>
+                        <p id="col4Data">
+
+                            dasds
+                        </p>
+
+                        <h6>
+                            Message:
+                        </h6>
+                        <p id="col5Data">
+
+                            dasds
+                        </p>
+                    </div>
+
+                </div>
+
+            </div>
+
+
         </div>
     </div>
 
