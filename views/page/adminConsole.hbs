@@ -148,206 +148,236 @@
 </section>
 
 <script>
-    var _0x1142 = ['yearmtd', 'monthmtd', 'usermtd', 'sortbyMtd', 'innerHTML', 'NIL', 'ucl', 'rer', 'toString', 'month', 'Swe', 'monthSelect', 'datepicker', 'years', 'months', '{{emailAddress}}', '{{session}}', '2018', 'emit', 'reqgraphdata', 'log', 'myNewChart1', 'destroy', 'getElementById', 'myChart', 'getContext', 'line', 'Login', 'rgb(255,\x2099,\x20132)', 'Register', 'rgb(0,\x20191,\x20255)', 'duration', 'DUN\x20HELLO', 'sectorSelectjs', 'userselection', 'defaultCheck1', 'checked', 'value', 'All', 'setAttribute', 'readonly', 'findcloestuser', 'style', 'visibility', 'hidden', 'val', 'removeAttribute', 'visible', 'sortBy', 'datepickeryear', 'RUNN', 'findcloestUserAdm', 'sendlistofusers', 'options', 'pNX', '#datepickeryear', '#datepickermonth', 'year', 'option', '--Select--', 'add', 'length', 'MfN', 'IzS', 'text', 'remove', 'createElement', 'graphLabel', 'graphData1', 'graphData2', 'sortmtd'];
-    (function (_0x114d10, _0x9e3461) {
-        var _0x50a9f0 = function (_0x50b1bb) {
-            while (--_0x50b1bb) {
-                _0x114d10['push'](_0x114d10['shift']());
-            }
-        };
-        _0x50a9f0(++_0x9e3461);
-    }(_0x1142, 0xe1));
-    var _0x3a55 = function (_0x1d46ed, _0x2e6d03) {
-        _0x1d46ed = _0x1d46ed - 0x0;
-        var _0x2ff5d7 = _0x1142[_0x1d46ed];
-        return _0x2ff5d7;
-    };
     $(function () {
-        $('#datepickeryear')[_0x3a55('0x0')]({'minViewMode': _0x3a55('0x1'), 'autoclose': !![], 'format': 'yyyy'});
-        $('#datepickermonth')[_0x3a55('0x0')]({'minViewMode': _0x3a55('0x2'), 'autoclose': !![], 'format': 'MM'});
-        var _0x5ea95b = {
-            'emailAddress': _0x3a55('0x3'),
-            'session': _0x3a55('0x4'),
-            'sortby': 'year',
-            'year': _0x3a55('0x5'),
-            'month': '',
-            'user': ''
+        $("#datepickeryear").datepicker({
+            minViewMode: 'years',
+            autoclose: true,
+            format: 'yyyy'
+        });
+
+        $("#datepickermonth").datepicker({
+            minViewMode: 'months',
+            autoclose: true,
+            format: 'MM'
+        });
+
+
+        var senddat = {
+            emailAddress: '{{emailAddress}}',
+            session: '{{session}}',
+            sortby: "year",
+            year: "2018",
+            month: "",
+            user: ""
+
         };
-        socket[_0x3a55('0x6')](_0x3a55('0x7'), _0x5ea95b);
+
+        socket.emit("reqgraphdata", senddat)
+
+
     });
 
-    function newGraphData(_0x527d67, _0x535d83, _0x8bcf61) {
-        console[_0x3a55('0x8')](_0x527d67);
-        console[_0x3a55('0x8')](_0x535d83);
-        console[_0x3a55('0x8')](_0x8bcf61);
-        if (window[_0x3a55('0x9')] != null) {
-            window[_0x3a55('0x9')][_0x3a55('0xa')]();
+
+    function newGraphData(graph1, graph2, graph3) {
+        console.log(graph1);
+        console.log(graph2);
+        console.log(graph3);
+        // var element = document.getElementById("myChart");
+        //
+        //  element.parentNode.removeChild(element);
+        if (window.myNewChart1 != null) {
+            window.myNewChart1.destroy();
         }
-        var _0x3364a3 = document[_0x3a55('0xb')](_0x3a55('0xc'))[_0x3a55('0xd')]('2d');
-        window[_0x3a55('0x9')] = new Chart(_0x3364a3, {
-            'type': _0x3a55('0xe'),
-            'data': {
-                'labels': _0x527d67,
-                'datasets': [{
-                    'label': _0x3a55('0xf'),
-                    'borderColor': _0x3a55('0x10'),
-                    'data': _0x535d83,
-                    'fill': ![]
-                }, {'label': _0x3a55('0x11'), 'borderColor': _0x3a55('0x12'), 'data': _0x8bcf61, 'fill': ![]}]
+
+
+        var ctx = document.getElementById('myChart').getContext('2d');
+        window.myNewChart1 = new Chart(ctx, {
+            // The type of chart we want to create
+            type: 'line',
+
+            // The data for our dataset
+            data: {
+                labels: graph1,
+                datasets: [{
+                    label: "Login",
+                    borderColor: 'rgb(255, 99, 132)',
+                    data: graph2,
+                    fill: false
+                }, {
+                    label: "Register",
+                    borderColor: 'rgb(0, 191, 255)',
+                    data: graph3,
+                    fill: false
+                }]
             },
-            'options': {}
+
+            // Configuration options go here
+            options: {}
         });
-        Chart['defaults']['global']['animation'][_0x3a55('0x13')] = 0xbb8;
+        Chart.defaults.global.animation.duration = 3000;
+
+
     }
+
+
+    //  function removeData(chart) {
+    //      chart.data.labels.pop();
+    //      chart.data.datasets.forEach((dataset) => {
+    //          dataset.data.pop();
+    //      });
+    //      chart.update();
+    //  }
+    //
+    // function addData(chart, label, data) {
+    //      chart.data.labels.push(label);
+    //      chart.data.datasets.forEach((dataset) => {
+    //          dataset.data.push(data);
+    //      });
+    //      chart.update();
+    //  }
+
 
     function selectorChange() {
-        console[_0x3a55('0x8')](_0x3a55('0x14'));
-        var _0x11f333 = document[_0x3a55('0xb')](_0x3a55('0x15'))['value'];
-        console[_0x3a55('0x8')](_0x11f333);
-        document[_0x3a55('0xb')](_0x3a55('0x16'))['value'] = _0x11f333;
+        console.log("DUN HELLO");
+        var x = document.getElementById("sectorSelectjs").value;
+        console.log(x);
+        document.getElementById("userselection").value = x;
     }
 
+
     function oncheckboxcheck() {
-        if (document[_0x3a55('0xb')](_0x3a55('0x17'))[_0x3a55('0x18')]) {
-            document[_0x3a55('0xb')]('userselection')[_0x3a55('0x19')] = 'All';
-            document[_0x3a55('0xb')](_0x3a55('0x15'))[_0x3a55('0x19')] = _0x3a55('0x1a');
-            document[_0x3a55('0xb')](_0x3a55('0x16'))[_0x3a55('0x1b')](_0x3a55('0x1c'), !![]);
-            document[_0x3a55('0xb')](_0x3a55('0x15'))[_0x3a55('0x1b')](_0x3a55('0x1c'), !![]);
-            document[_0x3a55('0xb')](_0x3a55('0x1d'))[_0x3a55('0x1e')][_0x3a55('0x1f')] = _0x3a55('0x20');
+        if (document.getElementById("defaultCheck1").checked) {
+            document.getElementById("userselection").value = "All";
+            document.getElementById("sectorSelectjs").value = "All";
+            document.getElementById("userselection").setAttribute("readonly", true);
+            document.getElementById("sectorSelectjs").setAttribute("readonly", true);
+            document.getElementById("findcloestuser").style.visibility = "hidden";
+
         } else {
-            document[_0x3a55('0xb')]('userselection')[_0x3a55('0x19')] = '';
-            document[_0x3a55('0xb')](_0x3a55('0x15'))[_0x3a55('0x21')] = '';
-            document[_0x3a55('0xb')](_0x3a55('0x16'))[_0x3a55('0x22')](_0x3a55('0x1c'));
-            document[_0x3a55('0xb')](_0x3a55('0x15'))[_0x3a55('0x22')](_0x3a55('0x1c'));
-            document['getElementById'](_0x3a55('0x1d'))[_0x3a55('0x1e')]['visibility'] = _0x3a55('0x23');
+            document.getElementById("userselection").value = "";
+            document.getElementById("sectorSelectjs").val = "";
+            document.getElementById("userselection").removeAttribute("readonly");
+            document.getElementById("sectorSelectjs").removeAttribute("readonly");
+            document.getElementById("findcloestuser").style.visibility = "visible";
         }
+
     }
 
     var socket = io();
 
     function getinputdat() {
-        var _0x301744 = document[_0x3a55('0xb')](_0x3a55('0x24'))[_0x3a55('0x19')];
-        var _0x23cbcf = document[_0x3a55('0xb')](_0x3a55('0x25'))['value'];
-        var _0x5062c4 = document[_0x3a55('0xb')]('datepickermonth')[_0x3a55('0x19')];
-        var _0x13bd8d = document[_0x3a55('0xb')](_0x3a55('0x16'))[_0x3a55('0x19')];
-        console[_0x3a55('0x8')](_0x301744);
-        console[_0x3a55('0x8')](_0x23cbcf);
-        console[_0x3a55('0x8')](_0x5062c4);
-        var _0x887669 = {
-            'emailAddress': _0x3a55('0x3'),
-            'session': _0x3a55('0x4'),
-            'sortby': _0x301744,
-            'year': _0x23cbcf,
-            'month': _0x5062c4,
-            'user': _0x13bd8d
+        var sortby = document.getElementById("sortBy").value;
+        var year = document.getElementById("datepickeryear").value;
+        var month = document.getElementById("datepickermonth").value;
+        var userselection = document.getElementById("userselection").value;
+
+        console.log(sortby);
+        console.log(year);
+        console.log(month);
+
+
+        var senddat = {
+            emailAddress: '{{emailAddress}}',
+            session: '{{session}}',
+            sortby: sortby,
+            year: year,
+            month: month,
+            user: userselection
         };
-        socket[_0x3a55('0x6')](_0x3a55('0x7'), _0x887669);
+
+        socket.emit("reqgraphdata", senddat)
+
+
     }
 
     function findCloesetUser() {
-        console[_0x3a55('0x8')](_0x3a55('0x26'));
-        let _0x16a06e = document['getElementById'](_0x3a55('0x16'))[_0x3a55('0x19')];
-        console['log'](_0x16a06e);
-        let _0x4c7e76 = {'username': _0x16a06e, 'emailAddress': _0x3a55('0x3'), 'session': '{{session}}'};
-        socket[_0x3a55('0x6')](_0x3a55('0x27'), _0x4c7e76);
+        console.log("RUNN");
+        let username = document.getElementById("userselection").value;
+        console.log(username);
+
+
+        let toSendSocket = {
+            username: username,
+            emailAddress: '{{emailAddress}}',
+            session: '{{session}}'
+
+
+        };
+
+        socket.emit("findcloestUserAdm", toSendSocket);
+
     }
 
-    socket['on'](_0x3a55('0x28'), function (_0x3d2198) {
-        console[_0x3a55('0x8')](_0x3d2198);
-        var _0x2c04b0 = document[_0x3a55('0xb')](_0x3a55('0x15'));
-        while (_0x2c04b0[_0x3a55('0x29')]['length'] > 0x0) {
-            if (_0x3a55('0x2a') !== _0x3a55('0x2a')) {
-                $(_0x3a55('0x2b'))[_0x3a55('0x0')]({
-                    'minViewMode': _0x3a55('0x1'),
-                    'autoclose': !![],
-                    'format': 'yyyy'
-                });
-                $(_0x3a55('0x2c'))[_0x3a55('0x0')]({'minViewMode': _0x3a55('0x2'), 'autoclose': !![], 'format': 'MM'});
-                var _0x2d934b = {
-                    'emailAddress': '{{emailAddress}}',
-                    'session': _0x3a55('0x4'),
-                    'sortby': _0x3a55('0x2d'),
-                    'year': _0x3a55('0x5'),
-                    'month': '',
-                    'user': ''
-                };
-                socket[_0x3a55('0x6')]('reqgraphdata', _0x2d934b);
-            } else {
-                _0x2c04b0['remove'](0x0);
-            }
+    socket.on("sendlistofusers", function (data) {
+
+        console.log(data);
+
+        var select = document.getElementById("sectorSelectjs");
+
+
+        while (select.options.length > 0) {
+            select.remove(0);
         }
-        var _0x29318a = document['createElement'](_0x3a55('0x2e'));
-        _0x29318a['text'] = _0x3a55('0x2f');
-        _0x29318a['value'] = '';
-        _0x2c04b0['options'][_0x3a55('0x30')](_0x29318a);
-        for (var _0x42392f = 0x0; _0x42392f < _0x3d2198[_0x3a55('0x31')]; _0x42392f++) {
-            if (_0x3a55('0x32') !== _0x3a55('0x33')) {
-                var _0x4a0e01 = document['createElement'](_0x3a55('0x2e'));
-                _0x4a0e01[_0x3a55('0x34')] = _0x3d2198[_0x42392f];
-                _0x4a0e01['value'] = _0x3d2198[_0x42392f];
-                _0x2c04b0[_0x3a55('0x29')][_0x3a55('0x30')](_0x4a0e01);
-            } else {
-                console[_0x3a55('0x8')](_0x3d2198);
-                var _0x5ab34a = document['getElementById'](_0x3a55('0x15'));
-                while (_0x5ab34a['options']['length'] > 0x0) {
-                    _0x5ab34a[_0x3a55('0x35')](0x0);
-                }
-                var _0x3446cc = document[_0x3a55('0x36')]('option');
-                _0x3446cc['text'] = _0x3a55('0x2f');
-                _0x3446cc['value'] = '';
-                _0x5ab34a[_0x3a55('0x29')][_0x3a55('0x30')](_0x3446cc);
-                for (var _0x145e70 = 0x0; _0x145e70 < _0x3d2198[_0x3a55('0x31')]; _0x145e70++) {
-                    var _0x3446cc = document['createElement'](_0x3a55('0x2e'));
-                    _0x3446cc[_0x3a55('0x34')] = _0x3d2198[_0x145e70];
-                    _0x3446cc[_0x3a55('0x19')] = _0x3d2198[_0x145e70];
-                    _0x5ab34a[_0x3a55('0x29')][_0x3a55('0x30')](_0x3446cc);
-                }
-            }
+        var opt2 = document.createElement("option");
+        opt2.text = "--Select--";
+        opt2.value = "";
+        select.options.add(opt2);
+        for (var i = 0; i < data.length; i++) {
+
+            // console.log(data.length);
+            var opt2 = document.createElement("option");
+            opt2.text = data[i];
+            opt2.value = data[i];
+            select.options.add(opt2);
         }
+
     });
-    socket['on']('graphDataLoadAdm', function (_0x5ce587) {
-        newGraphData(_0x5ce587[_0x3a55('0x37')], _0x5ce587[_0x3a55('0x38')], _0x5ce587[_0x3a55('0x39')]);
-        var _0x42fb35 = _0x5ce587[_0x3a55('0x3a')];
-        var _0x492b0f = _0x5ce587[_0x3a55('0x3b')];
-        var _0xd5fd66 = _0x5ce587[_0x3a55('0x3c')];
-        var _0x53df34 = _0x5ce587[_0x3a55('0x3d')];
-        console[_0x3a55('0x8')](_0x492b0f);
-        document[_0x3a55('0xb')](_0x3a55('0x3e'))[_0x3a55('0x3f')] = _0x42fb35;
-        document[_0x3a55('0xb')](_0x3a55('0x3b'))['innerHTML'] = _0x492b0f;
-        document[_0x3a55('0xb')](_0x3a55('0x3d'))[_0x3a55('0x3f')] = _0x53df34;
-        if (_0x42fb35 == 'year') {
-            document[_0x3a55('0xb')]('monthmtd')[_0x3a55('0x3f')] = _0x3a55('0x40');
+
+    socket.on("graphDataLoadAdm", function (data) {
+
+        newGraphData(data.graphLabel, data.graphData1, data.graphData2);
+
+        var currentsortby = data.sortmtd;
+        var currentYear = data.yearmtd;
+        var curentmonth = data.monthmtd;
+        var currentuser = data.usermtd;
+        console.log(currentYear);
+
+        document.getElementById("sortbyMtd").innerHTML = currentsortby;
+        document.getElementById("yearmtd").innerHTML = currentYear;
+
+        document.getElementById("usermtd").innerHTML = currentuser;
+
+
+        if (currentsortby == "year") {
+            document.getElementById("monthmtd").innerHTML = "NIL";
         } else {
-            if ('vgQ' !== _0x3a55('0x41')) {
-                document['getElementById'](_0x3a55('0x3c'))[_0x3a55('0x3f')] = _0xd5fd66;
-            } else {
-                document['getElementById']('userselection')[_0x3a55('0x19')] = '';
-                document[_0x3a55('0xb')](_0x3a55('0x15'))[_0x3a55('0x21')] = '';
-                document['getElementById'](_0x3a55('0x16'))[_0x3a55('0x22')]('readonly');
-                document['getElementById'](_0x3a55('0x15'))['removeAttribute'](_0x3a55('0x1c'));
-                document[_0x3a55('0xb')]('findcloestuser')[_0x3a55('0x1e')][_0x3a55('0x1f')] = _0x3a55('0x23');
-            }
+            document.getElementById("monthmtd").innerHTML = curentmonth;
         }
+
     });
+
 
     function myFunction() {
-        console[_0x3a55('0x8')](_0x3a55('0x42'));
-        let _0x238154 = document[_0x3a55('0xb')](_0x3a55('0x24'))[_0x3a55('0x19')];
-        if (_0x238154[_0x3a55('0x43')]() == _0x3a55('0x44')) {
-            document['getElementById']('monthSelect')[_0x3a55('0x1e')][_0x3a55('0x1f')] = 'visible';
+
+
+        console.log("rer");
+        let selection = document.getElementById("sortBy").value;
+
+
+        if (selection.toString() == "month") {
+            document.getElementById("monthSelect").style.visibility = "visible";
         } else {
-            if (_0x3a55('0x45') === _0x3a55('0x45')) {
-                document[_0x3a55('0xb')](_0x3a55('0x46'))['style']['visibility'] = _0x3a55('0x20');
-            } else {
-                console[_0x3a55('0x8')]('RUNN');
-                let _0x4c61eb = document['getElementById'](_0x3a55('0x16'))[_0x3a55('0x19')];
-                console[_0x3a55('0x8')](_0x4c61eb);
-                let _0x5231ce = {'username': _0x4c61eb, 'emailAddress': '{{emailAddress}}', 'session': '{{session}}'};
-                socket[_0x3a55('0x6')](_0x3a55('0x27'), _0x5231ce);
-            }
+            document.getElementById("monthSelect").style.visibility = "hidden";
+
         }
-        console['log'](_0x238154);
+
+
+        console.log(selection)
+
+
     }
+
 </script>
 
 <footer>
