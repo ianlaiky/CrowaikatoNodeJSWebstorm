@@ -19,7 +19,7 @@
 <nav id="mainNav" class="navbar navbar-default navbar-custom navbar-fixed-top"
      style="background-color:#222222;padding:10px 0;">
     <div class="container">
-        <!-- Brand and toggle get grouped for better mobile display -->
+
         <div class="navbar-header page-scroll">
             <button type="button" class="navbar-toggle" data-toggle="collapse"
                     data-target="#bs-example-navbar-collapse-1">
@@ -29,7 +29,7 @@
                                                                       style="width:auto;height:40px;border:0;"/></a>
         </div>
 
-        <!-- Collect the nav links, forms, and other content for toggling -->
+
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 
             <div class="row">
@@ -60,31 +60,22 @@
         </div>
 
 
-        <!-- /.navbar-collapse -->
     </div>
-    <!-- /.container-fluid -->
+
 </nav>
 
-<!-- Header -->
-<!--<header>-->
-<!--<div class="container">-->
-<!--<div class="intro-text">-->
-<!--<div class="intro-lead-in">CROW Lab</div>-->
-<!--<div class="intro-heading">SECURITY TOOLS</div>-->
-<!--<a href="#solutions" class="page-scroll btn btn-xl">Jump to solutions</a>-->
-<!--</div>-->
-<!--</div>-->
-<!--</header>-->
 
 
-<!-- Services Section -->
 <section id="overview" class="bg-light-gray">
     <div class="container" style="width:80%;">
 
 
         <div class="row">
             <div class="col-lg-10 text-center">
-<h5>SortBy: <span id="sortbyMtd" style="text-decoration: underline;"></span> | Year: <span id="yearmtd" style="text-decoration: underline;"></span> | Month: <span id="monthmtd" style="text-decoration: underline;"></span> | Displayed User: <span id="usermtd" style="text-decoration: underline;"></span></h5>
+                <h5>SortBy: <span id="sortbyMtd" style="text-decoration: underline;"></span> | Year: <span id="yearmtd"
+                                                                                                           style="text-decoration: underline;"></span>
+                    | Month: <span id="monthmtd" style="text-decoration: underline;"></span> | Displayed User: <span
+                            id="usermtd" style="text-decoration: underline;"></span></h5>
 
                 <div id="canvasChartjs">
                     <canvas id="myChart"></canvas>
@@ -94,8 +85,6 @@
             </div>
             <div class="col-lg-2 text-center">
 
-
-                <!--<form class="panel panel-default" method="get" action="/page/adminConsole">-->
 
                 <div class="panel-body">
                     <label>Sort by: </label>
@@ -196,14 +185,12 @@
         console.log(graph1);
         console.log(graph2);
         console.log(graph3);
-       // var element = document.getElementById("myChart");
-       //
-       //  element.parentNode.removeChild(element);
-        if(window.myNewChart1 != null){
+        // var element = document.getElementById("myChart");
+        //
+        //  element.parentNode.removeChild(element);
+        if (window.myNewChart1 != null) {
             window.myNewChart1.destroy();
         }
-
-
 
 
         var ctx = document.getElementById('myChart').getContext('2d');
@@ -365,9 +352,9 @@
         document.getElementById("usermtd").innerHTML = currentuser;
 
 
-        if(currentsortby=="year"){
+        if (currentsortby == "year") {
             document.getElementById("monthmtd").innerHTML = "NIL";
-        }else{
+        } else {
             document.getElementById("monthmtd").innerHTML = curentmonth;
         }
 
@@ -426,7 +413,6 @@
 </footer>
 
 
-
 <div class="solutions-modal modal fade" id="loginpop" tabindex="-1" role="dialog" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content" style=" background:rgba(0,0,0,0.8);">
@@ -480,10 +466,7 @@
                                 <div class="row center-block">
 
 
-
                                 </div>
-
-
 
 
                                 <button type="submit" class="btn btn-primary">Log in</button>
