@@ -178,9 +178,9 @@
 
 
         document.getElementById("col1Data").innerHTML = id;
-        document.getElementById("col2Data").innerHTML = addNewlines(selectedName);
-        document.getElementById("col3Data").innerHTML = addNewlines(selecteEmail);
-        document.getElementById("col4Data").innerHTML = addNewlines(selectedPhone);
+        document.getElementById("col2Data").innerHTML = selectedName;
+        document.getElementById("col3Data").innerHTML = selecteEmail;
+        document.getElementById("col4Data").innerHTML = selectedPhone;
         document.getElementById("col5Data").innerHTML = selectedMessage;
 
 
@@ -220,7 +220,7 @@
             <div class="container">
                 <div class="row">
 
-                    <div class="col-md-12">
+                    <div class="col-md-12" style='word-wrap: break-word;'>
                         <h6>
                             #:
                         </h6>
@@ -231,7 +231,7 @@
                     </div>
 
 
-                    <div class="col-md-12">
+                    <div class="col-md-12" style='word-wrap: break-word;'>
                     <h6>
                         Name:
                     </h6>
@@ -240,7 +240,7 @@
 
                     </p>
                     </div>
-                    <div class="col-md-12">
+                    <div class="col-md-12" style='word-wrap: break-word;'>
                     <h6>
                         Email:
                     </h6>
@@ -249,7 +249,7 @@
 
                     </p>
                     </div>
-                    <div class="col-md-12">
+                    <div class="col-md-12" >
                     <h6>
                         Phone:
                     </h6>
