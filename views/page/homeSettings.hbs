@@ -1,13 +1,5 @@
 <body id="page-top" class="index">
-<!--<style> @media screen and (max-height: 650px) {-->
-<!--#rc-imageselect, .g-recaptcha {-->
 
-<!--transform: scale(0.7);-->
-<!---webkit-transform: scale(0.7);-->
-<!--transform-origin: 0 0;-->
-<!---webkit-transform-origin: 0 0;-->
-<!--}-->
-<!--}-->
 <script src='https://www.google.com/recaptcha/api.js'></script>
 
 <!--</style>-->
@@ -59,13 +51,28 @@
         </div>
 
 
-        <!-- /.navbar-collapse -->
+
     </div>
-    <!-- /.container-fluid -->
+
 </nav>
 
 <script language='javascript' type='text/javascript'>
+    $(document).ready(function () {
 
+        $('#countrySelectjs').val('{{country}}');
+        $('#sectorSelectjs').val('{{sectorwork}}');
+        $('#jobFunctionSelectjs').val('{{jobfunction}}');
+
+        var checkRadio = "{{fulltimestudent}}";
+
+        if (checkRadio == "yes") {
+            document.getElementById("Radios1").checked = true;
+        } else {
+            document.getElementById("Radios2").checked = true;
+        }
+
+
+    });
 
     function check(input) {
         if (input.value != document.getElementById('password').value) {
@@ -623,25 +630,6 @@
     </div>
 </section>
 
-<script>
-    $(document).ready(function () {
-
-        $('#countrySelectjs').val('{{country}}');
-        $('#sectorSelectjs').val('{{sectorwork}}');
-        $('#jobFunctionSelectjs').val('{{jobfunction}}');
-
-        var checkRadio = "{{fulltimestudent}}";
-
-        if (checkRadio == "yes") {
-            document.getElementById("Radios1").checked = true;
-        } else {
-            document.getElementById("Radios2").checked = true;
-        }
-
-
-    });
-
-</script>
 <script>
 
     var temp2;

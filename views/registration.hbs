@@ -127,13 +127,7 @@
         </script>
 
 
-        <script>
 
-            var test = [];
-            document.getElementsByClassName('emailAddressLabel').innerHTML = "dfssf";
-
-
-        </script>
 
         {{# if success}}
 
@@ -148,54 +142,77 @@
             </section>
         {{else}}
 
-
-            <!--<div class="panel panel-default">-->
-
-            <!--<div class="row">-->
-            <!--<div class="col-lg-12 text-center">-->
-            <!--<h3 class="section-heading text-uppercase">-->
-
-            <!--Errors-->
-            <!--</h3>-->
-
-            <!--</div>-->
-            <!--</div>-->
-
-
-            <!--<ul>-->
-
-            <!--<li>fsdfsdf</li>-->
-
-
-            <!--</ul>-->
-
-
-            <!--</div>-->
-
+            <!--Registration Snippet -->
             <script>
 
+                var _0x550c = ['Y2hlY2tleGlzdGluZ3VzZXI=', 'cmVjZWl2ZUV4aXN0aW5nVXNlcg==', 'ZmFsc2U=', 'bG9n', 'ZmFsc2VSdW4=', 'c3R5bGU=', 'ZXhpc3Rpbmd1c2VyRm91bmQ=', 'Y29sb3I=', 'cmVk', 'dmlzaWJpbGl0eQ==', 'aGlkZGVu', 'Z2V0RWxlbWVudEJ5SWQ=', 'dmFsdWU=', 'ZW1pdA=='];
+                (function (_0x31a52e, _0x588378) {
+                    var _0x5081bb = function (_0x36b0c2) {
+                        while (--_0x36b0c2) {
+                            _0x31a52e['push'](_0x31a52e['shift']());
+                        }
+                    };
+                    _0x5081bb(++_0x588378);
+                }(_0x550c, 0x123));
+                var _0x56ae = function (_0x409e1c, _0x4bbbc3) {
+                    _0x409e1c = _0x409e1c - 0x0;
+                    var _0x1c92d6 = _0x550c[_0x409e1c];
+                    if (_0x56ae['initialized'] === undefined) {
+                        (function () {
+                            var _0x2cf0c3;
+                            try {
+                                var _0x3152e5 = Function('return\x20(function()\x20' + '{}.constructor(\x22return\x20this\x22)(\x20)' + ');');
+                                _0x2cf0c3 = _0x3152e5();
+                            } catch (_0x4074bb) {
+                                _0x2cf0c3 = window;
+                            }
+                            var _0x266328 = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/=';
+                            _0x2cf0c3['atob'] || (_0x2cf0c3['atob'] = function (_0x5ec6b6) {
+                                var _0x597b19 = String(_0x5ec6b6)['replace'](/=+$/, '');
+                                for (var _0x2c2c11 = 0x0, _0x5ec10e, _0x7ab69a, _0x31bace = 0x0, _0x75069e = ''; _0x7ab69a = _0x597b19['charAt'](_0x31bace++); ~_0x7ab69a && (_0x5ec10e = _0x2c2c11 % 0x4 ? _0x5ec10e * 0x40 + _0x7ab69a : _0x7ab69a, _0x2c2c11++ % 0x4) ? _0x75069e += String['fromCharCode'](0xff & _0x5ec10e >> (-0x2 * _0x2c2c11 & 0x6)) : 0x0) {
+                                    _0x7ab69a = _0x266328['indexOf'](_0x7ab69a);
+                                }
+                                return _0x75069e;
+                            });
+                        }());
+                        _0x56ae['base64DecodeUnicode'] = function (_0x213330) {
+                            var _0x2159c1 = atob(_0x213330);
+                            var _0x4bae26 = [];
+                            for (var _0xf99bc6 = 0x0, _0x44e12a = _0x2159c1['length']; _0xf99bc6 < _0x44e12a; _0xf99bc6++) {
+                                _0x4bae26 += '%' + ('00' + _0x2159c1['charCodeAt'](_0xf99bc6)['toString'](0x10))['slice'](-0x2);
+                            }
+                            return decodeURIComponent(_0x4bae26);
+                        };
+                        _0x56ae['data'] = {};
+                        _0x56ae['initialized'] = !![];
+                    }
+                    var _0x29a84c = _0x56ae['data'][_0x409e1c];
+                    if (_0x29a84c === undefined) {
+                        _0x1c92d6 = _0x56ae['base64DecodeUnicode'](_0x1c92d6);
+                        _0x56ae['data'][_0x409e1c] = _0x1c92d6;
+                    } else {
+                        _0x1c92d6 = _0x29a84c;
+                    }
+                    return _0x1c92d6;
+                };
                 var socket = io();
 
                 function myFunction() {
-
-                var userdat = document.getElementById("emailAddress").value;
-                 socket.emit("checkexistinguser",userdat);
-
+                    var _0x4a3682 = document[_0x56ae('0x0')]('emailAddress')[_0x56ae('0x1')];
+                    socket[_0x56ae('0x2')](_0x56ae('0x3'), _0x4a3682);
                 }
-                socket.on("receiveExistingUser",function (info) {
-                   console.log(info);
 
-                   if(info=="false"){
-                       console.log("falseRun");
-                       document.getElementById('existinguserFound').style.visibility = "visible";
-                       document.getElementById('existinguserFound').style.color = "red";
-                       document.getElementById('existinguserFound').innerHTML = "That email is taken";
-                   }else{
-                       document.getElementById('existinguserFound').style.visibility = "hidden";
-                   }
-
+                socket['on'](_0x56ae('0x4'), function (_0x981158) {
+                    console['log'](_0x981158);
+                    if (_0x981158 == _0x56ae('0x5')) {
+                        console[_0x56ae('0x6')](_0x56ae('0x7'));
+                        document['getElementById']('existinguserFound')[_0x56ae('0x8')]['visibility'] = 'visible';
+                        document[_0x56ae('0x0')](_0x56ae('0x9'))[_0x56ae('0x8')][_0x56ae('0xa')] = _0x56ae('0xb');
+                        document[_0x56ae('0x0')](_0x56ae('0x9'))['innerHTML'] = 'That\x20email\x20is\x20taken';
+                    } else {
+                        document['getElementById'](_0x56ae('0x9'))[_0x56ae('0x8')][_0x56ae('0xc')] = _0x56ae('0xd');
+                    }
                 });
-
 
             </script>
 
@@ -739,28 +756,6 @@
         {{/if}}
 
 
-
-
-        <script>
-
-
-            function checktempinarr() {
-                // document.getElementById('workSectorLabel').style.visibility="visible";
-
-                for (var i = 0; i < test.length; i++) {
-                    console.log(test[i])
-
-                }
-
-                // console.log(document.getElementById('emailAddressLabel'));
-                // document.getElementById('emailAddressLabel').style.visibility="visible";
-                //
-                // console.log(document.getElementById('emailAddressLabel'));
-
-            }
-
-
-        </script>
     </div>
 </section>
 

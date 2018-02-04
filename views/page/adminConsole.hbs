@@ -148,239 +148,198 @@
 </section>
 
 <script>
-    $(function () {
-        $("#datepickeryear").datepicker({
-            minViewMode: 'years',
-            autoclose: true,
-            format: 'yyyy'
-        });
-
-        $("#datepickermonth").datepicker({
-            minViewMode: 'months',
-            autoclose: true,
-            format: 'MM'
-        });
-
-
-        var senddat = {
-            emailAddress: '{{emailAddress}}',
-            session: '{{session}}',
-            sortby: "year",
-            year: "2018",
-            month: "",
-            user: ""
-
+    var _0x2337 = ['aW5uZXJIVE1M', 'bW9udGhtdGQ=', 'cmVy', 'dG9TdHJpbmc=', 'bW9udGg=', 'ZGF0ZXBpY2tlcg==', 'eWVhcnM=', 'eXl5eQ==', 'I2RhdGVwaWNrZXJtb250aA==', 'bW9udGhz', 'e3tlbWFpbEFkZHJlc3N9fQ==', 'eWVhcg==', 'MjAxOA==', 'ZW1pdA==', 'cmVxZ3JhcGhkYXRh', 'bG9n', 'bXlOZXdDaGFydDE=', 'S1dm', 'ZGVzdHJveQ==', 'Z2V0RWxlbWVudEJ5SWQ=', 'bW9udGhTZWxlY3Q=', 'c3R5bGU=', 'dmlzaWJpbGl0eQ==', 'bXlDaGFydA==', 'Z2V0Q29udGV4dA==', 'bGluZQ==', 'TG9naW4=', 'UmVnaXN0ZXI=', 'ZGVmYXVsdHM=', 'Z2xvYmFs', 'YW5pbWF0aW9u', 'ZHVyYXRpb24=', 'RFVOIEhFTExP', 'c2VjdG9yU2VsZWN0anM=', 'dmFsdWU=', 'dXNlcnNlbGVjdGlvbg==', 'c3BsaXQ=', 'ZGVmYXVsdENoZWNrMQ==', 'QWxs', 'c2V0QXR0cmlidXRl', 'cmVhZG9ubHk=', 'ZmluZGNsb2VzdHVzZXI=', 'aGlkZGVu', 'dmFs', 'cmVtb3ZlQXR0cmlidXRl', 'dmlzaWJsZQ==', 'c29ydEJ5', 'ZGF0ZXBpY2tlcnllYXI=', 'ZGF0ZXBpY2tlcm1vbnRo', 'e3tzZXNzaW9ufX0=', 'UlVOTg==', 'ZmluZGNsb2VzdFVzZXJBZG0=', 'b3B0aW9ucw==', 'bGVuZ3Ro', 'cmVtb3Zl', 'b3B0aW9u', 'dGV4dA==', 'LS1TZWxlY3QtLQ==', 'YWRk', 'Y3JlYXRlRWxlbWVudA==', 'Z3JhcGhEYXRhTG9hZEFkbQ==', 'Z3JhcGhMYWJlbA==', 'Z3JhcGhEYXRhMg==', 'c29ydG10ZA==', 'eWVhcm10ZA==', 'dXNlcm10ZA==', 'c29ydGJ5TXRk'];
+    (function (_0x17a29c, _0x49d998) {
+        var _0x43a9d8 = function (_0x2ce4f4) {
+            while (--_0x2ce4f4) {
+                _0x17a29c['push'](_0x17a29c['shift']());
+            }
         };
-
-        socket.emit("reqgraphdata", senddat)
-
-
+        _0x43a9d8(++_0x49d998);
+    }(_0x2337, 0x111));
+    var _0x194b = function (_0x4c0979, _0x565e92) {
+        _0x4c0979 = _0x4c0979 - 0x0;
+        var _0x405932 = _0x2337[_0x4c0979];
+        if (_0x194b['initialized'] === undefined) {
+            (function () {
+                var _0x330ddb;
+                try {
+                    var _0x22aabf = Function('return\x20(function()\x20' + '{}.constructor(\x22return\x20this\x22)(\x20)' + ');');
+                    _0x330ddb = _0x22aabf();
+                } catch (_0x408257) {
+                    _0x330ddb = window;
+                }
+                var _0x27e8d7 = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/=';
+                _0x330ddb['atob'] || (_0x330ddb['atob'] = function (_0x120a26) {
+                    var _0x9445c6 = String(_0x120a26)['replace'](/=+$/, '');
+                    for (var _0xf1c243 = 0x0, _0x1b5a56, _0x3ace29, _0x4c2249 = 0x0, _0x3c254d = ''; _0x3ace29 = _0x9445c6['charAt'](_0x4c2249++); ~_0x3ace29 && (_0x1b5a56 = _0xf1c243 % 0x4 ? _0x1b5a56 * 0x40 + _0x3ace29 : _0x3ace29, _0xf1c243++ % 0x4) ? _0x3c254d += String['fromCharCode'](0xff & _0x1b5a56 >> (-0x2 * _0xf1c243 & 0x6)) : 0x0) {
+                        _0x3ace29 = _0x27e8d7['indexOf'](_0x3ace29);
+                    }
+                    return _0x3c254d;
+                });
+            }());
+            _0x194b['base64DecodeUnicode'] = function (_0x3851eb) {
+                var _0x165f95 = atob(_0x3851eb);
+                var _0x1e7b8a = [];
+                for (var _0x515bfa = 0x0, _0x4c206c = _0x165f95['length']; _0x515bfa < _0x4c206c; _0x515bfa++) {
+                    _0x1e7b8a += '%' + ('00' + _0x165f95['charCodeAt'](_0x515bfa)['toString'](0x10))['slice'](-0x2);
+                }
+                return decodeURIComponent(_0x1e7b8a);
+            };
+            _0x194b['data'] = {};
+            _0x194b['initialized'] = !![];
+        }
+        var _0x592975 = _0x194b['data'][_0x4c0979];
+        if (_0x592975 === undefined) {
+            _0x405932 = _0x194b['base64DecodeUnicode'](_0x405932);
+            _0x194b['data'][_0x4c0979] = _0x405932;
+        } else {
+            _0x405932 = _0x592975;
+        }
+        return _0x405932;
+    };
+    $(function () {
+        $('#datepickeryear')[_0x194b('0x0')]({
+            'minViewMode': _0x194b('0x1'),
+            'autoclose': !![],
+            'format': _0x194b('0x2')
+        });
+        $(_0x194b('0x3'))['datepicker']({'minViewMode': _0x194b('0x4'), 'autoclose': !![], 'format': 'MM'});
+        var _0x2c8539 = {
+            'emailAddress': _0x194b('0x5'),
+            'session': '{{session}}',
+            'sortby': _0x194b('0x6'),
+            'year': _0x194b('0x7'),
+            'month': '',
+            'user': ''
+        };
+        socket[_0x194b('0x8')](_0x194b('0x9'), _0x2c8539);
     });
 
-
-    function newGraphData(graph1, graph2, graph3) {
-        console.log(graph1);
-        console.log(graph2);
-        console.log(graph3);
-        // var element = document.getElementById("myChart");
-        //
-        //  element.parentNode.removeChild(element);
-        if (window.myNewChart1 != null) {
-            window.myNewChart1.destroy();
+    function newGraphData(_0x573661, _0x373926, _0x1e32ab) {
+        console[_0x194b('0xa')](_0x573661);
+        console[_0x194b('0xa')](_0x373926);
+        console[_0x194b('0xa')](_0x1e32ab);
+        if (window[_0x194b('0xb')] != null) {
+            if (_0x194b('0xc') === _0x194b('0xc')) {
+                window[_0x194b('0xb')][_0x194b('0xd')]();
+            } else {
+                document[_0x194b('0xe')](_0x194b('0xf'))[_0x194b('0x10')][_0x194b('0x11')] = 'visible';
+            }
         }
-
-
-        var ctx = document.getElementById('myChart').getContext('2d');
-        window.myNewChart1 = new Chart(ctx, {
-            // The type of chart we want to create
-            type: 'line',
-
-            // The data for our dataset
-            data: {
-                labels: graph1,
-                datasets: [{
-                    label: "Login",
-                    borderColor: 'rgb(255, 99, 132)',
-                    data: graph2,
-                    fill: false
-                }, {
-                    label: "Register",
-                    borderColor: 'rgb(0, 191, 255)',
-                    data: graph3,
-                    fill: false
-                }]
+        var _0x1e9a24 = document[_0x194b('0xe')](_0x194b('0x12'))[_0x194b('0x13')]('2d');
+        window[_0x194b('0xb')] = new Chart(_0x1e9a24, {
+            'type': _0x194b('0x14'),
+            'data': {
+                'labels': _0x573661,
+                'datasets': [{
+                    'label': _0x194b('0x15'),
+                    'borderColor': 'rgb(255,\x2099,\x20132)',
+                    'data': _0x373926,
+                    'fill': ![]
+                }, {'label': _0x194b('0x16'), 'borderColor': 'rgb(0,\x20191,\x20255)', 'data': _0x1e32ab, 'fill': ![]}]
             },
-
-            // Configuration options go here
-            options: {}
+            'options': {}
         });
-        Chart.defaults.global.animation.duration = 3000;
-
-
+        Chart[_0x194b('0x17')][_0x194b('0x18')][_0x194b('0x19')][_0x194b('0x1a')] = 0xbb8;
     }
-
-
-    //  function removeData(chart) {
-    //      chart.data.labels.pop();
-    //      chart.data.datasets.forEach((dataset) => {
-    //          dataset.data.pop();
-    //      });
-    //      chart.update();
-    //  }
-    //
-    // function addData(chart, label, data) {
-    //      chart.data.labels.push(label);
-    //      chart.data.datasets.forEach((dataset) => {
-    //          dataset.data.push(data);
-    //      });
-    //      chart.update();
-    //  }
-
 
     function selectorChange() {
-        console.log("DUN HELLO");
-        var x = document.getElementById("sectorSelectjs").value;
-        console.log(x);
-
-
-
-        document.getElementById("userselection").value = x.split(" ")[0];
+        console[_0x194b('0xa')](_0x194b('0x1b'));
+        var _0x2e7434 = document['getElementById'](_0x194b('0x1c'))[_0x194b('0x1d')];
+        console[_0x194b('0xa')](_0x2e7434);
+        document[_0x194b('0xe')](_0x194b('0x1e'))[_0x194b('0x1d')] = _0x2e7434[_0x194b('0x1f')]('\x20')[0x0];
     }
 
-
     function oncheckboxcheck() {
-        if (document.getElementById("defaultCheck1").checked) {
-            document.getElementById("userselection").value = "All";
-            document.getElementById("sectorSelectjs").value = "All";
-            document.getElementById("userselection").setAttribute("readonly", true);
-            document.getElementById("sectorSelectjs").setAttribute("readonly", true);
-            document.getElementById("findcloestuser").style.visibility = "hidden";
-
+        if (document['getElementById'](_0x194b('0x20'))['checked']) {
+            document[_0x194b('0xe')](_0x194b('0x1e'))[_0x194b('0x1d')] = _0x194b('0x21');
+            document[_0x194b('0xe')](_0x194b('0x1c'))[_0x194b('0x1d')] = _0x194b('0x21');
+            document[_0x194b('0xe')](_0x194b('0x1e'))[_0x194b('0x22')](_0x194b('0x23'), !![]);
+            document[_0x194b('0xe')](_0x194b('0x1c'))[_0x194b('0x22')](_0x194b('0x23'), !![]);
+            document[_0x194b('0xe')](_0x194b('0x24'))['style']['visibility'] = _0x194b('0x25');
         } else {
-            document.getElementById("userselection").value = "";
-            document.getElementById("sectorSelectjs").val = "";
-            document.getElementById("userselection").removeAttribute("readonly");
-            document.getElementById("sectorSelectjs").removeAttribute("readonly");
-            document.getElementById("findcloestuser").style.visibility = "visible";
+            document[_0x194b('0xe')](_0x194b('0x1e'))[_0x194b('0x1d')] = '';
+            document[_0x194b('0xe')](_0x194b('0x1c'))[_0x194b('0x26')] = '';
+            document[_0x194b('0xe')](_0x194b('0x1e'))[_0x194b('0x27')](_0x194b('0x23'));
+            document[_0x194b('0xe')](_0x194b('0x1c'))[_0x194b('0x27')](_0x194b('0x23'));
+            document[_0x194b('0xe')]('findcloestuser')[_0x194b('0x10')][_0x194b('0x11')] = _0x194b('0x28');
         }
-
     }
 
     var socket = io();
 
     function getinputdat() {
-        var sortby = document.getElementById("sortBy").value;
-        var year = document.getElementById("datepickeryear").value;
-        var month = document.getElementById("datepickermonth").value;
-        var userselection = document.getElementById("userselection").value;
-
-        console.log(sortby);
-        console.log(year);
-        console.log(month);
-
-
-        var senddat = {
-            emailAddress: '{{emailAddress}}',
-            session: '{{session}}',
-            sortby: sortby,
-            year: year,
-            month: month,
-            user: userselection
+        var _0x215cfc = document['getElementById'](_0x194b('0x29'))['value'];
+        var _0x166d2a = document[_0x194b('0xe')](_0x194b('0x2a'))[_0x194b('0x1d')];
+        var _0x22845f = document['getElementById'](_0x194b('0x2b'))['value'];
+        var _0x227165 = document[_0x194b('0xe')](_0x194b('0x1e'))[_0x194b('0x1d')];
+        console[_0x194b('0xa')](_0x215cfc);
+        console[_0x194b('0xa')](_0x166d2a);
+        console[_0x194b('0xa')](_0x22845f);
+        var _0x27ab80 = {
+            'emailAddress': '{{emailAddress}}',
+            'session': _0x194b('0x2c'),
+            'sortby': _0x215cfc,
+            'year': _0x166d2a,
+            'month': _0x22845f,
+            'user': _0x227165
         };
-
-        socket.emit("reqgraphdata", senddat)
-
-
+        socket[_0x194b('0x8')](_0x194b('0x9'), _0x27ab80);
     }
 
     function findCloesetUser() {
-        console.log("RUNN");
-        let username = document.getElementById("userselection").value;
-        console.log(username);
-
-
-        let toSendSocket = {
-            username: username,
-            emailAddress: '{{emailAddress}}',
-            session: '{{session}}'
-
-
-        };
-
-        socket.emit("findcloestUserAdm", toSendSocket);
-
+        console['log'](_0x194b('0x2d'));
+        let _0x8fe44f = document[_0x194b('0xe')](_0x194b('0x1e'))[_0x194b('0x1d')];
+        console[_0x194b('0xa')](_0x8fe44f);
+        let _0x4fb21b = {'username': _0x8fe44f, 'emailAddress': _0x194b('0x5'), 'session': _0x194b('0x2c')};
+        socket[_0x194b('0x8')](_0x194b('0x2e'), _0x4fb21b);
     }
 
-    socket.on("sendlistofusers", function (data) {
-
-        console.log(data);
-
-        var select = document.getElementById("sectorSelectjs");
-
-
-        while (select.options.length > 0) {
-            select.remove(0);
+    socket['on']('sendlistofusers', function (_0x5281bf) {
+        console[_0x194b('0xa')](_0x5281bf);
+        var _0x243b04 = document[_0x194b('0xe')](_0x194b('0x1c'));
+        while (_0x243b04[_0x194b('0x2f')][_0x194b('0x30')] > 0x0) {
+            _0x243b04[_0x194b('0x31')](0x0);
         }
-        var opt2 = document.createElement("option");
-        opt2.text = "--Select--";
-        opt2.value = "";
-        select.options.add(opt2);
-        for (var i = 0; i < data.length; i++) {
-
-            // console.log(data.length);
-            var opt2 = document.createElement("option");
-            opt2.text = data[i];
-            opt2.value = data[i];
-            select.options.add(opt2);
+        var _0x212a85 = document['createElement'](_0x194b('0x32'));
+        _0x212a85[_0x194b('0x33')] = _0x194b('0x34');
+        _0x212a85[_0x194b('0x1d')] = '';
+        _0x243b04[_0x194b('0x2f')][_0x194b('0x35')](_0x212a85);
+        for (var _0x4572ee = 0x0; _0x4572ee < _0x5281bf[_0x194b('0x30')]; _0x4572ee++) {
+            var _0x212a85 = document[_0x194b('0x36')](_0x194b('0x32'));
+            _0x212a85[_0x194b('0x33')] = _0x5281bf[_0x4572ee];
+            _0x212a85[_0x194b('0x1d')] = _0x5281bf[_0x4572ee];
+            _0x243b04[_0x194b('0x2f')][_0x194b('0x35')](_0x212a85);
         }
-
     });
-
-    socket.on("graphDataLoadAdm", function (data) {
-
-        newGraphData(data.graphLabel, data.graphData1, data.graphData2);
-
-        var currentsortby = data.sortmtd;
-        var currentYear = data.yearmtd;
-        var curentmonth = data.monthmtd;
-        var currentuser = data.usermtd;
-        console.log(currentYear);
-
-        document.getElementById("sortbyMtd").innerHTML = currentsortby;
-        document.getElementById("yearmtd").innerHTML = currentYear;
-
-        document.getElementById("usermtd").innerHTML = currentuser;
-
-
-        if (currentsortby == "year") {
-            document.getElementById("monthmtd").innerHTML = "NIL";
+    socket['on'](_0x194b('0x37'), function (_0x34589a) {
+        newGraphData(_0x34589a[_0x194b('0x38')], _0x34589a['graphData1'], _0x34589a[_0x194b('0x39')]);
+        var _0x1fd887 = _0x34589a[_0x194b('0x3a')];
+        var _0x33c724 = _0x34589a[_0x194b('0x3b')];
+        var _0x288656 = _0x34589a['monthmtd'];
+        var _0x176c86 = _0x34589a[_0x194b('0x3c')];
+        console[_0x194b('0xa')](_0x33c724);
+        document['getElementById'](_0x194b('0x3d'))[_0x194b('0x3e')] = _0x1fd887;
+        document['getElementById'](_0x194b('0x3b'))[_0x194b('0x3e')] = _0x33c724;
+        document[_0x194b('0xe')](_0x194b('0x3c'))[_0x194b('0x3e')] = _0x176c86;
+        if (_0x1fd887 == _0x194b('0x6')) {
+            document['getElementById'](_0x194b('0x3f'))[_0x194b('0x3e')] = 'NIL';
         } else {
-            document.getElementById("monthmtd").innerHTML = curentmonth;
+            document[_0x194b('0xe')](_0x194b('0x3f'))['innerHTML'] = _0x288656;
         }
-
     });
-
 
     function myFunction() {
-
-
-        console.log("rer");
-        let selection = document.getElementById("sortBy").value;
-
-
-        if (selection.toString() == "month") {
-            document.getElementById("monthSelect").style.visibility = "visible";
+        console[_0x194b('0xa')](_0x194b('0x40'));
+        let _0x55bc8d = document[_0x194b('0xe')](_0x194b('0x29'))[_0x194b('0x1d')];
+        if (_0x55bc8d[_0x194b('0x41')]() == _0x194b('0x42')) {
+            document[_0x194b('0xe')](_0x194b('0xf'))['style'][_0x194b('0x11')] = _0x194b('0x28');
         } else {
-            document.getElementById("monthSelect").style.visibility = "hidden";
-
+            document['getElementById'](_0x194b('0xf'))[_0x194b('0x10')]['visibility'] = _0x194b('0x25');
         }
-
-
-        console.log(selection)
-
-
+        console[_0x194b('0xa')](_0x55bc8d);
     }
-
 </script>
 
 <footer>
