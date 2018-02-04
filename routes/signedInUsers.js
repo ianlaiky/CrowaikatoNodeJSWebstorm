@@ -26,7 +26,8 @@ var oplogurl = 'mongodb://tester:cR0w_+35t@arproject-shard-00-00-cjsdl.mongodb.n
 var arurl = 'mongodb://tester:cR0w_+35t@arproject-shard-00-00-cjsdl.mongodb.net:27017,arproject-shard-00-01-cjsdl.mongodb.net:27017,' +
     'arproject-shard-00-02-cjsdl.mongodb.net:27017/ARDB?ssl=true&replicaSet=ARPROJECT-shard-0&authSource=admin';
 
-
+// global AR machine variable
+var machines = [];
 
 // API FOR captcha
 var SECRET = recaptchaConfig.secret;
@@ -1064,33 +1065,38 @@ router.get('/augmentedRealityStatic', isLoggedIn, function (req, res, next) {
     res.render('augmentedReality/indexStatic', {title: 'Dependency', layout: 'layout/augmentedRealityLayout'});
 });
 
+// For AR
+MongoDB.MongoClient.connect(arurl, function (err, db) {
 
-
-router.get("/machines", isLoggedIn, function (request, response) {
-    console.log("AR machones");
-    // For AR
-    var machines = [];
-    MongoDB.MongoClient.connect(arurl, function (err, db) {
-
-        if (err) {
-            console.log("conn error");
-        }
-        db.collection("ARmachine", function (err, machine) {
-            machine.find().toArray(function (err, result) {
-                if (err) {
-                    throw err;
-                } else {
-                    for (var i = 0; i < result.length; i++) {
-                        machines[i] = result[i];
-                    }
-
-
+    if (err) {
+        console.log("conn error");
+    }
+    db.collection("ARmachine", function (err, machine) {
+        machine.find().toArray(function (err, result) {
+            if (err) {
+                throw err;
+            } else {
+                console.log(result);
+                for (var i = 0; i < result.length; i++) {
+                    machines[i] = result[i];
                 }
-            });
+                console.log("Returned machines");
+                console.log(machines);
+
+
+            }
         });
 
     });
+
+});
+
+router.get("/machines", isLoggedIn, function (request, response) {
+    console.log("AR machones");
     response.send(machines);
+
+
+
 });
 
 router.get('/register', isLoggedout, function (req, res, next) {
