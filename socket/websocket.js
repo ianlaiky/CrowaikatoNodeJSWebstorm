@@ -487,7 +487,9 @@ io.on('connection', function (socket) {
                 console.log(rowget);
                 if (rowget.length) {
                     console.log(dat.username);
-                    connection.query("select username from users where username like ?", [dat.username], (err, row) => {
+                    // select username from users where username like ?
+                    connection.query("select Count(userlog.username) as total, users.username from users inner join userlog on userlog.username=users.username group by userlog.username having userlog.username like ?", [dat.username], (err, row) => {
+
                         console.log("RUN");
                         if (err) console.log(err);
 
@@ -495,7 +497,7 @@ io.on('connection', function (socket) {
                         let arrtopish = [];
                         for (let obj of row) {
 
-                            arrtopish.push(obj.username)
+                            arrtopish.push(obj.username+" | "+obj.total)
                         }
 
                         socket.emit("sendlistofusers", arrtopish);
@@ -565,7 +567,7 @@ io.on('connection', function (socket) {
                 }
 
                 if (sortby == "") {
-                    sortby == "year";
+                    sortby = "year";
                 }
                 if (year == "") {
                     year = "2018"
