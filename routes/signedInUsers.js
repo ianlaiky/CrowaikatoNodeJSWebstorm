@@ -21,10 +21,11 @@ var recaptchaConfig = require('../config/googleCaptchaKey');
 
 
 ///Variables - Connection strings for MongoDB Atlas Databases
-var oplogurl = 'mongodb://tester:cR0w_+35t@arproject-shard-00-00-cjsdl.mongodb.net:27017,arproject-shard-00-01-cjsdl.mongodb.net:27017,' +
-    'arproject-shard-00-02-cjsdl.mongodb.net:27017/local?ssl=true&replicaSet=ARPROJECT-shard-0&authSource=admin';
-var arurl = 'mongodb://tester:cR0w_+35t@arproject-shard-00-00-cjsdl.mongodb.net:27017,arproject-shard-00-01-cjsdl.mongodb.net:27017,' +
-    'arproject-shard-00-02-cjsdl.mongodb.net:27017/ARDB?ssl=true&replicaSet=ARPROJECT-shard-0&authSource=admin';
+
+var dbconfigMongo = require('../config/databaseMongo');
+
+var arurl = dbconfigMongo.ARConnection;
+
 
 // global AR machine variable
 var machines = [];
@@ -36,7 +37,7 @@ var clientSideSecret = recaptchaConfig.clientSideSecret;
 // POST request to google recaptcha
 function verifyRecaptcha(key, callback) {
     console.log("RESPONSE IS: " + key);
-    //declare above var querystring = require('querystring') on top
+
     var post_data = querystring.stringify({
         'secret': SECRET,
         'response': key
@@ -135,9 +136,9 @@ router.post('/loginBackend', passport.authenticate('local.signin', {
 
 
     if (req.session.useInfoo.userrole.toString() == "admin") {
-        res.redirect("/page/adminConsole?sortBy=year&year=2018")
+        res.redirect("/page/adminConsole")
     } else {
-
+        // logs for admin stats
         let insertQueryLog = "INSERT INTO userlog ( year, month, date, day, mode,username ) values (?,?,?,?,?,?)";
         let now = new Date();
         let saveYear = now.getFullYear();
@@ -158,6 +159,7 @@ router.post('/loginBackend', passport.authenticate('local.signin', {
 
 });
 
+// Editing of password
 router.post("/homeSettingsPasswordEdit", isLoggedIn, (req, res, next) => {
 
 
@@ -168,17 +170,20 @@ router.post("/homeSettingsPasswordEdit", isLoggedIn, (req, res, next) => {
     console.log("New pass");
     console.log(newPass);
     if (password == undefined) password = "";
+
+
     connection.query("select * from users where username = ?", [req.session.useInfoo.username.toString()], (err, row) => {
 
         if (err) console.log(err);
         console.log("ROws");
         console.log(row);
 
+        // makign sure current pass entered is correct
         if (bcrypt.compareSync(password, row[0].password)) {
 
             console.log("pass match");
 
-
+            // validate fields
             req.check('password', 'Password should contain alphanumeric character with uppercase, lowercase and special characters (!,@,#,$,%,^,&,*)').trim().matches(/^(?=.*\d)(?=.*[!@#\$%\^&\*])(?=.*[a-z])(?=.*[A-Z]).{8,}/, "i");
             req.check('password', 'Reached Character Limit (Max: 200)').trim().isLength({max: 200});
             req.check('password_cfm', "Password is empty or do not match").trim().equals(req.body.password);
@@ -186,6 +191,7 @@ router.post("/homeSettingsPasswordEdit", isLoggedIn, (req, res, next) => {
 
             var errors = req.validationErrors();
 
+            //push errors to flash session
             req.flash('errorHomeSettingDetail', errors);
 
             if (errors) {
@@ -195,7 +201,9 @@ router.post("/homeSettingsPasswordEdit", isLoggedIn, (req, res, next) => {
 
             } else {
 
+                // generate new salt
                 console.log(bcrypt.genSaltSync(8));
+                // hash and salt
                 var updateuserMysql = bcrypt.hashSync(newPass, null, null);
 
                 let updatequery = "update users set password = ? where username = ?";
@@ -206,6 +214,7 @@ router.post("/homeSettingsPasswordEdit", isLoggedIn, (req, res, next) => {
                     } else {
                         console.log(rows);
 
+                        // reencrypt all previous data with new encryption key
                         let firstname = req.session.useInfoo.firstname;
                         let lastname = req.session.useInfoo.lastname;
                         let jobtitle = req.session.useInfoo.jobtitle;
@@ -279,6 +288,7 @@ router.post("/homeSettingsPasswordEdit", isLoggedIn, (req, res, next) => {
 
 });
 
+// Editing of user details
 
 router.post("/homeSettingsDetailsEdit", isLoggedIn, (req, res, next) => {
     console.log(req.body);
@@ -286,6 +296,7 @@ router.post("/homeSettingsDetailsEdit", isLoggedIn, (req, res, next) => {
 
     var captchaValidationResult = false;
     console.log("before" + captchaValidationResult);
+    // checking recaptcha
     if (req.body['g-recaptcha-response'] === undefined || req.body['g-recaptcha-response'] === '' || req.body['g-recaptcha-response'] === null) {
         captchaValidationResult = false;
 
@@ -304,6 +315,8 @@ router.post("/homeSettingsDetailsEdit", isLoggedIn, (req, res, next) => {
 
         console.log("VALICDATION OF CAPTCHSA" + captchaValidationResult);
         console.log("Data get from details get");
+
+        //fields validation
 
         console.log(req.body);
         req.check('firstName', "Please enter something").trim().notEmpty();
@@ -381,7 +394,7 @@ router.post("/homeSettingsDetailsEdit", isLoggedIn, (req, res, next) => {
 
                     console.log("BODY REQ");
                     console.log(req.body);
-
+                     // Re-encryption of new data
                     let firstNameRetrieve = encryptData(req.body.firstName, passwordforEncryption);
                     let lastNameRetrieve = encryptData(req.body.lastName, passwordforEncryption);
                     let jobtitleRetrieve = encryptData(req.body.jobtitle, passwordforEncryption);
@@ -405,7 +418,7 @@ router.post("/homeSettingsDetailsEdit", isLoggedIn, (req, res, next) => {
                         if (err) {
                             console.log(err)
                         } else {
-
+                            // Saving new fields to the current session so the user do not need to relog to see changes.
                             req.session.useInfoo.firstname = req.body.firstName;
                             req.session.useInfoo.lastname = req.body.lastName;
                             req.session.useInfoo.jobtitle = req.body.jobtitle;
@@ -447,6 +460,8 @@ router.get("/homeSettings", isLoggedIn, (req, res, next) => {
     let detailschangesucc = req.flash('detailsChangeSucc');
     console.log(errormsgDetail);
     console.log(passwordChangeSucc);
+
+    // boolean to see if the user has changed sucessfully; this info will be sent to handlebard which will change the page
     var boolvalueForpassChange = false;
     let boolvalueFordetailChange = false;
     if (passwordChangeSucc.length > 0) {
@@ -487,15 +502,15 @@ router.get("/homeSettings", isLoggedIn, (req, res, next) => {
 /* GET users listing. */
 router.get('/home', isLoggedIn, function (req, res, next) {
 
-    // console.log("First name ics :"+req.session.useInfoo);
+
     let fileuploadInfo = [];
     console.log("First name ics :" + req.session.useInfoo.firstname);
     console.log("email ics :" + req.session.useInfoo.username);
     console.log("First name ics :" + req.session.useInfoo.uid);
     console.log("First name ics :" + req.session.id);
-    // console.log("First name is :"+req.session.useInfoo);
 
-    // do the list
+
+// Locky Analysis files retrieve
     connection.query("SELECT * FROM fileupload WHERE uid = ?", [req.session.useInfoo.uid.toString()], (err, rowRet) => {
 
         console.log("ROW FROM FILEUPLAOD: ");
@@ -520,8 +535,6 @@ router.get('/home', isLoggedIn, function (req, res, next) {
 
     });
 
-
-    // res.render('index', { title: 'Express' });
 });
 
 
@@ -1076,7 +1089,7 @@ MongoDB.MongoClient.connect(arurl, function (err, db) {
             if (err) {
                 throw err;
             } else {
-                console.log(result);
+
                 for (var i = 0; i < result.length; i++) {
                     machines[i] = result[i];
                 }

@@ -7,16 +7,19 @@ const mongoose = require('mongoose');
 const Process = mongoose.model("Process");
 const File = mongoose.model("File");
 
-//AR
+
 var MongoDB = require('mongodb');
 
-var arurl = 'mongodb://tester:cR0w_+35t@arproject-shard-00-00-cjsdl.mongodb.net:27017,arproject-shard-00-01-cjsdl.mongodb.net:27017,' +
-    'arproject-shard-00-02-cjsdl.mongodb.net:27017/ARDB?ssl=true&replicaSet=ARPROJECT-shard-0&authSource=admin';
-var oplogurl = 'mongodb://192.168.204.129:27017/ARDB';
+//AR
+
+var dbconfigMongo = require('../config/databaseMongo');
+
+var oplogurl = dbconfigMongo.ARConnection;
+
 var machines = [];
 
 
-//MYSQL
+//MYSQL for user data
 var mysql = require('mysql');
 
 var dbconfig = require('../config/database');
@@ -463,6 +466,8 @@ io.on('connection', function (socket) {
         console.log(dat.emailAddress);
         console.log(dat.session);
 
+        // checking if user is authorised to use this function; i check if email and current session id is in the db and if the user role is an admin
+
         connection.query("select * from usersession where email = ? and sessionId = ?", [dat.emailAddress.toString(), dat.session.toString()], (err, rowget) => {
 
             if (err) {
@@ -499,23 +504,12 @@ io.on('connection', function (socket) {
                                         socket.emit("sendlistofusers", arrtopish);
                                     });
                                 }
-
                             }
-
-
                         }
-
-
                     });
-
-
                 }
             }
-
-
         });
-
-
     });
 
 
@@ -526,7 +520,7 @@ io.on('connection', function (socket) {
         console.log(dat.emailAddress);
         console.log(dat.session);
 
-        // Making sure user is authorised
+        // Making sure authentication field is not empty
 
         if (dat.emailAddress == undefined) {
             emailAddress = ""
@@ -539,6 +533,7 @@ io.on('connection', function (socket) {
             session = dat.session
         }
 
+        // checking if user is authorised to use this function; i check if email and current session id is in the db and if the user role is an admin
 
         connection.query("select * from usersession where email = ? and sessionId = ?", [emailAddress.toString(), session.toString()], (err, rowget) => {
 
@@ -779,34 +774,16 @@ io.on('connection', function (socket) {
                                                 socket.emit("graphDataLoadAdm", readytosend);
 
                                             });
-
-
                                         }
-
-
                                     }
-
                                 }
-
-
                             }
-
                         }
-
-
                     });
-
-
                 }
             }
-
-
         });
-
-
     });
-
-
 });
 
 module.exports = io;
