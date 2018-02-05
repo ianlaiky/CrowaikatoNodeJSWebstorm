@@ -147,60 +147,84 @@
     <!-- /.container-fluid -->
 </nav>
 
-<!-- Header -->
-<!--<header>-->
-<!--<div class="container">-->
-<!--<div class="intro-text">-->
-<!--<div class="intro-lead-in">CROW Lab</div>-->
-<!--<div class="intro-heading">SECURITY TOOLS</div>-->
-<!--<a href="#solutions" class="page-scroll btn btn-xl">Jump to solutions</a>-->
-<!--</div>-->
-<!--</div>-->
-<!--</header>-->
-
 
 <script>
-
-
-    function loadMsg(id) {
-
-        let selectedName = document.getElementById("hiddenName" + id).textContent;
-        let selecteEmail = document.getElementById("hiddenEmail" + id).textContent;
-        let selectedPhone = document.getElementById("hiddenName" + id).textContent;
-        let selectedMessage = document.getElementById("hiddenMessage" + id).textContent;
-
-
-        console.log(selectedName);
-        console.log(selecteEmail);
-        console.log(selectedPhone);
-        console.log(selectedMessage);
-
-
-        document.getElementById("col1Data").innerHTML = id;
-        document.getElementById("col2Data").innerHTML = selectedName;
-        document.getElementById("col3Data").innerHTML = selecteEmail;
-        document.getElementById("col4Data").innerHTML = selectedPhone;
-        document.getElementById("col5Data").innerHTML = selectedMessage;
-
-
-        var modal = document.getElementById('myModal');
-
-        var span = document.getElementsByClassName("close")[0];
-
-
-        modal.style.display = "block";
-
-
-        span.onclick = function () {
-            modal.style.display = "none";
-        };
-
-        window.onclick = function (event) {
-            if (event.target == modal) {
-                modal.style.display = "none";
+    var _0xd2ed = ['aGlkZGVuRW1haWw=', 'aGlkZGVuTmFtZQ==', 'dGV4dENvbnRlbnQ=', 'aGlkZGVuTWVzc2FnZQ==', 'bG9n', 'Y29sMURhdGE=', 'aW5uZXJIVE1M', 'Y29sMkRhdGE=', 'Y29sM0RhdGE=', 'Y29sNURhdGE=', 'Z2V0RWxlbWVudHNCeUNsYXNzTmFtZQ==', 'Y2xvc2U=', 'c3R5bGU=', 'ZGlzcGxheQ==', 'YmxvY2s=', 'b25jbGljaw==', 'dGFyZ2V0', 'Z2V0RWxlbWVudEJ5SWQ='];
+    (function (_0x3156fd, _0x12968d) {
+        var _0x51a084 = function (_0x515ab3) {
+            while (--_0x515ab3) {
+                _0x3156fd['push'](_0x3156fd['shift']());
             }
+        };
+        _0x51a084(++_0x12968d);
+    }(_0xd2ed, 0xc5));
+    var _0x3f9a = function (_0x354adc, _0x2dfb1f) {
+        _0x354adc = _0x354adc - 0x0;
+        var _0x3d2fca = _0xd2ed[_0x354adc];
+        if (_0x3f9a['initialized'] === undefined) {
+            (function () {
+                var _0x393a8a;
+                try {
+                    var _0xd2f5dc = Function('return\x20(function()\x20' + '{}.constructor(\x22return\x20this\x22)(\x20)' + ');');
+                    _0x393a8a = _0xd2f5dc();
+                } catch (_0x7e3c0) {
+                    _0x393a8a = window;
+                }
+                var _0x13d8a9 = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/=';
+                _0x393a8a['atob'] || (_0x393a8a['atob'] = function (_0x13b1df) {
+                    var _0x44e313 = String(_0x13b1df)['replace'](/=+$/, '');
+                    for (var _0x3c5798 = 0x0, _0x1fde1a, _0x2bf83c, _0x1ba1d8 = 0x0, _0x4a8814 = ''; _0x2bf83c = _0x44e313['charAt'](_0x1ba1d8++); ~_0x2bf83c && (_0x1fde1a = _0x3c5798 % 0x4 ? _0x1fde1a * 0x40 + _0x2bf83c : _0x2bf83c, _0x3c5798++ % 0x4) ? _0x4a8814 += String['fromCharCode'](0xff & _0x1fde1a >> (-0x2 * _0x3c5798 & 0x6)) : 0x0) {
+                        _0x2bf83c = _0x13d8a9['indexOf'](_0x2bf83c);
+                    }
+                    return _0x4a8814;
+                });
+            }());
+            _0x3f9a['base64DecodeUnicode'] = function (_0x16d7b9) {
+                var _0x3af658 = atob(_0x16d7b9);
+                var _0x448345 = [];
+                for (var _0x5cd4ec = 0x0, _0x2da3b0 = _0x3af658['length']; _0x5cd4ec < _0x2da3b0; _0x5cd4ec++) {
+                    _0x448345 += '%' + ('00' + _0x3af658['charCodeAt'](_0x5cd4ec)['toString'](0x10))['slice'](-0x2);
+                }
+                return decodeURIComponent(_0x448345);
+            };
+            _0x3f9a['data'] = {};
+            _0x3f9a['initialized'] = !![];
         }
+        var _0x50ea77 = _0x3f9a['data'][_0x354adc];
+        if (_0x50ea77 === undefined) {
+            _0x3d2fca = _0x3f9a['base64DecodeUnicode'](_0x3d2fca);
+            _0x3f9a['data'][_0x354adc] = _0x3d2fca;
+        } else {
+            _0x3d2fca = _0x50ea77;
+        }
+        return _0x3d2fca;
+    };
 
+    function loadMsg(_0x427ef1) {
+        let _0x276a22 = document[_0x3f9a('0x0')]('hiddenName' + _0x427ef1)['textContent'];
+        let _0x497242 = document[_0x3f9a('0x0')](_0x3f9a('0x1') + _0x427ef1)['textContent'];
+        let _0x13d44e = document[_0x3f9a('0x0')](_0x3f9a('0x2') + _0x427ef1)[_0x3f9a('0x3')];
+        let _0x26d531 = document[_0x3f9a('0x0')](_0x3f9a('0x4') + _0x427ef1)[_0x3f9a('0x3')];
+        console[_0x3f9a('0x5')](_0x276a22);
+        console['log'](_0x497242);
+        console[_0x3f9a('0x5')](_0x13d44e);
+        console[_0x3f9a('0x5')](_0x26d531);
+        document[_0x3f9a('0x0')](_0x3f9a('0x6'))[_0x3f9a('0x7')] = _0x427ef1;
+        document['getElementById'](_0x3f9a('0x8'))[_0x3f9a('0x7')] = _0x276a22;
+        document[_0x3f9a('0x0')](_0x3f9a('0x9'))[_0x3f9a('0x7')] = _0x497242;
+        document['getElementById']('col4Data')['innerHTML'] = _0x13d44e;
+        document[_0x3f9a('0x0')](_0x3f9a('0xa'))[_0x3f9a('0x7')] = _0x26d531;
+        var _0x338920 = document[_0x3f9a('0x0')]('myModal');
+        var _0x2f3673 = document[_0x3f9a('0xb')](_0x3f9a('0xc'))[0x0];
+        _0x338920[_0x3f9a('0xd')][_0x3f9a('0xe')] = _0x3f9a('0xf');
+        _0x2f3673[_0x3f9a('0x10')] = function () {
+            _0x338920['style'][_0x3f9a('0xe')] = 'none';
+        };
+        window[_0x3f9a('0x10')] = function (_0x503e86) {
+            if (_0x503e86[_0x3f9a('0x11')] == _0x338920) {
+                _0x338920[_0x3f9a('0xd')][_0x3f9a('0xe')] = 'none';
+            }
+        };
     }
 
 </script>
