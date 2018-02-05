@@ -1294,11 +1294,12 @@ router.post('/lockyUpload', isLoggedIn, function (req, res) {
     });
 
 
-    // parse the incoming request containing the form data
-    // form.parse(req);
+
 
 });
 
+
+// When user selects a file
 router.post('/fileSelect', isLoggedIn, (req, res) => {
     console.log("Selected file");
     console.log(req.body.fileselection);
@@ -1306,7 +1307,7 @@ router.post('/fileSelect', isLoggedIn, (req, res) => {
         res.redirect("/error")
     } else {
 
-
+        // save to session when is retrieved in the api.js
         req.session.fileSelectedFileNo = req.body.fileselection;
         req.session.save();
         res.redirect("/page/lockyAnalysis")
@@ -1315,6 +1316,8 @@ router.post('/fileSelect', isLoggedIn, (req, res) => {
 
 });
 
+
+// middleware to make sure only admin can access these pages
 function isLoggedInAdmin(req, res, next) {
 
     console.log("admin cehck print");
@@ -1370,6 +1373,7 @@ function isLoggedInAdmin(req, res, next) {
 
 }
 
+// middleware to make sure only standard users can access these pages
 function isLoggedIn(req, res, next) {
 
 
@@ -1420,6 +1424,8 @@ function isLoggedIn(req, res, next) {
 
 
 }
+
+// middlware for users not currently logged in.
 
 function isLoggedout(req, res, next) {
 

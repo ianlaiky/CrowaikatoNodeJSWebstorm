@@ -59,13 +59,13 @@ function verifyRecaptcha(key, callback) {
     });
 }
 
-
+// data encryption
 function encryptData(msginput, pass) {
     //salt for the pass der
     var salt = CryptoJS.lib.WordArray.random(128 / 8);
     console.log("FIRST SALT: " + salt);
 
-    //password deriv
+    //password derive bytes using PBKDF2 with 1000 iterations
     var key512Bits1000Iterations = CryptoJS.PBKDF2(pass, salt, {keySize: 512 / 32, iterations: 1000});
 
     console.log("Initial key: " + key512Bits1000Iterations);
@@ -75,7 +75,7 @@ function encryptData(msginput, pass) {
 
     console.log("FIRST IV: " + iv);
 
-
+    // AES encrypt using PBKDF2 key
     var encrypted = CryptoJS.AES.encrypt(msginput, key512Bits1000Iterations, {
         iv: iv,
         padding: CryptoJS.pad.Pkcs7,
@@ -83,12 +83,15 @@ function encryptData(msginput, pass) {
 
     });
 
+    // storing salt and iv with encrypted data
     var transitmessage = salt.toString() + iv.toString() + encrypted.toString();
     console.log("Encrypted text: " + encrypted.toString());
     console.log(transitmessage);
     return transitmessage;
 }
 
+
+//decryption
 function decryptData(transitmessage, pass) {
     var saltdecrypt = CryptoJS.enc.Hex.parse(transitmessage.substr(0, 32));
     console.log("Second SALT: " + saltdecrypt);
@@ -134,7 +137,7 @@ passport.deserializeUser(function (id, done) {
 
 
 });
-
+// user authenticated using passport
 
 passport.use('local.signin', new LocalStrategy({
 
@@ -146,6 +149,8 @@ passport.use('local.signin', new LocalStrategy({
 
 }, function (req, emailAddress, password, done) {
     console.log("RUN 0");
+
+    // validation of fields
     req.check('emailAddress', "Please enter a valid email").trim().notEmpty().isEmail();
     req.check('password', 'Please enter a password').trim().notEmpty();
 
@@ -158,7 +163,7 @@ passport.use('local.signin', new LocalStrategy({
     if (errors) {
         console.log("RUN 1");
 
-
+        // flash to session if there is errors
         return done(null, false, req.flash('errorLogin', [{
             param: "emailorpassWrong",
             msg: "Username or Password Wrong"
@@ -178,16 +183,18 @@ passport.use('local.signin', new LocalStrategy({
                 return done(err);
             }
 
-
+            // if there are users found in db
             if (rows.length) {
                 console.log("ROW LENGTH:");
                 console.log(rows.length);
+                //if password fails
                 if (!bcrypt.compareSync(password, rows[0].password))
                     return done(null, false, req.flash('errorLogin', [{
                         param: "emailorpassWrong",
                         msg: "Username or Password Wrong"
                     }])); // create the loginMessage and save it to session as flashdata
             } else {
+                // user not found in db
                 console.log("ROW LEN:");
                 console.log(rows.length);
                 return done(null, false, req.flash('errorLogin', [{
@@ -204,6 +211,8 @@ passport.use('local.signin', new LocalStrategy({
 
             console.log(rows[0].approved);
 
+            // admin can toggle users access satus, denied or approved.
+            // if denied user cannot access
             if (rows[0].approved == "denied") {
                 return done(null, false, req.flash('errorLogin', [{
                     param: "emailorpassWrong",
@@ -214,11 +223,7 @@ passport.use('local.signin', new LocalStrategy({
             }
 
 
-            // if the user is found but the password is wrong
-
-
-            // all is well, return successful user
-
+            // retrieve encrypted data from db and decrypt it for session store
 
             connection.query("SELECT * FROM userinfo WHERE username = ?", [emailAddress], function (err, rowsInfo) {
                 console.log("Retrieved data");
@@ -245,7 +250,7 @@ passport.use('local.signin', new LocalStrategy({
                 console.log("DECRUPT$ED TEST: " + dbfirstname);
                 console.log("DECRUPT$ED TEST: " + dbusername);
 
-
+                // saving as an object
                 var sessiontoSave = {
                     uid: rows[0].id,
                     emailAddress:emailAddress,
@@ -268,8 +273,9 @@ passport.use('local.signin', new LocalStrategy({
 
                 };
 
-
+                // saves to session
                 req.session.useInfoo = sessiontoSave;
+                // important to implicitly use .save()
                 req.session.save();
 
 
@@ -277,6 +283,7 @@ passport.use('local.signin', new LocalStrategy({
                 console.log(req.session.id);
                 console.log(dbusername);
 
+                // checking the usersession from db. this is used to make sure each user only sign in from one device
                 connection.query("SELECT * FROM usersession WHERE email = ?", [dbusername], (err, rowSessionGet) => {
                     if (err) console.log(err);
                     console.log("SESSION ID GET FROM DB");
@@ -284,6 +291,7 @@ passport.use('local.signin', new LocalStrategy({
 
 
                     if (rowSessionGet.length == 0) {
+                        // insert new session if there is no data
 
                         let insertQuery = "INSERT INTO usersession ( email, sessionId ) values (?,?)";
                         connection.query(insertQuery, [dbusername.toString(), req.session.id.toString()], (err, insertedrow) => {
@@ -300,6 +308,7 @@ passport.use('local.signin', new LocalStrategy({
 
 
                     } else {
+                        // update the new session id for each user when logged in
 
                         let updatequery = "UPDATE usersession SET sessionId = ? WHERE email = ?";
                         connection.query(updatequery, [req.session.id.toString(), dbusername.toString()], (err, modifiedRow) => {
@@ -318,8 +327,7 @@ passport.use('local.signin', new LocalStrategy({
 
             });
 
-            //     console.log("Login validation done");
-            //     return done(null, rows[0]);
+
         });
 
     }
@@ -327,6 +335,7 @@ passport.use('local.signin', new LocalStrategy({
 
 }));
 
+// registeration
 
 passport.use('local.signup', new LocalStrategy({
     usernameField: 'emailAddress',
@@ -335,6 +344,7 @@ passport.use('local.signup', new LocalStrategy({
 
 }, function (req, emailAddress, password, done) {
 
+    // making sure captcha is not empty
 
     var captchaValidationResult = false;
     console.log("before" + captchaValidationResult);
@@ -343,23 +353,23 @@ passport.use('local.signup', new LocalStrategy({
 
     }
 
-
+    //verify captcha
     verifyRecaptcha(req.body["g-recaptcha-response"], function (success) {
 
 
         if (success) {
             captchaValidationResult = true;
             console.log("aftwer" + captchaValidationResult)
-            // return res.json({"responseCode": 0, "responseDesc": "Sucess"});
+
         } else {
             captchaValidationResult = false;
-            // return res.json({"responseCode": 1, "responseDesc": "Failed captcha verification"});
+
         }
 
 
         console.log("VALICDATION OF CAPTCHSA" + captchaValidationResult);
 
-
+        // validation of fields
         console.log(req.body);
         req.check('emailAddress', "Please enter a valid email").trim().notEmpty().isEmail();
         req.check('emailAddress', "Reached Character Limit (Max: 200)").trim().isLength({max: 200});
@@ -405,15 +415,11 @@ passport.use('local.signup', new LocalStrategy({
         req.check('exampleRadios', "Reached Character Limit (Max: 200)").trim().isLength({max: 200});
 
 
-        //santise
-        var test = req.sanitize('password').escape();
-
-        console.log("sanitised data: " + test);
-
-
         var errors = req.validationErrors();
 
         console.log("Captcha result" + captchaValidationResult);
+
+        // if catpcha fails, save all current result to a object so user do not need to retype all fields again
 
         if (captchaValidationResult == false) {
             let detailsofuserbeforesave = {
@@ -436,10 +442,12 @@ passport.use('local.signup', new LocalStrategy({
 
 
             if (!errors) {
+                // if no current errors, initialise an error array and push data into it
 
                 errors = [];
                 errors.push({"param": "captcha", "msg": "Please do the captcha","userDetails":detailsofuserbeforesave});
             } else {
+                // if there already exists data in error array, push the data
                 errors.push({"param": "captcha", "msg": "Please do the captcha","userDetails":detailsofuserbeforesave});
             }
 
@@ -450,7 +458,10 @@ passport.use('local.signup', new LocalStrategy({
 
 
         if (errors) {
+            // if there are data in the error list; if captcha pass but some fields fails
             console.log("RUN 1");
+
+            // get current fields data and store to object
             let detailsofuserbeforesave = {
                 emailadd:req.body.emailAddress,
                 firstName: req.body.firstName,
@@ -469,6 +480,9 @@ passport.use('local.signup', new LocalStrategy({
                 exampleRadios: req.body.exampleRadios
             };
 
+            // adds the current data(userDetails) that the user typed in together with the location, param, msg and value of the error
+            // currently errors[0] contains only the location, param, msg and value data
+            //  we need to push in the userDetails in it as well which the front end can retrieve
             let tempMap = errors[0];
 
             let intempMap = {
@@ -479,26 +493,28 @@ passport.use('local.signup', new LocalStrategy({
                 userDetails:detailsofuserbeforesave
             };
 
+            // saving the new object back into the first index
             errors[0]=intempMap;
             req.session.success = false;
 
+            // returning and saving to flash
             return done(null, false, req.flash('error', errors));
 
         } else {
 
 
             console.log("RUN 2");
-// find a user whose email is the same as the forms email
-            // we are checking to see if the user trying to login already exists
+            // find a user whose email is the same as the forms email
+            // we are checking to see if the email the user trying to register already exists
             connection.query("SELECT * FROM users WHERE username = ?", [emailAddress], function (err, rows) {
 
 
                 if (err)
                     return done(err);
                 if (rows.length) {
-
+                    // if there is an existing user,
                     req.session.success = false;
-
+                    // saves current user form data to session which is used to dynamically add back
                     let detailsofuserbeforesave = {
                         emailadd:req.body.emailAddress,
                         firstName: req.body.firstName,
@@ -517,17 +533,24 @@ passport.use('local.signup', new LocalStrategy({
                         exampleRadios: req.body.exampleRadios
                     };
 
+                    // the array object is stored in the flash
 
                     return done(null, false, req.flash('error', [{param: 'emailAddress', msg: 'Existing user found',userDetails:detailsofuserbeforesave}]));
                 } else {
                     // if there is no user with that username
                     // create the user
+
+                    //generate salt
                     console.log(bcrypt.genSaltSync(8));
+
+                    //store email and hash into object
                     var newUserMysql = {
                         username: emailAddress,
-                        password: bcrypt.hashSync(password, null, null)  // use the generateHash function in our user model
+                        password: bcrypt.hashSync(password, null, null)
                     };
 
+
+                    // insert new user with member role and denied permission. admin need to manually approve users
                     var insertQuery = "INSERT INTO users ( username, password, roles, approved) values (?,?,?,?)";
 
                     connection.query(insertQuery, [newUserMysql.username, newUserMysql.password, "member", "denied"], function (err, rows) {
@@ -553,7 +576,7 @@ passport.use('local.signup', new LocalStrategy({
                         var retrievedjobFunction = req.body.jobFunction;
                         var retrievedexampleRadios = req.body.exampleRadios;
 
-
+                        // encrypt data
                         var encryptedRetriencryptedRvedfirstName = encryptData(retrievedfirstName, newUserMysql.password);
                         var encryptedRetriedlastName = encryptData(retriedlastName, newUserMysql.password);
                         var encryptedRetrievedjobtitle = encryptData(retrievedjobtitle, newUserMysql.password);
@@ -569,7 +592,7 @@ passport.use('local.signup', new LocalStrategy({
                         var encryptedRetrievedjobFunction = encryptData(retrievedjobFunction, newUserMysql.password);
                         var encryptedRetrievedexampleRadios = encryptData(retrievedexampleRadios, newUserMysql.password);
 
-
+                        // save encrypted data to db
                         var insertQueryinfo = "INSERT INTO userinfo ( username, firstname, lastname, jobtitle, company, country, state, city, zipcode, address, phoneno, faxno, sectorwork, jobfunction, fulltimestudent ) values (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
 
                         connection.query(insertQueryinfo, [req.body.emailAddress, encryptedRetriencryptedRvedfirstName, encryptedRetriedlastName, encryptedRetrievedjobtitle, encryptedRetrievedinstitution, encryptedRetrievedcountryName, encryptedRetrievedstate, encryptedRetverievedcityName, encryptedRetrievedzipcode, encryptedRetrievedinputAddress, encryptedRetrievedphoneNumber, encryptedRetrievedfaxNumber, encryptedRetrievedworkSector, encryptedRetrievedjobFunction, encryptedRetrievedexampleRadios], function (err, userRow) {
@@ -581,6 +604,8 @@ passport.use('local.signup', new LocalStrategy({
 
                             console.log(userRow);
 
+                            // save the current date time and username into the userlog table for use in the
+                            // admin console to show user stats
                             let insertQueryLogReg = "INSERT INTO userlog ( year, month, date, day, mode,username ) values (?,?,?,?,?,?)";
                             let now = new Date();
                             let saveYear = now.getFullYear();
@@ -613,9 +638,6 @@ passport.use('local.signup', new LocalStrategy({
 
 
         }
-
-        // console.log(errors)
-        // console.log(req.session.errors)
 
 
     });
