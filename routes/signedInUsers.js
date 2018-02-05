@@ -1260,7 +1260,7 @@ router.post('/lockyUpload', isLoggedIn, function (req, res) {
 
 
         var insertQuery = "INSERT INTO fileupload ( uid, fileNo,fileName ) values (?,?,?)";
-        connection.query(insertQuery, [req.session.useInfoo.uid.toString(), newFileID, file.name], (err, insertrows) => {
+        connection.query(insertQuery, [req.session.useInfoo.uid.toString(), newFileID, file.name.substring(0,100)], (err, insertrows) => {
             if (err)
                 console.log(err);
 
