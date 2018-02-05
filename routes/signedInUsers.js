@@ -394,7 +394,7 @@ router.post("/homeSettingsDetailsEdit", isLoggedIn, (req, res, next) => {
 
                     console.log("BODY REQ");
                     console.log(req.body);
-                     // Re-encryption of new data
+                    // Re-encryption of new data
                     let firstNameRetrieve = encryptData(req.body.firstName, passwordforEncryption);
                     let lastNameRetrieve = encryptData(req.body.lastName, passwordforEncryption);
                     let jobtitleRetrieve = encryptData(req.body.jobtitle, passwordforEncryption);
@@ -707,40 +707,35 @@ router.get("/adminContactUs", isLoggedInAdmin, (req, res, next) => {
 
                 for (let obj of row) {
                     let nameSub;
-                    if(obj.name.length>10){
-                        nameSub= obj.name.substring(0, 10);
-                        nameSub=nameSub+"…";
+                    if (obj.name.length > 10) {
+                        nameSub = obj.name.substring(0, 10);
+                        nameSub = nameSub + "…";
 
-                    }else{
-                        nameSub= obj.name;
+                    } else {
+                        nameSub = obj.name;
                     }
                     let emailSub;
-                    if(obj.email.length>10){
+                    if (obj.email.length > 10) {
                         emailSub = obj.email.substring(0, 10);
-                        emailSub=emailSub+"…";
-                    }else{
+                        emailSub = emailSub + "…";
+                    } else {
                         emailSub = obj.email;
                     }
                     let phoneSub;
-                    if(obj.phone.length>10){
+                    if (obj.phone.length > 10) {
                         phoneSub = obj.phone.substring(0, 10);
-                        phoneSub=phoneSub+"…";
-                    }else{
+                        phoneSub = phoneSub + "…";
+                    } else {
                         phoneSub = obj.phone;
                     }
 
                     let messagSub;
-                    if(obj.message.length>10){
+                    if (obj.message.length > 10) {
                         messagSub = obj.message.substring(0, 10);
-                        messagSub=messagSub+"…"
-                    }else{
+                        messagSub = messagSub + "…"
+                    } else {
                         messagSub = obj.message;
                     }
-
-
-
-
-
 
 
                     let tempMap = {
@@ -1109,7 +1104,6 @@ router.get("/machines", isLoggedIn, function (request, response) {
     response.send(machines);
 
 
-
 });
 
 router.get('/register', isLoggedout, function (req, res, next) {
@@ -1260,7 +1254,7 @@ router.post('/lockyUpload', isLoggedIn, function (req, res) {
 
 
         var insertQuery = "INSERT INTO fileupload ( uid, fileNo,fileName ) values (?,?,?)";
-        connection.query(insertQuery, [req.session.useInfoo.uid.toString(), newFileID, file.name.substring(0,100)], (err, insertrows) => {
+        connection.query(insertQuery, [req.session.useInfoo.uid.toString(), newFileID, file.name.substring(0, 100)], (err, insertrows) => {
             if (err)
                 console.log(err);
 
@@ -1292,8 +1286,6 @@ router.post('/lockyUpload', isLoggedIn, function (req, res) {
 
 
     });
-
-
 
 
 });

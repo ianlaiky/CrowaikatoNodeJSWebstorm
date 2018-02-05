@@ -253,7 +253,7 @@ passport.use('local.signin', new LocalStrategy({
                 // saving as an object
                 var sessiontoSave = {
                     uid: rows[0].id,
-                    emailAddress:emailAddress,
+                    emailAddress: emailAddress,
                     username: dbusername,
                     firstname: dbfirstname,
                     lastname: dblastname,
@@ -423,7 +423,7 @@ passport.use('local.signup', new LocalStrategy({
 
         if (captchaValidationResult == false) {
             let detailsofuserbeforesave = {
-                emailadd:req.body.emailAddress,
+                emailadd: req.body.emailAddress,
                 firstName: req.body.firstName,
                 lastName: req.body.lastName,
                 jobtitle: req.body.jobtitle,
@@ -445,10 +445,18 @@ passport.use('local.signup', new LocalStrategy({
                 // if no current errors, initialise an error array and push data into it
 
                 errors = [];
-                errors.push({"param": "captcha", "msg": "Please do the captcha","userDetails":detailsofuserbeforesave});
+                errors.push({
+                    "param": "captcha",
+                    "msg": "Please do the captcha",
+                    "userDetails": detailsofuserbeforesave
+                });
             } else {
                 // if there already exists data in error array, push the data
-                errors.push({"param": "captcha", "msg": "Please do the captcha","userDetails":detailsofuserbeforesave});
+                errors.push({
+                    "param": "captcha",
+                    "msg": "Please do the captcha",
+                    "userDetails": detailsofuserbeforesave
+                });
             }
 
         }
@@ -463,7 +471,7 @@ passport.use('local.signup', new LocalStrategy({
 
             // get current fields data and store to object
             let detailsofuserbeforesave = {
-                emailadd:req.body.emailAddress,
+                emailadd: req.body.emailAddress,
                 firstName: req.body.firstName,
                 lastName: req.body.lastName,
                 jobtitle: req.body.jobtitle,
@@ -486,15 +494,15 @@ passport.use('local.signup', new LocalStrategy({
             let tempMap = errors[0];
 
             let intempMap = {
-                location:tempMap.location,
-                param:tempMap.param,
-                msg:tempMap.msg,
-                value:tempMap.value,
-                userDetails:detailsofuserbeforesave
+                location: tempMap.location,
+                param: tempMap.param,
+                msg: tempMap.msg,
+                value: tempMap.value,
+                userDetails: detailsofuserbeforesave
             };
 
             // saving the new object back into the first index
-            errors[0]=intempMap;
+            errors[0] = intempMap;
             req.session.success = false;
 
             // returning and saving to flash
@@ -516,7 +524,7 @@ passport.use('local.signup', new LocalStrategy({
                     req.session.success = false;
                     // saves current user form data to session which is used to dynamically add back
                     let detailsofuserbeforesave = {
-                        emailadd:req.body.emailAddress,
+                        emailadd: req.body.emailAddress,
                         firstName: req.body.firstName,
                         lastName: req.body.lastName,
                         jobtitle: req.body.jobtitle,
@@ -535,7 +543,11 @@ passport.use('local.signup', new LocalStrategy({
 
                     // the array object is stored in the flash
 
-                    return done(null, false, req.flash('error', [{param: 'emailAddress', msg: 'Existing user found',userDetails:detailsofuserbeforesave}]));
+                    return done(null, false, req.flash('error', [{
+                        param: 'emailAddress',
+                        msg: 'Existing user found',
+                        userDetails: detailsofuserbeforesave
+                    }]));
                 } else {
                     // if there is no user with that username
                     // create the user
@@ -614,7 +626,7 @@ passport.use('local.signup', new LocalStrategy({
                             let saveDay = now.getDay();
                             let saveMode = "register";
 
-                            connection.query(insertQueryLogReg, [saveYear.toString(), saveMonth.toString(), saveDate.toString(), saveDay.toString(), saveMode.toString(),newUserMysql.username.toString()], (err, insertRegLogRow) => {
+                            connection.query(insertQueryLogReg, [saveYear.toString(), saveMonth.toString(), saveDate.toString(), saveDay.toString(), saveMode.toString(), newUserMysql.username.toString()], (err, insertRegLogRow) => {
                                 if (err) console.log(err);
                                 console.log("register logged");
                                 console.log(insertRegLogRow);
