@@ -11,7 +11,6 @@ var https = require('https');
 var MongoDB = require('mongodb');
 
 
-
 var expressValidator = require('express-validator');
 var expressSession = require('express-session');
 
@@ -34,8 +33,6 @@ require('./config/passport');
 var app = express();
 
 
-
-
 // Assigns app io variable
 app.io = io;
 
@@ -44,8 +41,8 @@ app.io = io;
 mongoose.Promise = Promise;
 
 // Connect to MongoDB
-mongoose.connect(dbconfigMongo.VisualProggerConnection, function(err) {
-    if(err) throw err;
+mongoose.connect(dbconfigMongo.VisualProggerConnection, function (err) {
+    if (err) throw err;
 });
 
 // view engine setup
@@ -66,13 +63,9 @@ app.use(passport.initialize());
 app.use(passport.session());
 
 
-
-
-
 app.use('/page', userAccounts);
 app.use('/api', api);
 app.use('/', index);
-
 
 
 // catch 404 and forward to error handler
@@ -95,7 +88,6 @@ app.use(function (err, req, res, next) {
 
 console.log("CURRENT DEV:");
 console.log(process.env.NODE_ENV);
-
 
 
 function allowed(req) {

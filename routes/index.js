@@ -57,10 +57,11 @@ function verifyRecaptcha(key, callback) {
 }
 
 
+// Post request for Contact us form
 router.post("/contactUsSubmit", isLoggedout, (req, res, next) => {
     console.log("RUNNING contact us");
 
-
+    // captha validation
     var captchaValidationResult = false;
     console.log("before" + captchaValidationResult);
     if (req.body['g-recaptcha-response'] === undefined || req.body['g-recaptcha-response'] === '' || req.body['g-recaptcha-response'] === null) {
@@ -72,13 +73,12 @@ router.post("/contactUsSubmit", isLoggedout, (req, res, next) => {
         if (success) {
             captchaValidationResult = true;
             console.log("aftwer Captcha " + captchaValidationResult)
-            // return res.json({"responseCode": 0, "responseDesc": "Sucess"});
         } else {
             captchaValidationResult = false;
-            // return res.json({"responseCode": 1, "responseDesc": "Failed captcha verification"});
+
         }
 
-
+        // fields validation
         console.log("VALICDATION OF CAPTCHSA" + captchaValidationResult);
         console.log(req.body);
 
@@ -185,13 +185,9 @@ router.get('/', isLoggedout, function (req, res, next) {
 
     res.render('index', {layout: 'layout/layout', messages: messages, hasError: messages.length > 0,messageContactUs:messagesContactUs,contactHasError:messagesContactUs.length>0,contactUsSuccess:cotactusSucessFin,redirectContactUs:autoRedirect,captchaClientKey:clientSecretKey});
 });
-// router.get('/artest', function (req, res, next) {
-//
-//
-//     res.render('artest');
-// });
 
-/* GET home page. */
+
+
 router.get('/error', function (req, res, next) {
 
 
