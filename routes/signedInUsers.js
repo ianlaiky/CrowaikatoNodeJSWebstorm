@@ -109,7 +109,7 @@ function encryptData(msginput, pass) {
 
 // The start of routing
 
-
+// handling of user registration
 router.post("/registerForm", passport.authenticate('local.signup', {
 
     // successRedirect: '/page/register', // redirect to the secure profile section
@@ -117,7 +117,8 @@ router.post("/registerForm", passport.authenticate('local.signup', {
     failureFlash: true // allow flash messages
 }), (req, res) => {
 
-
+    // make sure to logout after user register to prevent authentication issue as passport auto authorise user
+    // after register
     req.logout();
     res.redirect("/page/register")
 
@@ -125,6 +126,7 @@ router.post("/registerForm", passport.authenticate('local.signup', {
 });
 
 
+// handling of logins
 router.post('/loginBackend', passport.authenticate('local.signin', {
 
     // successRedirect: '/page/home', // redirect to the secure profile section
@@ -134,11 +136,12 @@ router.post('/loginBackend', passport.authenticate('local.signin', {
 }), (req, res) => {
     console.log("Switch roles running");
 
-
+    // Start of saving user logs for admin stats
+    // does not save the log if the user logging is an admin
     if (req.session.useInfoo.userrole.toString() == "admin") {
         res.redirect("/page/adminConsole")
     } else {
-        // logs for admin stats
+        // logs for users stats
         let insertQueryLog = "INSERT INTO userlog ( year, month, date, day, mode,username ) values (?,?,?,?,?,?)";
         let now = new Date();
         let saveYear = now.getFullYear();
@@ -692,6 +695,7 @@ router.get("/adminUserApproval", isLoggedInAdmin, (req, res, next) => {
 
 });
 
+// handling of admin to view contact us feedback
 
 router.get("/adminContactUs", isLoggedInAdmin, (req, res, next) => {
 
@@ -773,7 +777,7 @@ router.get("/adminContactUs", isLoggedInAdmin, (req, res, next) => {
 });
 
 
-// PERFORMANCE TESTING
+// admin console
 router.get('/adminConsole', isLoggedInAdmin, function (req, res, next) {
     console.log("testing adminconsole param get");
     console.log(req.query);
@@ -844,14 +848,15 @@ router.get('/augmentedRealityPorting', isLoggedIn, function (req, res, next) {
     }
 
 
-    // res.redirect("/page/home");
-    // res.redirect("/page/augmentedRealityStatic");
+
 });
 
+
+// handling the camera confrim page. selection of the static or live option is sent via handlebars
 router.get("/arcameraConfirm", isLoggedIn, (req, res, next) => {
 
     let selection;
-
+    // get the get query from the url
     console.log(req.query.arselect);
 
     if (req.query.arselect == undefined) {
@@ -875,7 +880,11 @@ router.get('/augmentedRealityStatic', isLoggedIn, function (req, res, next) {
     res.render('augmentedReality/indexStatic', {title: 'Dependency', layout: 'layout/augmentedRealityLayout'});
 });
 
-// For AR
+// For AR; Need to be run as it loads
+// important: Since i found that the client side request this ARMachine array as a ajax, it would
+// not wait for the request to finish before continuing, hence, the retrieve would not work fast enough
+// so start the retrieve on load to prevent this issue.
+// Unless the front end can be a sync function which waits for the data before continuing.
 MongoDB.MongoClient.connect(arurl, function (err, db) {
 
     if (err) {
@@ -900,7 +909,8 @@ MongoDB.MongoClient.connect(arurl, function (err, db) {
     });
 
 });
-
+// AR
+// Sents the machine array when the front end requests it
 router.get("/machines", isLoggedIn, function (request, response) {
     console.log("AR machones");
     response.send(machines);
@@ -908,17 +918,20 @@ router.get("/machines", isLoggedIn, function (request, response) {
 
 });
 
+// load register page
+
 router.get('/register', isLoggedout, function (req, res, next) {
 
-
+    // get the flash session when there is errors, which contains the previous user data typed in to be dynamically displayed
+    // back to each individual fields
+    // if there is no error, there would just be an empty array []
     var messages = req.flash('error');
     console.log(messages);
     console.log("just to see if null");
-    // console.log(messages[0].userDetails);
+
     console.log(messages.length);
     console.log(messages.length > 0);
-    // console.log("this shoudl dis");
-    // console.log(req.session.success);
+
     let listtoPort;
     let existingdata = false;
     if (messages.length > 0) {
@@ -948,6 +961,7 @@ router.get('/register', isLoggedout, function (req, res, next) {
             console.log("Print what is saved from flah");
             console.log(listtoPort);
         } else {
+            // empty data to be pushed on first load, this is to prevent null
             console.log("undefined ran works");
             listtoPort = {
                 emailadd: "",
@@ -984,12 +998,16 @@ router.get('/register', isLoggedout, function (req, res, next) {
     req.session.errors = null;
 });
 
+// logout handling
 router.get('/logout', function (req, res, next) {
+    // destroy session
     req.session.destroy(function (err) {
         if (err) {
             console.log(err)
         }
+        // clear cookies from user browser
         res.clearCookie('connect.sid');
+        // passport logout
         req.logout();
         res.redirect("/")
 
