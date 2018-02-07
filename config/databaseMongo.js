@@ -2,6 +2,6 @@
 
 
 module.exports = {
-   'VisualProggerConnection':'mongodb://localhost/visualprogger',
-    'ARConnection':'mongodb://localhost:27017/ARDB'
+   'VisualProggerConnection':'mongodb://192.168.204.129/visualprogger',
+    'ARConnection':'mongodb://192.168.204.129:27017/ARDB'
 };
