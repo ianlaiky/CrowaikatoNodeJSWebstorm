@@ -2,5 +2,5 @@
 
 
 module.exports = {
-   'python2_7':''
+   'python27':''
 };
