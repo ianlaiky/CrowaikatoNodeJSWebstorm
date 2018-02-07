@@ -1,3 +1,5 @@
+// File Created by: Ian Lai Kheng Yan
+
 var express = require('express');
 var passport = require('passport');
 var CryptoJS = require("crypto-js");
