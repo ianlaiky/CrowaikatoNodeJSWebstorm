@@ -1,0 +1,3711 @@
+{
+  "name": "Security Attribution Process",
+  "children": [
+    {
+      "name": "Security Attribution",
+      "children": [
+        {
+          "name": "Technical Analysis",
+          "children": [
+            {
+              "name": "Network Analysis",
+              "children": [
+                {
+                  "name": "Packet Analysis (e.g. Wireshark, Deep Packet Inspection)",
+                  "children": [
+                    {
+                      "name": "Connections from Unusual Locations",
+                      "children": [
+                        {
+                          "name": "Advanced Persistent Threat (APT)",
+                          "children": [
+                            {
+                              "name": "Financial",
+                              "children": [
+                                {
+                                  "name": "Individual",
+                                  "size": 1
+                                },
+                                {
+                                  "name": "Organised Crime",
+                                  "size": 1
+                                },
+                                {
+                                  "name": "Country",
+                                  "size": 1
+                                },
+                                {
+                                  "name": "Terrorist",
+                                  "size": 1
+                                },
+                                {
+                                  "name": "Private Sector",
+                                  "size": 1
+                                }
+                              ]
+                            },
+                            {
+                              "name": "Intelligence",
+                              "children": [
+                                {
+                                  "name": "Individual",
+                                  "size": 1
+                                },
+                                {
+                                  "name": "Organised Crime",
+                                  "size": 1
+                                },
+                                {
+                                  "name": "Country",
+                                  "size": 1
+                                },
+                                {
+                                  "name": "Private Sector",
+                                  "size": 1
+                                }
+                              ]
+                            },
+                            {
+                              "name": "Destruction",
+                              "children": [
+                                {
+                                  "name": "Individual",
+                                  "size": 1
+                                },
+                                {
+                                  "name": "Organised Crime",
+                                  "size": 1
+                                },
+                                {
+                                  "name": "Country",
+                                  "size": 1
+                                },
+                                {
+                                  "name": "Terrorist",
+                                  "size": 1
+                                },
+                                {
+                                  "name": "Private Sector",
+                                  "size": 1
+                                }
+                              ]
+                            }
+                          ]
+                        },
+                        {
+                          "name": "Spyware",
+                          "children": [
+                            {
+                              "name": "Financial",
+                              "children": [
+                                {
+                                  "name": "Individual",
+                                  "size": 1
+                                },
+                                {
+                                  "name": "Organised Crime",
+                                  "size": 1
+                                },
+                                {
+                                  "name": "Country",
+                                  "size": 1
+                                },
+                                {
+                                  "name": "Terrorist",
+                                  "size": 1
+                                },
+                                {
+                                  "name": "Private Sector",
+                                  "size": 1
+                                }
+                              ]
+                            },
+                            {
+                              "name": "Emotional or Psychological",
+                              "children": [
+                                {
+                                  "name": "Individual",
+                                  "size": 1
+                                },
+                                {
+                                  "name": "Hacktivists",
+                                  "size": 1
+                                },
+                                {
+                                  "name": "Organised Crime",
+                                  "size": 1
+                                },
+                                {
+                                  "name": "Terrorist",
+                                  "size": 1
+                                },
+                                {
+                                  "name": "Private Sector",
+                                  "size": 1
+                                }
+                              ]
+                            },
+                            {
+                              "name": "Intelligence",
+                              "children": [
+                                {
+                                  "name": "Individual",
+                                  "size": 1
+                                },
+                                {
+                                  "name": "Organised Crime",
+                                  "size": 1
+                                },
+                                {
+                                  "name": "Country",
+                                  "size": 1
+                                },
+                                {
+                                  "name": "Private Sector",
+                                  "size": 1
+                                }
+                              ]
+                            },
+                            {
+                              "name": "Personal Entertainment",
+                              "children": [
+                                {
+                                  "name": "Individual",
+                                  "size": 1
+                                }
+                              ]
+                            },
+                            {
+                              "name": "Service",
+                              "children": [
+                                {
+                                  "name": "Individual",
+                                  "size": 1
+                                },
+                                {
+                                  "name": "Organised Crime",
+                                  "size": 1
+                                },
+                                {
+                                  "name": "Private Sector",
+                                  "size": 1
+                                }
+                              ]
+                            },
+                            {
+                              "name": "Sexual Impulse",
+                              "children": [
+                                {
+                                  "name": "Individual",
+                                  "size": 1
+                                }
+                              ]
+                            },
+                            {
+                              "name": "Psychiatric Illness",
+                              "children": [
+                                {
+                                  "name": "Individual",
+                                  "size": 1
+                                }
+                              ]
+                            }
+                          ]
+                        },
+                        {
+                          "name": "Worm, Virus",
+                          "children": [
+                            {
+                              "name": "Ideological",
+                              "children": [
+                                {
+                                  "name": "Individual",
+                                  "size": 1
+                                }
+                              ]
+                            },
+                            {
+                              "name": "Financial",
+                              "children": [
+                                {
+                                  "name": "Individual",
+                                  "size": 1
+                                },
+                                {
+                                  "name": "Organised Crime",
+                                  "size": 1
+                                },
+                                {
+                                  "name": "Country",
+                                  "size": 1
+                                },
+                                {
+                                  "name": "Terrorist",
+                                  "size": 1
+                                },
+                                {
+                                  "name": "Private Sector",
+                                  "size": 1
+                                }
+                              ]
+                            },
+                            {
+                              "name": "Emotional or Psychological",
+                              "children": [
+                                {
+                                  "name": "Individual",
+                                  "size": 1
+                                },
+                                {
+                                  "name": "Hacktivists",
+                                  "size": 1
+                                },
+                                {
+                                  "name": "Organised Crime",
+                                  "size": 1
+                                },
+                                {
+                                  "name": "Terrorist",
+                                  "size": 1
+                                },
+                                {
+                                  "name": "Private Sector",
+                                  "size": 1
+                                }
+                              ]
+                            },
+                            {
+                              "name": "Personal Entertainment",
+                              "children": [
+                                {
+                                  "name": "Individual",
+                                  "size": 1
+                                }
+                              ]
+                            },
+                            {
+                              "name": "Destruction",
+                              "children": [
+                                {
+                                  "name": "Individual",
+                                  "size": 1
+                                },
+                                {
+                                  "name": "Organised Crime",
+                                  "size": 1
+                                },
+                                {
+                                  "name": "Country",
+                                  "size": 1
+                                },
+                                {
+                                  "name": "Terrorist",
+                                  "size": 1
+                                },
+                                {
+                                  "name": "Private Sector",
+                                  "size": 1
+                                }
+                              ]
+                            },
+                            {
+                              "name": "Psychiatric Illness",
+                              "children": [
+                                {
+                                  "name": "Individual",
+                                  "size": 1
+                                }
+                              ]
+                            },
+                            {
+                              "name": "Sexual Impulse",
+                              "children": [
+                                {
+                                  "name": "Individual",
+                                  "size": 1
+                                }
+                              ]
+                            }
+                          ]
+                        },
+                        {
+                          "name": "Ransomeware",
+                          "children": [
+                            {
+                              "name": "Financial",
+                              "children": [
+                                {
+                                  "name": "Individual",
+                                  "size": 1
+                                },
+                                {
+                                  "name": "Organised Crime",
+                                  "size": 1
+                                },
+                                {
+                                  "name": "Country",
+                                  "size": 1
+                                },
+                                {
+                                  "name": "Terrorist",
+                                  "size": 1
+                                },
+                                {
+                                  "name": "Private Sector",
+                                  "size": 1
+                                }
+                              ]
+                            },
+                            {
+                              "name": "Emotional or Psychological",
+                              "children": [
+                                {
+                                  "name": "Individual",
+                                  "size": 1
+                                },
+                                {
+                                  "name": "Hacktivists",
+                                  "size": 1
+                                },
+                                {
+                                  "name": "Organised Crime",
+                                  "size": 1
+                                },
+                                {
+                                  "name": "Terrorist",
+                                  "size": 1
+                                },
+                                {
+                                  "name": "Private Sector",
+                                  "size": 1
+                                }
+                              ]
+                            },
+                            {
+                              "name": "Service",
+                              "children": [
+                                {
+                                  "name": "Individual",
+                                  "size": 1
+                                },
+                                {
+                                  "name": "Organised Crime",
+                                  "size": 1
+                                },
+                                {
+                                  "name": "Private Sector",
+                                  "size": 1
+                                }
+                              ]
+                            },
+                            {
+                              "name": "Destruction",
+                              "children": [
+                                {
+                                  "name": "Individual",
+                                  "size": 1
+                                },
+                                {
+                                  "name": "Organised Crime",
+                                  "size": 1
+                                },
+                                {
+                                  "name": "Country",
+                                  "size": 1
+                                },
+                                {
+                                  "name": "Terrorist",
+                                  "size": 1
+                                },
+                                {
+                                  "name": "Private Sector",
+                                  "size": 1
+                                }
+                              ]
+                            },
+                            {
+                              "name": "Psychiatric Illness",
+                              "children": [
+                                {
+                                  "name": "Individual",
+                                  "size": 1
+                                }
+                              ]
+                            }
+                          ]
+                        }
+                      ]
+                    },
+                    {
+                      "name": "Repeated Login Attempts from Remote Hosts",
+                      "children": [
+                        {
+                          "name": "Spyware",
+                          "children": [
+                            {
+                              "name": "Financial",
+                              "children": [
+                                {
+                                  "name": "Individual",
+                                  "size": 1
+                                },
+                                {
+                                  "name": "Organised Crime",
+                                  "size": 1
+                                },
+                                {
+                                  "name": "Country",
+                                  "size": 1
+                                },
+                                {
+                                  "name": "Terrorist",
+                                  "size": 1
+                                },
+                                {
+                                  "name": "Private Sector",
+                                  "size": 1
+                                }
+                              ]
+                            },
+                            {
+                              "name": "Emotional or Psychological",
+                              "children": [
+                                {
+                                  "name": "Individual",
+                                  "size": 1
+                                },
+                                {
+                                  "name": "Hacktivists",
+                                  "size": 1
+                                },
+                                {
+                                  "name": "Organised Crime",
+                                  "size": 1
+                                },
+                                {
+                                  "name": "Terrorist",
+                                  "size": 1
+                                },
+                                {
+                                  "name": "Private Sector",
+                                  "size": 1
+                                }
+                              ]
+                            },
+                            {
+                              "name": "Intelligence",
+                              "children": [
+                                {
+                                  "name": "Individual",
+                                  "size": 1
+                                },
+                                {
+                                  "name": "Organised Crime",
+                                  "size": 1
+                                },
+                                {
+                                  "name": "Country",
+                                  "size": 1
+                                },
+                                {
+                                  "name": "Private Sector",
+                                  "size": 1
+                                }
+                              ]
+                            },
+                            {
+                              "name": "Personal Entertainment",
+                              "children": [
+                                {
+                                  "name": "Individual",
+                                  "size": 1
+                                }
+                              ]
+                            },
+                            {
+                              "name": "Service",
+                              "children": [
+                                {
+                                  "name": "Individual",
+                                  "size": 1
+                                },
+                                {
+                                  "name": "Organised Crime",
+                                  "size": 1
+                                },
+                                {
+                                  "name": "Private Sector",
+                                  "size": 1
+                                }
+                              ]
+                            },
+                            {
+                              "name": "Sexual Impulse",
+                              "children": [
+                                {
+                                  "name": "Individual",
+                                  "size": 1
+                                }
+                              ]
+                            },
+                            {
+                              "name": "Psychiatric Illness",
+                              "children": [
+                                {
+                                  "name": "Individual",
+                                  "size": 1
+                                }
+                              ]
+                            }
+                          ]
+                        },
+                        {
+                          "name": "Worm, Virus",
+                          "children": [
+                            {
+                              "name": "Ideological",
+                              "children": [
+                                {
+                                  "name": "Individual",
+                                  "size": 1
+                                }
+                              ]
+                            },
+                            {
+                              "name": "Financial",
+                              "children": [
+                                {
+                                  "name": "Individual",
+                                  "size": 1
+                                },
+                                {
+                                  "name": "Organised Crime",
+                                  "size": 1
+                                },
+                                {
+                                  "name": "Country",
+                                  "size": 1
+                                },
+                                {
+                                  "name": "Terrorist",
+                                  "size": 1
+                                },
+                                {
+                                  "name": "Private Sector",
+                                  "size": 1
+                                }
+                              ]
+                            },
+                            {
+                              "name": "Emotional or Psychological",
+                              "children": [
+                                {
+                                  "name": "Individual",
+                                  "size": 1
+                                },
+                                {
+                                  "name": "Hacktivists",
+                                  "size": 1
+                                },
+                                {
+                                  "name": "Organised Crime",
+                                  "size": 1
+                                },
+                                {
+                                  "name": "Terrorist",
+                                  "size": 1
+                                },
+                                {
+                                  "name": "Private Sector",
+                                  "size": 1
+                                }
+                              ]
+                            },
+                            {
+                              "name": "Personal Entertainment",
+                              "children": [
+                                {
+                                  "name": "Individual",
+                                  "size": 1
+                                }
+                              ]
+                            },
+                            {
+                              "name": "Destruction",
+                              "children": [
+                                {
+                                  "name": "Individual",
+                                  "size": 1
+                                },
+                                {
+                                  "name": "Organised Crime",
+                                  "size": 1
+                                },
+                                {
+                                  "name": "Country",
+                                  "size": 1
+                                },
+                                {
+                                  "name": "Terrorist",
+                                  "size": 1
+                                },
+                                {
+                                  "name": "Private Sector",
+                                  "size": 1
+                                }
+                              ]
+                            },
+                            {
+                              "name": "Psychiatric Illness",
+                              "children": [
+                                {
+                                  "name": "Individual",
+                                  "size": 1
+                                }
+                              ]
+                            },
+                            {
+                              "name": "Sexual Impulse",
+                              "children": [
+                                {
+                                  "name": "Individual",
+                                  "size": 1
+                                }
+                              ]
+                            }
+                          ]
+                        }
+                      ]
+                    },
+                    {
+                      "name": "Repeated Probes of Available Services",
+                      "children": [
+                        {
+                          "name": "Distributed Denial of Service Attack (DDoS)",
+                          "children": [
+                            {
+                              "name": "Ideological",
+                              "children": [
+                                {
+                                  "name": "Individual",
+                                  "size": 1
+                                }
+                              ]
+                            },
+                            {
+                              "name": "Financial",
+                              "children": [
+                                {
+                                  "name": "Individual",
+                                  "size": 1
+                                },
+                                {
+                                  "name": "Organised Crime",
+                                  "size": 1
+                                },
+                                {
+                                  "name": "Country",
+                                  "size": 1
+                                },
+                                {
+                                  "name": "Terrorist",
+                                  "size": 1
+                                },
+                                {
+                                  "name": "Private Sector",
+                                  "size": 1
+                                }
+                              ]
+                            },
+                            {
+                              "name": "Emotional or Psychological",
+                              "children": [
+                                {
+                                  "name": "Individual",
+                                  "size": 1
+                                },
+                                {
+                                  "name": "Hacktivists",
+                                  "size": 1
+                                },
+                                {
+                                  "name": "Organised Crime",
+                                  "size": 1
+                                },
+                                {
+                                  "name": "Terrorist",
+                                  "size": 1
+                                },
+                                {
+                                  "name": "Private Sector",
+                                  "size": 1
+                                }
+                              ]
+                            },
+                            {
+                              "name": "Personal Entertainment",
+                              "children": [
+                                {
+                                  "name": "Individual",
+                                  "size": 1
+                                }
+                              ]
+                            },
+                            {
+                              "name": "Service",
+                              "children": [
+                                {
+                                  "name": "Individual",
+                                  "size": 1
+                                },
+                                {
+                                  "name": "Organised Crime",
+                                  "size": 1
+                                },
+                                {
+                                  "name": "Private Sector",
+                                  "size": 1
+                                }
+                              ]
+                            },
+                            {
+                              "name": "Destruction",
+                              "children": [
+                                {
+                                  "name": "Individual",
+                                  "size": 1
+                                },
+                                {
+                                  "name": "Organised Crime",
+                                  "size": 1
+                                },
+                                {
+                                  "name": "Country",
+                                  "size": 1
+                                },
+                                {
+                                  "name": "Terrorist",
+                                  "size": 1
+                                },
+                                {
+                                  "name": "Private Sector",
+                                  "size": 1
+                                }
+                              ]
+                            },
+                            {
+                              "name": "Psychiatric Illness",
+                              "children": [
+                                {
+                                  "name": "Individual",
+                                  "size": 1
+                                }
+                              ]
+                            }
+                          ]
+                        },
+                        {
+                          "name": "Worm, Virus",
+                          "children": [
+                            {
+                              "name": "Ideological",
+                              "children": [
+                                {
+                                  "name": "Individual",
+                                  "size": 1
+                                }
+                              ]
+                            },
+                            {
+                              "name": "Financial",
+                              "children": [
+                                {
+                                  "name": "Individual",
+                                  "size": 1
+                                },
+                                {
+                                  "name": "Organised Crime",
+                                  "size": 1
+                                },
+                                {
+                                  "name": "Country",
+                                  "size": 1
+                                },
+                                {
+                                  "name": "Terrorist",
+                                  "size": 1
+                                },
+                                {
+                                  "name": "Private Sector",
+                                  "size": 1
+                                }
+                              ]
+                            },
+                            {
+                              "name": "Emotional or Psychological",
+                              "children": [
+                                {
+                                  "name": "Individual",
+                                  "size": 1
+                                },
+                                {
+                                  "name": "Hacktivists",
+                                  "size": 1
+                                },
+                                {
+                                  "name": "Organised Crime",
+                                  "size": 1
+                                },
+                                {
+                                  "name": "Terrorist",
+                                  "size": 1
+                                },
+                                {
+                                  "name": "Private Sector",
+                                  "size": 1
+                                }
+                              ]
+                            },
+                            {
+                              "name": "Personal Entertainment",
+                              "children": [
+                                {
+                                  "name": "Individual",
+                                  "size": 1
+                                }
+                              ]
+                            },
+                            {
+                              "name": "Destruction",
+                              "children": [
+                                {
+                                  "name": "Individual",
+                                  "size": 1
+                                },
+                                {
+                                  "name": "Organised Crime",
+                                  "size": 1
+                                },
+                                {
+                                  "name": "Country",
+                                  "size": 1
+                                },
+                                {
+                                  "name": "Terrorist",
+                                  "size": 1
+                                },
+                                {
+                                  "name": "Private Sector",
+                                  "size": 1
+                                }
+                              ]
+                            },
+                            {
+                              "name": "Psychiatric Illness",
+                              "children": [
+                                {
+                                  "name": "Individual",
+                                  "size": 1
+                                }
+                              ]
+                            },
+                            {
+                              "name": "Sexual Impulse",
+                              "children": [
+                                {
+                                  "name": "Individual",
+                                  "size": 1
+                                }
+                              ]
+                            }
+                          ]
+                        },
+                        {
+                          "name": "Ransomeware",
+                          "children": [
+                            {
+                              "name": "Financial",
+                              "children": [
+                                {
+                                  "name": "Individual",
+                                  "size": 1
+                                },
+                                {
+                                  "name": "Organised Crime",
+                                  "size": 1
+                                },
+                                {
+                                  "name": "Country",
+                                  "size": 1
+                                },
+                                {
+                                  "name": "Terrorist",
+                                  "size": 1
+                                },
+                                {
+                                  "name": "Private Sector",
+                                  "size": 1
+                                }
+                              ]
+                            },
+                            {
+                              "name": "Emotional or Psychological",
+                              "children": [
+                                {
+                                  "name": "Individual",
+                                  "size": 1
+                                },
+                                {
+                                  "name": "Hacktivists",
+                                  "size": 1
+                                },
+                                {
+                                  "name": "Organised Crime",
+                                  "size": 1
+                                },
+                                {
+                                  "name": "Terrorist",
+                                  "size": 1
+                                },
+                                {
+                                  "name": "Private Sector",
+                                  "size": 1
+                                }
+                              ]
+                            },
+                            {
+                              "name": "Service",
+                              "children": [
+                                {
+                                  "name": "Individual",
+                                  "size": 1
+                                },
+                                {
+                                  "name": "Organised Crime",
+                                  "size": 1
+                                },
+                                {
+                                  "name": "Private Sector",
+                                  "size": 1
+                                }
+                              ]
+                            },
+                            {
+                              "name": "Destruction",
+                              "children": [
+                                {
+                                  "name": "Individual",
+                                  "size": 1
+                                },
+                                {
+                                  "name": "Organised Crime",
+                                  "size": 1
+                                },
+                                {
+                                  "name": "Country",
+                                  "size": 1
+                                },
+                                {
+                                  "name": "Terrorist",
+                                  "size": 1
+                                },
+                                {
+                                  "name": "Private Sector",
+                                  "size": 1
+                                }
+                              ]
+                            },
+                            {
+                              "name": "Psychiatric Illness",
+                              "children": [
+                                {
+                                  "name": "Individual",
+                                  "size": 1
+                                }
+                              ]
+                            }
+                          ]
+                        }
+                      ]
+                    },
+                    {
+                      "name": "Outgoing Connections to Unusual Locations",
+                      "children": [
+                        {
+                          "name": "Advanced Persistent Threat (APT)",
+                          "children": [
+                            {
+                              "name": "Financial",
+                              "children": [
+                                {
+                                  "name": "Individual",
+                                  "size": 1
+                                },
+                                {
+                                  "name": "Organised Crime",
+                                  "size": 1
+                                },
+                                {
+                                  "name": "Country",
+                                  "size": 1
+                                },
+                                {
+                                  "name": "Terrorist",
+                                  "size": 1
+                                },
+                                {
+                                  "name": "Private Sector",
+                                  "size": 1
+                                }
+                              ]
+                            },
+                            {
+                              "name": "Intelligence",
+                              "children": [
+                                {
+                                  "name": "Individual",
+                                  "size": 1
+                                },
+                                {
+                                  "name": "Organised Crime",
+                                  "size": 1
+                                },
+                                {
+                                  "name": "Country",
+                                  "size": 1
+                                },
+                                {
+                                  "name": "Private Sector",
+                                  "size": 1
+                                }
+                              ]
+                            },
+                            {
+                              "name": "Destruction",
+                              "children": [
+                                {
+                                  "name": "Individual",
+                                  "size": 1
+                                },
+                                {
+                                  "name": "Organised Crime",
+                                  "size": 1
+                                },
+                                {
+                                  "name": "Country",
+                                  "size": 1
+                                },
+                                {
+                                  "name": "Terrorist",
+                                  "size": 1
+                                },
+                                {
+                                  "name": "Private Sector",
+                                  "size": 1
+                                }
+                              ]
+                            }
+                          ]
+                        },
+                        {
+                          "name": "Spyware",
+                          "children": [
+                            {
+                              "name": "Financial",
+                              "children": [
+                                {
+                                  "name": "Individual",
+                                  "size": 1
+                                },
+                                {
+                                  "name": "Organised Crime",
+                                  "size": 1
+                                },
+                                {
+                                  "name": "Country",
+                                  "size": 1
+                                },
+                                {
+                                  "name": "Terrorist",
+                                  "size": 1
+                                },
+                                {
+                                  "name": "Private Sector",
+                                  "size": 1
+                                }
+                              ]
+                            },
+                            {
+                              "name": "Emotional or Psychological",
+                              "children": [
+                                {
+                                  "name": "Individual",
+                                  "size": 1
+                                },
+                                {
+                                  "name": "Hacktivists",
+                                  "size": 1
+                                },
+                                {
+                                  "name": "Organised Crime",
+                                  "size": 1
+                                },
+                                {
+                                  "name": "Terrorist",
+                                  "size": 1
+                                },
+                                {
+                                  "name": "Private Sector",
+                                  "size": 1
+                                }
+                              ]
+                            },
+                            {
+                              "name": "Intelligence",
+                              "children": [
+                                {
+                                  "name": "Individual",
+                                  "size": 1
+                                },
+                                {
+                                  "name": "Organised Crime",
+                                  "size": 1
+                                },
+                                {
+                                  "name": "Country",
+                                  "size": 1
+                                },
+                                {
+                                  "name": "Private Sector",
+                                  "size": 1
+                                }
+                              ]
+                            },
+                            {
+                              "name": "Personal Entertainment",
+                              "children": [
+                                {
+                                  "name": "Individual",
+                                  "size": 1
+                                }
+                              ]
+                            },
+                            {
+                              "name": "Service",
+                              "children": [
+                                {
+                                  "name": "Individual",
+                                  "size": 1
+                                },
+                                {
+                                  "name": "Organised Crime",
+                                  "size": 1
+                                },
+                                {
+                                  "name": "Private Sector",
+                                  "size": 1
+                                }
+                              ]
+                            },
+                            {
+                              "name": "Sexual Impulse",
+                              "children": [
+                                {
+                                  "name": "Individual",
+                                  "size": 1
+                                }
+                              ]
+                            },
+                            {
+                              "name": "Psychiatric Illness",
+                              "children": [
+                                {
+                                  "name": "Individual",
+                                  "size": 1
+                                }
+                              ]
+                            }
+                          ]
+                        },
+                        {
+                          "name": "Trojan",
+                          "children": [
+                            {
+                              "name": "Ideological",
+                              "children": [
+                                {
+                                  "name": "Individual",
+                                  "size": 1
+                                }
+                              ]
+                            },
+                            {
+                              "name": "Financial",
+                              "children": [
+                                {
+                                  "name": "Individual",
+                                  "size": 1
+                                },
+                                {
+                                  "name": "Organised Crime",
+                                  "size": 1
+                                },
+                                {
+                                  "name": "Country",
+                                  "size": 1
+                                },
+                                {
+                                  "name": "Terrorist",
+                                  "size": 1
+                                },
+                                {
+                                  "name": "Private Sector",
+                                  "size": 1
+                                }
+                              ]
+                            },
+                            {
+                              "name": "Emotional or Psychological",
+                              "children": [
+                                {
+                                  "name": "Individual",
+                                  "size": 1
+                                },
+                                {
+                                  "name": "Hacktivists",
+                                  "size": 1
+                                },
+                                {
+                                  "name": "Organised Crime",
+                                  "size": 1
+                                },
+                                {
+                                  "name": "Terrorist",
+                                  "size": 1
+                                },
+                                {
+                                  "name": "Private Sector",
+                                  "size": 1
+                                }
+                              ]
+                            },
+                            {
+                              "name": "Intelligence",
+                              "children": [
+                                {
+                                  "name": "Individual",
+                                  "size": 1
+                                },
+                                {
+                                  "name": "Organised Crime",
+                                  "size": 1
+                                },
+                                {
+                                  "name": "Country",
+                                  "size": 1
+                                },
+                                {
+                                  "name": "Private Sector",
+                                  "size": 1
+                                }
+                              ]
+                            },
+                            {
+                              "name": "Personal Entertainment",
+                              "children": [
+                                {
+                                  "name": "Individual",
+                                  "size": 1
+                                }
+                              ]
+                            },
+                            {
+                              "name": "Service",
+                              "children": [
+                                {
+                                  "name": "Individual",
+                                  "size": 1
+                                },
+                                {
+                                  "name": "Organised Crime",
+                                  "size": 1
+                                },
+                                {
+                                  "name": "Private Sector",
+                                  "size": 1
+                                }
+                              ]
+                            },
+                            {
+                              "name": "Destruction",
+                              "children": [
+                                {
+                                  "name": "Individual",
+                                  "size": 1
+                                },
+                                {
+                                  "name": "Organised Crime",
+                                  "size": 1
+                                },
+                                {
+                                  "name": "Country",
+                                  "size": 1
+                                },
+                                {
+                                  "name": "Terrorist",
+                                  "size": 1
+                                },
+                                {
+                                  "name": "Private Sector",
+                                  "size": 1
+                                }
+                              ]
+                            },
+                            {
+                              "name": "Psychiatric Illness",
+                              "children": [
+                                {
+                                  "name": "Individual",
+                                  "size": 1
+                                }
+                              ]
+                            },
+                            {
+                              "name": "Sexual Impulse",
+                              "children": [
+                                {
+                                  "name": "Individual",
+                                  "size": 1
+                                }
+                              ]
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "name": "NetFlow Analysis (e.g. NetFlow, sFlow, IPFIX)",
+                  "size": 5
+                }
+              ]
+            },
+            {
+              "name": "Digital Forensics",
+              "children": [
+                {
+                  "name": "Log Files Analysis",
+                  "children": [
+                    {
+                      "name": "Missing Logs or Logs with Incorrect Permissions or Ownership",
+                      "children": [
+                        {
+                          "name": "Advanced Persistent Threat (APT)",
+                          "children": [
+                            {
+                              "name": "Financial",
+                              "children": [
+                                {
+                                  "name": "Individual",
+                                  "size": 1
+                                },
+                                {
+                                  "name": "Organised Crime",
+                                  "size": 1
+                                },
+                                {
+                                  "name": "Country",
+                                  "size": 1
+                                },
+                                {
+                                  "name": "Terrorist",
+                                  "size": 1
+                                },
+                                {
+                                  "name": "Private Sector",
+                                  "size": 1
+                                }
+                              ]
+                            },
+                            {
+                              "name": "Intelligence",
+                              "children": [
+                                {
+                                  "name": "Individual",
+                                  "size": 1
+                                },
+                                {
+                                  "name": "Organised Crime",
+                                  "size": 1
+                                },
+                                {
+                                  "name": "Country",
+                                  "size": 1
+                                },
+                                {
+                                  "name": "Private Sector",
+                                  "size": 1
+                                }
+                              ]
+                            },
+                            {
+                              "name": "Destruction",
+                              "children": [
+                                {
+                                  "name": "Individual",
+                                  "size": 1
+                                },
+                                {
+                                  "name": "Organised Crime",
+                                  "size": 1
+                                },
+                                {
+                                  "name": "Country",
+                                  "size": 1
+                                },
+                                {
+                                  "name": "Terrorist",
+                                  "size": 1
+                                },
+                                {
+                                  "name": "Private Sector",
+                                  "size": 1
+                                }
+                              ]
+                            }
+                          ]
+                        },
+                        {
+                          "name": "Spyware",
+                          "children": [
+                            {
+                              "name": "Financial",
+                              "children": [
+                                {
+                                  "name": "Individual",
+                                  "size": 1
+                                },
+                                {
+                                  "name": "Organised Crime",
+                                  "size": 1
+                                },
+                                {
+                                  "name": "Country",
+                                  "size": 1
+                                },
+                                {
+                                  "name": "Terrorist",
+                                  "size": 1
+                                },
+                                {
+                                  "name": "Private Sector",
+                                  "size": 1
+                                }
+                              ]
+                            },
+                            {
+                              "name": "Emotional or Psychological",
+                              "children": [
+                                {
+                                  "name": "Individual",
+                                  "size": 1
+                                },
+                                {
+                                  "name": "Hacktivists",
+                                  "size": 1
+                                },
+                                {
+                                  "name": "Organised Crime",
+                                  "size": 1
+                                },
+                                {
+                                  "name": "Terrorist",
+                                  "size": 1
+                                },
+                                {
+                                  "name": "Private Sector",
+                                  "size": 1
+                                }
+                              ]
+                            },
+                            {
+                              "name": "Intelligence",
+                              "children": [
+                                {
+                                  "name": "Individual",
+                                  "size": 1
+                                },
+                                {
+                                  "name": "Organised Crime",
+                                  "size": 1
+                                },
+                                {
+                                  "name": "Country",
+                                  "size": 1
+                                },
+                                {
+                                  "name": "Private Sector",
+                                  "size": 1
+                                }
+                              ]
+                            },
+                            {
+                              "name": "Personal Entertainment",
+                              "children": [
+                                {
+                                  "name": "Individual",
+                                  "size": 1
+                                }
+                              ]
+                            },
+                            {
+                              "name": "Service",
+                              "children": [
+                                {
+                                  "name": "Individual",
+                                  "size": 1
+                                },
+                                {
+                                  "name": "Organised Crime",
+                                  "size": 1
+                                },
+                                {
+                                  "name": "Private Sector",
+                                  "size": 1
+                                }
+                              ]
+                            },
+                            {
+                              "name": "Sexual Impulse",
+                              "children": [
+                                {
+                                  "name": "Individual",
+                                  "size": 1
+                                }
+                              ]
+                            },
+                            {
+                              "name": "Psychiatric Illness",
+                              "children": [
+                                {
+                                  "name": "Individual",
+                                  "size": 1
+                                }
+                              ]
+                            }
+                          ]
+                        }
+                      ]
+                    },
+                    {
+                      "name": "Modifications to System Software and Configuration Files",
+                      "children": [
+                        {
+                          "name": "Advanced Persistent Threat (APT)",
+                          "children": [
+                            {
+                              "name": "Financial",
+                              "children": [
+                                {
+                                  "name": "Individual",
+                                  "size": 1
+                                },
+                                {
+                                  "name": "Organised Crime",
+                                  "size": 1
+                                },
+                                {
+                                  "name": "Country",
+                                  "size": 1
+                                },
+                                {
+                                  "name": "Terrorist",
+                                  "size": 1
+                                },
+                                {
+                                  "name": "Private Sector",
+                                  "size": 1
+                                }
+                              ]
+                            },
+                            {
+                              "name": "Intelligence",
+                              "children": [
+                                {
+                                  "name": "Individual",
+                                  "size": 1
+                                },
+                                {
+                                  "name": "Organised Crime",
+                                  "size": 1
+                                },
+                                {
+                                  "name": "Country",
+                                  "size": 1
+                                },
+                                {
+                                  "name": "Private Sector",
+                                  "size": 1
+                                }
+                              ]
+                            },
+                            {
+                              "name": "Destruction",
+                              "children": [
+                                {
+                                  "name": "Individual",
+                                  "size": 1
+                                },
+                                {
+                                  "name": "Organised Crime",
+                                  "size": 1
+                                },
+                                {
+                                  "name": "Country",
+                                  "size": 1
+                                },
+                                {
+                                  "name": "Terrorist",
+                                  "size": 1
+                                },
+                                {
+                                  "name": "Private Sector",
+                                  "size": 1
+                                }
+                              ]
+                            }
+                          ]
+                        },
+                        {
+                          "name": "Spyware",
+                          "children": [
+                            {
+                              "name": "Financial",
+                              "children": [
+                                {
+                                  "name": "Individual",
+                                  "size": 1
+                                },
+                                {
+                                  "name": "Organised Crime",
+                                  "size": 1
+                                },
+                                {
+                                  "name": "Country",
+                                  "size": 1
+                                },
+                                {
+                                  "name": "Terrorist",
+                                  "size": 1
+                                },
+                                {
+                                  "name": "Private Sector",
+                                  "size": 1
+                                }
+                              ]
+                            },
+                            {
+                              "name": "Emotional or Psychological",
+                              "children": [
+                                {
+                                  "name": "Individual",
+                                  "size": 1
+                                },
+                                {
+                                  "name": "Hacktivists",
+                                  "size": 1
+                                },
+                                {
+                                  "name": "Organised Crime",
+                                  "size": 1
+                                },
+                                {
+                                  "name": "Terrorist",
+                                  "size": 1
+                                },
+                                {
+                                  "name": "Private Sector",
+                                  "size": 1
+                                }
+                              ]
+                            },
+                            {
+                              "name": "Intelligence",
+                              "children": [
+                                {
+                                  "name": "Individual",
+                                  "size": 1
+                                },
+                                {
+                                  "name": "Organised Crime",
+                                  "size": 1
+                                },
+                                {
+                                  "name": "Country",
+                                  "size": 1
+                                },
+                                {
+                                  "name": "Private Sector",
+                                  "size": 1
+                                }
+                              ]
+                            },
+                            {
+                              "name": "Personal Entertainment",
+                              "children": [
+                                {
+                                  "name": "Individual",
+                                  "size": 1
+                                }
+                              ]
+                            },
+                            {
+                              "name": "Service",
+                              "children": [
+                                {
+                                  "name": "Individual",
+                                  "size": 1
+                                },
+                                {
+                                  "name": "Organised Crime",
+                                  "size": 1
+                                },
+                                {
+                                  "name": "Private Sector",
+                                  "size": 1
+                                }
+                              ]
+                            },
+                            {
+                              "name": "Sexual Impulse",
+                              "children": [
+                                {
+                                  "name": "Individual",
+                                  "size": 1
+                                }
+                              ]
+                            },
+                            {
+                              "name": "Psychiatric Illness",
+                              "children": [
+                                {
+                                  "name": "Individual",
+                                  "size": 1
+                                }
+                              ]
+                            }
+                          ]
+                        },
+                        {
+                          "name": "Worm, Virus",
+                          "children": [
+                            {
+                              "name": "Ideological",
+                              "children": [
+                                {
+                                  "name": "Individual",
+                                  "size": 1
+                                }
+                              ]
+                            },
+                            {
+                              "name": "Financial",
+                              "children": [
+                                {
+                                  "name": "Individual",
+                                  "size": 1
+                                },
+                                {
+                                  "name": "Organised Crime",
+                                  "size": 1
+                                },
+                                {
+                                  "name": "Country",
+                                  "size": 1
+                                },
+                                {
+                                  "name": "Terrorist",
+                                  "size": 1
+                                },
+                                {
+                                  "name": "Private Sector",
+                                  "size": 1
+                                }
+                              ]
+                            },
+                            {
+                              "name": "Emotional or Psychological",
+                              "children": [
+                                {
+                                  "name": "Individual",
+                                  "size": 1
+                                },
+                                {
+                                  "name": "Hacktivists",
+                                  "size": 1
+                                },
+                                {
+                                  "name": "Organised Crime",
+                                  "size": 1
+                                },
+                                {
+                                  "name": "Terrorist",
+                                  "size": 1
+                                },
+                                {
+                                  "name": "Private Sector",
+                                  "size": 1
+                                }
+                              ]
+                            },
+                            {
+                              "name": "Personal Entertainment",
+                              "children": [
+                                {
+                                  "name": "Individual",
+                                  "size": 1
+                                }
+                              ]
+                            },
+                            {
+                              "name": "Destruction",
+                              "children": [
+                                {
+                                  "name": "Individual",
+                                  "size": 1
+                                },
+                                {
+                                  "name": "Organised Crime",
+                                  "size": 1
+                                },
+                                {
+                                  "name": "Country",
+                                  "size": 1
+                                },
+                                {
+                                  "name": "Terrorist",
+                                  "size": 1
+                                },
+                                {
+                                  "name": "Private Sector",
+                                  "size": 1
+                                }
+                              ]
+                            },
+                            {
+                              "name": "Psychiatric Illness",
+                              "children": [
+                                {
+                                  "name": "Individual",
+                                  "size": 1
+                                }
+                              ]
+                            },
+                            {
+                              "name": "Sexual Impulse",
+                              "children": [
+                                {
+                                  "name": "Individual",
+                                  "size": 1
+                                }
+                              ]
+                            }
+                          ]
+                        },
+                        {
+                          "name": "Ransomeware",
+                          "children": [
+                            {
+                              "name": "Financial",
+                              "children": [
+                                {
+                                  "name": "Individual",
+                                  "size": 1
+                                },
+                                {
+                                  "name": "Organised Crime",
+                                  "size": 1
+                                },
+                                {
+                                  "name": "Country",
+                                  "size": 1
+                                },
+                                {
+                                  "name": "Terrorist",
+                                  "size": 1
+                                },
+                                {
+                                  "name": "Private Sector",
+                                  "size": 1
+                                }
+                              ]
+                            },
+                            {
+                              "name": "Emotional or Psychological",
+                              "children": [
+                                {
+                                  "name": "Individual",
+                                  "size": 1
+                                },
+                                {
+                                  "name": "Hacktivists",
+                                  "size": 1
+                                },
+                                {
+                                  "name": "Organised Crime",
+                                  "size": 1
+                                },
+                                {
+                                  "name": "Terrorist",
+                                  "size": 1
+                                },
+                                {
+                                  "name": "Private Sector",
+                                  "size": 1
+                                }
+                              ]
+                            },
+                            {
+                              "name": "Service",
+                              "children": [
+                                {
+                                  "name": "Individual",
+                                  "size": 1
+                                },
+                                {
+                                  "name": "Organised Crime",
+                                  "size": 1
+                                },
+                                {
+                                  "name": "Private Sector",
+                                  "size": 1
+                                }
+                              ]
+                            },
+                            {
+                              "name": "Destruction",
+                              "children": [
+                                {
+                                  "name": "Individual",
+                                  "size": 1
+                                },
+                                {
+                                  "name": "Organised Crime",
+                                  "size": 1
+                                },
+                                {
+                                  "name": "Country",
+                                  "size": 1
+                                },
+                                {
+                                  "name": "Terrorist",
+                                  "size": 1
+                                },
+                                {
+                                  "name": "Private Sector",
+                                  "size": 1
+                                }
+                              ]
+                            },
+                            {
+                              "name": "Psychiatric Illness",
+                              "children": [
+                                {
+                                  "name": "Individual",
+                                  "size": 1
+                                }
+                              ]
+                            }
+                          ]
+                        }
+                      ]
+                    },
+                    {
+                      "name": "Arbitrary Data in Log Files",
+                      "children": [
+                        {
+                          "name": "Distributed Denial of Service Attack (DDoS)",
+                          "children": [
+                            {
+                              "name": "Ideological",
+                              "children": [
+                                {
+                                  "name": "Individual",
+                                  "size": 1
+                                }
+                              ]
+                            },
+                            {
+                              "name": "Financial",
+                              "children": [
+                                {
+                                  "name": "Individual",
+                                  "size": 1
+                                },
+                                {
+                                  "name": "Organised Crime",
+                                  "size": 1
+                                },
+                                {
+                                  "name": "Country",
+                                  "size": 1
+                                },
+                                {
+                                  "name": "Terrorist",
+                                  "size": 1
+                                },
+                                {
+                                  "name": "Private Sector",
+                                  "size": 1
+                                }
+                              ]
+                            },
+                            {
+                              "name": "Emotional or Psychological",
+                              "children": [
+                                {
+                                  "name": "Individual",
+                                  "size": 1
+                                },
+                                {
+                                  "name": "Hacktivists",
+                                  "size": 1
+                                },
+                                {
+                                  "name": "Organised Crime",
+                                  "size": 1
+                                },
+                                {
+                                  "name": "Terrorist",
+                                  "size": 1
+                                },
+                                {
+                                  "name": "Private Sector",
+                                  "size": 1
+                                }
+                              ]
+                            },
+                            {
+                              "name": "Personal Entertainment",
+                              "children": [
+                                {
+                                  "name": "Individual",
+                                  "size": 1
+                                }
+                              ]
+                            },
+                            {
+                              "name": "Service",
+                              "children": [
+                                {
+                                  "name": "Individual",
+                                  "size": 1
+                                },
+                                {
+                                  "name": "Organised Crime",
+                                  "size": 1
+                                },
+                                {
+                                  "name": "Private Sector",
+                                  "size": 1
+                                }
+                              ]
+                            },
+                            {
+                              "name": "Destruction",
+                              "children": [
+                                {
+                                  "name": "Individual",
+                                  "size": 1
+                                },
+                                {
+                                  "name": "Organised Crime",
+                                  "size": 1
+                                },
+                                {
+                                  "name": "Country",
+                                  "size": 1
+                                },
+                                {
+                                  "name": "Terrorist",
+                                  "size": 1
+                                },
+                                {
+                                  "name": "Private Sector",
+                                  "size": 1
+                                }
+                              ]
+                            },
+                            {
+                              "name": "Psychiatric Illness",
+                              "children": [
+                                {
+                                  "name": "Individual",
+                                  "size": 1
+                                }
+                              ]
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "name": "Kernel Level Analysis (e.g. Progger)",
+                  "size": 4
+                },
+                {
+                  "name": "File System Analysis (e.g. MAC of files, Browsing History\/Cache)",
+                  "children": [
+                    {
+                      "name": "Presence of New, Unfamiliar Files or Programs",
+                      "children": [
+                        {
+                          "name": "Advanced Persistent Threat (APT)",
+                          "children": [
+                            {
+                              "name": "Financial",
+                              "children": [
+                                {
+                                  "name": "Individual",
+                                  "size": 1
+                                },
+                                {
+                                  "name": "Organised Crime",
+                                  "size": 1
+                                },
+                                {
+                                  "name": "Country",
+                                  "size": 1
+                                },
+                                {
+                                  "name": "Terrorist",
+                                  "size": 1
+                                },
+                                {
+                                  "name": "Private Sector",
+                                  "size": 1
+                                }
+                              ]
+                            },
+                            {
+                              "name": "Intelligence",
+                              "children": [
+                                {
+                                  "name": "Individual",
+                                  "size": 1
+                                },
+                                {
+                                  "name": "Organised Crime",
+                                  "size": 1
+                                },
+                                {
+                                  "name": "Country",
+                                  "size": 1
+                                },
+                                {
+                                  "name": "Private Sector",
+                                  "size": 1
+                                }
+                              ]
+                            },
+                            {
+                              "name": "Destruction",
+                              "children": [
+                                {
+                                  "name": "Individual",
+                                  "size": 1
+                                },
+                                {
+                                  "name": "Organised Crime",
+                                  "size": 1
+                                },
+                                {
+                                  "name": "Country",
+                                  "size": 1
+                                },
+                                {
+                                  "name": "Terrorist",
+                                  "size": 1
+                                },
+                                {
+                                  "name": "Private Sector",
+                                  "size": 1
+                                }
+                              ]
+                            }
+                          ]
+                        },
+                        {
+                          "name": "Spyware",
+                          "children": [
+                            {
+                              "name": "Financial",
+                              "children": [
+                                {
+                                  "name": "Individual",
+                                  "size": 1
+                                },
+                                {
+                                  "name": "Organised Crime",
+                                  "size": 1
+                                },
+                                {
+                                  "name": "Country",
+                                  "size": 1
+                                },
+                                {
+                                  "name": "Terrorist",
+                                  "size": 1
+                                },
+                                {
+                                  "name": "Private Sector",
+                                  "size": 1
+                                }
+                              ]
+                            },
+                            {
+                              "name": "Emotional or Psychological",
+                              "children": [
+                                {
+                                  "name": "Individual",
+                                  "size": 1
+                                },
+                                {
+                                  "name": "Hacktivists",
+                                  "size": 1
+                                },
+                                {
+                                  "name": "Organised Crime",
+                                  "size": 1
+                                },
+                                {
+                                  "name": "Terrorist",
+                                  "size": 1
+                                },
+                                {
+                                  "name": "Private Sector",
+                                  "size": 1
+                                }
+                              ]
+                            },
+                            {
+                              "name": "Intelligence",
+                              "children": [
+                                {
+                                  "name": "Individual",
+                                  "size": 1
+                                },
+                                {
+                                  "name": "Organised Crime",
+                                  "size": 1
+                                },
+                                {
+                                  "name": "Country",
+                                  "size": 1
+                                },
+                                {
+                                  "name": "Private Sector",
+                                  "size": 1
+                                }
+                              ]
+                            },
+                            {
+                              "name": "Personal Entertainment",
+                              "children": [
+                                {
+                                  "name": "Individual",
+                                  "size": 1
+                                }
+                              ]
+                            },
+                            {
+                              "name": "Service",
+                              "children": [
+                                {
+                                  "name": "Individual",
+                                  "size": 1
+                                },
+                                {
+                                  "name": "Organised Crime",
+                                  "size": 1
+                                },
+                                {
+                                  "name": "Private Sector",
+                                  "size": 1
+                                }
+                              ]
+                            },
+                            {
+                              "name": "Sexual Impulse",
+                              "children": [
+                                {
+                                  "name": "Individual",
+                                  "size": 1
+                                }
+                              ]
+                            },
+                            {
+                              "name": "Psychiatric Illness",
+                              "children": [
+                                {
+                                  "name": "Individual",
+                                  "size": 1
+                                }
+                              ]
+                            }
+                          ]
+                        },
+                        {
+                          "name": "Worm, Virus",
+                          "children": [
+                            {
+                              "name": "Ideological",
+                              "children": [
+                                {
+                                  "name": "Individual",
+                                  "size": 1
+                                }
+                              ]
+                            },
+                            {
+                              "name": "Financial",
+                              "children": [
+                                {
+                                  "name": "Individual",
+                                  "size": 1
+                                },
+                                {
+                                  "name": "Organised Crime",
+                                  "size": 1
+                                },
+                                {
+                                  "name": "Country",
+                                  "size": 1
+                                },
+                                {
+                                  "name": "Terrorist",
+                                  "size": 1
+                                },
+                                {
+                                  "name": "Private Sector",
+                                  "size": 1
+                                }
+                              ]
+                            },
+                            {
+                              "name": "Emotional or Psychological",
+                              "children": [
+                                {
+                                  "name": "Individual",
+                                  "size": 1
+                                },
+                                {
+                                  "name": "Hacktivists",
+                                  "size": 1
+                                },
+                                {
+                                  "name": "Organised Crime",
+                                  "size": 1
+                                },
+                                {
+                                  "name": "Terrorist",
+                                  "size": 1
+                                },
+                                {
+                                  "name": "Private Sector",
+                                  "size": 1
+                                }
+                              ]
+                            },
+                            {
+                              "name": "Personal Entertainment",
+                              "children": [
+                                {
+                                  "name": "Individual",
+                                  "size": 1
+                                }
+                              ]
+                            },
+                            {
+                              "name": "Destruction",
+                              "children": [
+                                {
+                                  "name": "Individual",
+                                  "size": 1
+                                },
+                                {
+                                  "name": "Organised Crime",
+                                  "size": 1
+                                },
+                                {
+                                  "name": "Country",
+                                  "size": 1
+                                },
+                                {
+                                  "name": "Terrorist",
+                                  "size": 1
+                                },
+                                {
+                                  "name": "Private Sector",
+                                  "size": 1
+                                }
+                              ]
+                            },
+                            {
+                              "name": "Psychiatric Illness",
+                              "children": [
+                                {
+                                  "name": "Individual",
+                                  "size": 1
+                                }
+                              ]
+                            },
+                            {
+                              "name": "Sexual Impulse",
+                              "children": [
+                                {
+                                  "name": "Individual",
+                                  "size": 1
+                                }
+                              ]
+                            }
+                          ]
+                        },
+                        {
+                          "name": "Social Engineering/Phishing",
+                          "children": [
+                            {
+                              "name": "Financial",
+                              "children": [
+                                {
+                                  "name": "Individual",
+                                  "size": 1
+                                },
+                                {
+                                  "name": "Organised Crime",
+                                  "size": 1
+                                },
+                                {
+                                  "name": "Country",
+                                  "size": 1
+                                },
+                                {
+                                  "name": "Terrorist",
+                                  "size": 1
+                                },
+                                {
+                                  "name": "Private Sector",
+                                  "size": 1
+                                }
+                              ]
+                            },
+                            {
+                              "name": "Emotional or Psychological",
+                              "children": [
+                                {
+                                  "name": "Individual",
+                                  "size": 1
+                                },
+                                {
+                                  "name": "Hacktivists",
+                                  "size": 1
+                                },
+                                {
+                                  "name": "Organised Crime",
+                                  "size": 1
+                                },
+                                {
+                                  "name": "Terrorist",
+                                  "size": 1
+                                },
+                                {
+                                  "name": "Private Sector",
+                                  "size": 1
+                                }
+                              ]
+                            },
+                            {
+                              "name": "Intelligence",
+                              "children": [
+                                {
+                                  "name": "Individual",
+                                  "size": 1
+                                },
+                                {
+                                  "name": "Organised Crime",
+                                  "size": 1
+                                },
+                                {
+                                  "name": "Country",
+                                  "size": 1
+                                },
+                                {
+                                  "name": "Private Sector",
+                                  "size": 1
+                                }
+                              ]
+                            },
+                            {
+                              "name": "Service",
+                              "children": [
+                                {
+                                  "name": "Individual",
+                                  "size": 1
+                                },
+                                {
+                                  "name": "Organised Crime",
+                                  "size": 1
+                                },
+                                {
+                                  "name": "Private Sector",
+                                  "size": 1
+                                }
+                              ]
+                            },
+                            {
+                              "name": "Psychiatric Illness",
+                              "children": [
+                                {
+                                  "name": "Individual",
+                                  "size": 1
+                                }
+                              ]
+                            }
+                          ]
+                        }
+                      ]
+                    },
+                    {
+                      "name": "Changes in File Permissions",
+                      "children": [
+                        {
+                          "name": "Advanced Persistent Threat (APT)",
+                          "children": [
+                            {
+                              "name": "Financial",
+                              "children": [
+                                {
+                                  "name": "Individual",
+                                  "size": 1
+                                },
+                                {
+                                  "name": "Organised Crime",
+                                  "size": 1
+                                },
+                                {
+                                  "name": "Country",
+                                  "size": 1
+                                },
+                                {
+                                  "name": "Terrorist",
+                                  "size": 1
+                                },
+                                {
+                                  "name": "Private Sector",
+                                  "size": 1
+                                }
+                              ]
+                            },
+                            {
+                              "name": "Intelligence",
+                              "children": [
+                                {
+                                  "name": "Individual",
+                                  "size": 1
+                                },
+                                {
+                                  "name": "Organised Crime",
+                                  "size": 1
+                                },
+                                {
+                                  "name": "Country",
+                                  "size": 1
+                                },
+                                {
+                                  "name": "Private Sector",
+                                  "size": 1
+                                }
+                              ]
+                            },
+                            {
+                              "name": "Destruction",
+                              "children": [
+                                {
+                                  "name": "Individual",
+                                  "size": 1
+                                },
+                                {
+                                  "name": "Organised Crime",
+                                  "size": 1
+                                },
+                                {
+                                  "name": "Country",
+                                  "size": 1
+                                },
+                                {
+                                  "name": "Terrorist",
+                                  "size": 1
+                                },
+                                {
+                                  "name": "Private Sector",
+                                  "size": 1
+                                }
+                              ]
+                            }
+                          ]
+                        },
+                        {
+                          "name": "Worm, Virus",
+                          "children": [
+                            {
+                              "name": "Ideological",
+                              "children": [
+                                {
+                                  "name": "Individual",
+                                  "size": 1
+                                }
+                              ]
+                            },
+                            {
+                              "name": "Financial",
+                              "children": [
+                                {
+                                  "name": "Individual",
+                                  "size": 1
+                                },
+                                {
+                                  "name": "Organised Crime",
+                                  "size": 1
+                                },
+                                {
+                                  "name": "Country",
+                                  "size": 1
+                                },
+                                {
+                                  "name": "Terrorist",
+                                  "size": 1
+                                },
+                                {
+                                  "name": "Private Sector",
+                                  "size": 1
+                                }
+                              ]
+                            },
+                            {
+                              "name": "Emotional or Psychological",
+                              "children": [
+                                {
+                                  "name": "Individual",
+                                  "size": 1
+                                },
+                                {
+                                  "name": "Hacktivists",
+                                  "size": 1
+                                },
+                                {
+                                  "name": "Organised Crime",
+                                  "size": 1
+                                },
+                                {
+                                  "name": "Terrorist",
+                                  "size": 1
+                                },
+                                {
+                                  "name": "Private Sector",
+                                  "size": 1
+                                }
+                              ]
+                            },
+                            {
+                              "name": "Personal Entertainment",
+                              "children": [
+                                {
+                                  "name": "Individual",
+                                  "size": 1
+                                }
+                              ]
+                            },
+                            {
+                              "name": "Destruction",
+                              "children": [
+                                {
+                                  "name": "Individual",
+                                  "size": 1
+                                },
+                                {
+                                  "name": "Organised Crime",
+                                  "size": 1
+                                },
+                                {
+                                  "name": "Country",
+                                  "size": 1
+                                },
+                                {
+                                  "name": "Terrorist",
+                                  "size": 1
+                                },
+                                {
+                                  "name": "Private Sector",
+                                  "size": 1
+                                }
+                              ]
+                            },
+                            {
+                              "name": "Psychiatric Illness",
+                              "children": [
+                                {
+                                  "name": "Individual",
+                                  "size": 1
+                                }
+                              ]
+                            },
+                            {
+                              "name": "Sexual Impulse",
+                              "children": [
+                                {
+                                  "name": "Individual",
+                                  "size": 1
+                                }
+                              ]
+                            }
+                          ]
+                        },
+                        {
+                          "name": "Ransomeware",
+                          "children": [
+                            {
+                              "name": "Financial",
+                              "children": [
+                                {
+                                  "name": "Individual",
+                                  "size": 1
+                                },
+                                {
+                                  "name": "Organised Crime",
+                                  "size": 1
+                                },
+                                {
+                                  "name": "Country",
+                                  "size": 1
+                                },
+                                {
+                                  "name": "Terrorist",
+                                  "size": 1
+                                },
+                                {
+                                  "name": "Private Sector",
+                                  "size": 1
+                                }
+                              ]
+                            },
+                            {
+                              "name": "Emotional or Psychological",
+                              "children": [
+                                {
+                                  "name": "Individual",
+                                  "size": 1
+                                },
+                                {
+                                  "name": "Hacktivists",
+                                  "size": 1
+                                },
+                                {
+                                  "name": "Organised Crime",
+                                  "size": 1
+                                },
+                                {
+                                  "name": "Terrorist",
+                                  "size": 1
+                                },
+                                {
+                                  "name": "Private Sector",
+                                  "size": 1
+                                }
+                              ]
+                            },
+                            {
+                              "name": "Service",
+                              "children": [
+                                {
+                                  "name": "Individual",
+                                  "size": 1
+                                },
+                                {
+                                  "name": "Organised Crime",
+                                  "size": 1
+                                },
+                                {
+                                  "name": "Private Sector",
+                                  "size": 1
+                                }
+                              ]
+                            },
+                            {
+                              "name": "Destruction",
+                              "children": [
+                                {
+                                  "name": "Individual",
+                                  "size": 1
+                                },
+                                {
+                                  "name": "Organised Crime",
+                                  "size": 1
+                                },
+                                {
+                                  "name": "Country",
+                                  "size": 1
+                                },
+                                {
+                                  "name": "Terrorist",
+                                  "size": 1
+                                },
+                                {
+                                  "name": "Private Sector",
+                                  "size": 1
+                                }
+                              ]
+                            },
+                            {
+                              "name": "Psychiatric Illness",
+                              "children": [
+                                {
+                                  "name": "Individual",
+                                  "size": 1
+                                }
+                              ]
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "name": "Reverse Engineering",
+              "children": [
+                {
+                  "name": "Patterns in Binary File Formats",
+                  "size": 1
+                },
+                {
+                  "name": "Decompilation of Binary Executables",
+                  "size": 1
+                },
+                {
+                  "name": "Black-box Testing of Applications",
+                  "size": 1
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "name": "Profiling Attacks",
+          "children": [
+            {
+              "name": "Indicators of Compromise (IOCs)",
+              "children": [
+                {
+                  "name": "Metadata",
+                  "children": [
+                    {
+                      "name": "IP\/MAC Address",
+                      "size": 1
+                    },
+                    {
+                      "name": "Text Content",
+                      "children": [
+                        {
+                          "name": "Unusual Graphic Displays or Text Messages",
+                          "children": [
+                            {
+                              "name": "Worm, Virus",
+                              "children": [
+                                {
+                                  "name": "Ideological",
+                                  "children": [
+                                    {
+                                      "name": "Individual",
+                                      "size": 1
+                                    }
+                                  ]
+                                },
+                                {
+                                  "name": "Financial",
+                                  "children": [
+                                    {
+                                      "name": "Individual",
+                                      "size": 1
+                                    },
+                                    {
+                                      "name": "Organised Crime",
+                                      "size": 1
+                                    },
+                                    {
+                                      "name": "Country",
+                                      "size": 1
+                                    },
+                                    {
+                                      "name": "Terrorist",
+                                      "size": 1
+                                    },
+                                    {
+                                      "name": "Private Sector",
+                                      "size": 1
+                                    }
+                                  ]
+                                },
+                                {
+                                  "name": "Emotional or Psychological",
+                                  "children": [
+                                    {
+                                      "name": "Individual",
+                                      "size": 1
+                                    },
+                                    {
+                                      "name": "Hacktivists",
+                                      "size": 1
+                                    },
+                                    {
+                                      "name": "Organised Crime",
+                                      "size": 1
+                                    },
+                                    {
+                                      "name": "Terrorist",
+                                      "size": 1
+                                    },
+                                    {
+                                      "name": "Private Sector",
+                                      "size": 1
+                                    }
+                                  ]
+                                },
+                                {
+                                  "name": "Personal Entertainment",
+                                  "children": [
+                                    {
+                                      "name": "Individual",
+                                      "size": 1
+                                    }
+                                  ]
+                                },
+                                {
+                                  "name": "Destruction",
+                                  "children": [
+                                    {
+                                      "name": "Individual",
+                                      "size": 1
+                                    },
+                                    {
+                                      "name": "Organised Crime",
+                                      "size": 1
+                                    },
+                                    {
+                                      "name": "Country",
+                                      "size": 1
+                                    },
+                                    {
+                                      "name": "Terrorist",
+                                      "size": 1
+                                    },
+                                    {
+                                      "name": "Private Sector",
+                                      "size": 1
+                                    }
+                                  ]
+                                },
+                                {
+                                  "name": "Psychiatric Illness",
+                                  "children": [
+                                    {
+                                      "name": "Individual",
+                                      "size": 1
+                                    }
+                                  ]
+                                },
+                                {
+                                  "name": "Sexual Impulse",
+                                  "children": [
+                                    {
+                                      "name": "Individual",
+                                      "size": 1
+                                    }
+                                  ]
+                                }
+                              ]
+                            },
+                            {
+                              "name": "Ransomeware",
+                              "children": [
+                                {
+                                  "name": "Financial",
+                                  "children": [
+                                    {
+                                      "name": "Individual",
+                                      "size": 1
+                                    },
+                                    {
+                                      "name": "Organised Crime",
+                                      "size": 1
+                                    },
+                                    {
+                                      "name": "Country",
+                                      "size": 1
+                                    },
+                                    {
+                                      "name": "Terrorist",
+                                      "size": 1
+                                    },
+                                    {
+                                      "name": "Private Sector",
+                                      "size": 1
+                                    }
+                                  ]
+                                },
+                                {
+                                  "name": "Emotional or Psychological",
+                                  "children": [
+                                    {
+                                      "name": "Individual",
+                                      "size": 1
+                                    },
+                                    {
+                                      "name": "Hacktivists",
+                                      "size": 1
+                                    },
+                                    {
+                                      "name": "Organised Crime",
+                                      "size": 1
+                                    },
+                                    {
+                                      "name": "Terrorist",
+                                      "size": 1
+                                    },
+                                    {
+                                      "name": "Private Sector",
+                                      "size": 1
+                                    }
+                                  ]
+                                },
+                                {
+                                  "name": "Service",
+                                  "children": [
+                                    {
+                                      "name": "Individual",
+                                      "size": 1
+                                    },
+                                    {
+                                      "name": "Organised Crime",
+                                      "size": 1
+                                    },
+                                    {
+                                      "name": "Private Sector",
+                                      "size": 1
+                                    }
+                                  ]
+                                },
+                                {
+                                  "name": "Destruction",
+                                  "children": [
+                                    {
+                                      "name": "Individual",
+                                      "size": 1
+                                    },
+                                    {
+                                      "name": "Organised Crime",
+                                      "size": 1
+                                    },
+                                    {
+                                      "name": "Country",
+                                      "size": 1
+                                    },
+                                    {
+                                      "name": "Terrorist",
+                                      "size": 1
+                                    },
+                                    {
+                                      "name": "Private Sector",
+                                      "size": 1
+                                    }
+                                  ]
+                                },
+                                {
+                                  "name": "Psychiatric Illness",
+                                  "children": [
+                                    {
+                                      "name": "Individual",
+                                      "size": 1
+                                    }
+                                  ]
+                                }
+                              ]
+                            }
+                          ]
+                        }
+                      ]
+                    },
+                    {
+                      "name": "Email Address"
+                    },
+                    {
+                      "name": "Domain Names"
+                    }
+                  ]
+                },
+                {
+                  "name": "Digital Fingerprint",
+                  "children": [
+                    {
+                      "name": "Hash\/Message Digest (e.g. MD5, SHA256)",
+                      "size": 1
+                    },
+                    {
+                      "name": "Digital Watermarking",
+                      "size": 1
+                    }
+                  ]
+                },
+                {
+                  "name": "Behavioural",
+                  "children": [
+                    {
+                      "name": "Combination of Actions & Other Indicators",
+                      "children": [
+                        {
+                          "name": "Unfamiliar Processes",
+                          "children": [
+                            {
+                              "name": "Advanced Persistent Threat (APT)",
+                              "children": [
+                                {
+                                  "name": "Financial",
+                                  "children": [
+                                    {
+                                      "name": "Individual",
+                                      "size": 1
+                                    },
+                                    {
+                                      "name": "Organised Crime",
+                                      "size": 1
+                                    },
+                                    {
+                                      "name": "Country",
+                                      "size": 1
+                                    },
+                                    {
+                                      "name": "Terrorist",
+                                      "size": 1
+                                    },
+                                    {
+                                      "name": "Private Sector",
+                                      "size": 1
+                                    }
+                                  ]
+                                },
+                                {
+                                  "name": "Intelligence",
+                                  "children": [
+                                    {
+                                      "name": "Individual",
+                                      "size": 1
+                                    },
+                                    {
+                                      "name": "Organised Crime",
+                                      "size": 1
+                                    },
+                                    {
+                                      "name": "Country",
+                                      "size": 1
+                                    },
+                                    {
+                                      "name": "Private Sector",
+                                      "size": 1
+                                    }
+                                  ]
+                                },
+                                {
+                                  "name": "Destruction",
+                                  "children": [
+                                    {
+                                      "name": "Individual",
+                                      "size": 1
+                                    },
+                                    {
+                                      "name": "Organised Crime",
+                                      "size": 1
+                                    },
+                                    {
+                                      "name": "Country",
+                                      "size": 1
+                                    },
+                                    {
+                                      "name": "Terrorist",
+                                      "size": 1
+                                    },
+                                    {
+                                      "name": "Private Sector",
+                                      "size": 1
+                                    }
+                                  ]
+                                }
+                              ]
+                            },
+                            {
+                              "name": "Spyware",
+                              "children": [
+                                {
+                                  "name": "Financial",
+                                  "children": [
+                                    {
+                                      "name": "Individual",
+                                      "size": 1
+                                    },
+                                    {
+                                      "name": "Organised Crime",
+                                      "size": 1
+                                    },
+                                    {
+                                      "name": "Country",
+                                      "size": 1
+                                    },
+                                    {
+                                      "name": "Terrorist",
+                                      "size": 1
+                                    },
+                                    {
+                                      "name": "Private Sector",
+                                      "size": 1
+                                    }
+                                  ]
+                                },
+                                {
+                                  "name": "Emotional or Psychological",
+                                  "children": [
+                                    {
+                                      "name": "Individual",
+                                      "size": 1
+                                    },
+                                    {
+                                      "name": "Hacktivists",
+                                      "size": 1
+                                    },
+                                    {
+                                      "name": "Organised Crime",
+                                      "size": 1
+                                    },
+                                    {
+                                      "name": "Terrorist",
+                                      "size": 1
+                                    },
+                                    {
+                                      "name": "Private Sector",
+                                      "size": 1
+                                    }
+                                  ]
+                                },
+                                {
+                                  "name": "Intelligence",
+                                  "children": [
+                                    {
+                                      "name": "Individual",
+                                      "size": 1
+                                    },
+                                    {
+                                      "name": "Organised Crime",
+                                      "size": 1
+                                    },
+                                    {
+                                      "name": "Country",
+                                      "size": 1
+                                    },
+                                    {
+                                      "name": "Private Sector",
+                                      "size": 1
+                                    }
+                                  ]
+                                },
+                                {
+                                  "name": "Personal Entertainment",
+                                  "children": [
+                                    {
+                                      "name": "Individual",
+                                      "size": 1
+                                    }
+                                  ]
+                                },
+                                {
+                                  "name": "Service",
+                                  "children": [
+                                    {
+                                      "name": "Individual",
+                                      "size": 1
+                                    },
+                                    {
+                                      "name": "Organised Crime",
+                                      "size": 1
+                                    },
+                                    {
+                                      "name": "Private Sector",
+                                      "size": 1
+                                    }
+                                  ]
+                                },
+                                {
+                                  "name": "Sexual Impulse",
+                                  "children": [
+                                    {
+                                      "name": "Individual",
+                                      "size": 1
+                                    }
+                                  ]
+                                },
+                                {
+                                  "name": "Psychiatric Illness",
+                                  "children": [
+                                    {
+                                      "name": "Individual",
+                                      "size": 1
+                                    }
+                                  ]
+                                }
+                              ]
+                            },
+                            {
+                              "name": "Worm, Virus",
+                              "children": [
+                                {
+                                  "name": "Ideological",
+                                  "children": [
+                                    {
+                                      "name": "Individual",
+                                      "size": 1
+                                    }
+                                  ]
+                                },
+                                {
+                                  "name": "Financial",
+                                  "children": [
+                                    {
+                                      "name": "Individual",
+                                      "size": 1
+                                    },
+                                    {
+                                      "name": "Organised Crime",
+                                      "size": 1
+                                    },
+                                    {
+                                      "name": "Country",
+                                      "size": 1
+                                    },
+                                    {
+                                      "name": "Terrorist",
+                                      "size": 1
+                                    },
+                                    {
+                                      "name": "Private Sector",
+                                      "size": 1
+                                    }
+                                  ]
+                                },
+                                {
+                                  "name": "Emotional or Psychological",
+                                  "children": [
+                                    {
+                                      "name": "Individual",
+                                      "size": 1
+                                    },
+                                    {
+                                      "name": "Hacktivists",
+                                      "size": 1
+                                    },
+                                    {
+                                      "name": "Organised Crime",
+                                      "size": 1
+                                    },
+                                    {
+                                      "name": "Terrorist",
+                                      "size": 1
+                                    },
+                                    {
+                                      "name": "Private Sector",
+                                      "size": 1
+                                    }
+                                  ]
+                                },
+                                {
+                                  "name": "Personal Entertainment",
+                                  "children": [
+                                    {
+                                      "name": "Individual",
+                                      "size": 1
+                                    }
+                                  ]
+                                },
+                                {
+                                  "name": "Destruction",
+                                  "children": [
+                                    {
+                                      "name": "Individual",
+                                      "size": 1
+                                    },
+                                    {
+                                      "name": "Organised Crime",
+                                      "size": 1
+                                    },
+                                    {
+                                      "name": "Country",
+                                      "size": 1
+                                    },
+                                    {
+                                      "name": "Terrorist",
+                                      "size": 1
+                                    },
+                                    {
+                                      "name": "Private Sector",
+                                      "size": 1
+                                    }
+                                  ]
+                                },
+                                {
+                                  "name": "Psychiatric Illness",
+                                  "children": [
+                                    {
+                                      "name": "Individual",
+                                      "size": 1
+                                    }
+                                  ]
+                                },
+                                {
+                                  "name": "Sexual Impulse",
+                                  "children": [
+                                    {
+                                      "name": "Individual",
+                                      "size": 1
+                                    }
+                                  ]
+                                }
+                              ]
+                            },
+                            {
+                              "name": "Ransomeware",
+                              "children": [
+                                {
+                                  "name": "Financial",
+                                  "children": [
+                                    {
+                                      "name": "Individual",
+                                      "size": 1
+                                    },
+                                    {
+                                      "name": "Organised Crime",
+                                      "size": 1
+                                    },
+                                    {
+                                      "name": "Country",
+                                      "size": 1
+                                    },
+                                    {
+                                      "name": "Terrorist",
+                                      "size": 1
+                                    },
+                                    {
+                                      "name": "Private Sector",
+                                      "size": 1
+                                    }
+                                  ]
+                                },
+                                {
+                                  "name": "Emotional or Psychological",
+                                  "children": [
+                                    {
+                                      "name": "Individual",
+                                      "size": 1
+                                    },
+                                    {
+                                      "name": "Hacktivists",
+                                      "size": 1
+                                    },
+                                    {
+                                      "name": "Organised Crime",
+                                      "size": 1
+                                    },
+                                    {
+                                      "name": "Terrorist",
+                                      "size": 1
+                                    },
+                                    {
+                                      "name": "Private Sector",
+                                      "size": 1
+                                    }
+                                  ]
+                                },
+                                {
+                                  "name": "Service",
+                                  "children": [
+                                    {
+                                      "name": "Individual",
+                                      "size": 1
+                                    },
+                                    {
+                                      "name": "Organised Crime",
+                                      "size": 1
+                                    },
+                                    {
+                                      "name": "Private Sector",
+                                      "size": 1
+                                    }
+                                  ]
+                                },
+                                {
+                                  "name": "Destruction",
+                                  "children": [
+                                    {
+                                      "name": "Individual",
+                                      "size": 1
+                                    },
+                                    {
+                                      "name": "Organised Crime",
+                                      "size": 1
+                                    },
+                                    {
+                                      "name": "Country",
+                                      "size": 1
+                                    },
+                                    {
+                                      "name": "Terrorist",
+                                      "size": 1
+                                    },
+                                    {
+                                      "name": "Private Sector",
+                                      "size": 1
+                                    }
+                                  ]
+                                },
+                                {
+                                  "name": "Psychiatric Illness",
+                                  "children": [
+                                    {
+                                      "name": "Individual",
+                                      "size": 1
+                                    }
+                                  ]
+                                }
+                              ]
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Legal & Policy",
+      "children": [
+        {
+          "name": "International",
+          "children": [
+            {
+              "name": "Convention & Regulation",
+              "size": 1
+            },
+            {
+              "name": "Act",
+              "size": 1
+            }
+          ]
+        },
+        {
+          "name": "Bridging Bodies for International & National",
+          "children": [
+            {
+              "name": "Global",
+              "children": [
+                {
+                  "name": "UN Internet Government Forum",
+                  "size": 1
+                },
+                {
+                  "name": "INTERPOL",
+                  "size": 1
+                },
+                {
+                  "name": "Council of Europe; Conventions on Cybercrime",
+                  "size": 2
+                },
+                {
+                  "name": "UN Group of Governmental Experts",
+                  "size": 2
+                },
+                {
+                  "name": "Forum for Incident Response Security Team (FIRST)",
+                  "size": 2
+                },
+                {
+                  "name": "G8 24\/7 Cybercrime Network",
+                  "size": 1
+                }
+              ]
+            },
+            {
+              "name": "Regional",
+              "children": [
+                {
+                  "name": "Asia Pacific Computer Emergency Response Team (AP CERT)",
+                  "size": 1
+                },
+                {
+                  "name": "European Network Information Security Agency (ENISA)",
+                  "size": 1
+                },
+                {
+                  "name": "Regional Internet Registries (RIRs)",
+                  "size": 1
+                },
+                {
+                  "name": "Inter-American Coorperation Portal on Cyber-Crime",
+                  "size": 1
+                },
+                {
+                  "name": "NATO",
+                  "size": 1
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "name": "National",
+          "children": [
+            {
+              "name": "Act"
+            },
+            {
+              "name": "Convention & Regulation",
+              "children": [
+                {
+                  "name": "Government",
+                  "size": 1
+                },
+                {
+                  "name": "Industry",
+                  "size": 1
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

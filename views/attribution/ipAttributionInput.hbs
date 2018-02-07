@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>IP/Domain Attribution Input</title>
+    <link rel="stylesheet" href="/stylesheets/attribution/bootstrap.css">
+</head>
+<body>
+<div class="jumbotron" style="background: ivory">
+    <div style="text-align: center">
+        <img style="width: 40em; height: 10em " src="/images/attribution/CROW Logo Color.png"/>
+    </div>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/1.7.3/socket.io.js"></script>
+
+
+
+
+<div style="text-align: center" >
+    <h2 class="text-primary" >Please Enter The IP Address or Domain You Wish To Perform Attribution</h2>
+
+        <form method="get" action="/page/ipAttribution">
+            <div class="form-group " style="width: 50%; margin: 0 auto; " >
+                <label for="userInput"></label>
+                <input id="userInput" name="ipaddress" style="text-align: center; font-size: larger; font-weight: bold " placeholder="IP Address/Domain " type="text" class="form-control here">
+            </div>
+            <div class="form-group" style="margin-top: 2em">
+                <button type="submit" class="btn btn-primary">Submit</button>
+            </div>
+        </form>
+
+
+</div>
+
+
+</body>
+</html> 

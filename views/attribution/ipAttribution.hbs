@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>IP/Domain Attribution</title>
+    <link rel="stylesheet" href="/stylesheets/attribution/bootstrap.css">
+    <link rel="stylesheet" href="/stylesheets/attribution/ipAttribution.css">
+
+</head>
+<body style="text-align: center">
+<br/>
+<div class="row">
+<div class="col-md-6">
+<h1 id="attackMap" style="color: orangered">Searching For Attackers' Location</h1>
+<br/>
+<div class="loadingMap">
+    <svg id="loaderMap" width="200px" height="200px" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"
+         preserveAspectRatio="xMidYMid" class="lds-magnify" style="background: none;">
+        <g transform="translate(50,50)">
+            <g ng-attr-transform="scale({{config.scale}})" transform="scale(0.8)">
+                <g transform="translate(-50,-50)">
+                    <g transform="translate(-15.098 -10.1961)">
+                        <animateTransform attributeName="transform" type="translate" calcMode="linear"
+                                          values="-20 -20;20 -20;0 20;-20 -20" keyTimes="0;0.33;0.66;1" dur="1s"
+                                          begin="0s" repeatCount="indefinite"></animateTransform>
+                        <path ng-attr-fill="{{config.glass}}"
+                              d="M44.19,26.158c-4.817,0-9.345,1.876-12.751,5.282c-3.406,3.406-5.282,7.934-5.282,12.751 c0,4.817,1.876,9.345,5.282,12.751c3.406,3.406,7.934,5.282,12.751,5.282s9.345-1.876,12.751-5.282 c3.406-3.406,5.282-7.934,5.282-12.751c0-4.817-1.876-9.345-5.282-12.751C53.536,28.033,49.007,26.158,44.19,26.158z"
+                              style="fill:#ffffff;"></path>
+                        <path ng-attr-fill="{{config.frame}}"
+                              d="M78.712,72.492L67.593,61.373l-3.475-3.475c1.621-2.352,2.779-4.926,3.475-7.596c1.044-4.008,1.044-8.23,0-12.238 c-1.048-4.022-3.146-7.827-6.297-10.979C56.572,22.362,50.381,20,44.19,20C38,20,31.809,22.362,27.085,27.085 c-9.447,9.447-9.447,24.763,0,34.21C31.809,66.019,38,68.381,44.19,68.381c4.798,0,9.593-1.425,13.708-4.262l9.695,9.695 l4.899,4.899C73.351,79.571,74.476,80,75.602,80s2.251-0.429,3.11-1.288C80.429,76.994,80.429,74.209,78.712,72.492z M56.942,56.942 c-3.406,3.406-7.934,5.282-12.751,5.282s-9.345-1.876-12.751-5.282c-3.406-3.406-5.282-7.934-5.282-12.751 c0-4.817,1.876-9.345,5.282-12.751c3.406-3.406,7.934-5.282,12.751-5.282c4.817,0,9.345,1.876,12.751,5.282 c3.406,3.406,5.282,7.934,5.282,12.751C62.223,49.007,60.347,53.536,56.942,56.942z"
+                              style="fill:#66cdaa;"></path>
+                    </g>
+                </g>
+            </g>
+        </g>
+    </svg>
+</div>
+
+
+<div id="map" style="margin-left: auto; margin-right: auto;"></div>
+</div>
+<div class="col-md-6">
+<h1>Analysis of {{ipaddsend}}</h1>
+<br/>
+<div class="loader loader--style3" title="2">
+    <svg version="1.1" id="loader-1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="80px" height="80px" viewBox="0 0 50 50" style="enable-background:new 0 0 50 50;" xml:space="preserve">
+          <path fill="#000" d="M43.935,25.145c0-10.318-8.364-18.683-18.683-18.683c-10.318,0-18.683,8.365-18.683,18.683h4.068c0-8.071,6.543-14.615,14.615-14.615c8.072,0,14.615,6.543,14.615,14.615H43.935z">
+            <animateTransform attributeType="xml"
+              attributeName="transform"
+              type="rotate"
+              from="0 25 25"
+              to="360 25 25"
+              dur="0.6s"
+              repeatCount="indefinite"/>
+            </path>
+        </svg>
+</div>
+<div id="scanoutput" style="text-align: left">
+
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/1.7.3/socket.io.js"></script>
+    <script src="https://code.jquery.com/jquery-1.11.1.js"></script>
+
+    <ul id="messages" style="list-style: none; color: #fcf8e3; font-size: large;"></ul>
+    <script>
+        var socket = io();
+        var attIPChunk = [];
+        var map;
+        var resolved = [];
+
+        function initMap() {
+
+            var options = {
+                zoom: 2,
+                minZoom: 2,
+                center: new google.maps.LatLng(30.60982, 6.34987),
+                mapTypeId: 'hybrid'
+            }
+
+            map = new google.maps.Map(document.getElementById('map'), options);
+
+        }
+
+        socket.emit('startingProcess', '{{ipaddsend}}');
+        var attIP = [];
+        socket.on('gRe', function (b) {
+            var arr = new Uint8Array(b);
+            b = String.fromCharCode.apply(String, arr);
+            resolved = b.split('|');
+            for (var i = 0; i <resolved.length; i++){
+                resolved[i].replace(/\n/g, '');
+            }
+            for (var ip of resolved){
+                if (attIP.indexOf(ip) > -1){
+
+                }else{
+                    attIP.push(ip);
+                }
+            }
+        });
+
+        socket.on('newdata', function (d) {
+            $('div.loader').remove();
+
+            var ipQueried;
+            var dTest = "";
+            for (var obj of d) {
+                if (obj.includes("[*]")) {
+                    // console.log("MATCH");
+                    $('#messages').append($('<li style="color: mediumspringgreen ">').text(obj));
+                    // console.log(obj);
+                } else if (obj.includes("[+]")) {
+                    $('#messages').append($('<li style="color: coral ">').text(obj));
+                } else if (obj.includes("[!]")){
+                    $('#messages').append($('<li style="color: red ">').text(obj));
+                } else {
+                    $('#messages').append($('<li>').text(obj));
+                    // console.log(obj);
+                }
+                if (obj.includes("Last resolved")) {
+                    if (attIPChunk.indexOf(obj) > -1) {
+
+                    } else {
+                        attIPChunk.push(obj);
+                    }
+                }else if (obj.includes("Pinging")){
+                    ipQueried = (/\b\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}\b/g).exec(obj);
+                }else if (obj.includes("no domain specified. Unable to run some modules")){
+                    console.log("MATCH");
+                    dTest = obj;
+                }else if (obj.includes("VirusTotal response: IP address not in dataset")){
+                    console.log("MATCH");
+                    dTest = obj;
+                }
+            }
+
+
+
+            if (dTest != ""){
+                // console.log("Domain");
+                // console.log(ipQueried);
+                attIP.push(ipQueried[0]);
+            }else{
+                // console.log("IP");
+                for (var ip of attIPChunk) {
+                    // console.log("AttIP: " + attIP);
+                    // console.log("IP in AttUOCHUNK");
+                    // console.log("IP: "+ip);
+                    var t = (/\b\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}\b/g).exec(ip);
+
+                    if (t != null) {
+
+                        if (attIP.indexOf(t[0]) > -1) {
+                            // console.log(t+" IN array");
+                        } else {
+                            attIP.push(t[0]);
+                            // console.log(t[0]);
+                            // console.log(t+" Not IN array");
+                        }
+
+                    }
+                }
+
+            }
+
+            var Poscoords =[];
+            var indexc=1;
+
+            // function initMap() {
+                for (var p = 0; p < attIP.length; p++) {
+                    if(attIP[p].indexOf("\n")===0){
+                        $('div.loadingMap').remove();
+                        $('#attackMap').text("IP/Domain Given is Invalid");
+                    }else{
+                        $.get("http://freegeoip.net/json/" + attIP[p], function(data, status){
+                            // console.log(data);
+                            var json1 = JSON.stringify(data);
+                            var json = JSON.parse(json1);
+                            var attackerIcon = 'images/attacker.png';
+                            // console.log(json);
+                            Poscoords.push(json);
+                            console.log(Poscoords);
+
+
+                            var common = [];
+                            var common2 = [];
+                            indexc++;
+                            if(indexc==attIP.length || indexc>attIP.length){
+                                for (var e = 0; e < Poscoords.length; e++){
+                                    common.push(Poscoords[e].ip+"|"+Poscoords[e].longitude+"|"+Poscoords[e].latitude);
+                                    var con = document.createElement('div');
+                                    var div = document.createElement('div');
+                                    div.id ="header";
+                                    div.style.textAlign = "center";
+                                    con.appendChild(div);
+                                    var h3 = document.createElement('h3');
+                                    h3.style.color = "#ff4444";
+                                    h3.style.padding = "2px";
+                                    h3.style.fontSize = "20px";
+                                    h3.innerText = "Information";
+                                    div.appendChild(h3);
+                                    var p1 = document.createElement('p');
+                                    p1.style.padding = "2px";
+                                    p1.style.fontSize = "15px";
+                                    common2 = $.each(common, function (i, el) {
+                                        if($.inArray(el,common2) === -1){
+                                            common2.push(el);
+                                        }
+                                    });
+                                    // console.log(common2);
+                                    var ipLonLat = {};
+                                    for (i=0; i<common2.length; i++){
+                                        data = common2[i].split('|');
+                                        key = (data[1]+data[2]).toString();
+                                        // console.log("key");
+                                        // console.log(key);
+                                        value = data[0];
+                                        if (key in ipLonLat){
+                                            if (ipLonLat[key].includes(value)){
+                                                // console.log(ipLonLat[key]);
+                                            }else{
+                                                var previous = ipLonLat[key];
+                                                ipLonLat[key]= previous+" , "+ value;
+                                                // console.log(ipLonLat[key]);
+                                            }
+                                        }else{
+
+                                            ipLonLat[key] = value;
+                                        }
+                                    }
+                                    var tempContainer = "";
+
+                                    // console.log("IPLonLat");
+                                    // console.log(Object.keys(ipLonLat));
+                                    tempContainer = (Poscoords[e].longitude).toString()+(Poscoords[e].latitude).toString();
+                                    // console.log("Container");
+                                    // console.log(tempContainer);
+                                    p1.innerText = "Attackers' IP: " +ipLonLat[tempContainer];
+                                    // p1.innerText = "Attackers' IP: " +Poscoords[e].ip;
+                                    // console.log(Poscoords[e].ip);
+                                    div.appendChild(p1);
+                                    var p2 = document.createElement('p');
+                                    p2.style.padding = "2px";
+                                    p2.style.fontSize = "15px";
+                                    p2.innerText = "Attackers' Country: " +Poscoords[e].country_name;
+                                    div.appendChild(p2);
+                                    if (Poscoords[e].city == ""){
+                                    }else{
+                                        var p3 = document.createElement('p');
+                                        p3.style.padding = "2px";
+                                        p3.style.fontSize = "15px";
+                                        p3.innerText = "Attackers' City: " +Poscoords[e].city;
+                                        div.appendChild(p3);
+                                    }
+                                    console.log(Poscoords[e].latitude);
+                                    var marker = new google.maps.Marker({
+                                        position: {lat: Poscoords[e].latitude, lng: Poscoords[e].longitude},
+                                        map: map,
+                                        animation: google.maps.Animation.DROP,
+                                        icon: attackerIcon,
+                                        info: con,
+                                        title: "IP Address: " + ipLonLat[tempContainer] + " | " + "Country: " + Poscoords[e].country_name
+                                    });
+
+                                    var info = new google.maps.InfoWindow();
+                                    google.maps.event.addListener(marker, 'mouseover', function () {
+                                        info.setContent(this.info);
+                                        info.open(map, this);
+                                    });
+                                }
+                                $('div.loadingMap').remove();
+                                $('#attackMap').text("Possible Attackers Location");
+                            }
+
+                        });
+                    }
+
+
+                }
+                Poscoords = [];
+        })
+
+
+    </script>
+</div>
+</div>
+</div>
+<script>
+    socket.on('gkey', function (c) {
+        var arr = new Uint8Array(c);
+        c = String.fromCharCode.apply(String, arr);
+        var key = c+"&callback=initMap";
+        var tag = document.createElement('script');
+        tag.src = "https://maps.googleapis.com/maps/api/js?key=" + key;
+        tag.setAttribute('defer', '');
+        tag.setAttribute('async', '');
+        var fst = document.getElementsByTagName('script')[0];
+        fst.parentNode.insertBefore(tag, fst);
+    });
+</script>
+
+
+
+</body>
+</html>

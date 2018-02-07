@@ -2,5 +2,5 @@
 
 
 module.exports = {
-   'python27':''
+   'python27':"/usr/bin/python"
 };

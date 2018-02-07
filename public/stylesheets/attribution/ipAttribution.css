@@ -1,0 +1,47 @@
+#userInput {
+    display: inline-block;
+    /*border: 0;*/
+    /*background-color: transparent;*/
+    font-size: 1.5rem;
+    width: 200px;
+    /*border-bottom: 2px solid deeppink;*/
+    /*transition: all 200ms ease-in-out;*/
+    /*outline: 0;*/
+}
+
+#map {
+    height: 800px;
+    width: 970px;
+}
+
+h1 {
+    color: deeppink;
+}
+
+form-control:focus {
+    order-color: #fd07f6;
+    -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px rgba(253, 7, 246, 0.6);
+    box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px rgba(253, 7, 246, 0.6);
+}
+
+.loader {
+    margin: 0 0 2em;
+    height: 100px;
+    width: 30%;
+    text-align: center;
+    padding: 1em;
+    margin: 0 auto 1em;
+    display: inline-block;
+    vertical-align: top;
+}
+
+/*
+  Set the color of the icon
+*/
+svg path,
+svg rect {
+    fill: #ffac3d;
+}
+
+
+

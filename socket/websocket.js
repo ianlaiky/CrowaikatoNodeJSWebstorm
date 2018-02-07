@@ -1,5 +1,13 @@
 // File Created and integrated by: Ian Lai Kheng Yan
 
+// Attribution
+var configPython = require('../config/attributionConfig');
+var pythonPath = 'python/ipTest.py';
+var pythonKey = 'python/gKey.py';
+var pythonRe = 'python/resolves.py';
+var pythonExe = configPython.python27;
+var isIP = require('is-ip');
+
 require('../models/process.js');
 require('../models/file.js');
 
@@ -287,6 +295,59 @@ io.on('connection', function (socket) {
             });
         }, 500);
     });
+
+
+
+    //Attribution
+
+    socket.on('startingProcess', function (ipadd) {
+
+        // Function to convert an Uint8Array to a string
+        var uint8arrayToString = function(data){
+            return String.fromCharCode.apply(null, data);
+        };
+
+        const spawn = require('child_process').spawn;
+        let scriptExecution;
+
+        getKey = spawn(pythonExe, [pythonKey]);
+        getKey.stdout.on('data', (data) => {
+            socket.emit('gkey', data);
+        });
+
+        if (isIP(ipadd)) {
+        }else{
+            getRe = spawn(pythonExe, [pythonRe, ipadd]);
+            getRe.stdout.on('data', (data) => {
+                socket.emit('gRe', data);
+            });
+        }
+
+        if (isIP(ipadd)) {
+            scriptExecution = spawn(pythonExe, [pythonPath, '-i', ipadd, '-a', '-M', '-S']);
+
+        }else{
+            scriptExecution = spawn(pythonExe, [pythonPath, '-d', ipadd, '-a', '-M', '-S']);
+        }
+
+
+        // Handle normal output
+        scriptExecution.stdout.on('data', (data) => {
+            let temp = uint8arrayToString(data).split("\n");
+            socket.emit('newdata', temp);
+        });
+
+        // Handle error output
+        scriptExecution.stderr.on('data', (data) => {
+            console.log(uint8arrayToString(data));
+        });
+
+        scriptExecution.on('exit', (code) => {
+            console.log("Process quit with code : " + code);
+        });
+
+    });
+
 
 // AR SIDE Interval selection
 

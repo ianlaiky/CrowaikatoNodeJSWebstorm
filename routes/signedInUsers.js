@@ -854,6 +854,23 @@ router.get('/augmentedRealityPorting', isLoggedIn, function (req, res, next) {
 });
 
 
+// Attribution
+
+router.get('/attribution',isLoggedIn, function(req, res, next) {
+    res.render('attribution/index');
+});
+
+
+router.get('/ipAttributionInput',isLoggedIn ,function(req, res, next) {
+    res.render('attribution/ipAttributionInput');
+});
+
+router.get('/ipAttribution', isLoggedIn,function(req, res, next) {
+    // console.log(req.query.ipaddress);
+    res.render('attribution/ipAttribution',{ipaddsend:req.query.ipaddress});
+});
+
+
 // handling the camera confrim page. selection of the static or live option is sent via handlebars
 router.get("/arcameraConfirm", isLoggedIn, (req, res, next) => {
 
