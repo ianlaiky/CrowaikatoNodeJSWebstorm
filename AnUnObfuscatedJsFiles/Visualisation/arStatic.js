@@ -182,6 +182,17 @@ var FizzyText = function() {
     this.View = function(){
         window.open("https://github.com/Xdecosee/ar-project");
     }
+    this.homepg = function () {
+
+        var grabedurl = window.location;
+        console.log("DATA");
+        console.log(grabedurl);
+
+        window.location.href = "/page/home";
+        // window.open("https://github.com/Xdecosee/ar-project");
+
+
+    }
 };
 var text = new FizzyText();
 var controls = gui.add(text, 'Info').name('More Info').listen().onChange(function(newValue) {
@@ -197,6 +208,7 @@ var controls = gui.add(text, 'Info').name('More Info').listen().onChange(functio
 
 });
 gui.add(text, 'View').name("View Source Code");
+gui.add(text, 'homepg').name("Back to Home");
 
 ;(function() {
     ///Section: CSS3D - Create Tables
