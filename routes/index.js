@@ -191,19 +191,9 @@ router.get('/', isLoggedout, function (req, res, next) {
 
 
 router.get('/error', function (req, res, next) {
-    req.session.destroy(function (err) {
-        if (err) {
-            console.log(err)
-        }
-        // clear cookies from user browser
-        res.clearCookie('connect.sid');
-        // passport logout
-        req.logout();
-        res.render('error', {layout: 'layout/layout'});
-
-    })
 
 
+    res.render('error', {layout: 'layout/layout'});
 
 });
 
@@ -212,18 +202,7 @@ router.get('/error', function (req, res, next) {
 router.get('/errors', function (req, res, next) {
 
 
-    req.session.destroy(function (err) {
-        if (err) {
-            console.log(err)
-        }
-        // clear cookies from user browser
-        res.clearCookie('connect.sid');
-        // passport logout
-        req.logout();
-        res.render('errorForApp', {layout: 'layout/layout'});
-
-    })
-
+    res.render('errorForApp', {layout: 'layout/layout'});
 
 });
 
@@ -245,7 +224,12 @@ function isLoggedout(req, res, next) {
 
         return next();
     }
-    res.redirect("/page/home")
+
+    if (req.session.useInfoo.userrole.toString() == "admin") {
+    res.redirect("/page/adminConsole")}else{
+        res.redirect("/page/home")
+    }
+
 
 
 }
