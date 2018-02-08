@@ -874,6 +874,35 @@ router.get('/ipAttribution', isLoggedIn,function(req, res, next) {
 // handling the camera confrim page. selection of the static or live option is sent via handlebars
 router.get("/arcameraConfirm", isLoggedIn, (req, res, next) => {
 
+// For AR; Need to be run as it loads
+// important: Since i found that the client side request this ARMachine array as a ajax, it would
+// not wait for the request to finish before continuing, hence, the retrieve would not work fast enough
+// so start the retrieve on load to prevent this issue.
+// Unless the front end can be a sync function which waits for the data before continuing.
+    MongoDB.MongoClient.connect(arurl, function (err, db) {
+
+        if (err) {
+            console.log("conn error");
+        }
+        db.collection("ARmachine", function (err, machine) {
+            machine.find().toArray(function (err, result) {
+                if (err) {
+                    throw err;
+                } else {
+
+                    for (var i = 0; i < result.length; i++) {
+                        machines[i] = result[i];
+                    }
+                    console.log("Returned machines");
+                    console.log(machines);
+
+
+                }
+            });
+
+        });
+
+    });
     let selection;
     // get the get query from the url
     console.log(req.query.arselect);
@@ -899,35 +928,6 @@ router.get('/augmentedRealityStatic', isLoggedIn, function (req, res, next) {
     res.render('augmentedReality/indexStatic', {title: 'Dependency', layout: 'layout/augmentedRealityLayout'});
 });
 
-// For AR; Need to be run as it loads
-// important: Since i found that the client side request this ARMachine array as a ajax, it would
-// not wait for the request to finish before continuing, hence, the retrieve would not work fast enough
-// so start the retrieve on load to prevent this issue.
-// Unless the front end can be a sync function which waits for the data before continuing.
-MongoDB.MongoClient.connect(arurl, function (err, db) {
-
-    if (err) {
-        console.log("conn error");
-    }
-    db.collection("ARmachine", function (err, machine) {
-        machine.find().toArray(function (err, result) {
-            if (err) {
-                throw err;
-            } else {
-
-                for (var i = 0; i < result.length; i++) {
-                    machines[i] = result[i];
-                }
-                console.log("Returned machines");
-                console.log(machines);
-
-
-            }
-        });
-
-    });
-
-});
 // AR
 // Sents the machine array when the front end requests it
 router.get("/machines", isLoggedIn, function (request, response) {
