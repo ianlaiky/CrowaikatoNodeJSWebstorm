@@ -38,7 +38,7 @@ var portalUrl = '/jsonObjectsThreeJs/laptop.json';
 var sphereZone = new THREE.Group;
 
 //Variables - Crow Logo
-var crowMap = new THREE.TextureLoader().load("https://rawgit.com/Xdecosee/ar-data-insertion/master/resources/crow-logo.png");
+var crowMap = new THREE.TextureLoader().load("https://cdn.jsdelivr.net/gh/Xdecosee/ar-data-insertion@master/resources/crow-logo.png");
 var crowMaterial = new THREE.SpriteMaterial({
     map: crowMap,
     color: 0xffffff
